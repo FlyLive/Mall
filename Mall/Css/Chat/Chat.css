@@ -1,0 +1,165 @@
+﻿body {
+    line-height: 1.5;
+    margin: 0;
+    padding: 0;
+    font-family: Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,\\5FAE\8F6F\96C5\9ED1,Arial,sans-serif;
+}
+
+.warp {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.all {
+    width: 550px;
+    border: 1px solid #e9e9e9;
+    border-radius: 10px;
+    background-image: url('../../Pictures/Chat/chat_bg.jpg');
+    background-size: cover;
+}
+.reName-button{
+    cursor:pointer;
+    border: none;
+    padding:0;
+    background-color: rgba(229, 229, 229,0.00);
+    height:40px;
+    width:62px;
+    font-size:13.3px;
+    line-height:60px;
+}
+.chat-head{
+    display:flex;
+}
+.chat-head img{
+    height:40px;
+    width:;
+}
+.chat_name {
+    width:500px;
+}
+.chat-all,#chat_name {
+    display: flex;
+    margin:0 auto;
+}
+#chat_name #chat_name_p{
+    font-size: 30px;
+    margin:0px;
+    color: #be4c23;
+}
+#content, #onLine {
+    word-break: break-all;
+    height: 410px;
+    padding: 5px 10px;
+    margin: 0;
+    overflow-y: auto;
+}
+
+.myself {
+    text-align: right;
+}
+
+.sign {
+    background-color: rgba(229, 229, 229, 0.49);
+    border-radius: 5px;
+    text-align: center;
+    width: 250px;
+    margin: 2px auto;
+}
+
+.toMe {
+    color: dodgerblue;
+}
+
+.chat li {
+    list-style: none;
+}
+
+.chat #content .message .nick{
+    color:#777777;
+}
+
+.chat-onLine #onLine li img, .chat-content #content li img, .button-img ul li img {
+    height: 20px;
+    width: 20px;
+}
+
+.chat-content {
+    height: 420px;
+    width: 400px;
+    border: 1px solid #e9e9e9;
+}
+
+.chat-content #content .content img {
+    display: none;
+ }
+
+.chat-onLine {
+    width: 150px;
+    height: 420px;
+    border: 1px solid #e9e9e9;
+}
+
+.input-text {
+    height: 100px;
+    width: 545px;
+    font-size: 25px;
+    border: none;
+    resize: none;
+    background-color: transparent;
+}
+
+.button-img ul {
+    height: 40px;
+    margin: 0;
+    margin-left: 5px;
+    padding: 0;
+}
+
+    .button-img ul li {
+        cursor: pointer;
+        display: inline-block;
+        height: 20px;
+        margin: 10px 5px 10px 5px;
+    }
+
+.button-action {
+    text-align: right;
+}
+.button-action button:hover {
+    background-color: rgb(217, 186, 145);
+}
+
+.button-action button {
+    background-color: rgba(217, 186, 145, 0.3);
+    border-radius:5px;
+    border:none;
+    height: 40px;
+}
+
+
+/*	::-webkit-scrollbar-corner {
+		  background-color: black;
+	}  横向滚动条和纵向滚动条相交处尖角的颜色 */
+
+::-webkit-scrollbar-button {
+    display: none;
+}
+/* 滑轨两头的监听按钮颜色 */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    background-color: #dedede;
+}
+/* 滚动条 */
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #d9d9d9;
+}
+/* 滑块颜色 */
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: rgba(252, 252, 252, 0.40);
+}
+/* 滚动条的滑轨背景颜色 */
