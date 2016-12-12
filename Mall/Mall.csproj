@@ -142,6 +142,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ChatController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -152,6 +153,8 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Css\Chat\Chat.css" />
     <Content Include="Css\Home\Home.css" />
+    <Content Include="Css\Users\Login.css" />
+    <Content Include="Css\Users\Users.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -165,6 +168,8 @@
     <Content Include="Pictures\Chat\Img\Img2.gif" />
     <Content Include="Pictures\Chat\Img\Img3.gif" />
     <Content Include="Pictures\Chat\Img\Img4.gif" />
+    <Content Include="Pictures\Shared\Serch%28Touch%29.png" />
+    <Content Include="Pictures\Shared\Serch%28UnTouch%29.png" />
     <Content Include="Pictures\Shared\Welcome.png" />
     <Content Include="Pictures\Shared\云翳%28logo%29.png" />
     <Content Include="Pictures\Chat\电脑%28Myself%29.png" />
@@ -200,6 +205,9 @@
     <Content Include="Views\Chat\ReName.cshtml" />
     <Content Include="Views\Chat\Chat.cshtml" />
     <Content Include="Views\Home\Home.cshtml" />
+    <Content Include="Views\Shared\_Foot.cshtml" />
+    <Content Include="Views\Shared\_Head.cshtml" />
+    <Content Include="Views\Users\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

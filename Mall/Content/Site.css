@@ -14,7 +14,7 @@
     display:flex;
 }
 .navbar-head{
-    height:100px;
+    height:70px;
     background-color:#222222;
 }
 .head-message{
@@ -23,6 +23,18 @@
 .head-message input{
     font-size: 30px;
     margin: 30px 5px;
+}
+#search-button {
+    cursor:pointer;
+    height:40px;
+    width:40px;
+    border:none;
+    background-image: url('../Pictures/Shared/Serch(UnTouch).png');
+    background-color:rgba(0, 0, 0, 0.00);
+    background-size:40px;
+}
+#search-button:hover {
+    background-image: url('../Pictures/Shared/Serch(Touch).png');
 }
 .login,.log,.head-message{
     color:#999999;

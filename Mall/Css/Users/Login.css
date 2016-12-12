@@ -1,0 +1,56 @@
+﻿.login_wap {
+    height:800px;
+}
+.login_body{
+    width: 450px;
+    left: 60%;
+    top: 10%;
+    border: 1px solid #666666;
+    border-radius: 10px;
+    background-color:#ECF0F1;
+    position: relative;
+}
+.login_body > div{
+    width:380px;
+    margin:0 auto;
+}
+.login_body > *{
+}
+.login_sign {
+    font-weight:900;
+}
+.login_forget {
+    font-weight: 100;
+    font-size: 10px;
+    right: 40px;
+    position: absolute;
+    color: #5e9eff;
+}
+.login_button,.login_input{
+    width:380px;
+    height:40px;
+    font-size:14px;
+    border-radius:5px;
+    border:1px solid #666666;
+    margin:0 auto;
+}
+.login_input {
+
+}
+.login_login{
+    margin-top: 40px;
+    margin-bottom: 20px;
+    background-color:#0066ff;
+}
+.login_login:hover{
+
+    background-color:#0066ff;
+}
+.login_registe{
+    margin:20px auto;
+    background-color:#33ff66;
+}
+.login_registe:hover{
+    background-color:#33ff66;
+
+}
