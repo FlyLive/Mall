@@ -140,6 +140,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ChatController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
@@ -151,9 +152,12 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Css\Admin\Login.css" />
     <Content Include="Css\Chat\Chat.css" />
     <Content Include="Css\Home\Home.css" />
+    <Content Include="Css\Users\BuyNow.css" />
     <Content Include="Css\Users\Login.css" />
+    <Content Include="Css\Users\Registe.css" />
     <Content Include="Css\Users\Users.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -208,9 +212,13 @@
     <Content Include="Views\Shared\_Foot.cshtml" />
     <Content Include="Views\Shared\_Head.cshtml" />
     <Content Include="Views\Users\Login.cshtml" />
+    <Content Include="Views\Users\Registe.cshtml" />
+    <Content Include="Views\Users\BuyNow.cshtml" />
+    <Content Include="Views\Admin\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="JS\Admin\" />
     <Folder Include="JS\Home\" />
     <Folder Include="Models\" />
     <Folder Include="Pictures\Home\" />

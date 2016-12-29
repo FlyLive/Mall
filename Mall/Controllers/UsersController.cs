@@ -13,5 +13,13 @@ namespace Mall.Controllers
         {
             return View();
         }
+        public ActionResult Registe()
+        {
+            return View();
+        }
+        public ActionResult BuyNow()
+        {
+            return View();
+        }
     }
 }

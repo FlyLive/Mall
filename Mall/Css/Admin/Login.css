@@ -1,0 +1,40 @@
+﻿.admin_login_wap{
+    height:670px;
+}
+.admin_login{
+    width:450px;
+    margin:0 auto;
+    position:relative;
+    top:20%;
+    border-radius:10px;
+    border: 1px solid #666666;
+    background-color:#ECF0F1;
+}
+.admin_login form div,.admin_login form > .admin_login_button{
+    margin-top:30px;
+}
+.admin_login > *{
+    text-align:center;
+}
+.admin_login_sign_img > img{
+    width:40px;
+    height:40px;
+    position:relative;
+    top:15px;
+}
+.admin_login_input{
+    width:320px;
+    height:40px;
+    font-size:14px;
+    border-radius:5px;
+    border:1px solid #666666;
+    margin:0 auto;
+}
+.admin_login_button{
+    width:380px;
+    height:40px;
+    font-size:14px;
+    border-radius:5px;
+    border:1px solid #666666;
+    margin:0 auto;
+}

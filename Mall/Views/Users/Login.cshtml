@@ -2,7 +2,6 @@
 @{
     ViewBag.Title = "Login";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    @Styles.Render("~/Css/Users/Login.css");
 }
 
 <div class="login_wap">
@@ -15,7 +14,9 @@
                     <input class="login_input" type="text" placeholder="账户" />
                     <p class="login_sign">
                         密码
-                        <span class="login_forget">忘记密码?</span>
+                        <span class="login_forget">
+                            <a href="">忘记密码?</a>
+                        </span>
                     </p>
                     <input class="login_input" type="password" placeholder="密码" />
                     <button class="login_button login_login">登录</button>
@@ -34,3 +35,6 @@
     </div>
 </div>
 
+@section css{
+    <link href="~/Css/Users/Login.css" rel="stylesheet" />
+}
