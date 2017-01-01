@@ -20,7 +20,7 @@
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
 
-        @Html.Partial("_Header")
+        @Html.Partial("MenuView/_Header")
 
         <div class="content-wrapper">
 
@@ -30,11 +30,11 @@
                 @RenderBody()
             </section>
         </div>
-        @Html.Partial("_SideBar")
+        @Html.Partial("MenuView/_SideBar")
 
-        @Html.Partial("_Foot")
+        @Html.Partial("MenuView/_Foot")
 
-        @Html.Partial("_ControlSideBar")
+        @Html.Partial("MenuView/_ControlSideBar")
     </div>
 
     @Scripts.Render("~/bundles/jquery")

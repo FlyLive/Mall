@@ -1,8 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "Home";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    @Styles.Render("~/Css/Home/Home.css");
+    Layout = "~/Views/Layout/_Layout.cshtml";
 }
 
 <div class="">
@@ -66,3 +65,6 @@
 
     </div>
 </div>
+@section css{
+    <link href="~/Css/Home/Home.css" rel="stylesheet" />
+}
