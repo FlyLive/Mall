@@ -1,0 +1,12 @@
+﻿
+<aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+        <div class="user-panel">
+            @Html.Action("EmployeeInfor", "Admin");
+        </div>
+        <ul class="sidebar-menu">
+            @Html.Action("SideBarMenuByPermissions", "MenuView")
+        </ul>
+    </section>
+</aside>

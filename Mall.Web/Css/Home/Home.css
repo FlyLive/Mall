@@ -1,0 +1,54 @@
+﻿body {
+    background-color:#ecf0f1;
+}
+.navbar-body > div{
+    margin:20px 0px;
+}
+.outside{
+    border: 2px solid #e0e0e0;
+}
+.navigate{
+    height: 70px;
+    margin: 0px 50px;
+    margin-top:20px;
+}
+.mall-head{
+    margin:20px 0px;
+    display:flex;
+}
+.mall-head > div{
+    height:500px;
+}
+.mall-head-left, .mall-head-right{
+    width: 250px;
+}
+.mall-head-center{
+    width:1000px;
+    margin:0px 20px;
+}
+.advertisement{
+    display:flex;
+}
+.advertisement-left{
+    margin-right:100px;
+}
+.advertisement-left,.advertisement-right{
+    width: 700px;
+    height: 75px;
+}
+.suggest > div{
+    margin: 40px 0px;
+    display:flex;
+}
+.suggest-content{
+    width: 1150px;
+    height: 500px;
+}
+.suggest-advertisement{
+    margin-left: 100px;
+    width: 250px;
+    height: 600px;
+}
+.guess-content{
+    height:500px;
+}

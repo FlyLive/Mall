@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="df32153ad6f8426fb0b07f3cbcbbd1f0" Name="Diagram1" ZoomLevel="82">
+        <EntityTypeShape EntityType="MallDBModel.AdminLog" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MallDBModel.Advertisement" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MallDBModel.Client" Width="1.5" PointX="3" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MallDBModel.Comment" Width="1.5" PointX="5.25" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MallDBModel.DeliveryInfo" Width="1.5" PointX="5.25" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MallDBModel.Employee" Width="1.5" PointX="3" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MallDBModel.GoodsInfo" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MallDBModel.Image" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MallDBModel.Menus" Width="1.5" PointX="9.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MallDBModel.Order" Width="1.5" PointX="5.25" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="MallDBModel.Permissions" Width="1.5" PointX="5.25" PointY="16.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MallDBModel.Refund" Width="1.5" PointX="7.5" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MallDBModel.Roles" Width="1.5" PointX="7.5" PointY="16.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MallDBModel.ShoppingCart" Width="1.5" PointX="8.25" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MallDBModel.User" Width="1.5" PointX="0.75" PointY="8.125" IsExpanded="true" />
+        <AssociationConnector Association="MallDBModel.FK_CLIENT_REFERENCE_USER" ManuallyRouted="false" />
+        <AssociationConnector Association="MallDBModel.FK_COMMENT_REFERENCE_CLIENT" ManuallyRouted="false" />
+        <AssociationConnector Association="MallDBModel.FK_DELIVERY_REFERENCE_CLIENT" ManuallyRouted="false" />
+        <AssociationConnector Association="MallDBModel.FK_ORDER_REFERENCE_CLIENT" ManuallyRouted="false" />
+        <AssociationConnector Association="MallDBModel.FK_REFUND_REFERENCE_CLIENT" ManuallyRouted="false" />
+        <AssociationConnector Association="MallDBModel.FK_SHOPPING_REFERENCE_CLIENT" ManuallyRouted="false" />
+        <AssociationConnector Association="MallDBModel.FK_COMMENT_REFERENCE_GOODSINF" ManuallyRouted="false" />
+        <AssociationConnector Association="MallDBModel.FK_EMPLOYEE_REFERENCE_USER" ManuallyRouted="false" />
+        <AssociationConnector Association="MallDBModel.FK_IMAGE_REFERENCE_GOODSINF" ManuallyRouted="false" />
+        <AssociationConnector Association="MallDBModel.FK_REFUND_REFERENCE_ORDER" ManuallyRouted="false" />
+        <AssociationConnector Association="MallDBModel.EmployeePermissions" ManuallyRouted="false" />
+        <AssociationConnector Association="MallDBModel.Gi_scRelationship" ManuallyRouted="false" />
+        <AssociationConnector Association="MallDBModel.RolePermissions" ManuallyRouted="false" />
+        <AssociationConnector Association="MallDBModel.EmployeeRoles" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

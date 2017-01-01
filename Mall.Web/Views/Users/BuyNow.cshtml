@@ -1,0 +1,72 @@
+﻿
+@{
+    ViewBag.Title = "BuyNow";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>BuyNow</h2>
+<div class="buyNow_wap">
+    <div class="buyNow_address">
+        <div class="buyNow_titel">确认收货地址</div>
+        <div class="buyNow_address_infor">
+            <label>
+                <input name="address"value="1"type="radio"/>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                <input name="address" value="2" type="radio" />XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+            </label>
+        </div>
+    </div>
+
+    <div class="buyNow_infor">
+        <div class="buyNow_titel">确认订单信息</div>
+        <div class="buyNow_detail">
+            <div>
+                <div class="buyNow_detail_head">
+                    <ul>
+                        <li>商品简介</li>
+                        <li>作者</li>
+                        <li>单价</li>
+                        <li>数量</li>
+                        <li>总价</li>
+                        <li>运费</li>
+                    </ul>
+                </div>
+                <div class="buyNow_detail_goods">
+                    <ul>
+                        <li>
+                            <div>
+                                <img />
+                                <p></p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <p class="buy_now_infor_total">小计：<span>￥123.00</span></p>
+        </div>
+    </div>
+    <div class="buyNow_sign">
+        <span>
+
+        </span>
+        此结果由云翳网站提供
+    </div>
+    <hr />
+    <div class="buyNow_confirm">
+        <p>
+            应付款：<span class="buyNow_confirm_money">￥123.00</span>
+        </p>
+        <p>
+            收货地址：<span>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</span>
+        </p>
+        <p>
+            收货人姓名：<span>XXXX</span>
+        </p>
+        <p>
+            联系方式：<span>XXXXXXXXXXX</span>
+        </p>
+        <button class="confirm_button">确认付款</button>
+    </div>
+</div>
+@section css{
+    <link href="~/Css/Users/BuyNow.css" rel="stylesheet" />
+}

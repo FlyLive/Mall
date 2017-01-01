@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewBag.Title = "Registe";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    @Styles.Render("~/Css/Users/Registe.css");
+}
+
+<div class="registe_wap">
+    <div class="registe_body">
+        <div>
+            <h2>注册</h2>
+            <div>
+                <form>
+                    <p class="registe_sign">您的姓名<span class="registe_notice">(登录名)</span></p>
+                    <input class="registe_input" type="text" placeholder="账户" />
+                    
+                    <p class="registe_sign">密码</p>
+                    <input class="registe_input" type="password" placeholder="密码" />
+                    
+                    <p class="registe_sign registe_confirm">确认密码</p>
+                    <input class="registe_input" type="password" placeholder="确认密码" />
+                    
+                    <p class="registe_sign registe_email">邮箱<span class="registe_notice">(忘记密码时找回密码)</span></p>
+                    <input class="registe_input" type="email" placeholder="邮箱" />
+                    
+                    <div class="registe_condition registe_notice">
+                        <input type="checkbox" />我已阅读并同意网站的
+                        <a href="">使用条件</a>
+                        <span>及</span>
+                        <a href="">隐私声明</a>
+                    </div>
+                    <button class="registe_button registe_registe">立即注册</button>
+                </form>
+            </div>
+            <p class="registe_notice">
+                <span></span>
+                已有账户?
+                <span></span>
+            </p>
+            <div class="registe_notice">
+                <span>已有账户?<a class="registe_login registe_notice" href="~/Views/Users/Login.cshtml">登录</a></span>
+                <p>message</p>
+            </div>
+        </div>
+    </div>
+</div>

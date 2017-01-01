@@ -1,0 +1,21 @@
+﻿@model  List<Mall.Web.ViewModel.MenuViewModel>
+
+@foreach (var item in Model)
+{
+    <li class="@(item.Childs.Count == 0 ? "" : "treeview")">
+        <a href='#' id='@item.Id'>
+            <i class="fa fa-circle-o"></i>
+            <span>@item.Name</span>
+            @if (item.Childs.Count != 0)
+            {
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            }
+        </a>
+        @if (item.Childs.Count != 0)
+        {
+            @Html.Partial("SubSideBarMenu",item.Childs);
+        }
+    </li>
+}
