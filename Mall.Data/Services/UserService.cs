@@ -10,6 +10,11 @@ namespace Mall.Data.Services
     public class UserService : IDisposable
     {
         private MallDBContext _db;
+
+        public UserService()
+        {
+            _db = new MallDBContext();
+        }
         public void Dispose()
         {
             _db.Dispose();
