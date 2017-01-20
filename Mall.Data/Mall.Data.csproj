@@ -111,13 +111,18 @@
     <Compile Include="DataBase\User.cs">
       <DependentUpon>MallDBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="IManagers\Client\IOrderClientManager.cs" />
+    <Compile Include="IManagers\Client\IUserClientManager.cs" />
+    <Compile Include="IManagers\Enterprise\IOrderEntepriseManager.cs" />
+    <Compile Include="IManagers\Enterprise\IUserEnterpriseManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\IGoodsManager.cs" />
-    <Compile Include="Services\IUserManager.cs" />
-    <Compile Include="Services\MenuViewService.cs" />
-    <Compile Include="Services\AdminService.cs" />
-    <Compile Include="Services\IOrderManager.cs" />
-    <Compile Include="Services\UserService.cs" />
+    <Compile Include="IManagers\Enterprise\IGoodsManager.cs" />
+    <Compile Include="Services\Client\OrderService.cs" />
+    <Compile Include="Services\Enterprise\GoodsService.cs" />
+    <Compile Include="Services\Enterprise\MenuViewService.cs" />
+    <Compile Include="Services\Enterprise\EnterpriseService.cs" />
+    <Compile Include="Services\Client\ClientService.cs" />
+    <Compile Include="Services\Enterprise\OrderService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="DataBase\MallDBModel.Context.tt">

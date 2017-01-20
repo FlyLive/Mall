@@ -142,9 +142,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ChatController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MenuViewController.cs" />
-    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -156,16 +154,13 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Css\Admin\Login.css" />
     <Content Include="Css\Chat\Chat.css" />
-    <Content Include="Css\Home\Home.css" />
-    <Content Include="Css\MenuView\AdminLTE.min.css" />
+    <Content Include="Css\MenuView\AdminLTE.css" />
     <Content Include="Css\MenuView\blue.css" />
     <Content Include="Css\MenuView\boot.css" />
     <Content Include="Css\MenuView\morris.css" />
     <Content Include="Css\MenuView\_all-skins.css" />
-    <Content Include="Css\Users\BuyNow.css" />
-    <Content Include="Css\Users\Login.css" />
-    <Content Include="Css\Users\Registe.css" />
-    <Content Include="Css\Users\Users.css" />
+    <Content Include="Css\Shared\Foot.css" />
+    <Content Include="Css\Shared\Head.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -182,8 +177,10 @@
     <Content Include="Pictures\Chat\Img\Img2.gif" />
     <Content Include="Pictures\Chat\Img\Img3.gif" />
     <Content Include="Pictures\Chat\Img\Img4.gif" />
-    <Content Include="Pictures\Shared\Serch%28Touch%29.png" />
-    <Content Include="Pictures\Shared\Serch%28UnTouch%29.png" />
+    <Content Include="Pictures\Shared\contact.png" />
+    <Content Include="Pictures\Shared\phone.png" />
+    <Content Include="Pictures\Shared\Search%28Touch%29.png" />
+    <Content Include="Pictures\Shared\Search%28UnTouch%29.png" />
     <Content Include="Pictures\Shared\Welcome.png" />
     <Content Include="Pictures\Shared\云翳%28logo%29.png" />
     <Content Include="Pictures\Chat\电脑%28Myself%29.png" />
@@ -217,12 +214,8 @@
     <Content Include="Views\Layout\_Layout.cshtml" />
     <Content Include="Views\Chat\ReName.cshtml" />
     <Content Include="Views\Chat\Chat.cshtml" />
-    <Content Include="Views\Home\Home.cshtml" />
     <Content Include="Views\Shared\_Foot.cshtml" />
     <Content Include="Views\Shared\_Head.cshtml" />
-    <Content Include="Views\Users\Login.cshtml" />
-    <Content Include="Views\Users\Registe.cshtml" />
-    <Content Include="Views\Users\BuyNow.cshtml" />
     <Content Include="Views\MenuView\SideBarMenuByPermissions.cshtml" />
     <Content Include="Views\MenuView\SubSideBarMenu.cshtml" />
     <Content Include="Views\Shared\MenuView\_ControlSideBar.cshtml" />

@@ -1,0 +1,58 @@
+﻿<div class="navbar-head">
+    <div class="head">
+        <div class="logo">
+            <a href="/Home/Home">
+                <img src="~/Pictures/Shared/云翳(logo).png" title="主页" />
+            </a>
+            <span class="location">
+                <span>
+                    @DateTime.Now.Month 月 @DateTime.Now.Day 日 @DateTime.Now.DayOfWeek
+                </span>
+                <span>重庆</span>
+            </span>
+        </div>
+        <div class="head-message">
+            <form>
+                <input name="searchName" placeholder="搜索书籍名称" />
+                <button id="search-button" type="submit"></button>
+            </form>
+        </div>
+        <div class="menu">
+            <ul>
+                <li>
+                    <a href="#">
+                        <img src="~/Pictures/Shared/contact.png" />
+                        个人中心
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="~/Pictures/Shared/contact.png" />
+                        购物车
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="~/Pictures/Shared/contact.png" />
+                        [登录]
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="~/Pictures/Shared/phone.png" />
+                        联系客服
+                    </a>
+                </li>
+                <li class="navigation">
+                    <a href="#">
+                        <img src="~/Pictures/Shared/contact.png" />
+                        网站导航
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+@section css{
+    <link href="~/Css/Shared/Head.css" rel="stylesheet" />
+}

@@ -20,7 +20,7 @@ namespace Mall.Data.DataBase
             this.GoodsInfo = new HashSet<GoodsInfo>();
         }
     
-        public int 购物车编号_ShoppingCartId_ { get; set; }
+        public int ShoppingCartId { get; set; }
         public Nullable<int> ClientId { get; set; }
         public System.DateTime CreateTime { get; set; }
         public int Number { get; set; }

@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Skin: Blue
  * ----------
  */
@@ -78,7 +78,7 @@
   background: #1e282c;
   border-left-color: #3c8dbc;
 }
-.skin-blue .sidebar-menu > li > .MenuViewModelview-menu {
+.skin-blue .sidebar-menu > li > .treeview-menu {
   margin: 0 1px;
   background: #2c3b41;
 }
@@ -88,11 +88,11 @@
 .skin-blue .sidebar a:hover {
   text-decoration: none;
 }
-.skin-blue .MenuViewModelview-menu > li > a {
+.skin-blue .treeview-menu > li > a {
   color: #8aa4af;
 }
-.skin-blue .MenuViewModelview-menu > li.active > a,
-.skin-blue .MenuViewModelview-menu > li > a:hover {
+.skin-blue .treeview-menu > li.active > a,
+.skin-blue .treeview-menu > li > a:hover {
   color: #ffffff;
 }
 .skin-blue .sidebar-form {
@@ -232,7 +232,7 @@
 .skin-blue-light .sidebar-menu > li.active > a {
   font-weight: 600;
 }
-.skin-blue-light .sidebar-menu > li > .MenuViewModelview-menu {
+.skin-blue-light .sidebar-menu > li > .treeview-menu {
   background: #f4f4f5;
 }
 .skin-blue-light .sidebar a {
@@ -241,14 +241,14 @@
 .skin-blue-light .sidebar a:hover {
   text-decoration: none;
 }
-.skin-blue-light .MenuViewModelview-menu > li > a {
+.skin-blue-light .treeview-menu > li > a {
   color: #777777;
 }
-.skin-blue-light .MenuViewModelview-menu > li.active > a,
-.skin-blue-light .MenuViewModelview-menu > li > a:hover {
+.skin-blue-light .treeview-menu > li.active > a,
+.skin-blue-light .treeview-menu > li > a:hover {
   color: #000000;
 }
-.skin-blue-light .MenuViewModelview-menu > li.active > a {
+.skin-blue-light .treeview-menu > li.active > a {
   font-weight: 600;
 }
 .skin-blue-light .sidebar-form {
@@ -286,7 +286,7 @@
   border-bottom-left-radius: 0;
 }
 @media (min-width: 768px) {
-  .skin-blue-light.sidebar-mini.sidebar-collapse .sidebar-menu > li > .MenuViewModelview-menu {
+  .skin-blue-light.sidebar-mini.sidebar-collapse .sidebar-menu > li > .treeview-menu {
     border-left: 1px solid #d2d6de;
   }
 }
@@ -401,7 +401,7 @@
   background: #1e282c;
   border-left-color: #ffffff;
 }
-.skin-black .sidebar-menu > li > .MenuViewModelview-menu {
+.skin-black .sidebar-menu > li > .treeview-menu {
   margin: 0 1px;
   background: #2c3b41;
 }
@@ -411,11 +411,11 @@
 .skin-black .sidebar a:hover {
   text-decoration: none;
 }
-.skin-black .MenuViewModelview-menu > li > a {
+.skin-black .treeview-menu > li > a {
   color: #8aa4af;
 }
-.skin-black .MenuViewModelview-menu > li.active > a,
-.skin-black .MenuViewModelview-menu > li > a:hover {
+.skin-black .treeview-menu > li.active > a,
+.skin-black .treeview-menu > li > a:hover {
   color: #ffffff;
 }
 .skin-black .sidebar-form {
@@ -574,7 +574,7 @@
 .skin-black-light .sidebar-menu > li.active > a {
   font-weight: 600;
 }
-.skin-black-light .sidebar-menu > li > .MenuViewModelview-menu {
+.skin-black-light .sidebar-menu > li > .treeview-menu {
   background: #f4f4f5;
 }
 .skin-black-light .sidebar a {
@@ -583,14 +583,14 @@
 .skin-black-light .sidebar a:hover {
   text-decoration: none;
 }
-.skin-black-light .MenuViewModelview-menu > li > a {
+.skin-black-light .treeview-menu > li > a {
   color: #777777;
 }
-.skin-black-light .MenuViewModelview-menu > li.active > a,
-.skin-black-light .MenuViewModelview-menu > li > a:hover {
+.skin-black-light .treeview-menu > li.active > a,
+.skin-black-light .treeview-menu > li > a:hover {
   color: #000000;
 }
-.skin-black-light .MenuViewModelview-menu > li.active > a {
+.skin-black-light .treeview-menu > li.active > a {
   font-weight: 600;
 }
 .skin-black-light .sidebar-form {
@@ -628,7 +628,7 @@
   border-bottom-left-radius: 0;
 }
 @media (min-width: 768px) {
-  .skin-black-light.sidebar-mini.sidebar-collapse .sidebar-menu > li > .MenuViewModelview-menu {
+  .skin-black-light.sidebar-mini.sidebar-collapse .sidebar-menu > li > .treeview-menu {
     border-left: 1px solid #d2d6de;
   }
 }
@@ -712,7 +712,7 @@
   background: #1e282c;
   border-left-color: #00a65a;
 }
-.skin-green .sidebar-menu > li > .MenuViewModelview-menu {
+.skin-green .sidebar-menu > li > .treeview-menu {
   margin: 0 1px;
   background: #2c3b41;
 }
@@ -722,11 +722,11 @@
 .skin-green .sidebar a:hover {
   text-decoration: none;
 }
-.skin-green .MenuViewModelview-menu > li > a {
+.skin-green .treeview-menu > li > a {
   color: #8aa4af;
 }
-.skin-green .MenuViewModelview-menu > li.active > a,
-.skin-green .MenuViewModelview-menu > li > a:hover {
+.skin-green .treeview-menu > li.active > a,
+.skin-green .treeview-menu > li > a:hover {
   color: #ffffff;
 }
 .skin-green .sidebar-form {
@@ -858,7 +858,7 @@
 .skin-green-light .sidebar-menu > li.active > a {
   font-weight: 600;
 }
-.skin-green-light .sidebar-menu > li > .MenuViewModelview-menu {
+.skin-green-light .sidebar-menu > li > .treeview-menu {
   background: #f4f4f5;
 }
 .skin-green-light .sidebar a {
@@ -867,14 +867,14 @@
 .skin-green-light .sidebar a:hover {
   text-decoration: none;
 }
-.skin-green-light .MenuViewModelview-menu > li > a {
+.skin-green-light .treeview-menu > li > a {
   color: #777777;
 }
-.skin-green-light .MenuViewModelview-menu > li.active > a,
-.skin-green-light .MenuViewModelview-menu > li > a:hover {
+.skin-green-light .treeview-menu > li.active > a,
+.skin-green-light .treeview-menu > li > a:hover {
   color: #000000;
 }
-.skin-green-light .MenuViewModelview-menu > li.active > a {
+.skin-green-light .treeview-menu > li.active > a {
   font-weight: 600;
 }
 .skin-green-light .sidebar-form {
@@ -912,7 +912,7 @@
   border-bottom-left-radius: 0;
 }
 @media (min-width: 768px) {
-  .skin-green-light.sidebar-mini.sidebar-collapse .sidebar-menu > li > .MenuViewModelview-menu {
+  .skin-green-light.sidebar-mini.sidebar-collapse .sidebar-menu > li > .treeview-menu {
     border-left: 1px solid #d2d6de;
   }
 }
@@ -996,7 +996,7 @@
   background: #1e282c;
   border-left-color: #dd4b39;
 }
-.skin-red .sidebar-menu > li > .MenuViewModelview-menu {
+.skin-red .sidebar-menu > li > .treeview-menu {
   margin: 0 1px;
   background: #2c3b41;
 }
@@ -1006,11 +1006,11 @@
 .skin-red .sidebar a:hover {
   text-decoration: none;
 }
-.skin-red .MenuViewModelview-menu > li > a {
+.skin-red .treeview-menu > li > a {
   color: #8aa4af;
 }
-.skin-red .MenuViewModelview-menu > li.active > a,
-.skin-red .MenuViewModelview-menu > li > a:hover {
+.skin-red .treeview-menu > li.active > a,
+.skin-red .treeview-menu > li > a:hover {
   color: #ffffff;
 }
 .skin-red .sidebar-form {
@@ -1142,7 +1142,7 @@
 .skin-red-light .sidebar-menu > li.active > a {
   font-weight: 600;
 }
-.skin-red-light .sidebar-menu > li > .MenuViewModelview-menu {
+.skin-red-light .sidebar-menu > li > .treeview-menu {
   background: #f4f4f5;
 }
 .skin-red-light .sidebar a {
@@ -1151,14 +1151,14 @@
 .skin-red-light .sidebar a:hover {
   text-decoration: none;
 }
-.skin-red-light .MenuViewModelview-menu > li > a {
+.skin-red-light .treeview-menu > li > a {
   color: #777777;
 }
-.skin-red-light .MenuViewModelview-menu > li.active > a,
-.skin-red-light .MenuViewModelview-menu > li > a:hover {
+.skin-red-light .treeview-menu > li.active > a,
+.skin-red-light .treeview-menu > li > a:hover {
   color: #000000;
 }
-.skin-red-light .MenuViewModelview-menu > li.active > a {
+.skin-red-light .treeview-menu > li.active > a {
   font-weight: 600;
 }
 .skin-red-light .sidebar-form {
@@ -1196,7 +1196,7 @@
   border-bottom-left-radius: 0;
 }
 @media (min-width: 768px) {
-  .skin-red-light.sidebar-mini.sidebar-collapse .sidebar-menu > li > .MenuViewModelview-menu {
+  .skin-red-light.sidebar-mini.sidebar-collapse .sidebar-menu > li > .treeview-menu {
     border-left: 1px solid #d2d6de;
   }
 }
@@ -1280,7 +1280,7 @@
   background: #1e282c;
   border-left-color: #f39c12;
 }
-.skin-yellow .sidebar-menu > li > .MenuViewModelview-menu {
+.skin-yellow .sidebar-menu > li > .treeview-menu {
   margin: 0 1px;
   background: #2c3b41;
 }
@@ -1290,11 +1290,11 @@
 .skin-yellow .sidebar a:hover {
   text-decoration: none;
 }
-.skin-yellow .MenuViewModelview-menu > li > a {
+.skin-yellow .treeview-menu > li > a {
   color: #8aa4af;
 }
-.skin-yellow .MenuViewModelview-menu > li.active > a,
-.skin-yellow .MenuViewModelview-menu > li > a:hover {
+.skin-yellow .treeview-menu > li.active > a,
+.skin-yellow .treeview-menu > li > a:hover {
   color: #ffffff;
 }
 .skin-yellow .sidebar-form {
@@ -1426,7 +1426,7 @@
 .skin-yellow-light .sidebar-menu > li.active > a {
   font-weight: 600;
 }
-.skin-yellow-light .sidebar-menu > li > .MenuViewModelview-menu {
+.skin-yellow-light .sidebar-menu > li > .treeview-menu {
   background: #f4f4f5;
 }
 .skin-yellow-light .sidebar a {
@@ -1435,14 +1435,14 @@
 .skin-yellow-light .sidebar a:hover {
   text-decoration: none;
 }
-.skin-yellow-light .MenuViewModelview-menu > li > a {
+.skin-yellow-light .treeview-menu > li > a {
   color: #777777;
 }
-.skin-yellow-light .MenuViewModelview-menu > li.active > a,
-.skin-yellow-light .MenuViewModelview-menu > li > a:hover {
+.skin-yellow-light .treeview-menu > li.active > a,
+.skin-yellow-light .treeview-menu > li > a:hover {
   color: #000000;
 }
-.skin-yellow-light .MenuViewModelview-menu > li.active > a {
+.skin-yellow-light .treeview-menu > li.active > a {
   font-weight: 600;
 }
 .skin-yellow-light .sidebar-form {
@@ -1480,7 +1480,7 @@
   border-bottom-left-radius: 0;
 }
 @media (min-width: 768px) {
-  .skin-yellow-light.sidebar-mini.sidebar-collapse .sidebar-menu > li > .MenuViewModelview-menu {
+  .skin-yellow-light.sidebar-mini.sidebar-collapse .sidebar-menu > li > .treeview-menu {
     border-left: 1px solid #d2d6de;
   }
 }
@@ -1564,7 +1564,7 @@
   background: #1e282c;
   border-left-color: #605ca8;
 }
-.skin-purple .sidebar-menu > li > .MenuViewModelview-menu {
+.skin-purple .sidebar-menu > li > .treeview-menu {
   margin: 0 1px;
   background: #2c3b41;
 }
@@ -1574,11 +1574,11 @@
 .skin-purple .sidebar a:hover {
   text-decoration: none;
 }
-.skin-purple .MenuViewModelview-menu > li > a {
+.skin-purple .treeview-menu > li > a {
   color: #8aa4af;
 }
-.skin-purple .MenuViewModelview-menu > li.active > a,
-.skin-purple .MenuViewModelview-menu > li > a:hover {
+.skin-purple .treeview-menu > li.active > a,
+.skin-purple .treeview-menu > li > a:hover {
   color: #ffffff;
 }
 .skin-purple .sidebar-form {
@@ -1710,7 +1710,7 @@
 .skin-purple-light .sidebar-menu > li.active > a {
   font-weight: 600;
 }
-.skin-purple-light .sidebar-menu > li > .MenuViewModelview-menu {
+.skin-purple-light .sidebar-menu > li > .treeview-menu {
   background: #f4f4f5;
 }
 .skin-purple-light .sidebar a {
@@ -1719,14 +1719,14 @@
 .skin-purple-light .sidebar a:hover {
   text-decoration: none;
 }
-.skin-purple-light .MenuViewModelview-menu > li > a {
+.skin-purple-light .treeview-menu > li > a {
   color: #777777;
 }
-.skin-purple-light .MenuViewModelview-menu > li.active > a,
-.skin-purple-light .MenuViewModelview-menu > li > a:hover {
+.skin-purple-light .treeview-menu > li.active > a,
+.skin-purple-light .treeview-menu > li > a:hover {
   color: #000000;
 }
-.skin-purple-light .MenuViewModelview-menu > li.active > a {
+.skin-purple-light .treeview-menu > li.active > a {
   font-weight: 600;
 }
 .skin-purple-light .sidebar-form {
@@ -1764,7 +1764,7 @@
   border-bottom-left-radius: 0;
 }
 @media (min-width: 768px) {
-  .skin-purple-light.sidebar-mini.sidebar-collapse .sidebar-menu > li > .MenuViewModelview-menu {
+  .skin-purple-light.sidebar-mini.sidebar-collapse .sidebar-menu > li > .treeview-menu {
     border-left: 1px solid #d2d6de;
   }
 }

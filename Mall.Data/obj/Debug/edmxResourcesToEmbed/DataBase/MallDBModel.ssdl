@@ -116,7 +116,7 @@
     <Property Name="MenuName" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="ParentId" Type="int" Nullable="false" />
     <Property Name="MenuPath" Type="varchar" MaxLength="500" Nullable="false" />
-    <Property Name="URL" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="URL" Type="varchar" MaxLength="200" />
   </EntityType>
   <EntityType Name="Order">
     <Key>
@@ -177,9 +177,9 @@
   </EntityType>
   <EntityType Name="ShoppingCart">
     <Key>
-      <PropertyRef Name="购物车编号(ShoppingCartId)" />
+      <PropertyRef Name="ShoppingCartId" />
     </Key>
-    <Property Name="购物车编号(ShoppingCartId)" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ShoppingCartId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ClientId" Type="int" />
     <Property Name="CreateTime" Type="datetime" Nullable="false" />
     <Property Name="Number" Type="int" Nullable="false" />
@@ -323,7 +323,7 @@
     <End Role="Gi_scRelationship" Type="Self.Gi_scRelationship" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="ShoppingCart">
-        <PropertyRef Name="购物车编号(ShoppingCartId)" />
+        <PropertyRef Name="ShoppingCartId" />
       </Principal>
       <Dependent Role="Gi_scRelationship">
         <PropertyRef Name="ShoppingCartId" />

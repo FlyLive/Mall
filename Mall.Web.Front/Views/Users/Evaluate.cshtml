@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewBag.Title = "Evaluate";
+    Layout = "~/Views/Layout/_Layout.cshtml";
+}
+
+<div class="evaluate-head">
+    <h2>商品评价</h2>
+</div>
+<div class="evaluate-sign">
+    <span></span>
+    此结果由云翳网站提供
+</div>
+<div class="evaluate-infor">
+    <div class="evaluate-titel">商品评价</div>
+    <div class="evaluate-detail">
+        <div class="evaluate-detail-order">
+            <h3 class="titel">订单信息</h3>
+            <div class="evaluate-detail-order-info">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <span class="mark">订单编号:</span>&emsp;<span>XXXXXXXXXXXXXXXXXXXX</span>
+                            </td>
+                            <td>
+                                <span class="mark">下单时间:</span>&emsp;<span>XXXX-XX-XX XX:XX:XX</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="mark">发货时间:</span>&emsp;<span>XXXX-XX-XX XX:XX:XX</span>
+                            </td>
+                            <td>
+                                <span class="mark">收货时间:</span>&emsp;<span>XXXX-XX-XX XX:XX:XX</span>
+                            </td>
+                            <td>
+                                <span class="mark">成交时间:</span>&emsp;<span>XXXX-XX-XX XX:XX:XX</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="evaluate-evaluate">
+            <h3 class="titel">评价</h3>
+            <div class="evaluate-evaluate-input">
+                <form action="">
+                    <div>
+                        <textarea class="inputarea-evaluate"></textarea>
+                    </div>
+                    <button type="submit" class="submit-evaluate">提交评价</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@section css{
+    <link href="~/Css/Users/Evaluate.css" rel="stylesheet" />
+}

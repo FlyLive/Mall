@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+        @Styles.Render("~/Content/Site.css")
+        <link href="~/Css/Shared/Foot.css" rel="stylesheet" />
+        <link href="~/Css/Shared/Head.css" rel="stylesheet" />
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="wrap">
+        @Html.Partial("_Head")
+        <div class="navbar-body">
+            @RenderBody()
+        </div>
+        @Html.Partial("_Foot")
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("css", required: false)
+    @RenderSection("scripts", required: false)
+</body>
+</html>

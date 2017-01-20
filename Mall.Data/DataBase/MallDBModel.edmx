@@ -121,7 +121,7 @@
           <Property Name="MenuName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ParentId" Type="int" Nullable="false" />
           <Property Name="MenuPath" Type="varchar" MaxLength="500" Nullable="false" />
-          <Property Name="URL" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="URL" Type="varchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -182,9 +182,9 @@
         </EntityType>
         <EntityType Name="ShoppingCart">
           <Key>
-            <PropertyRef Name="购物车编号(ShoppingCartId)" />
+            <PropertyRef Name="ShoppingCartId" />
           </Key>
-          <Property Name="购物车编号(ShoppingCartId)" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ShoppingCartId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ClientId" Type="int" />
           <Property Name="CreateTime" Type="datetime" Nullable="false" />
           <Property Name="Number" Type="int" Nullable="false" />
@@ -328,7 +328,7 @@
           <End Role="Gi_scRelationship" Type="Self.Gi_scRelationship" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ShoppingCart">
-              <PropertyRef Name="购物车编号(ShoppingCartId)" />
+              <PropertyRef Name="ShoppingCartId" />
             </Principal>
             <Dependent Role="Gi_scRelationship">
               <PropertyRef Name="ShoppingCartId" />
@@ -547,7 +547,7 @@
           <NavigationProperty Name="DeliveryInfo" Relationship="Self.FK_DELIVERY_REFERENCE_CLIENT" FromRole="Client" ToRole="DeliveryInfo" />
           <NavigationProperty Name="Order" Relationship="Self.FK_ORDER_REFERENCE_CLIENT" FromRole="Client" ToRole="Order" />
           <NavigationProperty Name="Refund" Relationship="Self.FK_REFUND_REFERENCE_CLIENT" FromRole="Client" ToRole="Refund" />
-          <NavigationProperty Name="ShoppingCart" Relationship="Self.FK_SHOPPING_REFERENCE_CLIENT" FromRole="Client" ToRole="ShoppingCart" />
+          <NavigationProperty Name="ShoppingCart" Relationship="MallDBModel.FK_SHOPPING_REFERENCE_CLIENT" FromRole="Client" ToRole="ShoppingCart" />
         </EntityType>
         <EntityType Name="Comment">
           <Key>
@@ -605,8 +605,8 @@
           <Property Name="Press" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Comment" Relationship="Self.FK_COMMENT_REFERENCE_GOODSINF" FromRole="GoodsInfo" ToRole="Comment" />
           <NavigationProperty Name="Image" Relationship="Self.FK_IMAGE_REFERENCE_GOODSINF" FromRole="GoodsInfo" ToRole="Image" />
-          <NavigationProperty Name="ShoppingCart" Relationship="Self.Gi_scRelationship" FromRole="GoodsInfo" ToRole="ShoppingCart" />
-        </EntityType>
+          <NavigationProperty Name="ShoppingCart" Relationship="MallDBModel.Gi_scRelationship" FromRole="GoodsInfo" ToRole="ShoppingCart" />
+          </EntityType>
         <EntityType Name="Image">
           <Key>
             <PropertyRef Name="ImageId" />
@@ -624,7 +624,7 @@
           <Property Name="MenuName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ParentId" Type="Int32" Nullable="false" />
           <Property Name="MenuPath" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="URL" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="URL" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -657,7 +657,7 @@
           <Property Name="Code" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CreationTime" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Employee" Relationship="Self.EmployeePermissions" FromRole="Permissions" ToRole="Employee" />
-          <NavigationProperty Name="Roles" Relationship="Self.RolePermissions" FromRole="Permissions" ToRole="Roles" />
+          <NavigationProperty Name="Roles" Relationship="MallDBModel.RolePermissions" FromRole="Permissions" ToRole="Roles" />
         </EntityType>
         <EntityType Name="Refund">
           <Key>
@@ -671,28 +671,6 @@
           <Property Name="Remark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Client" Relationship="Self.FK_REFUND_REFERENCE_CLIENT" FromRole="Refund" ToRole="Client" />
           <NavigationProperty Name="Order" Relationship="Self.FK_REFUND_REFERENCE_ORDER" FromRole="Refund" ToRole="Order" />
-        </EntityType>
-        <EntityType Name="Roles">
-          <Key>
-            <PropertyRef Name="RoleId" />
-          </Key>
-          <Property Name="RoleId" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Code" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="CreationTime" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Permissions" Relationship="Self.RolePermissions" FromRole="Roles" ToRole="Permissions" />
-          <NavigationProperty Name="Employee" Relationship="MallDBModel.EmployeeRoles" FromRole="Roles" ToRole="Employee" />
-        </EntityType>
-        <EntityType Name="ShoppingCart">
-          <Key>
-            <PropertyRef Name="购物车编号_ShoppingCartId_" />
-          </Key>
-          <Property Name="购物车编号_ShoppingCartId_" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ClientId" Type="Int32" />
-          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Number" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Client" Relationship="Self.FK_SHOPPING_REFERENCE_CLIENT" FromRole="ShoppingCart" ToRole="Client" />
-          <NavigationProperty Name="GoodsInfo" Relationship="Self.Gi_scRelationship" FromRole="ShoppingCart" ToRole="GoodsInfo" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -770,18 +748,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SHOPPING_REFERENCE_CLIENT">
-          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
-          <End Role="ShoppingCart" Type="Self.ShoppingCart" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Client">
-              <PropertyRef Name="ClientId" />
-            </Principal>
-            <Dependent Role="ShoppingCart">
-              <PropertyRef Name="ClientId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_COMMENT_REFERENCE_GOODSINF">
           <End Role="GoodsInfo" Type="Self.GoodsInfo" Multiplicity="0..1" />
           <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
@@ -834,14 +800,6 @@
           <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
           <End Role="Permissions" Type="Self.Permissions" Multiplicity="*" />
         </Association>
-        <Association Name="Gi_scRelationship">
-          <End Role="GoodsInfo" Type="Self.GoodsInfo" Multiplicity="*" />
-          <End Role="ShoppingCart" Type="Self.ShoppingCart" Multiplicity="*" />
-        </Association>
-        <Association Name="RolePermissions">
-          <End Role="Permissions" Type="Self.Permissions" Multiplicity="*" />
-          <End Role="Roles" Type="Self.Roles" Multiplicity="*" />
-        </Association>
         <EntityContainer Name="MallDBContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AdminLog" EntityType="Self.AdminLog" />
           <EntitySet Name="Advertisement" EntityType="Self.Advertisement" />
@@ -855,8 +813,6 @@
           <EntitySet Name="Order" EntityType="Self.Order" />
           <EntitySet Name="Permissions" EntityType="Self.Permissions" />
           <EntitySet Name="Refund" EntityType="Self.Refund" />
-          <EntitySet Name="Roles" EntityType="Self.Roles" />
-          <EntitySet Name="ShoppingCart" EntityType="Self.ShoppingCart" />
           <EntitySet Name="User" EntityType="Self.User" />
           <AssociationSet Name="FK_CLIENT_REFERENCE_USER" Association="Self.FK_CLIENT_REFERENCE_USER">
             <End Role="User" EntitySet="User" />
@@ -878,10 +834,6 @@
             <End Role="Client" EntitySet="Client" />
             <End Role="Refund" EntitySet="Refund" />
           </AssociationSet>
-          <AssociationSet Name="FK_SHOPPING_REFERENCE_CLIENT" Association="Self.FK_SHOPPING_REFERENCE_CLIENT">
-            <End Role="Client" EntitySet="Client" />
-            <End Role="ShoppingCart" EntitySet="ShoppingCart" />
-          </AssociationSet>
           <AssociationSet Name="FK_COMMENT_REFERENCE_GOODSINF" Association="Self.FK_COMMENT_REFERENCE_GOODSINF">
             <End Role="GoodsInfo" EntitySet="GoodsInfo" />
             <End Role="Comment" EntitySet="Comment" />
@@ -902,22 +854,70 @@
             <End Role="Employee" EntitySet="Employee" />
             <End Role="Permissions" EntitySet="Permissions" />
           </AssociationSet>
-          <AssociationSet Name="Gi_scRelationship" Association="Self.Gi_scRelationship">
+          <EntitySet Name="ShoppingCart" EntityType="MallDBModel.ShoppingCart" />
+          <AssociationSet Name="FK_SHOPPING_REFERENCE_CLIENT" Association="MallDBModel.FK_SHOPPING_REFERENCE_CLIENT">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="ShoppingCart" EntitySet="ShoppingCart" />
+          </AssociationSet>
+          <AssociationSet Name="Gi_scRelationship" Association="MallDBModel.Gi_scRelationship">
             <End Role="GoodsInfo" EntitySet="GoodsInfo" />
             <End Role="ShoppingCart" EntitySet="ShoppingCart" />
           </AssociationSet>
-          <AssociationSet Name="RolePermissions" Association="Self.RolePermissions">
-            <End Role="Permissions" EntitySet="Permissions" />
-            <End Role="Roles" EntitySet="Roles" />
-          </AssociationSet>
+          <EntitySet Name="Roles" EntityType="MallDBModel.Roles" />
           <AssociationSet Name="EmployeeRoles" Association="MallDBModel.EmployeeRoles">
             <End Role="Roles" EntitySet="Roles" />
             <End Role="Employee" EntitySet="Employee" />
           </AssociationSet>
+          <AssociationSet Name="RolePermissions" Association="MallDBModel.RolePermissions">
+            <End Role="Permissions" EntitySet="Permissions" />
+            <End Role="Roles" EntitySet="Roles" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="ShoppingCart">
+          <Key>
+            <PropertyRef Name="ShoppingCartId" />
+          </Key>
+          <Property Name="ShoppingCartId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientId" Type="Int32" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Number" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Client" Relationship="MallDBModel.FK_SHOPPING_REFERENCE_CLIENT" FromRole="ShoppingCart" ToRole="Client" />
+          <NavigationProperty Name="GoodsInfo" Relationship="MallDBModel.Gi_scRelationship" FromRole="ShoppingCart" ToRole="GoodsInfo" />
+        </EntityType>
+        <Association Name="FK_SHOPPING_REFERENCE_CLIENT">
+          <End Type="MallDBModel.Client" Role="Client" Multiplicity="0..1" />
+          <End Type="MallDBModel.ShoppingCart" Role="ShoppingCart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="ShoppingCart">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Gi_scRelationship">
+          <End Type="MallDBModel.GoodsInfo" Role="GoodsInfo" Multiplicity="*" />
+          <End Type="MallDBModel.ShoppingCart" Role="ShoppingCart" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Code" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CreationTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Employee" Relationship="MallDBModel.EmployeeRoles" FromRole="Roles" ToRole="Employee" />
+          <NavigationProperty Name="Permissions" Relationship="MallDBModel.RolePermissions" FromRole="Roles" ToRole="Permissions" />
+        </EntityType>
         <Association Name="EmployeeRoles">
           <End Type="MallDBModel.Roles" Role="Roles" Multiplicity="*" />
           <End Type="MallDBModel.Employee" Role="Employee" Multiplicity="*" />
+        </Association>
+        <Association Name="RolePermissions">
+          <End Type="MallDBModel.Permissions" Role="Permissions" Multiplicity="*" />
+          <End Type="MallDBModel.Roles" Role="Roles" Multiplicity="*" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -1071,26 +1071,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Roles">
-            <EntityTypeMapping TypeName="MallDBModel.Roles">
-              <MappingFragment StoreEntitySet="Roles">
-                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="CreationTime" ColumnName="CreationTime" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ShoppingCart">
-            <EntityTypeMapping TypeName="MallDBModel.ShoppingCart">
-              <MappingFragment StoreEntitySet="ShoppingCart">
-                <ScalarProperty Name="购物车编号_ShoppingCartId_" ColumnName="购物车编号(ShoppingCartId)" />
-                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
-                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
-                <ScalarProperty Name="Number" ColumnName="Number" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="User">
             <EntityTypeMapping TypeName="MallDBModel.User">
               <MappingFragment StoreEntitySet="User">
@@ -1114,28 +1094,48 @@
               <ScalarProperty Name="PermissionId" ColumnName="PermissionId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="ShoppingCart">
+            <EntityTypeMapping TypeName="MallDBModel.ShoppingCart">
+              <MappingFragment StoreEntitySet="ShoppingCart">
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="ShoppingCartId" ColumnName="ShoppingCartId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <AssociationSetMapping Name="Gi_scRelationship" TypeName="MallDBModel.Gi_scRelationship" StoreEntitySet="Gi_scRelationship">
+            <EndProperty Name="ShoppingCart">
+              <ScalarProperty Name="ShoppingCartId" ColumnName="ShoppingCartId" />
+            </EndProperty>
             <EndProperty Name="GoodsInfo">
               <ScalarProperty Name="GoodsId" ColumnName="GoodsId" />
             </EndProperty>
-            <EndProperty Name="ShoppingCart">
-              <ScalarProperty Name="购物车编号_ShoppingCartId_" ColumnName="ShoppingCartId" />
-            </EndProperty>
           </AssociationSetMapping>
-          <AssociationSetMapping Name="RolePermissions" TypeName="MallDBModel.RolePermissions" StoreEntitySet="RolePermissions">
-            <EndProperty Name="Permissions">
-              <ScalarProperty Name="PermissionId" ColumnName="PermissionId" />
-            </EndProperty>
-            <EndProperty Name="Roles">
-              <ScalarProperty Name="RoleId" ColumnName="RoleId" />
-            </EndProperty>
-          </AssociationSetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="MallDBModel.Roles">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="CreationTime" ColumnName="CreationTime" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <AssociationSetMapping Name="EmployeeRoles" TypeName="MallDBModel.EmployeeRoles" StoreEntitySet="EmployeeRoles">
             <EndProperty Name="Employee">
               <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
             </EndProperty>
             <EndProperty Name="Roles">
               <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="RolePermissions" TypeName="MallDBModel.RolePermissions" StoreEntitySet="RolePermissions">
+            <EndProperty Name="Roles">
+              <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+            </EndProperty>
+            <EndProperty Name="Permissions">
+              <ScalarProperty Name="PermissionId" ColumnName="PermissionId" />
             </EndProperty>
           </AssociationSetMapping>
         </EntityContainerMapping>

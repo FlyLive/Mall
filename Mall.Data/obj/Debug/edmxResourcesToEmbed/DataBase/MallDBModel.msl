@@ -147,26 +147,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Roles">
-      <EntityTypeMapping TypeName="MallDBModel.Roles">
-        <MappingFragment StoreEntitySet="Roles">
-          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Code" ColumnName="Code" />
-          <ScalarProperty Name="CreationTime" ColumnName="CreationTime" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="ShoppingCart">
-      <EntityTypeMapping TypeName="MallDBModel.ShoppingCart">
-        <MappingFragment StoreEntitySet="ShoppingCart">
-          <ScalarProperty Name="购物车编号_ShoppingCartId_" ColumnName="购物车编号(ShoppingCartId)" />
-          <ScalarProperty Name="ClientId" ColumnName="ClientId" />
-          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
-          <ScalarProperty Name="Number" ColumnName="Number" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="User">
       <EntityTypeMapping TypeName="MallDBModel.User">
         <MappingFragment StoreEntitySet="User">
@@ -190,28 +170,48 @@
         <ScalarProperty Name="PermissionId" ColumnName="PermissionId" />
       </EndProperty>
     </AssociationSetMapping>
+    <EntitySetMapping Name="ShoppingCart">
+      <EntityTypeMapping TypeName="MallDBModel.ShoppingCart">
+        <MappingFragment StoreEntitySet="ShoppingCart">
+          <ScalarProperty Name="Number" ColumnName="Number" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+          <ScalarProperty Name="ShoppingCartId" ColumnName="ShoppingCartId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <AssociationSetMapping Name="Gi_scRelationship" TypeName="MallDBModel.Gi_scRelationship" StoreEntitySet="Gi_scRelationship">
+      <EndProperty Name="ShoppingCart">
+        <ScalarProperty Name="ShoppingCartId" ColumnName="ShoppingCartId" />
+      </EndProperty>
       <EndProperty Name="GoodsInfo">
         <ScalarProperty Name="GoodsId" ColumnName="GoodsId" />
       </EndProperty>
-      <EndProperty Name="ShoppingCart">
-        <ScalarProperty Name="购物车编号_ShoppingCartId_" ColumnName="ShoppingCartId" />
-      </EndProperty>
     </AssociationSetMapping>
-    <AssociationSetMapping Name="RolePermissions" TypeName="MallDBModel.RolePermissions" StoreEntitySet="RolePermissions">
-      <EndProperty Name="Permissions">
-        <ScalarProperty Name="PermissionId" ColumnName="PermissionId" />
-      </EndProperty>
-      <EndProperty Name="Roles">
-        <ScalarProperty Name="RoleId" ColumnName="RoleId" />
-      </EndProperty>
-    </AssociationSetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="MallDBModel.Roles">
+        <MappingFragment StoreEntitySet="Roles">
+          <ScalarProperty Name="CreationTime" ColumnName="CreationTime" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <AssociationSetMapping Name="EmployeeRoles" TypeName="MallDBModel.EmployeeRoles" StoreEntitySet="EmployeeRoles">
       <EndProperty Name="Employee">
         <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
       </EndProperty>
       <EndProperty Name="Roles">
         <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="RolePermissions" TypeName="MallDBModel.RolePermissions" StoreEntitySet="RolePermissions">
+      <EndProperty Name="Roles">
+        <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+      </EndProperty>
+      <EndProperty Name="Permissions">
+        <ScalarProperty Name="PermissionId" ColumnName="PermissionId" />
       </EndProperty>
     </AssociationSetMapping>
   </EntityContainerMapping>

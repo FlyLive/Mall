@@ -4,30 +4,55 @@
             <a href="#">
                 <img src="~/Pictures/Shared/云翳(logo).png" title="主页" />
             </a>
-            <span>
-                @DateTime.Now.Month 月 @DateTime.Now.Day 日 @DateTime.Now.DayOfWeek
+            <span class="location">
+                <span>
+                    @DateTime.Now.Month 月 @DateTime.Now.Day 日 @DateTime.Now.DayOfWeek
+                </span>
+                <span>重庆</span>
             </span>
-            <span id="time"></span>
         </div>
         <div class="head-message">
-            <input placeholder="搜索书籍名称" />
-            <button id="search-button" style="display:none;"></button>
+            <form>
+                <input name="searchName" placeholder="搜索书籍名称" />
+                <button id="search-button" type="submit"></button>
+            </form>
         </div>
-        <div class="log">
-            <div class="login">
-                <span>亲！请</span>
-                <a href="#">[登录]</a>
-                <span>/</span>
-                <a href="#">[注册]</a>
-            </div>
-            <div class="logout" style="display:none">
-                <p class="tip" id="loginOutTip">
-                    亲爱的,欢迎您,
-                    <a class="logout" href="/User/LogOut">
-                        [注销]
+        <div class="menu">
+            <ul>
+                <li>
+                    <a href="#">
+                        <img src="~/Pictures/Shared/contact.png" />
+                        个人中心
                     </a>
-                </p>
-            </div>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="~/Pictures/Shared/contact.png" />
+                        购物车
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="~/Pictures/Shared/contact.png" />
+                        [登录]
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="~/Pictures/Shared/phone.png" />
+                        联系客服
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="~/Pictures/Shared/contact.png" />
+                        网站导航
+                    </a>
+                </li>
+            </ul>
         </div>
     </div>
 </div>
+@section css{
+    <link href="~/Css/Shared/Head.css" rel="stylesheet" />
+}

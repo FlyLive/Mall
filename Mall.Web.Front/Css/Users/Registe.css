@@ -1,0 +1,66 @@
+﻿.registe_wap {
+    height:800px;
+    background-image: url('../../Pictures/Users/图书.jpg');
+    background-repeat: no-repeat;
+    background-size:cover;
+}
+.registe_body{
+    width: 450px;
+    left: 60%;
+    top: 10%;
+    border: 1px solid #a9a9a9;
+    border-radius: 10px;
+    background-color:rgba(236,240,241,0.5);
+    position: relative;
+}
+.registe_body > div{
+    width:380px;
+    margin:0 auto;
+}
+.registe_body > *{
+}
+.registe_sign {
+    font-weight:900;
+}
+.registe_forget {
+    font-weight: 100;
+    font-size: 10px;
+    right: 40px;
+    position: absolute;
+    color: #5e9eff;
+}
+.registe_button,.registe_input{
+    width:380px;
+    height:40px;
+    font-size:14px;
+    border-radius:5px;
+    border:1px solid #666666;
+    margin:0 auto;
+}
+.registe_input {
+    text-indent:5px;
+}
+.registe_registe{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color:#0066ff;
+}
+.registe_registe:hover{
+    background-color:#008fff;
+}
+.registe_registe:active{
+    background-color:#0066ff;
+}
+.registe_login{
+    margin:20px auto;
+}
+.registe_login:hover{
+
+}
+.registe_condition{
+    margin-top: 16px;
+}
+.registe_notice{
+    font-weight:100;
+    font-size: 10px;
+}

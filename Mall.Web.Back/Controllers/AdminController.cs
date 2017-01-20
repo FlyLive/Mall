@@ -1,6 +1,6 @@
 ﻿using Mall.Data.DataBase;
-using Mall.Data.Services.MenuViewService;
-using Mall.Web.Data.Services;
+using Mall.Data.Services;
+using Mall.Data.Services.Enterprise;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +12,7 @@ namespace Mall.Web.Back.Controllers
     public class AdminController : Controller
     {
         // GET: Admin
-        private AdminService _adminService = new AdminService();
+        private EnterpriseService _enterpriseService = new EnterpriseService();
         private MenuViewService _ACService = new MenuViewService();
         public ActionResult Index()
         {
@@ -21,7 +21,7 @@ namespace Mall.Web.Back.Controllers
         [HttpGet]
         public ActionResult Login(string account, string password)
         {
-            Employee employee = _adminService.Login(account, password);
+            Employee employee = _enterpriseService.Login(account, password);
             if (employee != null)
             {
                 Session.Add("Employee", employee);

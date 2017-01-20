@@ -17,8 +17,8 @@ namespace Mall.Data.DataBase
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Roles()
         {
-            this.Permissions = new HashSet<Permissions>();
             this.Employee = new HashSet<Employee>();
+            this.Permissions = new HashSet<Permissions>();
         }
     
         public int RoleId { get; set; }
@@ -27,8 +27,8 @@ namespace Mall.Data.DataBase
         public System.DateTime CreationTime { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Permissions> Permissions { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Employee> Employee { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Permissions> Permissions { get; set; }
     }
 }

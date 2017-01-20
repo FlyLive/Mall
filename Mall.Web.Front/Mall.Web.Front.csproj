@@ -120,6 +120,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -128,10 +130,35 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Css\Home\Home.css" />
+    <Content Include="Css\Shared\Foot.css" />
+    <Content Include="Css\Shared\Head.css" />
+    <Content Include="Css\Users\BuyNow.css" />
+    <Content Include="Css\Users\Evaluate.css" />
+    <Content Include="Css\Users\Index.css" />
+    <Content Include="Css\Users\ConfirmReceipt.css" />
+    <Content Include="Css\Users\OrderDetails.css" />
+    <Content Include="Css\Users\Registe.css" />
+    <Content Include="Css\Users\RetrievePW.css" />
+    <Content Include="Css\Users\ShoppingCart.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Pictures\Chat\chat_bg.jpg" />
+    <Content Include="Pictures\Chat\Img\Img1.gif" />
+    <Content Include="Pictures\Chat\Img\Img2.gif" />
+    <Content Include="Pictures\Chat\Img\Img3.gif" />
+    <Content Include="Pictures\Chat\Img\Img4.gif" />
+    <Content Include="Pictures\Chat\电脑%28Myself%29.png" />
+    <Content Include="Pictures\Chat\电脑%28Others%29.png" />
+    <Content Include="Pictures\Shared\contact.png" />
+    <Content Include="Pictures\Shared\phone.png" />
+    <Content Include="Pictures\Shared\Search%28Touch%29.png" />
+    <Content Include="Pictures\Shared\Search%28UnTouch%29.png" />
+    <Content Include="Pictures\Shared\Welcome.png" />
+    <Content Include="Pictures\Shared\云翳%28logo%29.png" />
+    <Content Include="Pictures\Users\图书.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -154,14 +181,23 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Web.config" />
-    <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Layout\_Layout.cshtml" />
+    <Content Include="Views\Users\BuyNow.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Users\Registe.cshtml" />
+    <Content Include="Views\Shared\_Head.cshtml" />
+    <Content Include="Views\Shared\_Foot.cshtml" />
+    <Content Include="Views\Home\Home.cshtml" />
+    <Content Include="Views\Users\RetrievePW.cshtml" />
+    <Content Include="Views\Users\ShoppingCart.cshtml" />
+    <Content Include="Views\Users\OrderDetails.cshtml" />
+    <Content Include="Views\Users\ConfirmReceipt.cshtml" />
+    <Content Include="Views\Users\Evaluate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
     <Folder Include="Models\" />
+    <Folder Include="Pictures\Home\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -169,6 +205,12 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Mall.Data\Mall.Data.csproj">
+      <Project>{FB895D52-0C48-41D2-B323-F4711FC67C38}</Project>
+      <Name>Mall.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -37,8 +37,8 @@ namespace Mall.Data.DataBase
         public virtual DbSet<Order> Order { get; set; }
         public virtual DbSet<Permissions> Permissions { get; set; }
         public virtual DbSet<Refund> Refund { get; set; }
-        public virtual DbSet<Roles> Roles { get; set; }
-        public virtual DbSet<ShoppingCart> ShoppingCart { get; set; }
         public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<ShoppingCart> ShoppingCart { get; set; }
+        public virtual DbSet<Roles> Roles { get; set; }
     }
 }

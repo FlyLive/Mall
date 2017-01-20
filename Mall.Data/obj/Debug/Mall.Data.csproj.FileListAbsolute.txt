@@ -8,3 +8,4 @@ C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Data\bin\Debug\Entit
 C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Data\bin\Debug\zh-Hans\EntityFramework.resources.dll
 C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Data\obj\Debug\Mall.Data.dll
 C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Data\obj\Debug\Mall.Data.pdb
+C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Data\obj\Debug\Mall.Data.csprojResolveAssemblyReference.cache

@@ -1,4 +1,4 @@
-﻿/*! AdminLTE app.js
+/*! AdminLTE app.js
  * ================
  * Main JS application file for AdminLTE v2. This file
  * should be included in all pages. It controls some layout
@@ -40,7 +40,7 @@ $.AdminLTE.options = {
     navbarMenuSlimscrollWidth: "3px", //The width of the scroll bar
     navbarMenuHeight: "200px", //The height of the inner menu
     //General animation speed for JS animated elements such as box collapse/expand and
-    //sidebar MenuViewModelview slide up/down. This options accepts an integer as milliseconds,
+    //sidebar treeview slide up/down. This options accepts an integer as milliseconds,
     //'fast', 'normal', or 'slow'
     animationSpeed: 500,
     //Sidebar push menu toggle button selector
@@ -159,8 +159,8 @@ $(function () {
     //Activate the layout maker
     $.AdminLTE.layout.activate();
 
-    //Enable sidebar MenuViewModel view controls
-    $.AdminLTE.MenuViewModel('.sidebar');
+    //Enable sidebar tree view controls
+    $.AdminLTE.tree('.sidebar');
 
     //Enable control sidebar
     if (o.enableControlSidebar) {
@@ -377,15 +377,15 @@ function _init() {
         }
     };
 
-    /* MenuViewModel()
+    /* Tree()
      * ======
      * Converts the sidebar into a multilevel
-     * MenuViewModel view menu.
+     * tree view menu.
      *
      * @type Function
-     * @Usage: $.AdminLTE.MenuViewModel('.sidebar')
+     * @Usage: $.AdminLTE.tree('.sidebar')
      */
-    $.AdminLTE.MenuViewModel = function (menu) {
+    $.AdminLTE.tree = function (menu) {
         var _this = this;
         var animationSpeed = $.AdminLTE.options.animationSpeed;
         $(document).off('click', menu + ' li a')
@@ -395,7 +395,7 @@ function _init() {
               var checkElement = $this.next();
 
               //Check if the next element is a menu and is visible
-              if ((checkElement.is('.MenuViewModelview-menu')) && (checkElement.is(':visible')) && (!$('body').hasClass('sidebar-collapse'))) {
+              if ((checkElement.is('.treeview-menu')) && (checkElement.is(':visible')) && (!$('body').hasClass('sidebar-collapse'))) {
                   //Close the menu
                   checkElement.slideUp(animationSpeed, function () {
                       checkElement.removeClass('menu-open');
@@ -405,7 +405,7 @@ function _init() {
                   checkElement.parent("li").removeClass("active");
               }
                   //If the menu is not visible
-              else if ((checkElement.is('.MenuViewModelview-menu')) && (!checkElement.is(':visible'))) {
+              else if ((checkElement.is('.treeview-menu')) && (!checkElement.is(':visible'))) {
                   //Get the parent menu
                   var parent = $this.parents('ul').first();
                   //Close all open menus within the parent
@@ -426,7 +426,7 @@ function _init() {
                   });
               }
               //if this isn't a link, prevent the page from being redirected
-              if (checkElement.is('.MenuViewModelview-menu')) {
+              if (checkElement.is('.treeview-menu')) {
                   e.preventDefault();
               }
           });
