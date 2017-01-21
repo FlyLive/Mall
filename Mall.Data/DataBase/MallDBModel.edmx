@@ -30,7 +30,7 @@
           </Key>
           <Property Name="ClientId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserId" Type="int" Nullable="false" />
-          <Property Name="Wallet" Type="int" Nullable="false" />
+          <Property Name="Wallet" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="Comment">
           <Key>
@@ -535,20 +535,6 @@
           <Property Name="Url" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="Category" Type="Int32" Nullable="false" />
         </EntityType>
-        <EntityType Name="Client">
-          <Key>
-            <PropertyRef Name="ClientId" />
-          </Key>
-          <Property Name="ClientId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="Int32" Nullable="false" />
-          <Property Name="Wallet" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="User" Relationship="Self.FK_CLIENT_REFERENCE_USER" FromRole="Client" ToRole="User" />
-          <NavigationProperty Name="Comment" Relationship="Self.FK_COMMENT_REFERENCE_CLIENT" FromRole="Client" ToRole="Comment" />
-          <NavigationProperty Name="DeliveryInfo" Relationship="Self.FK_DELIVERY_REFERENCE_CLIENT" FromRole="Client" ToRole="DeliveryInfo" />
-          <NavigationProperty Name="Order" Relationship="Self.FK_ORDER_REFERENCE_CLIENT" FromRole="Client" ToRole="Order" />
-          <NavigationProperty Name="Refund" Relationship="Self.FK_REFUND_REFERENCE_CLIENT" FromRole="Client" ToRole="Refund" />
-          <NavigationProperty Name="ShoppingCart" Relationship="MallDBModel.FK_SHOPPING_REFERENCE_CLIENT" FromRole="Client" ToRole="ShoppingCart" />
-        </EntityType>
         <EntityType Name="Comment">
           <Key>
             <PropertyRef Name="CommentId" />
@@ -560,8 +546,8 @@
           <Property Name="CommentTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Rank" Type="Int32" Nullable="false" />
           <Property Name="ParentId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Client" Relationship="Self.FK_COMMENT_REFERENCE_CLIENT" FromRole="Comment" ToRole="Client" />
           <NavigationProperty Name="GoodsInfo" Relationship="Self.FK_COMMENT_REFERENCE_GOODSINF" FromRole="Comment" ToRole="GoodsInfo" />
+          <NavigationProperty Name="Client" Relationship="MallDBModel.FK_COMMENT_REFERENCE_CLIENT" FromRole="Comment" ToRole="Client" />
         </EntityType>
         <EntityType Name="DeliveryInfo">
           <Key>
@@ -572,7 +558,7 @@
           <Property Name="Consignee" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="DetailedAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="PhoneNumber" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Client" Relationship="Self.FK_DELIVERY_REFERENCE_CLIENT" FromRole="DeliveryInfo" ToRole="Client" />
+          <NavigationProperty Name="Client" Relationship="MallDBModel.FK_DELIVERY_REFERENCE_CLIENT" FromRole="DeliveryInfo" ToRole="Client" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -580,9 +566,9 @@
           </Key>
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <Property Name="EmployeeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="User" Relationship="Self.FK_EMPLOYEE_REFERENCE_USER" FromRole="Employee" ToRole="User" />
           <NavigationProperty Name="Permissions" Relationship="Self.EmployeePermissions" FromRole="Employee" ToRole="Permissions" />
           <NavigationProperty Name="Roles" Relationship="MallDBModel.EmployeeRoles" FromRole="Employee" ToRole="Roles" />
+          <NavigationProperty Name="User" Relationship="MallDBModel.FK_EMPLOYEE_REFERENCE_USER" FromRole="Employee" ToRole="User" />
         </EntityType>
         <EntityType Name="GoodsInfo">
           <Key>
@@ -626,28 +612,6 @@
           <Property Name="MenuPath" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="URL" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="Order">
-          <Key>
-            <PropertyRef Name="OrderId" />
-          </Key>
-          <Property Name="OrderId" Type="Guid" Nullable="false" />
-          <Property Name="ClientId" Type="Int32" />
-          <Property Name="GoodsName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Price" Type="Double" Nullable="false" />
-          <Property Name="Count" Type="Int32" Nullable="false" />
-          <Property Name="DeliveryAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Consignee" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="PhoneNumber" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="State" Type="Int32" Nullable="false" />
-          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="PaymentTime" Type="DateTime" Precision="3" />
-          <Property Name="DeliveryTime" Type="DateTime" Precision="3" />
-          <Property Name="IsDelete" Type="Boolean" Nullable="false" />
-          <Property Name="ClientRemark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="OrderRemark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Client" Relationship="Self.FK_ORDER_REFERENCE_CLIENT" FromRole="Order" ToRole="Client" />
-          <NavigationProperty Name="Refund" Relationship="Self.FK_REFUND_REFERENCE_ORDER" FromRole="Order" ToRole="Refund" />
-        </EntityType>
         <EntityType Name="Permissions">
           <Key>
             <PropertyRef Name="PermissionId" />
@@ -669,85 +633,9 @@
           <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="DealTime" Type="DateTime" Precision="3" />
           <Property Name="Remark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Client" Relationship="Self.FK_REFUND_REFERENCE_CLIENT" FromRole="Refund" ToRole="Client" />
-          <NavigationProperty Name="Order" Relationship="Self.FK_REFUND_REFERENCE_ORDER" FromRole="Refund" ToRole="Order" />
+          <NavigationProperty Name="Client" Relationship="MallDBModel.FK_REFUND_REFERENCE_CLIENT" FromRole="Refund" ToRole="Client" />
+          <NavigationProperty Name="Order" Relationship="MallDBModel.FK_REFUND_REFERENCE_ORDER" FromRole="Refund" ToRole="Order" />
         </EntityType>
-        <EntityType Name="User">
-          <Key>
-            <PropertyRef Name="UserId" />
-          </Key>
-          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Account" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="NickName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Gender" Type="Boolean" />
-          <Property Name="Birthday" Type="DateTime" Precision="3" />
-          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="PhoneNumber" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Client" Relationship="Self.FK_CLIENT_REFERENCE_USER" FromRole="User" ToRole="Client" />
-          <NavigationProperty Name="Employee" Relationship="Self.FK_EMPLOYEE_REFERENCE_USER" FromRole="User" ToRole="Employee" />
-        </EntityType>
-        <Association Name="FK_CLIENT_REFERENCE_USER">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="Client" Type="Self.Client" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="Client">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_COMMENT_REFERENCE_CLIENT">
-          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
-          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Client">
-              <PropertyRef Name="ClientId" />
-            </Principal>
-            <Dependent Role="Comment">
-              <PropertyRef Name="ClientId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DELIVERY_REFERENCE_CLIENT">
-          <End Role="Client" Type="Self.Client" Multiplicity="1" />
-          <End Role="DeliveryInfo" Type="Self.DeliveryInfo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Client">
-              <PropertyRef Name="ClientId" />
-            </Principal>
-            <Dependent Role="DeliveryInfo">
-              <PropertyRef Name="ClientId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ORDER_REFERENCE_CLIENT">
-          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
-          <End Role="Order" Type="Self.Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Client">
-              <PropertyRef Name="ClientId" />
-            </Principal>
-            <Dependent Role="Order">
-              <PropertyRef Name="ClientId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_REFUND_REFERENCE_CLIENT">
-          <End Role="Client" Type="Self.Client" Multiplicity="1" />
-          <End Role="Refund" Type="Self.Refund" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Client">
-              <PropertyRef Name="ClientId" />
-            </Principal>
-            <Dependent Role="Refund">
-              <PropertyRef Name="ClientId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_COMMENT_REFERENCE_GOODSINF">
           <End Role="GoodsInfo" Type="Self.GoodsInfo" Multiplicity="0..1" />
           <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
@@ -757,18 +645,6 @@
             </Principal>
             <Dependent Role="Comment">
               <PropertyRef Name="GoodsId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_EMPLOYEE_REFERENCE_USER">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="Employee">
-              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -784,18 +660,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_REFUND_REFERENCE_ORDER">
-          <End Role="Order" Type="Self.Order" Multiplicity="1" />
-          <End Role="Refund" Type="Self.Refund" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Order">
-              <PropertyRef Name="OrderId" />
-            </Principal>
-            <Dependent Role="Refund">
-              <PropertyRef Name="OrderId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="EmployeePermissions">
           <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
           <End Role="Permissions" Type="Self.Permissions" Multiplicity="*" />
@@ -803,62 +667,27 @@
         <EntityContainer Name="MallDBContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AdminLog" EntityType="Self.AdminLog" />
           <EntitySet Name="Advertisement" EntityType="Self.Advertisement" />
-          <EntitySet Name="Client" EntityType="Self.Client" />
           <EntitySet Name="Comment" EntityType="Self.Comment" />
           <EntitySet Name="DeliveryInfo" EntityType="Self.DeliveryInfo" />
           <EntitySet Name="Employee" EntityType="Self.Employee" />
           <EntitySet Name="GoodsInfo" EntityType="Self.GoodsInfo" />
           <EntitySet Name="Image" EntityType="Self.Image" />
           <EntitySet Name="Menus" EntityType="Self.Menus" />
-          <EntitySet Name="Order" EntityType="Self.Order" />
           <EntitySet Name="Permissions" EntityType="Self.Permissions" />
           <EntitySet Name="Refund" EntityType="Self.Refund" />
-          <EntitySet Name="User" EntityType="Self.User" />
-          <AssociationSet Name="FK_CLIENT_REFERENCE_USER" Association="Self.FK_CLIENT_REFERENCE_USER">
-            <End Role="User" EntitySet="User" />
-            <End Role="Client" EntitySet="Client" />
-          </AssociationSet>
-          <AssociationSet Name="FK_COMMENT_REFERENCE_CLIENT" Association="Self.FK_COMMENT_REFERENCE_CLIENT">
-            <End Role="Client" EntitySet="Client" />
-            <End Role="Comment" EntitySet="Comment" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DELIVERY_REFERENCE_CLIENT" Association="Self.FK_DELIVERY_REFERENCE_CLIENT">
-            <End Role="Client" EntitySet="Client" />
-            <End Role="DeliveryInfo" EntitySet="DeliveryInfo" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ORDER_REFERENCE_CLIENT" Association="Self.FK_ORDER_REFERENCE_CLIENT">
-            <End Role="Client" EntitySet="Client" />
-            <End Role="Order" EntitySet="Order" />
-          </AssociationSet>
-          <AssociationSet Name="FK_REFUND_REFERENCE_CLIENT" Association="Self.FK_REFUND_REFERENCE_CLIENT">
-            <End Role="Client" EntitySet="Client" />
-            <End Role="Refund" EntitySet="Refund" />
-          </AssociationSet>
           <AssociationSet Name="FK_COMMENT_REFERENCE_GOODSINF" Association="Self.FK_COMMENT_REFERENCE_GOODSINF">
             <End Role="GoodsInfo" EntitySet="GoodsInfo" />
             <End Role="Comment" EntitySet="Comment" />
           </AssociationSet>
-          <AssociationSet Name="FK_EMPLOYEE_REFERENCE_USER" Association="Self.FK_EMPLOYEE_REFERENCE_USER">
-            <End Role="User" EntitySet="User" />
-            <End Role="Employee" EntitySet="Employee" />
-          </AssociationSet>
           <AssociationSet Name="FK_IMAGE_REFERENCE_GOODSINF" Association="Self.FK_IMAGE_REFERENCE_GOODSINF">
             <End Role="GoodsInfo" EntitySet="GoodsInfo" />
             <End Role="Image" EntitySet="Image" />
-          </AssociationSet>
-          <AssociationSet Name="FK_REFUND_REFERENCE_ORDER" Association="Self.FK_REFUND_REFERENCE_ORDER">
-            <End Role="Order" EntitySet="Order" />
-            <End Role="Refund" EntitySet="Refund" />
           </AssociationSet>
           <AssociationSet Name="EmployeePermissions" Association="Self.EmployeePermissions">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="Permissions" EntitySet="Permissions" />
           </AssociationSet>
           <EntitySet Name="ShoppingCart" EntityType="MallDBModel.ShoppingCart" />
-          <AssociationSet Name="FK_SHOPPING_REFERENCE_CLIENT" Association="MallDBModel.FK_SHOPPING_REFERENCE_CLIENT">
-            <End Role="Client" EntitySet="Client" />
-            <End Role="ShoppingCart" EntitySet="ShoppingCart" />
-          </AssociationSet>
           <AssociationSet Name="Gi_scRelationship" Association="MallDBModel.Gi_scRelationship">
             <End Role="GoodsInfo" EntitySet="GoodsInfo" />
             <End Role="ShoppingCart" EntitySet="ShoppingCart" />
@@ -872,6 +701,41 @@
             <End Role="Permissions" EntitySet="Permissions" />
             <End Role="Roles" EntitySet="Roles" />
           </AssociationSet>
+          <EntitySet Name="User" EntityType="MallDBModel.User" />
+          <AssociationSet Name="FK_EMPLOYEE_REFERENCE_USER" Association="MallDBModel.FK_EMPLOYEE_REFERENCE_USER">
+            <End Role="User" EntitySet="User" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <EntitySet Name="Client" EntityType="MallDBModel.Client" />
+          <AssociationSet Name="FK_CLIENT_REFERENCE_USER" Association="MallDBModel.FK_CLIENT_REFERENCE_USER">
+            <End Role="User" EntitySet="User" />
+            <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK_COMMENT_REFERENCE_CLIENT" Association="MallDBModel.FK_COMMENT_REFERENCE_CLIENT">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DELIVERY_REFERENCE_CLIENT" Association="MallDBModel.FK_DELIVERY_REFERENCE_CLIENT">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="DeliveryInfo" EntitySet="DeliveryInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REFUND_REFERENCE_CLIENT" Association="MallDBModel.FK_REFUND_REFERENCE_CLIENT">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Refund" EntitySet="Refund" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SHOPPING_REFERENCE_CLIENT" Association="MallDBModel.FK_SHOPPING_REFERENCE_CLIENT">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="ShoppingCart" EntitySet="ShoppingCart" />
+          </AssociationSet>
+          <EntitySet Name="Order" EntityType="MallDBModel.Order" />
+          <AssociationSet Name="FK_ORDER_REFERENCE_CLIENT" Association="MallDBModel.FK_ORDER_REFERENCE_CLIENT">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REFUND_REFERENCE_ORDER" Association="MallDBModel.FK_REFUND_REFERENCE_ORDER">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="Refund" EntitySet="Refund" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="ShoppingCart">
           <Key>
@@ -881,21 +745,9 @@
           <Property Name="ClientId" Type="Int32" />
           <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Number" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Client" Relationship="MallDBModel.FK_SHOPPING_REFERENCE_CLIENT" FromRole="ShoppingCart" ToRole="Client" />
           <NavigationProperty Name="GoodsInfo" Relationship="MallDBModel.Gi_scRelationship" FromRole="ShoppingCart" ToRole="GoodsInfo" />
+          <NavigationProperty Name="Client" Relationship="MallDBModel.FK_SHOPPING_REFERENCE_CLIENT" FromRole="ShoppingCart" ToRole="Client" />
         </EntityType>
-        <Association Name="FK_SHOPPING_REFERENCE_CLIENT">
-          <End Type="MallDBModel.Client" Role="Client" Multiplicity="0..1" />
-          <End Type="MallDBModel.ShoppingCart" Role="ShoppingCart" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Client">
-              <PropertyRef Name="ClientId" />
-            </Principal>
-            <Dependent Role="ShoppingCart">
-              <PropertyRef Name="ClientId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="Gi_scRelationship">
           <End Type="MallDBModel.GoodsInfo" Role="GoodsInfo" Multiplicity="*" />
           <End Type="MallDBModel.ShoppingCart" Role="ShoppingCart" Multiplicity="*" />
@@ -918,6 +770,154 @@
         <Association Name="RolePermissions">
           <End Type="MallDBModel.Permissions" Role="Permissions" Multiplicity="*" />
           <End Type="MallDBModel.Roles" Role="Roles" Multiplicity="*" />
+        </Association>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Account" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="NickName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="Boolean" />
+          <Property Name="Birthday" Type="DateTime" Precision="3" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Employee" Relationship="MallDBModel.FK_EMPLOYEE_REFERENCE_USER" FromRole="User" ToRole="Employee" />
+          <NavigationProperty Name="Client" Relationship="MallDBModel.FK_CLIENT_REFERENCE_USER" FromRole="User" ToRole="Client" />
+        </EntityType>
+        <Association Name="FK_EMPLOYEE_REFERENCE_USER">
+          <End Type="MallDBModel.User" Role="User" Multiplicity="1" />
+          <End Type="MallDBModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="ClientId" />
+          </Key>
+          <Property Name="ClientId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="Wallet" Type="Double" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="MallDBModel.FK_CLIENT_REFERENCE_USER" FromRole="Client" ToRole="User" />
+          <NavigationProperty Name="Comment" Relationship="MallDBModel.FK_COMMENT_REFERENCE_CLIENT" FromRole="Client" ToRole="Comment" />
+          <NavigationProperty Name="DeliveryInfo" Relationship="MallDBModel.FK_DELIVERY_REFERENCE_CLIENT" FromRole="Client" ToRole="DeliveryInfo" />
+          <NavigationProperty Name="Refund" Relationship="MallDBModel.FK_REFUND_REFERENCE_CLIENT" FromRole="Client" ToRole="Refund" />
+          <NavigationProperty Name="ShoppingCart" Relationship="MallDBModel.FK_SHOPPING_REFERENCE_CLIENT" FromRole="Client" ToRole="ShoppingCart" />
+          <NavigationProperty Name="Order" Relationship="MallDBModel.FK_ORDER_REFERENCE_CLIENT" FromRole="Client" ToRole="Order" />
+        </EntityType>
+        <Association Name="FK_CLIENT_REFERENCE_USER">
+          <End Type="MallDBModel.User" Role="User" Multiplicity="1" />
+          <End Type="MallDBModel.Client" Role="Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_COMMENT_REFERENCE_CLIENT">
+          <End Type="MallDBModel.Client" Role="Client" Multiplicity="0..1" />
+          <End Type="MallDBModel.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DELIVERY_REFERENCE_CLIENT">
+          <End Type="MallDBModel.Client" Role="Client" Multiplicity="1" />
+          <End Type="MallDBModel.DeliveryInfo" Role="DeliveryInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="DeliveryInfo">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REFUND_REFERENCE_CLIENT">
+          <End Type="MallDBModel.Client" Role="Client" Multiplicity="1" />
+          <End Type="MallDBModel.Refund" Role="Refund" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="Refund">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SHOPPING_REFERENCE_CLIENT">
+          <End Type="MallDBModel.Client" Role="Client" Multiplicity="0..1" />
+          <End Type="MallDBModel.ShoppingCart" Role="ShoppingCart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="ShoppingCart">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="OrderId" />
+          </Key>
+          <Property Name="OrderId" Type="Guid" Nullable="false" />
+          <Property Name="ClientId" Type="Int32" />
+          <Property Name="GoodsName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Double" Nullable="false" />
+          <Property Name="Count" Type="Int32" Nullable="false" />
+          <Property Name="DeliveryAddress" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Consignee" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="Int32" Nullable="false" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PaymentTime" Type="DateTime" Precision="3" />
+          <Property Name="DeliveryTime" Type="DateTime" Precision="3" />
+          <Property Name="IsDelete" Type="Boolean" Nullable="false" />
+          <Property Name="ClientRemark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OrderRemark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Client" Relationship="MallDBModel.FK_ORDER_REFERENCE_CLIENT" FromRole="Order" ToRole="Client" />
+          <NavigationProperty Name="Refund" Relationship="MallDBModel.FK_REFUND_REFERENCE_ORDER" FromRole="Order" ToRole="Refund" />
+        </EntityType>
+        <Association Name="FK_ORDER_REFERENCE_CLIENT">
+          <End Type="MallDBModel.Client" Role="Client" Multiplicity="0..1" />
+          <End Type="MallDBModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REFUND_REFERENCE_ORDER">
+          <End Type="MallDBModel.Order" Role="Order" Multiplicity="1" />
+          <End Type="MallDBModel.Refund" Role="Refund" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="OrderId" />
+            </Principal>
+            <Dependent Role="Refund">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -943,15 +943,6 @@
                 <ScalarProperty Name="ImageId" ColumnName="ImageId" />
                 <ScalarProperty Name="Url" ColumnName="Url" />
                 <ScalarProperty Name="Category" ColumnName="Category" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Client">
-            <EntityTypeMapping TypeName="MallDBModel.Client">
-              <MappingFragment StoreEntitySet="Client">
-                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Wallet" ColumnName="Wallet" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1028,27 +1019,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Order">
-            <EntityTypeMapping TypeName="MallDBModel.Order">
-              <MappingFragment StoreEntitySet="Order">
-                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
-                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
-                <ScalarProperty Name="GoodsName" ColumnName="GoodsName" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="Count" ColumnName="Count" />
-                <ScalarProperty Name="DeliveryAddress" ColumnName="DeliveryAddress" />
-                <ScalarProperty Name="Consignee" ColumnName="Consignee" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="State" ColumnName="State" />
-                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
-                <ScalarProperty Name="PaymentTime" ColumnName="PaymentTime" />
-                <ScalarProperty Name="DeliveryTime" ColumnName="DeliveryTime" />
-                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
-                <ScalarProperty Name="ClientRemark" ColumnName="ClientRemark" />
-                <ScalarProperty Name="OrderRemark" ColumnName="OrderRemark" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Permissions">
             <EntityTypeMapping TypeName="MallDBModel.Permissions">
               <MappingFragment StoreEntitySet="Permissions">
@@ -1068,21 +1038,6 @@
                 <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
                 <ScalarProperty Name="DealTime" ColumnName="DealTime" />
                 <ScalarProperty Name="Remark" ColumnName="Remark" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="User">
-            <EntityTypeMapping TypeName="MallDBModel.User">
-              <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Account" ColumnName="Account" />
-                <ScalarProperty Name="NickName" ColumnName="NickName" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
-                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1138,6 +1093,51 @@
               <ScalarProperty Name="PermissionId" ColumnName="PermissionId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="MallDBModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="NickName" ColumnName="NickName" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Client">
+            <EntityTypeMapping TypeName="MallDBModel.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="Wallet" ColumnName="Wallet" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Order">
+            <EntityTypeMapping TypeName="MallDBModel.Order">
+              <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="OrderRemark" ColumnName="OrderRemark" />
+                <ScalarProperty Name="ClientRemark" ColumnName="ClientRemark" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="DeliveryTime" ColumnName="DeliveryTime" />
+                <ScalarProperty Name="PaymentTime" ColumnName="PaymentTime" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Consignee" ColumnName="Consignee" />
+                <ScalarProperty Name="DeliveryAddress" ColumnName="DeliveryAddress" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="GoodsName" ColumnName="GoodsName" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

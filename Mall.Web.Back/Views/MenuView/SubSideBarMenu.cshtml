@@ -4,7 +4,7 @@
     @foreach (var item in Model)
     {
         <li>
-            <a href='@item.Url' id='@item.Id' class='menu'>
+            <a href='#' id='@item.Id' class='menu'>
                 <i class="fa fa-circle-o"></i>
                 <span>@item.Name</span>
                 @if (item.Childs.Count > 0)

@@ -10,14 +10,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
 
     <link href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Css/Shared/font-awesome.min.css" rel="stylesheet" />
     <link href="~/Css/MenuView/AdminLTE.css" rel="stylesheet" />
     <link href="~/Css/MenuView/_all-skins.css" rel="stylesheet" />
     <link href="~/Css/MenuView/boot.css" rel="stylesheet" />
     <link href="~/Css/MenuView/blue.css" rel="stylesheet" />
     <link href="~/Css/MenuView/morris.css" rel="stylesheet" />
+    <link href="~/Css/Shared/Foot.css" rel="stylesheet" />
     @Scripts.Render("~/bundles/modernizr")
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body @*class="hold-transition skin-blue sidebar-mini"*@>
     <div class="wrapper">
 
         @Html.Partial("MenuView/_Header")
@@ -32,7 +34,7 @@
         </div>
         @Html.Partial("MenuView/_SideBar")
 
-        @Html.Partial("MenuView/_Foot")
+        @Html.Partial("_Foot")
 
         @Html.Partial("MenuView/_ControlSideBar")
     </div>
@@ -44,6 +46,7 @@
     <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
     <script src="~/Js/MenuView/app.js"></script>
+    @RenderSection("css", required: false)
     @RenderSection("scripts", required: false)
 </body>
 </html>

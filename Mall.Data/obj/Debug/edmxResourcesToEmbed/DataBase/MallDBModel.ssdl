@@ -25,7 +25,7 @@
     </Key>
     <Property Name="ClientId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="UserId" Type="int" Nullable="false" />
-    <Property Name="Wallet" Type="int" Nullable="false" />
+    <Property Name="Wallet" Type="float" Nullable="false" />
   </EntityType>
   <EntityType Name="Comment">
     <Key>

@@ -159,6 +159,7 @@
     <Content Include="Css\MenuView\boot.css" />
     <Content Include="Css\MenuView\morris.css" />
     <Content Include="Css\MenuView\_all-skins.css" />
+    <Content Include="Css\Shared\font-awesome.min.css" />
     <Content Include="Css\Shared\Foot.css" />
     <Content Include="Css\Shared\Head.css" />
     <Content Include="favicon.ico" />
@@ -219,7 +220,6 @@
     <Content Include="Views\MenuView\SideBarMenuByPermissions.cshtml" />
     <Content Include="Views\MenuView\SubSideBarMenu.cshtml" />
     <Content Include="Views\Shared\MenuView\_ControlSideBar.cshtml" />
-    <Content Include="Views\Shared\MenuView\_Foot.cshtml" />
     <Content Include="Views\Shared\MenuView\_Header.cshtml" />
     <Content Include="Views\Shared\MenuView\_Layout.cshtml" />
     <Content Include="Views\Shared\MenuView\_SideBar.cshtml" />
@@ -227,6 +227,13 @@
     <Content Include="Views\Admin\EmployeeInfor.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Layout\_AdminTLE.cshtml" />
+    <Content Include="Views\Admin\HomeSet.cshtml" />
+    <Content Include="Views\Admin\PersonalInfoSet.cshtml" />
+    <Content Include="Views\Admin\SecuritySet.cshtml" />
+    <Content Include="Views\Admin\ReplyEvaluate.cshtml" />
+    <Content Include="Views\Admin\AdvertisementSet.cshtml" />
+    <Content Include="Views\Admin\RecommendSet.cshtml" />
+    <Content Include="Views\Admin\ClassSet.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

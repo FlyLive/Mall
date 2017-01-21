@@ -1,5 +1,5 @@
 ﻿using Mall.Data.DataBase;
-using Mall.Data.IManagers.Enterprise;
+using Mall.Data.Interface.Enterprise;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Mall.Data.Services.Enterprise
 {
-    public class OrderService : IDisposable, IOrderEntepriseManager
+    public class OrderService : IDisposable, IOrderEntepriseApplicationService
     {
         private MallDBContext _db;
 

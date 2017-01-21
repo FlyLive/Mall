@@ -1,6 +1,6 @@
 ﻿using Mall.Data.DataBase;
-using Mall.Data.IManagers.Client;
-using Mall.Data.IManagers.Enterprise;
+using Mall.Data.Interface.Client;
+using Mall.Data.Interface.Enterprise;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Mall.Data.Services.Client
 {
-    public class ClientService : IDisposable , IUserClientManager
+    public class ClientService : IDisposable , IUserClientApplicationService
     {
         private MallDBContext _db;
 
@@ -141,7 +141,23 @@ namespace Mall.Data.Services.Client
         /// <param name="user"></param>
         public void ModifyUserInfo(User user,int clientId)
         {
-            
+            DataBase.Client client = GetClientById(clientId);
+            user.UserId = client.UserId;
+
+            _db.User.Remove(client.User);
+            _db.User.Add(user);
+
+            _db.SaveChanges();
+        }
+
+        /// <summary>
+        /// 新建收货信息
+        /// </summary>
+        /// <param name="deliverInfo"></param>
+        public void CreatDeliverInfo(DeliveryInfo deliverInfo)
+        {
+            _db.DeliveryInfo.Add(deliverInfo);
+            _db.SaveChanges();
         }
 
         /// <summary>

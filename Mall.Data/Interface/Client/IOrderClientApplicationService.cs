@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Mall.Data.IManagers.Client
+namespace Mall.Data.Interface.Client
 {
     public interface IOrderClientManager
     {

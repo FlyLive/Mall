@@ -11,13 +11,13 @@ namespace Mall.Web.Back.Controllers
 {
     public class AdminController : Controller
     {
-        // GET: Admin
         private EnterpriseService _enterpriseService = new EnterpriseService();
-        private MenuViewService _ACService = new MenuViewService();
+        private MenuViewService _menuViewService = new MenuViewService();
         public ActionResult Index()
         {
             return View();
         }
+
         [HttpGet]
         public ActionResult Login(string account, string password)
         {
@@ -29,14 +29,53 @@ namespace Mall.Web.Back.Controllers
             }
             return RedirectToAction("Index");
         }
+
         public ActionResult ManageCenter()
         {
             return View();
         }
+
         public ActionResult EmployeeInfor()
         {
-            Employee employee = (Employee)Session["Employee"];
+            //Employee employee = (Employee)Session["Employee"];
+            Employee employee = _enterpriseService.Login("001", "123456");
+            Session.Add("Employee", employee);
             return PartialView(employee.User);
+        }
+
+        public ActionResult HomeSet()
+        {
+            return View();
+        }
+
+        public ActionResult AdvertisementSet()
+        {
+            return View();
+        }
+
+        public ActionResult RecommendSet()
+        {
+            return View();
+        }
+
+        public ActionResult ClassSet()
+        {
+            return View();
+        }
+
+        public ActionResult PersonalInfoSet()
+        {
+            return View();
+        }
+
+        public ActionResult SecuritySet()
+        {
+            return View();
+        }
+
+        public ActionResult ReplyEvaluate()
+        {
+            return View();
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using Mall.Data.DataBase;
-using Mall.Data.IManagers.Enterprise;
+using Mall.Data.Interface.Enterprise;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Mall.Data.Services.Enterprise
 {
-    public class EnterpriseService : IDisposable, IUserEnterpriseManager
+    public class EnterpriseService : IDisposable, IUserEnterpriseApplicationService
     {
         private MallDBContext _db;
         public EnterpriseService()

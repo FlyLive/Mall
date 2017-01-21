@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Mall.Data.IManager.Enterprise
 {
-    public interface IGoodsManager
+    public interface IGoodsApplicationService
     {
         /// <summary>
         /// 添加商品

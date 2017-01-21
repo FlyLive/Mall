@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Mall.Data.IManagers.Enterprise
+namespace Mall.Data.Interface.Enterprise
 {
-    public interface IUserEnterpriseManager
+    public interface IUserEnterpriseApplicationService
     {
         /// <summary>
         /// 设置角色

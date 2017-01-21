@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Mall.Data.Services.Enterprise
 {
-    public class GoodsService : IDisposable, IGoodsManager
+    public class GoodsService : IDisposable, IGoodsApplicationService
     {
         private MallDBContext _db;
 

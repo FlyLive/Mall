@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Mall.Data.IManagers.Enterprise
+namespace Mall.Data.Interface.Enterprise
 {
-    public interface IOrderEntepriseManager
+    public interface IOrderEntepriseApplicationService
     {
         /// <summary>
         /// 接受订单

@@ -131,6 +131,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Css\Home\Home.css" />
+    <Content Include="Css\Shared\font-awesome.min.css" />
     <Content Include="Css\Shared\Foot.css" />
     <Content Include="Css\Shared\Head.css" />
     <Content Include="Css\Users\BuyNow.css" />
