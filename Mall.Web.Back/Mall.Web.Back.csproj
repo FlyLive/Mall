@@ -142,7 +142,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ChatController.cs" />
+    <Compile Include="Controllers\GoodsController.cs" />
     <Compile Include="Controllers\MenuViewController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -152,6 +154,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Css\Admin\CreateGoods.css" />
     <Content Include="Css\Admin\Login.css" />
     <Content Include="Css\Chat\Chat.css" />
     <Content Include="Css\MenuView\AdminLTE.css" />
@@ -230,10 +233,11 @@
     <Content Include="Views\Admin\HomeSet.cshtml" />
     <Content Include="Views\Admin\PersonalInfoSet.cshtml" />
     <Content Include="Views\Admin\SecuritySet.cshtml" />
-    <Content Include="Views\Admin\ReplyEvaluate.cshtml" />
+    <Content Include="Views\Order\ReplyEvaluate.cshtml" />
     <Content Include="Views\Admin\AdvertisementSet.cshtml" />
     <Content Include="Views\Admin\RecommendSet.cshtml" />
     <Content Include="Views\Admin\ClassSet.cshtml" />
+    <Content Include="Views\Goods\CreateGoods.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

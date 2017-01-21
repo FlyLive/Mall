@@ -4,11 +4,30 @@
     Layout = "~/Views/Layout/_Layout.cshtml";
 }
 
-<h2>RetrievePW</h2>
-<div class="">
-    用户名：<input />
-    Email：<input />
-    <button>重置密码</button>
+<div class="retrieve-head">
+    <h2 class="retrieve-head-titel">找回密码</h2>
+    <div class="retrieve-head-right">
+        <a href="Registe">注册</a>
+        |
+        <a href="Index">登录</a>
+    </div>
+</div>
+<div class="retrieve-body">
+    <p class="retrieve-body-sign">
+        <i class="fa fa-exclamation-circle" style="color:#68b5e2;"></i>&ensp;请输入您注册时使用的用户名和Email
+    </p>
+    <form action="">
+        <div class="retrieve-name">
+            <span class="retrieve-name-input">用户名:&emsp;</span>
+            <input name="name" placeholder="注册名/登录名" />
+            <span>忘记登录名？联系客服或重新注册</span>
+        </div>
+        <div class="retrieve-email">
+            <span class="retrieve-email-input">Email:&emsp;&ensp;</span>
+            <input name="email" placeholder="注册时的邮箱" type="email" />
+        </div>
+        <button type="submit">重置密码</button>
+    </form>
 </div>
 @section css{
     <link href="~/Css/Users/RetrievePW.css" rel="stylesheet" />

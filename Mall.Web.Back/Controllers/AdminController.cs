@@ -42,7 +42,7 @@ namespace Mall.Web.Back.Controllers
             Session.Add("Employee", employee);
             return PartialView(employee.User);
         }
-
+        #region 商城管理
         public ActionResult HomeSet()
         {
             return View();
@@ -62,7 +62,8 @@ namespace Mall.Web.Back.Controllers
         {
             return View();
         }
-
+        #endregion
+        #region 账户管理
         public ActionResult PersonalInfoSet()
         {
             return View();
@@ -72,10 +73,6 @@ namespace Mall.Web.Back.Controllers
         {
             return View();
         }
-
-        public ActionResult ReplyEvaluate()
-        {
-            return View();
-        }
+        #endregion
     }
 }

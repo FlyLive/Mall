@@ -1,2 +1,56 @@
-﻿body {
+﻿.retrieve-head{
+    background-color:#ECF0F1;
+    height:70px;
+}
+.retrieve-head-titel{
+    font-family: 隶书;
+    font-size: 50px;
+    color: #FF3300;
+    padding-left: 100px;
+}
+.retrieve-head-right{
+    margin: 0.83em 0px;
+    text-align: right;
+    position: relative;
+    top: -75px;
+    right: 100px;
+}
+.retrieve-head-right a{
+    color: #2ca9e1;
+}
+.retrieve-head-right a:hover{
+    color:#007ccc;
+}
+.retrieve-name,.retrieve-email{
+    margin:20px 0px 20px 500px;
+}
+.retrieve-body-sign{
+    color:;
+    margin:50px 0px;
+    padding-left:200px;
+}
+.retrieve-body .retrieve-name-input,.retrieve-body .retrieve-email-input{
+    font-size:;
+    color:#666666;
+}
+.retrieve-body input{
+    width: 200px;
+    font-size: 20px;
+    text-indent: 5px;
+}
+.retrieve-body button{
+    margin: 20px 0px 20px 580px;
+    font-size: 20px;
+    width: 150px;
+    height: 40px;
+    background-color:;
+    color:;
+}
+.retrieve-body button :hover{
+    background-color:;
+    color:;
+}
+.retrieve-body button :active{
+    background-color:;
+    color:;
 }

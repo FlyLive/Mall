@@ -1,0 +1,106 @@
+﻿
+@{
+    ViewBag.Title = "CreateGoods";
+    Layout = "~/Views/Layout/_AdminTLE.cshtml";
+}
+
+<h2>CreateGoods</h2>
+<div class="createGoods-all">
+    <form action="">
+        <table>
+            <tr>
+                <td>
+                    <div class="createGoods-left">
+                        <div class="createGoods-left-class">
+                            <p class="title">分类</p>
+                            <ul>
+                                <li>
+                                    <label>
+                                        <input name="recommend" type="checkbox" value="1" />类别一
+                                    </label>
+                                </li>
+                                <li>
+                                    <label>
+                                        <input name="recommend" type="checkbox" value="2" />类别二
+                                    </label>
+                                </li>
+                                <li>
+                                    <label>
+                                        <input name="recommend" type="checkbox" value="3" />类别三
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p class="title">商品名</p>
+                            <input class="input" type="text"/>
+                        </div>
+                        <div>
+                            <p class="title">作者</p>
+                            <input class="input" type="text"/>
+                        </div>
+                        <div>
+                            <p class="title">出版社</p>
+                            <input class="input" type="text"/>
+                        </div>
+                        <div>
+                            <p class="title">出版日期</p>
+                            <input class="input" type="date" />
+                        </div>
+                        <div>
+                            <p class="title">数量</p>
+                            <input class="input" type="number" min="1" value="1" />
+                        </div>
+                        <div>
+                            <p class="title">价格</p>
+                            <input class="input" type="text"/>
+                        </div>
+                        <div>
+                            <p class="title">运费</p>
+                            <input class="input" type="text"/>
+                        </div>
+                        <div>
+                            <p class="title">详细介绍</p>
+                            <textarea name="" ></textarea>
+                        </div>
+                        <div class="createGoods-left-shelves">
+                            <p class="title">立即上架</p>
+                            <label>
+                                <label><input name="onshelves" type="radio" value="1" />是</label>
+                                <label><input name="onshelves" type="radio" value="0" />否</label>
+                            </label>
+                        </div>
+                        <div class="">
+                            <button type="submit">立即添加</button>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="createGoods-right">
+                        <div>
+                            <p class="title">销售图片</p><button class="choice">+选择图片</button>
+                            <div class="preview">
+
+                            </div>
+                        </div>
+                        <div>
+                            <p class="title">轮播图片</p><button class="choice">+选择图片</button>
+                            <div class="preview">
+
+                            </div>
+                        </div>
+                        <div>
+                            <p class="title">详细图片</p><button class="choice">+选择图片</button>
+                            <div class="preview">
+
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+@section css{
+    <link href="~/Css/Admin/CreateGoods.css" rel="stylesheet" />
+}
