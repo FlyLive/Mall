@@ -1,0 +1,134 @@
+﻿
+@{
+    ViewBag.Title = "GoodsEdit";
+    Layout = "~/Views/Layout/_AdminTLE.cshtml";
+}
+
+<h2>GoodsEdit</h2>
+<div class="goods-search">
+    <div class="goods-search-class">
+        <ul>
+            <li>
+                <label>
+                    <input name="recommend" type="checkbox" value="1" />类别一
+                </label>
+            </li>
+            <li>
+                <label>
+                    <input name="recommend" type="checkbox" value="2" />类别二
+                </label>
+            </li>
+            <li>
+                <label>
+                    <input name="recommend" type="checkbox" value="3" />类别三
+                </label>
+            </li>
+        </ul>
+    </div>
+    <div class="goods-search-input">
+        <form action="">
+            <input />
+            <button type="submit">商品搜索</button>
+        </form>
+    </div>
+</div>
+<table>
+    <tr>
+        <td>
+            <div class="goods-menu">
+                <ul>
+                    <li>
+                        <a>
+                            <img src="~/Pictures/Shared/contact.png" />
+                        </a>
+                        <table>
+                            <tr>
+                                <td class="goods-menu-title">
+                                    商品名:&ensp;
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td class="goods-menu-title">
+                                    ID:&ensp;
+                                </td>
+                                <td></td>
+                            </tr>
+                        </table>
+                    </li>
+                </ul>
+            </div>
+        </td>
+        <td>
+            <div class="goods-edit">
+                <form action="">
+                    <div class="goods-edit-class">
+                        <p class="title">分类</p>
+                        <ul>
+                            <li>
+                                <label>
+                                    <input name="recommend" type="checkbox" value="1" />类别一
+                                </label>
+                            </li>
+                            <li>
+                                <label>
+                                    <input name="recommend" type="checkbox" value="2" />类别二
+                                </label>
+                            </li>
+                            <li>
+                                <label>
+                                    <input name="recommend" type="checkbox" value="3" />类别三
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <p class="title">商品名</p>
+                        <input class="input" type="text" />
+                    </div>
+                    <div>
+                        <p class="title">作者</p>
+                        <input class="input" type="text" />
+                    </div>
+                    <div>
+                        <p class="title">出版社</p>
+                        <input class="input" type="text" />
+                    </div>
+                    <div>
+                        <p class="title">出版日期</p>
+                        <input class="input" type="date" />
+                    </div>
+                    <div>
+                        <p class="title">数量</p>
+                        <input class="input" type="number" min="1" value="1" />
+                    </div>
+                    <div>
+                        <p class="title">价格</p>
+                        <input class="input" type="text" />
+                    </div>
+                    <div>
+                        <p class="title">运费</p>
+                        <input class="input" type="text" />
+                    </div>
+                    <div>
+                        <p class="title">详细介绍</p>
+                        <textarea name=""></textarea>
+                    </div>
+                    <div class="goods-edit-shelves">
+                        <p class="title">立即上架</p>
+                        <label>
+                            <label><input name="onshelves" type="radio" value="1" />是</label>
+                            <label><input name="onshelves" type="radio" value="0" />否</label>
+                        </label>
+                    </div>
+                    <div class="">
+                        <button type="submit">立即添加</button>
+                    </div>
+                </form>
+            </div>
+        </td>
+    </tr>
+</table>
+@section css{
+    <link href="~/Css/Goods/GoodsEdit.css" rel="stylesheet" />
+}

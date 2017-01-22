@@ -19,7 +19,6 @@ namespace Mall.Data.DataBase
         {
             this.Comment = new HashSet<Comment>();
             this.Image = new HashSet<Image>();
-            this.ShoppingCart = new HashSet<ShoppingCart>();
         }
     
         public int GoodsId { get; set; }
@@ -42,7 +41,6 @@ namespace Mall.Data.DataBase
         public virtual ICollection<Comment> Comment { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Image> Image { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ShoppingCart> ShoppingCart { get; set; }
+        public virtual ShoppingCart ShoppingCart { get; set; }
     }
 }

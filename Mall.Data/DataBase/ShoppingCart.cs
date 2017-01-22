@@ -14,19 +14,12 @@ namespace Mall.Data.DataBase
     
     public partial class ShoppingCart
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ShoppingCart()
-        {
-            this.GoodsInfo = new HashSet<GoodsInfo>();
-        }
-    
-        public int ShoppingCartId { get; set; }
+        public int GoodsId { get; set; }
         public Nullable<int> ClientId { get; set; }
         public System.DateTime CreateTime { get; set; }
         public int Number { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GoodsInfo> GoodsInfo { get; set; }
         public virtual Client Client { get; set; }
+        public virtual GoodsInfo GoodsInfo { get; set; }
     }
 }

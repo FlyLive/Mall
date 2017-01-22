@@ -154,14 +154,16 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Css\Admin\CreateGoods.css" />
+    <Content Include="Css\Goods\CreateGoods.css" />
     <Content Include="Css\Admin\Login.css" />
     <Content Include="Css\Chat\Chat.css" />
+    <Content Include="Css\Goods\GoodsEdit.css" />
     <Content Include="Css\MenuView\AdminLTE.css" />
     <Content Include="Css\MenuView\blue.css" />
     <Content Include="Css\MenuView\boot.css" />
     <Content Include="Css\MenuView\morris.css" />
     <Content Include="Css\MenuView\_all-skins.css" />
+    <Content Include="Css\Order\ReplyEvaluate.css" />
     <Content Include="Css\Shared\font-awesome.min.css" />
     <Content Include="Css\Shared\Foot.css" />
     <Content Include="Css\Shared\Head.css" />
@@ -238,6 +240,7 @@
     <Content Include="Views\Admin\RecommendSet.cshtml" />
     <Content Include="Views\Admin\ClassSet.cshtml" />
     <Content Include="Views\Goods\CreateGoods.cshtml" />
+    <Content Include="Views\Goods\GoodsEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

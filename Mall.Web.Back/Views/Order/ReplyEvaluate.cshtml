@@ -5,4 +5,71 @@
 }
 
 <h2>ReplyEvaluate</h2>
-<div></div>
+<div class="replyevaluate-all">
+    <div class="replyevaluate-goods-info">
+        <div>
+            <h4 class="replyevaluate-title">商品信息</h4>
+        </div>
+        <div class="replyevaluate-info">
+            <a class="replyevaluate-goods-info-link">
+                <img src="~/Pictures/Shared/contact.png" />
+            </a>
+            <table>
+                <tr>
+                    <td>商品名:&emsp;<span></span></td>
+                    <td>作者:&emsp;<span></span></td>
+                    <td>出版社:&emsp;<span></span></td>
+                    <td>出版时间:&emsp;<span></span></td>
+                </tr>
+                <tr>
+                    <td>单价:&emsp;<span></span></td>
+                    <td>商品ID:&emsp;<span></span></td>
+                    <td>是否在售:&emsp;<span></span></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="replyevaluate-buyer">
+        <div class="replyevaluate-buyer-info">
+            <h4 class="replyevaluate-title">买家</h4>
+            <div>
+                <img src="~/Pictures/Shared/contact.png" />
+            </div>
+        </div>
+        <div class="replyevaluate-buyer-message">
+            <h4 class="replyevaluate-title">留言</h4>
+            <div>
+                <p>
+                    123466789123466789123466789123466789123466789123466789123466789123466789123466789
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="replyevaluate">
+        <div class="replyevaluate-order">
+            <h4 class="replyevaluate-title">订单信息</h4>
+            <table>
+                <tr>
+                    <td>订单编号:&emsp;<span></span></td>
+                    <td>下单时间:&emsp;<span></span></td>
+                </tr>
+                <tr>
+                    <td>发货时间:&emsp;<span></span></td>
+                    <td>收货时间:&emsp;<span></span></td>
+                    <td>成交时间:&emsp;<span></span></td>
+                </tr>
+            </table>
+        </div>
+        <form>
+            <div class="replyevaluate-reply">
+                <h4 class="replyevaluate-title">回复评价</h4>
+                <input name="" type="hidden" />
+                <textarea></textarea>
+                <button type="submit">立即回复</button>
+            </div>
+        </form>
+    </div>
+</div>
+@section css{
+    <link href="~/Css/Order/ReplyEvaluate.css" rel="stylesheet" />
+}

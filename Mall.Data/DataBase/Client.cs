@@ -20,8 +20,8 @@ namespace Mall.Data.DataBase
             this.Comment = new HashSet<Comment>();
             this.DeliveryInfo = new HashSet<DeliveryInfo>();
             this.Refund = new HashSet<Refund>();
-            this.ShoppingCart = new HashSet<ShoppingCart>();
             this.Order = new HashSet<Order>();
+            this.ShoppingCart = new HashSet<ShoppingCart>();
         }
     
         public int ClientId { get; set; }
@@ -36,8 +36,8 @@ namespace Mall.Data.DataBase
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Refund> Refund { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ShoppingCart> ShoppingCart { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Order { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ShoppingCart> ShoppingCart { get; set; }
     }
 }

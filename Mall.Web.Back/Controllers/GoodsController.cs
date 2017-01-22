@@ -13,6 +13,11 @@ namespace Mall.Web.Back.Controllers
         {
             return View();
         }
+
+        public ActionResult GoodsEdit()
+        {
+            return View();
+        }
         #endregion
     }
 }

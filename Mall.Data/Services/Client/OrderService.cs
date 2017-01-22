@@ -42,12 +42,18 @@ namespace Mall.Data.Services.Client
             return orders;
         }
 
+        /// <summary>
+        /// 向购物车添加商品
+        /// </summary>
+        /// <param name="clientId">客户ID</param>
+        /// <param name="goodsId">商品ID</param>
+        /// <param name="count">数量</param>
         public void AddGoodsToShoppingCart(int clientId, int goodsId, int count = 1)
         {
-            DataBase.Client client = _db.Client.SingleOrDefault(c => c.ClientId == clientId);
-            
-            //client.ShoppingCart
-            
+            DataBase.Client client = _db.Client.Include("ShoppingCart").SingleOrDefault(c => c.ClientId == clientId);
+            //ShoppingCart sc = _db.ShoppingCart.
+            //client.ShoppingCart.Add();
+            _db.SaveChanges();
         }
 
         public bool ApplyRefundByOrderId(Guid orderId)
