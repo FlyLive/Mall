@@ -51,8 +51,12 @@ namespace Mall.Data.Services.Client
         public void AddGoodsToShoppingCart(int clientId, int goodsId, int count = 1)
         {
             DataBase.Client client = _db.Client.Include("ShoppingCart").SingleOrDefault(c => c.ClientId == clientId);
-            //ShoppingCart sc = _db.ShoppingCart.
-            //client.ShoppingCart.Add();
+            client.ShoppingCart.Add(new ShoppingCart
+            {
+                GoodsId = goodsId,
+                CreateTime = DateTime.Now,
+                Number = count,
+            });
             _db.SaveChanges();
         }
 
@@ -101,9 +105,19 @@ namespace Mall.Data.Services.Client
             return true;
         }
 
-        public void DeleteGoodsFromShoppingCart(int cilentId, int goodsId)
+        /// <summary>
+        /// 删除购物车中商品
+        /// </summary>
+        /// <param name="cilentId"></param>
+        /// <param name="goodsId"></param>
+        public void DeleteGoodsFromShoppingCart(int clientId, int goodsId)
         {
-            throw new NotImplementedException();
+            DataBase.Client client = _db.Client.Include("ShoppingCart").SingleOrDefault(c => c.ClientId == clientId);
+            client.ShoppingCart.Remove(
+                client.ShoppingCart.
+                    SingleOrDefault(s => s.GoodsId == goodsId)
+            );
+            _db.SaveChanges();
         }
         
         /// <summary>
@@ -116,9 +130,17 @@ namespace Mall.Data.Services.Client
             _db.SaveChanges();
         }
 
-        public void ModifyGoodsCountFromShoppingCart(int cilentId, int goodsId, int count)
+        /// <summary>
+        /// 修改购物车中商品数量
+        /// </summary>
+        /// <param name="clientId"></param>
+        /// <param name="goodsId"></param>
+        /// <param name="count"></param>
+        public void ModifyGoodsCountFromShoppingCart(int clientId, int goodsId, int count)
         {
-            throw new NotImplementedException();
+            ShoppingCart cart = _db.ShoppingCart.SingleOrDefault(c => c.ClientId == clientId && c.GoodsId == goodsId);
+            cart.Number = count;
+            _db.SaveChanges();
         }
 
         /// <summary>

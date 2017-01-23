@@ -174,12 +174,13 @@
         </EntityType>
         <EntityType Name="ShoppingCart">
           <Key>
-            <PropertyRef Name="GoodsId" />
+            <PropertyRef Name="ShoppingCartId" />
           </Key>
-          <Property Name="GoodsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ClientId" Type="int" />
+          <Property Name="ShoppingCartId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientId" Type="int" Nullable="false" />
           <Property Name="CreateTime" Type="datetime" Nullable="false" />
           <Property Name="Number" Type="int" Nullable="false" />
+          <Property Name="GoodsId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -303,18 +304,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_GoodsInfo_ShoppingCart">
-          <End Role="ShoppingCart" Type="Self.ShoppingCart" Multiplicity="1" />
-          <End Role="GoodsInfo" Type="Self.GoodsInfo" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="ShoppingCart">
-              <PropertyRef Name="GoodsId" />
-            </Principal>
-            <Dependent Role="GoodsInfo">
-              <PropertyRef Name="GoodsId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_IMAGE_REFERENCE_GOODSINF">
           <End Role="GoodsInfo" Type="Self.GoodsInfo" Multiplicity="0..1" />
           <End Role="Image" Type="Self.Image" Multiplicity="*" />
@@ -388,7 +377,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SHOPPING_REFERENCE_CLIENT">
-          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
           <End Role="ShoppingCart" Type="Self.ShoppingCart" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Client">
@@ -396,6 +385,18 @@
             </Principal>
             <Dependent Role="ShoppingCart">
               <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ShoppingCart_GoodsInfo">
+          <End Role="GoodsInfo" Type="Self.GoodsInfo" Multiplicity="1" />
+          <End Role="ShoppingCart" Type="Self.ShoppingCart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GoodsInfo">
+              <PropertyRef Name="GoodsId" />
+            </Principal>
+            <Dependent Role="ShoppingCart">
+              <PropertyRef Name="GoodsId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -454,10 +455,6 @@
             <End Role="Employee" EntitySet="Employee" />
             <End Role="EmployeeRoles" EntitySet="EmployeeRoles" />
           </AssociationSet>
-          <AssociationSet Name="FK_GoodsInfo_ShoppingCart" Association="Self.FK_GoodsInfo_ShoppingCart">
-            <End Role="ShoppingCart" EntitySet="ShoppingCart" />
-            <End Role="GoodsInfo" EntitySet="GoodsInfo" />
-          </AssociationSet>
           <AssociationSet Name="FK_IMAGE_REFERENCE_GOODSINF" Association="Self.FK_IMAGE_REFERENCE_GOODSINF">
             <End Role="GoodsInfo" EntitySet="GoodsInfo" />
             <End Role="Image" EntitySet="Image" />
@@ -484,6 +481,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_SHOPPING_REFERENCE_CLIENT" Association="Self.FK_SHOPPING_REFERENCE_CLIENT">
             <End Role="Client" EntitySet="Client" />
+            <End Role="ShoppingCart" EntitySet="ShoppingCart" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShoppingCart_GoodsInfo" Association="Self.FK_ShoppingCart_GoodsInfo">
+            <End Role="GoodsInfo" EntitySet="GoodsInfo" />
             <End Role="ShoppingCart" EntitySet="ShoppingCart" />
           </AssociationSet>
         </EntityContainer>
@@ -566,7 +567,9 @@
           <Property Name="Press" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Comment" Relationship="Self.FK_COMMENT_REFERENCE_GOODSINF" FromRole="GoodsInfo" ToRole="Comment" />
           <NavigationProperty Name="Image" Relationship="Self.FK_IMAGE_REFERENCE_GOODSINF" FromRole="GoodsInfo" ToRole="Image" />
-          <NavigationProperty Name="ShoppingCart" Relationship="MallDBModel.FK_GoodsInfo_ShoppingCart" FromRole="GoodsInfo" ToRole="ShoppingCart" />
+          <NavigationProperty Name="GoodsInfo1" Relationship="MallDBModel.FK_GoodsInfo_GoodsInfo" FromRole="GoodsInfo" ToRole="GoodsInfo1" />
+          <NavigationProperty Name="GoodsInfo2" Relationship="MallDBModel.FK_GoodsInfo_GoodsInfo" FromRole="GoodsInfo1" ToRole="GoodsInfo" />
+          <NavigationProperty Name="ShoppingCart" Relationship="MallDBModel.FK_ShoppingCart_GoodsInfo" FromRole="GoodsInfo" ToRole="ShoppingCart" />
           </EntityType>
         <EntityType Name="Image">
           <Key>
@@ -702,16 +705,20 @@
             <End Role="Order" EntitySet="Order" />
             <End Role="Refund" EntitySet="Refund" />
           </AssociationSet>
+          <AssociationSet Name="FK_GoodsInfo_GoodsInfo" Association="MallDBModel.FK_GoodsInfo_GoodsInfo">
+            <End Role="GoodsInfo" EntitySet="GoodsInfo" />
+            <End Role="GoodsInfo1" EntitySet="GoodsInfo" />
+          </AssociationSet>
           <EntitySet Name="ShoppingCart" EntityType="MallDBModel.ShoppingCart" />
           <AssociationSet Name="FK_SHOPPING_REFERENCE_CLIENT" Association="MallDBModel.FK_SHOPPING_REFERENCE_CLIENT">
             <End Role="Client" EntitySet="Client" />
             <End Role="ShoppingCart" EntitySet="ShoppingCart" />
           </AssociationSet>
-          <AssociationSet Name="FK_GoodsInfo_ShoppingCart" Association="MallDBModel.FK_GoodsInfo_ShoppingCart">
-            <End Role="ShoppingCart" EntitySet="ShoppingCart" />
+          <AssociationSet Name="FK_ShoppingCart_GoodsInfo" Association="MallDBModel.FK_ShoppingCart_GoodsInfo">
             <End Role="GoodsInfo" EntitySet="GoodsInfo" />
+            <End Role="ShoppingCart" EntitySet="ShoppingCart" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="Roles">
           <Key>
             <PropertyRef Name="RoleId" />
@@ -867,19 +874,32 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_GoodsInfo_GoodsInfo">
+          <End Type="MallDBModel.GoodsInfo" Role="GoodsInfo" Multiplicity="1" />
+          <End Type="MallDBModel.GoodsInfo" Role="GoodsInfo1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="GoodsInfo">
+              <PropertyRef Name="GoodsId" />
+            </Principal>
+            <Dependent Role="GoodsInfo1">
+              <PropertyRef Name="GoodsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityType Name="ShoppingCart">
           <Key>
-            <PropertyRef Name="GoodsId" />
+            <PropertyRef Name="ShoppingCartId" />
           </Key>
-          <Property Name="GoodsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ClientId" Type="Int32" />
+          <Property Name="ShoppingCartId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
           <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Number" Type="Int32" Nullable="false" />
+          <Property Name="GoodsId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Client" Relationship="MallDBModel.FK_SHOPPING_REFERENCE_CLIENT" FromRole="ShoppingCart" ToRole="Client" />
-          <NavigationProperty Name="GoodsInfo" Relationship="MallDBModel.FK_GoodsInfo_ShoppingCart" FromRole="ShoppingCart" ToRole="GoodsInfo" />
+          <NavigationProperty Name="GoodsInfo" Relationship="MallDBModel.FK_ShoppingCart_GoodsInfo" FromRole="ShoppingCart" ToRole="GoodsInfo" />
         </EntityType>
         <Association Name="FK_SHOPPING_REFERENCE_CLIENT">
-          <End Type="MallDBModel.Client" Role="Client" Multiplicity="0..1" />
+          <End Type="MallDBModel.Client" Role="Client" Multiplicity="1" />
           <End Type="MallDBModel.ShoppingCart" Role="ShoppingCart" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Client">
@@ -890,19 +910,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_GoodsInfo_ShoppingCart">
-          <End Type="MallDBModel.ShoppingCart" Role="ShoppingCart" Multiplicity="1" />
-          <End Type="MallDBModel.GoodsInfo" Role="GoodsInfo" Multiplicity="0..1" />
+        <Association Name="FK_ShoppingCart_GoodsInfo">
+          <End Type="MallDBModel.GoodsInfo" Role="GoodsInfo" Multiplicity="1" />
+          <End Type="MallDBModel.ShoppingCart" Role="ShoppingCart" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ShoppingCart">
+            <Principal Role="GoodsInfo">
               <PropertyRef Name="GoodsId" />
             </Principal>
-            <Dependent Role="GoodsInfo">
+            <Dependent Role="ShoppingCart">
               <PropertyRef Name="GoodsId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -1106,10 +1126,11 @@
           <EntitySetMapping Name="ShoppingCart">
             <EntityTypeMapping TypeName="MallDBModel.ShoppingCart">
               <MappingFragment StoreEntitySet="ShoppingCart">
+                <ScalarProperty Name="GoodsId" ColumnName="GoodsId" />
                 <ScalarProperty Name="Number" ColumnName="Number" />
                 <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
                 <ScalarProperty Name="ClientId" ColumnName="ClientId" />
-                <ScalarProperty Name="GoodsId" ColumnName="GoodsId" />
+                <ScalarProperty Name="ShoppingCartId" ColumnName="ShoppingCartId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

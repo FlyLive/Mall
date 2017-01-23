@@ -1,0 +1,6 @@
+﻿function IsLogPasswordCorrect() {
+
+}
+function IsManagePasswordCorrect() {
+
+}

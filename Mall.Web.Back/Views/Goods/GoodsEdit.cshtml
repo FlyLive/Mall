@@ -1,4 +1,5 @@
-﻿
+﻿@model List<Mall.Data.DataBase.GoodsInfo>
+
 @{
     ViewBag.Title = "GoodsEdit";
     Layout = "~/Views/Layout/_AdminTLE.cshtml";
@@ -37,6 +38,28 @@
         <td>
             <div class="goods-menu">
                 <ul>
+                    @*@foreach (var good in Model)
+                        {
+                            <li>
+                                <a>
+                                    <img src="~/Pictures/Shared/contact.png" />
+                                </a>
+                                <table>
+                                    <tr>
+                                        <td class="goods-menu-title">
+                                            商品名:&ensp;
+                                        </td>
+                                        <td>@good.GoodsName</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="goods-menu-title">
+                                            ID:&ensp;
+                                        </td>
+                                        <td>@good.GoodsId</td>
+                                    </tr>
+                                </table>
+                            </li>
+                        }*@
                     <li>
                         <a>
                             <img src="~/Pictures/Shared/contact.png" />

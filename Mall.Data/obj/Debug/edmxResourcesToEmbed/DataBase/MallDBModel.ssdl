@@ -72,14 +72,6 @@
     <Property Name="EmployeeId" Type="int" Nullable="false" />
     <Property Name="RoleId" Type="int" Nullable="false" />
   </EntityType>
-  <EntityType Name="Gi_scRelationship">
-    <Key>
-      <PropertyRef Name="ShoppingCartId" />
-      <PropertyRef Name="GoodsId" />
-    </Key>
-    <Property Name="ShoppingCartId" Type="int" Nullable="false" />
-    <Property Name="GoodsId" Type="int" Nullable="false" />
-  </EntityType>
   <EntityType Name="GoodsInfo">
     <Key>
       <PropertyRef Name="GoodsId" />
@@ -180,9 +172,10 @@
       <PropertyRef Name="ShoppingCartId" />
     </Key>
     <Property Name="ShoppingCartId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="ClientId" Type="int" />
+    <Property Name="ClientId" Type="int" Nullable="false" />
     <Property Name="CreateTime" Type="datetime" Nullable="false" />
     <Property Name="Number" Type="int" Nullable="false" />
+    <Property Name="GoodsId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="User">
     <Key>
@@ -306,30 +299,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_GI_SCREL_REFERENCE_GOODSINF">
-    <End Role="GoodsInfo" Type="Self.GoodsInfo" Multiplicity="1" />
-    <End Role="Gi_scRelationship" Type="Self.Gi_scRelationship" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="GoodsInfo">
-        <PropertyRef Name="GoodsId" />
-      </Principal>
-      <Dependent Role="Gi_scRelationship">
-        <PropertyRef Name="GoodsId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_GI_SCREL_REFERENCE_SHOPPING">
-    <End Role="ShoppingCart" Type="Self.ShoppingCart" Multiplicity="1" />
-    <End Role="Gi_scRelationship" Type="Self.Gi_scRelationship" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="ShoppingCart">
-        <PropertyRef Name="ShoppingCartId" />
-      </Principal>
-      <Dependent Role="Gi_scRelationship">
-        <PropertyRef Name="ShoppingCartId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_IMAGE_REFERENCE_GOODSINF">
     <End Role="GoodsInfo" Type="Self.GoodsInfo" Multiplicity="0..1" />
     <End Role="Image" Type="Self.Image" Multiplicity="*" />
@@ -403,7 +372,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_SHOPPING_REFERENCE_CLIENT">
-    <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+    <End Role="Client" Type="Self.Client" Multiplicity="1" />
     <End Role="ShoppingCart" Type="Self.ShoppingCart" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Client">
@@ -411,6 +380,18 @@
       </Principal>
       <Dependent Role="ShoppingCart">
         <PropertyRef Name="ClientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ShoppingCart_GoodsInfo">
+    <End Role="GoodsInfo" Type="Self.GoodsInfo" Multiplicity="1" />
+    <End Role="ShoppingCart" Type="Self.ShoppingCart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GoodsInfo">
+        <PropertyRef Name="GoodsId" />
+      </Principal>
+      <Dependent Role="ShoppingCart">
+        <PropertyRef Name="GoodsId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -423,7 +404,6 @@
     <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="EmployeePermissions" EntityType="Self.EmployeePermissions" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="EmployeeRoles" EntityType="Self.EmployeeRoles" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Gi_scRelationship" EntityType="Self.Gi_scRelationship" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="GoodsInfo" EntityType="Self.GoodsInfo" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Image" EntityType="Self.Image" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Menus" EntityType="Self.Menus" Schema="dbo" store:Type="Tables" />
@@ -470,14 +450,6 @@
       <End Role="Employee" EntitySet="Employee" />
       <End Role="EmployeeRoles" EntitySet="EmployeeRoles" />
     </AssociationSet>
-    <AssociationSet Name="FK_GI_SCREL_REFERENCE_GOODSINF" Association="Self.FK_GI_SCREL_REFERENCE_GOODSINF">
-      <End Role="GoodsInfo" EntitySet="GoodsInfo" />
-      <End Role="Gi_scRelationship" EntitySet="Gi_scRelationship" />
-    </AssociationSet>
-    <AssociationSet Name="FK_GI_SCREL_REFERENCE_SHOPPING" Association="Self.FK_GI_SCREL_REFERENCE_SHOPPING">
-      <End Role="ShoppingCart" EntitySet="ShoppingCart" />
-      <End Role="Gi_scRelationship" EntitySet="Gi_scRelationship" />
-    </AssociationSet>
     <AssociationSet Name="FK_IMAGE_REFERENCE_GOODSINF" Association="Self.FK_IMAGE_REFERENCE_GOODSINF">
       <End Role="GoodsInfo" EntitySet="GoodsInfo" />
       <End Role="Image" EntitySet="Image" />
@@ -504,6 +476,10 @@
     </AssociationSet>
     <AssociationSet Name="FK_SHOPPING_REFERENCE_CLIENT" Association="Self.FK_SHOPPING_REFERENCE_CLIENT">
       <End Role="Client" EntitySet="Client" />
+      <End Role="ShoppingCart" EntitySet="ShoppingCart" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ShoppingCart_GoodsInfo" Association="Self.FK_ShoppingCart_GoodsInfo">
+      <End Role="GoodsInfo" EntitySet="GoodsInfo" />
       <End Role="ShoppingCart" EntitySet="ShoppingCart" />
     </AssociationSet>
   </EntityContainer>

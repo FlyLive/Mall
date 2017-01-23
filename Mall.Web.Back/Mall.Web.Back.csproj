@@ -154,6 +154,8 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Css\Admin\PersonalInfoSet.css" />
+    <Content Include="Css\Admin\SecuritySet.css" />
     <Content Include="Css\Goods\CreateGoods.css" />
     <Content Include="Css\Admin\Login.css" />
     <Content Include="Css\Chat\Chat.css" />
@@ -171,6 +173,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="JS\Admin\SecuritySet.js" />
     <Content Include="JS\Chat\Chat.js" />
     <Content Include="JS\MenuView\app.js" />
     <Content Include="JS\MenuView\boot.js" />
@@ -244,7 +247,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="JS\Admin\" />
     <Folder Include="JS\Home\" />
     <Folder Include="Pictures\Home\" />
   </ItemGroup>

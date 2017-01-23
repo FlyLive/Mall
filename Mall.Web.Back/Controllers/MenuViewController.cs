@@ -12,8 +12,9 @@ namespace Mall.Web.Back.Controllers
 {
     public class MenuViewController : Controller
     {
-        private MenuViewService _ACService = new MenuViewService();
+        private MenuViewService _menuViewervice = new MenuViewService();
 
+        [HttpGet]
         public ActionResult SideBarMenuByPermissions()
         {
             Employee employee = (Employee)Session["Employee"];
@@ -27,7 +28,7 @@ namespace Mall.Web.Back.Controllers
         /// <returns></returns>
         private List<MenuViewModel> GetTreeByEmployeeId(int employeeId)
         {
-            List<Menus> menus = _ACService.GetMenuByEmployeeId(employeeId);
+            List<Menus> menus = _menuViewervice.GetMenuByEmployeeId(employeeId);
             List<MenuViewModel> trees = new List<MenuViewModel>();
             foreach (var m in menus)
             {
@@ -55,7 +56,7 @@ namespace Mall.Web.Back.Controllers
         /// <returns></returns>
         private List<MenuViewModel> GetChildsByParentId(int employeeId, int parentId)
         {
-            List<Menus> menus = _ACService.GetMenuByEmployeeId(employeeId);
+            List<Menus> menus = _menuViewervice.GetMenuByEmployeeId(employeeId);
             List<MenuViewModel> trees = new List<MenuViewModel>();
             foreach (var m in menus)
             {

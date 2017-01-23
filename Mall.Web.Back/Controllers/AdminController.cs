@@ -13,6 +13,8 @@ namespace Mall.Web.Back.Controllers
     {
         private EnterpriseService _enterpriseService = new EnterpriseService();
         private MenuViewService _menuViewService = new MenuViewService();
+
+        [HttpGet]
         public ActionResult Index()
         {
             return View();
@@ -30,6 +32,7 @@ namespace Mall.Web.Back.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
         public ActionResult ManageCenter()
         {
             return View();
@@ -64,14 +67,30 @@ namespace Mall.Web.Back.Controllers
         }
         #endregion
         #region 账户管理
+        [HttpGet]
         public ActionResult PersonalInfoSet()
         {
-            return View();
+            Employee employee = _enterpriseService.Login("001", "123456");
+            Session.Add("Employee", employee);
+            return View(employee.User);
         }
 
+        [HttpPost]
+        public ActionResult PersonalInfoSet(string name)
+        {
+            return RedirectToAction("");
+        }
+
+        [HttpGet]
         public ActionResult SecuritySet()
         {
-            return View();
+            Employee employee = (Employee)Session["Employee"];
+            return View(employee.User);
+        }
+        [HttpPost]
+        public ActionResult SecuritySet(int employeeId,string password)
+        {
+            return RedirectToAction("");
         }
         #endregion
     }

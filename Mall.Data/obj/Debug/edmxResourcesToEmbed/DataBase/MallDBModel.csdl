@@ -75,7 +75,9 @@
     <Property Name="Press" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <NavigationProperty Name="Comment" Relationship="Self.FK_COMMENT_REFERENCE_GOODSINF" FromRole="GoodsInfo" ToRole="Comment" />
     <NavigationProperty Name="Image" Relationship="Self.FK_IMAGE_REFERENCE_GOODSINF" FromRole="GoodsInfo" ToRole="Image" />
-    <NavigationProperty Name="ShoppingCart" Relationship="MallDBModel.Gi_scRelationship" FromRole="GoodsInfo" ToRole="ShoppingCart" />
+    <NavigationProperty Name="GoodsInfo1" Relationship="MallDBModel.FK_GoodsInfo_GoodsInfo" FromRole="GoodsInfo" ToRole="GoodsInfo1" />
+    <NavigationProperty Name="GoodsInfo2" Relationship="MallDBModel.FK_GoodsInfo_GoodsInfo" FromRole="GoodsInfo1" ToRole="GoodsInfo" />
+    <NavigationProperty Name="ShoppingCart" Relationship="MallDBModel.FK_ShoppingCart_GoodsInfo" FromRole="GoodsInfo" ToRole="ShoppingCart" />
   </EntityType>
   <EntityType Name="Image">
     <Key>
@@ -171,11 +173,6 @@
       <End Role="Employee" EntitySet="Employee" />
       <End Role="Permissions" EntitySet="Permissions" />
     </AssociationSet>
-    <EntitySet Name="ShoppingCart" EntityType="MallDBModel.ShoppingCart" />
-    <AssociationSet Name="Gi_scRelationship" Association="MallDBModel.Gi_scRelationship">
-      <End Role="GoodsInfo" EntitySet="GoodsInfo" />
-      <End Role="ShoppingCart" EntitySet="ShoppingCart" />
-    </AssociationSet>
     <EntitySet Name="Roles" EntityType="MallDBModel.Roles" />
     <AssociationSet Name="EmployeeRoles" Association="MallDBModel.EmployeeRoles">
       <End Role="Roles" EntitySet="Roles" />
@@ -207,10 +204,6 @@
       <End Role="Client" EntitySet="Client" />
       <End Role="Refund" EntitySet="Refund" />
     </AssociationSet>
-    <AssociationSet Name="FK_SHOPPING_REFERENCE_CLIENT" Association="MallDBModel.FK_SHOPPING_REFERENCE_CLIENT">
-      <End Role="Client" EntitySet="Client" />
-      <End Role="ShoppingCart" EntitySet="ShoppingCart" />
-    </AssociationSet>
     <EntitySet Name="Order" EntityType="MallDBModel.Order" />
     <AssociationSet Name="FK_ORDER_REFERENCE_CLIENT" Association="MallDBModel.FK_ORDER_REFERENCE_CLIENT">
       <End Role="Client" EntitySet="Client" />
@@ -220,22 +213,20 @@
       <End Role="Order" EntitySet="Order" />
       <End Role="Refund" EntitySet="Refund" />
     </AssociationSet>
+    <AssociationSet Name="FK_GoodsInfo_GoodsInfo" Association="MallDBModel.FK_GoodsInfo_GoodsInfo">
+      <End Role="GoodsInfo" EntitySet="GoodsInfo" />
+      <End Role="GoodsInfo1" EntitySet="GoodsInfo" />
+    </AssociationSet>
+    <EntitySet Name="ShoppingCart" EntityType="MallDBModel.ShoppingCart" />
+    <AssociationSet Name="FK_SHOPPING_REFERENCE_CLIENT" Association="MallDBModel.FK_SHOPPING_REFERENCE_CLIENT">
+      <End Role="Client" EntitySet="Client" />
+      <End Role="ShoppingCart" EntitySet="ShoppingCart" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ShoppingCart_GoodsInfo" Association="MallDBModel.FK_ShoppingCart_GoodsInfo">
+      <End Role="GoodsInfo" EntitySet="GoodsInfo" />
+      <End Role="ShoppingCart" EntitySet="ShoppingCart" />
+    </AssociationSet>
   </EntityContainer>
-  <EntityType Name="ShoppingCart">
-    <Key>
-      <PropertyRef Name="ShoppingCartId" />
-    </Key>
-    <Property Name="ShoppingCartId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="ClientId" Type="Int32" />
-    <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="Number" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="GoodsInfo" Relationship="MallDBModel.Gi_scRelationship" FromRole="ShoppingCart" ToRole="GoodsInfo" />
-    <NavigationProperty Name="Client" Relationship="MallDBModel.FK_SHOPPING_REFERENCE_CLIENT" FromRole="ShoppingCart" ToRole="Client" />
-  </EntityType>
-  <Association Name="Gi_scRelationship">
-    <End Type="MallDBModel.GoodsInfo" Role="GoodsInfo" Multiplicity="*" />
-    <End Type="MallDBModel.ShoppingCart" Role="ShoppingCart" Multiplicity="*" />
-  </Association>
   <EntityType Name="Roles">
     <Key>
       <PropertyRef Name="RoleId" />
@@ -294,8 +285,8 @@
     <NavigationProperty Name="Comment" Relationship="MallDBModel.FK_COMMENT_REFERENCE_CLIENT" FromRole="Client" ToRole="Comment" />
     <NavigationProperty Name="DeliveryInfo" Relationship="MallDBModel.FK_DELIVERY_REFERENCE_CLIENT" FromRole="Client" ToRole="DeliveryInfo" />
     <NavigationProperty Name="Refund" Relationship="MallDBModel.FK_REFUND_REFERENCE_CLIENT" FromRole="Client" ToRole="Refund" />
-    <NavigationProperty Name="ShoppingCart" Relationship="MallDBModel.FK_SHOPPING_REFERENCE_CLIENT" FromRole="Client" ToRole="ShoppingCart" />
     <NavigationProperty Name="Order" Relationship="MallDBModel.FK_ORDER_REFERENCE_CLIENT" FromRole="Client" ToRole="Order" />
+    <NavigationProperty Name="ShoppingCart" Relationship="MallDBModel.FK_SHOPPING_REFERENCE_CLIENT" FromRole="Client" ToRole="ShoppingCart" />
   </EntityType>
   <Association Name="FK_CLIENT_REFERENCE_USER">
     <End Type="MallDBModel.User" Role="User" Multiplicity="1" />
@@ -345,18 +336,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_SHOPPING_REFERENCE_CLIENT">
-    <End Type="MallDBModel.Client" Role="Client" Multiplicity="0..1" />
-    <End Type="MallDBModel.ShoppingCart" Role="ShoppingCart" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Client">
-        <PropertyRef Name="ClientId" />
-      </Principal>
-      <Dependent Role="ShoppingCart">
-        <PropertyRef Name="ClientId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <EntityType Name="Order">
     <Key>
       <PropertyRef Name="OrderId" />
@@ -400,6 +379,54 @@
       </Principal>
       <Dependent Role="Refund">
         <PropertyRef Name="OrderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GoodsInfo_GoodsInfo">
+    <End Type="MallDBModel.GoodsInfo" Role="GoodsInfo" Multiplicity="1" />
+    <End Type="MallDBModel.GoodsInfo" Role="GoodsInfo1" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="GoodsInfo">
+        <PropertyRef Name="GoodsId" />
+      </Principal>
+      <Dependent Role="GoodsInfo1">
+        <PropertyRef Name="GoodsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="ShoppingCart">
+    <Key>
+      <PropertyRef Name="ShoppingCartId" />
+    </Key>
+    <Property Name="ShoppingCartId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ClientId" Type="Int32" Nullable="false" />
+    <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Number" Type="Int32" Nullable="false" />
+    <Property Name="GoodsId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Client" Relationship="MallDBModel.FK_SHOPPING_REFERENCE_CLIENT" FromRole="ShoppingCart" ToRole="Client" />
+    <NavigationProperty Name="GoodsInfo" Relationship="MallDBModel.FK_ShoppingCart_GoodsInfo" FromRole="ShoppingCart" ToRole="GoodsInfo" />
+  </EntityType>
+  <Association Name="FK_SHOPPING_REFERENCE_CLIENT">
+    <End Type="MallDBModel.Client" Role="Client" Multiplicity="1" />
+    <End Type="MallDBModel.ShoppingCart" Role="ShoppingCart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Client">
+        <PropertyRef Name="ClientId" />
+      </Principal>
+      <Dependent Role="ShoppingCart">
+        <PropertyRef Name="ClientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ShoppingCart_GoodsInfo">
+    <End Type="MallDBModel.GoodsInfo" Role="GoodsInfo" Multiplicity="1" />
+    <End Type="MallDBModel.ShoppingCart" Role="ShoppingCart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GoodsInfo">
+        <PropertyRef Name="GoodsId" />
+      </Principal>
+      <Dependent Role="ShoppingCart">
+        <PropertyRef Name="GoodsId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

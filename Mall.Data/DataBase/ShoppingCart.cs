@@ -14,10 +14,11 @@ namespace Mall.Data.DataBase
     
     public partial class ShoppingCart
     {
-        public int GoodsId { get; set; }
-        public Nullable<int> ClientId { get; set; }
+        public int ShoppingCartId { get; set; }
+        public int ClientId { get; set; }
         public System.DateTime CreateTime { get; set; }
         public int Number { get; set; }
+        public int GoodsId { get; set; }
     
         public virtual Client Client { get; set; }
         public virtual GoodsInfo GoodsInfo { get; set; }

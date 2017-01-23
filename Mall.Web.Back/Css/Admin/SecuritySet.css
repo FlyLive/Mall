@@ -1,0 +1,35 @@
+﻿.security-set {
+    font-size: 20px;
+    border-bottom: 2px solid #b9b9b9;
+}
+
+    .security-set > div {
+        margin: 20px 0px 20px 50px;
+    }
+
+        .security-set > div > div {
+            margin: 20px 0px 20px 50px;
+        }
+
+.security-set-log-tip, .security-set-manage-tip {
+    margin:;
+    width: 200px;
+    border-bottom: 2px solid #b9b9b9;
+}
+
+.security-set input {
+    width: 350px;
+    height: 40px;
+    text-indent: 5px;
+    display: block;
+}
+
+.security-set button {
+    width: 100px;
+    height: 40px;
+    margin: 20px 0px;
+}
+
+.security-set .star {
+    color: red;
+}

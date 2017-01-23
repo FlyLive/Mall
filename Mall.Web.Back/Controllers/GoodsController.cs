@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Mall.Data.DataBase;
+using Mall.Data.Services.Enterprise;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,15 +10,32 @@ namespace Mall.Web.Back.Controllers
 {
     public class GoodsController : Controller
     {
+        public GoodsService _goodsService = new GoodsService();
         #region 商品管理
+        [HttpGet]
         public ActionResult CreateGoods()
         {
             return View();
         }
 
+        [HttpPost]
+        public ActionResult CreateGoods(string name)
+        {
+            return RedirectToAction("");
+        }
+
+        [HttpGet]
         public ActionResult GoodsEdit()
         {
-            return View();
+            List<GoodsInfo> goods = _goodsService.GetAllGoods();
+            return View(goods);
+        }
+
+        [HttpGet]
+        public ActionResult GoodsStock()
+        {
+            List<GoodsInfo> goods = _goodsService.GetAllGoods();
+            return View(goods);
         }
         #endregion
     }

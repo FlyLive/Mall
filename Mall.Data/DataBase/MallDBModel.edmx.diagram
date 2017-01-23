@@ -31,10 +31,11 @@
         <EntityTypeShape EntityType="MallDBModel.Order" Width="1.5" PointX="4.625" PointY="11.375" />
         <AssociationConnector Association="MallDBModel.FK_ORDER_REFERENCE_CLIENT" />
         <AssociationConnector Association="MallDBModel.FK_REFUND_REFERENCE_ORDER" />
-        <EntityTypeShape EntityType="MallDBModel.ShoppingCart" Width="1.5" PointX="8.375" PointY="4.125" />
+        <AssociationConnector Association="MallDBModel.FK_GoodsInfo_GoodsInfo" />
+        <EntityTypeShape EntityType="MallDBModel.ShoppingCart" Width="1.5" PointX="8.25" PointY="4.25" />
         <AssociationConnector Association="MallDBModel.FK_SHOPPING_REFERENCE_CLIENT" />
-        <AssociationConnector Association="MallDBModel.FK_GoodsInfo_ShoppingCart" />
-      </Diagram>
+        <AssociationConnector Association="MallDBModel.FK_ShoppingCart_GoodsInfo" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

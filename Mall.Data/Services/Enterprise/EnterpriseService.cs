@@ -80,7 +80,7 @@ namespace Mall.Data.Services.Enterprise
         /// <returns></returns>
         public List<Employee> GetAllEmployee()
         {
-            return _db.Employee.ToList();
+            return _db.Employee.Include("User").ToList();
         }
 
         /// <summary>

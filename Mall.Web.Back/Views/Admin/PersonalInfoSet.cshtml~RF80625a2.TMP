@@ -1,5 +1,4 @@
-﻿@model Mall.Data.DataBase.User
-
+﻿
 @{
     ViewBag.Title = "PersonalInfoSet";
     Layout = "~/Views/Layout/_AdminTLE.cshtml";
@@ -7,7 +6,7 @@
 
 <h2>PersonalInfoSet</h2>
 <div class="info-set">
-    <form action="PersonalInfoSet" method="post">
+    <form action="" method="post">
         <div class="info-set-tip">
             <h4>亲爱的管理XXX，认真填写资料，有助于与顾客交流哦！</h4>
         </div>
@@ -17,29 +16,29 @@
         </div>
         <div class="info-set-nick info">
             <p class="title"><span class="star">*</span>昵称:</p>
-            <input name="nickName" type="text" value="@Model.NickName" />
+            <input type="text" value="" />
         </div>
         <div class="info-set-name info">
             <p class="title">真实姓名:</p>
-            <input name="account" type="text" value="@Model.Account" disabled="disabled"/>
+            <input type="text" value="" />
             <p class="no-change title"><span class="star">*</span>真实姓名不可更改</p>
         </div>
         <div class="info-set-gender info">
             <p class="title">性别:</p>
-            <label><input name="gender" type="radio" value="1"/>男</label>
-            <label><input name="gender" type="radio" value="0"/>女</label>
+            <label><input name="gender" type="radio" />男</label>
+            <label><input name="gender" type="radio" />女</label>
         </div>
         <div class="info-set-birthday info">
             <p class="title">生日:</p>
-            <input name="data" type="date" value="@Model.Birthday" />
+            <input type="datetime" value="" />
         </div>
         <div class="info-set-phone info">
             <p class="title"><span class="star">*</span>联系电话:</p>
-            <input name="phoneNumber" type="number" maxlength="11" value="@Model.PhoneNumber"/>
+            <input type="number" maxlength="11" />
         </div>
         <div class="info-set-email info">
             <p class="title"><span class="star">*</span>邮箱:</p>
-            <input name="email" type="email" value="@Model.Email"/>
+            <input type="email" />
         </div>
         <div class="info-set-submit info">
             <button type="submit">保存修改</button>

@@ -17,6 +17,11 @@ namespace Mall.Data.Services.Enterprise
             _db = new MallDBContext();
         }
 
+        public List<GoodsInfo> GetAllGoods()
+        {
+            return _db.GoodsInfo.ToList();
+        }
+
         /// <summary>
         /// 根据商品Id获取商品
         /// </summary>
