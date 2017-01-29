@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewBag.Title = "Goods";
+    Layout = "~/Views/Layout/_Layout.cshtml";
+}
+
+<div class="goods">
+    <!-- 销售详情 -->
+    <div class="goods-sale-info">
+        @Html.Action("GoodsSaleInfo", new { goodsId = 1 })
+    </div>
+    <div class="goods-detail">
+        <div class="goods-detail-select">
+            <ul>
+                <li id="li-detail" class="selected" onclick="active(this)">书籍详情</li>
+                <li id="li-evaluate" onclick="active(this)">累计评价(1123)</li>
+            </ul>
+        </div>
+        <!-- 商品详情 -->
+        <div class="goods-detail-detail active" id="li-detail-detail">
+            @Html.Action("GoodsDetails", new { goodsId = 1 })
+        </div>
+        <!-- 评价列表 -->
+        <div class="goods-detail-evaluate" id="li-evaluate-detail">
+            @Html.Action("GoodsEvaluates", new { goodsId = 1 })
+        </div>
+    </div>
+</div>
+@section css{
+    @Styles.Render("~/Css/Goods/Goods.css")
+    @Styles.Render("~/Css/Goods/GoodsSaleInfo.css")
+    @Styles.Render("~/Css/Goods/GoodsDetails.css")
+    @Styles.Render("~/Css/Goods/GoodsEvaluates.css")
+}
+@section scripts{
+    @Scripts.Render("~/JS/Goods/Goods.js")
+}

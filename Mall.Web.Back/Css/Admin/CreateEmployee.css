@@ -1,0 +1,62 @@
+﻿.create-employee-all{
+    font-size:20px;
+    border:1px solid #b9b9b9;
+    border-radius:5px;
+    margin-top:50px;
+    width:1624px;
+}
+.create-employee-title{
+    position: relative;
+    top: -38px;
+    left: 80px;
+    line-height: 2;
+    border: 1px solid #b9b9b9;
+    width: 150px;
+    text-align: center;
+    border-bottom: none;
+    border-radius: 5px;
+    background-color: #ecf0f5;
+
+}
+.create-employee-left table > tbody > tr > td{
+    padding-left:25px;
+}
+.create-employee-left-title,.create-employee-right-title{
+    margin-left:0px;
+}
+.create-employee-left{
+    border-right: 2px solid #b9b9b9;
+}
+.create-employee-left,.create-employee-right{
+    width:800px;
+    min-height:620px;
+}
+.create-employee-left > .info{
+    margin:20px 0px 20px 50px;
+}
+.create-employee-left > div > input{
+    width:350px;
+    height:30px;
+    text-indent:5px;
+}
+.create-employee-left .title,.create-employee-right .title{
+    display:inline-block;
+    width:100px;
+    text-align:right;
+    margin-right:20px;
+}
+.create-employee-left-gender > label{
+    display:inline-block;
+    padding-right:10px;
+}
+.create-employee-left-submit > button{
+    width:100px;
+    height:40px;
+    margin-left:130px;
+}
+.create-employee-right-permissions{
+    margin:20px 0px 20px 50px;
+}
+.create-employee-right table > tbody > tr > td{
+    padding:20px 20px 20px 20px;
+}

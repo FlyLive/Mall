@@ -25,10 +25,24 @@ namespace Mall.Web.Back.Controllers
         }
 
         [HttpGet]
+        public ActionResult GoodsInfo(int goodsId)
+        {
+            Data.DataBase.GoodsInfo goods = _goodsService.GetGoodsByGoodsId(goodsId);
+
+            return PartialView(goods);
+        }
+
+        [HttpGet]
         public ActionResult GoodsEdit()
         {
             List<GoodsInfo> goods = _goodsService.GetAllGoods();
             return View(goods);
+        }
+
+        [HttpPost]
+        public ActionResult GoodsEdit(string name)
+        {
+            return RedirectToAction("");
         }
 
         [HttpGet]

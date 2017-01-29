@@ -9,6 +9,7 @@
     <link href="~/Css/Shared/Foot.css" rel="stylesheet" />
     <link href="~/Css/Shared/Head.css" rel="stylesheet" />
     <link href="~/Css/Shared/font-awesome.min.css" rel="stylesheet" />
+    <script src="~/JS/Shared/jquery-2.2.3.min.js"></script>
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
@@ -19,6 +20,7 @@
         </div>
         @Html.Partial("_Foot")
     </div>
+    <script src="~/JS/Layout/_Layout.js"></script>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("css", required: false)

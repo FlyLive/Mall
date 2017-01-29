@@ -53,6 +53,19 @@
         </div>
     </div>
 </div>
+<div class="navbar-search" id="search-flip">
+    <div>
+        <a href="/Home/Home">
+            <img src="~/Pictures/Shared/云翳(logo).png" title="主页" />
+        </a>
+        <div class="head-message">
+            <form>
+                <input name="searchName" placeholder="搜索书籍名称" />
+                <button id="search-button" type="submit"></button>
+            </form>
+        </div>
+    </div>
+</div>
 @section css{
-    <link href="~/Css/Shared/Head.css" rel="stylesheet" />
+    @Styles.Render("~/ Css / Shared / Head.css");
 }

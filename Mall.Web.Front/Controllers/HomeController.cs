@@ -16,5 +16,43 @@ namespace Mall.Web.Front.Controllers
         {
             return View();
         }
+
+
+        /// <summary>
+        /// 商城头部
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult MallHead()
+        {
+            return PartialView();
+        }
+
+        /// <summary>
+        /// 轮播
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Carousel()
+        {
+            return PartialView();
+        }
+
+        /// <summary>
+        /// 广告位
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Advertisement()
+        {
+            return PartialView();
+        }
+
+        /// <summary>
+        /// 商城推荐
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ActionResult SuggestById(int id)
+        {
+            return PartialView();
+        }
     }
 }

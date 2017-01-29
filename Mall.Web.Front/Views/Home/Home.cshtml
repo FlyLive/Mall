@@ -4,85 +4,24 @@
     Layout = "~/Views/Layout/_Layout.cshtml";
 }
 
-<div class="">
-    @*<div class="outside navigate">
-        2
-    </div>*@
-    <div class="mall-head">
-        <div class="outside mall-head-left">
-            3-left
-        </div>
-        <div class="outside mall-head-center">
-            3-center
-        </div>
-        <div class="outside mall-head-right">
-            3-right
-        </div>
+<div>
+    <!--首页头部-->
+    @Html.Action("MallHead")
+    <div class="advertisement">
+        @Html.Action("Advertisement")
     </div>
-</div>
-<div class="advertisement">
-    <div class="outside advertisement-left">5<span>广告</span></div>
-    <div class="outside advertisement-right">6<span>广告</span></div>
-</div>
-<div class="suggest">
-    <div>
-        <div class="">
-            <span>畅销书籍</span>
-            <div class="outside suggest-content">
-                <ul>
-                    <li>
-                        <div>
-
-                        </div>
-                    </li>
-                    <li>
-
-                    </li>
-                    <li>
-
-                    </li>
-                    <li>
-
-                    </li>
-                    <li>
-
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="outside suggest-advertisement">
-
-        </div>
-    </div>
-    <div>
-        <div class="outside suggest-advertisement">
-
-        </div>
-        <div>
-            <span>新品上市</span>
-            <div class="outside suggest-content">
-
-            </div>
-        </div>
-    </div>
-    <div>
-        <div>
-            <span>好书集锦</span>
-            <div class="outside suggest-content">
-
-            </div>
-        </div>
-        <div class="outside suggest-advertisement">
-
-        </div>
-    </div>
-</div>
-<div class="guess">
-    <span>猜你喜欢</span>
-    <div class="outside guess-content">
-
+    <!--推荐-->
+    <div class="suggest">
+        @Html.Action("SuggestById", new { id = 1 })
+        @Html.Action("SuggestById", new { id = 2 })
+        @Html.Action("SuggestById", new { id = 3 })
     </div>
 </div>
 @section css{
-    <link href="~/Css/Home/Home.css" rel="stylesheet" />
+    @Styles.Render("~/Css/Home/Suggest.css")
+    @Styles.Render("~/Css/Home/Home.css")
+}
+@section scripts{
+    @Scripts.Render("~/JS/Home/jquery.terseBanner.min.js")
+    @Scripts.Render("~/JS/Home/script.js")
 }

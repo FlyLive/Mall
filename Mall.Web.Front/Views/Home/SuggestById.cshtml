@@ -1,0 +1,61 @@
+﻿<!--推荐-->
+<div class="suggest-part">
+    <div class="suggest-left">
+        <p class="suggest-title-strong">热<span>销书籍</span></p>
+        <div class="suggest-left-translate"></div>
+        <div class="outside suggest-content">
+            <ul>
+                @{
+                    List<int> i = new List<int>();
+                    i.Add(1);i.Add(1);i.Add(1);i.Add(1);
+                }
+                @foreach (var item in i)
+                {
+
+                    <li>
+                        <div class="suggest-content-part">
+                            <div class="part-good-img">
+                                <a href="#">
+                                    <img src="~/Pictures/人类简史.jpg" />
+                                </a>
+                                <div class="caption">
+                                    <div class="caption-text">
+                                        <h1>Amazing Caption</h1>
+                                        <p>Whatever It Is - Always Awesome</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="part-good-detail">
+                                <a href="#">
+                                    <p class="detail-title">
+                                        Title
+                                    </p>
+                                </a>
+                                <p class="detail-money">
+                                    <strong>￥123.00</strong>
+                                </p>
+                                <p class="detail-author">
+                                    作者:&emsp;Author
+                                </p>
+                                <p class="detail-time">
+                                    出版日期:&emsp;2016-12-12
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+    <div class="outside suggest-advertisement">
+        <a href="">
+            <img src="~/Pictures/人类简史.jpg"/>
+            <div class="caption">
+                <div class="caption-text">
+                    <h1>Amazing Caption</h1>
+                    <p>Whatever It Is - Always Awesome</p>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>

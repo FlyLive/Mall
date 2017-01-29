@@ -6,6 +6,29 @@
 .navbar-head{
     background-color:#222222;
 }
+.navbar-search{
+    top:0px;
+    display:none;
+    position:fixed;
+    width:100%;
+    z-index:1;
+    background-color:rgba(34, 34, 34, 0.75);
+}
+.navbar-search a {
+    vertical-align:middle;
+    margin-right:50px;
+}
+.navbar-search a > img{
+    width:50px;
+    height:50px;
+}
+.navbar-search > div{
+    width:500px;
+    margin:0 auto;
+}
+.navbar-search > div > *{
+    display:inline-block;
+}
 a{
     text-decoration:none;
 }

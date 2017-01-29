@@ -1,0 +1,95 @@
+﻿@model List<Mall.Data.DataBase.Permissions>
+
+@{
+    ViewBag.Title = "CreateEmployee";
+    Layout = "~/Views/Layout/_AdminTLE.cshtml";
+}
+
+<div class="create-employee-all">
+    <div class="create-employee-title">
+        新建管理员
+    </div>
+    <form action="CreateEmployee" method="post">
+        <table>
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="create-employee-left">
+                            <div class="create-employee-left-title">
+                                <p class="title">基本信息</p>
+                            </div>
+                            <div class="create-employee-left-account info">
+                                <p class="title">账户</p>
+                                <input name="account" type="text" />
+                            </div>
+                            <div class="create-employee-left-nick info">
+                                <p class="title">昵称</p>
+                                <input name="nick" type="text" />
+                            </div>
+                            <div class="create-employee-left-birthday info">
+                                <p class="title">生日</p>
+                                <input name="birthday" type="date" min="1900-1-1"max="@DateTime.Now"/>
+                            </div>
+                            <div class="create-employee-left-gender info">
+                                <p class="title">性别</p>
+                                <label><input name="gender" type="radio" />男</label>
+                                <label><input name="gender" type="radio" />女</label>
+                            </div>
+                            <div class="create-employee-left-log-password info">
+                                <p class="title">登录密码</p>
+                                <input name="logPassword" type="password" />
+                            </div>
+                            <div class="create-employee-left-manage-password info">
+                                <p class="title">管理密码</p>
+                                <input name="managePassword" type="password" />
+                            </div>
+                            <div class="create-employee-left-phone info">
+                                <p class="title">联系电话</p>
+                                <input name="phoneNumber" type="text" maxlength="11" />
+                            </div>
+                            <div class="create-employee-left-email info">
+                                <p class="title">E-mail</p>
+                                <input name="email" type="email" />
+                            </div>
+                            <div class="create-employee-left-submit info">
+                                <button type="submit">添加管理员</button>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="create-employee-right">
+                            <div class="creat-employee-right-title">
+                                <p class="title">权限设置</p>
+                            </div>
+                            <div class="create-employee-right-permissions">
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            @{var number = 0;}
+                                            @foreach (var permission in Model)
+                                            {
+                                                if (number % 4 == 0)
+                                                {
+                                                    @Html.Raw("</tr><tr>");
+                                                }
+                                                number++;
+                                                <td>
+                                                    <label>
+                                                        <input name="permissionIds" type="checkbox" value="@permission.PermissionId" />@permission.Name
+                                                    </label>
+                                                </td>
+                                            }
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+@section css{
+    <link rel="stylesheet" href="~/Css/Admin/CreateEmployee.css" />
+}

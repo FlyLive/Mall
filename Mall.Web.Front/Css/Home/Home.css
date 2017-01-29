@@ -1,54 +1,89 @@
 ﻿body {
-    background-color:#ecf0f1;
+    background-color: #ecf0f1;
 }
-.navbar-body > div{
-    margin:20px 0px;
+
+.navbar-body > div {
+    margin-top: 100px;
 }
-.outside{
-    border: 2px solid #e0e0e0;
+
+    .navbar-body > div > div {
+        margin: 20px 0px;
+    }
+
+.outside {
+    border: 2px solid rgba(203, 193, 193, 0.00);
 }
-.navigate{
+
+.navigate {
     height: 70px;
     margin: 0px 50px;
-    margin-top:20px;
+    margin-top: 20px;
 }
-.mall-head{
-    margin:20px 0px;
-    display:flex;
+
+.mall-head {
+    margin: 20px 0px;
+    display: flex;
 }
-.mall-head > div{
-    height:500px;
-}
-.mall-head-left, .mall-head-right{
+
+    .mall-head > div {
+        height: 500px;
+    }
+
+.mall-head-left, .mall-head-right {
     width: 250px;
 }
-.mall-head-center{
-    width:1000px;
-    margin:0px 20px;
+
+.mall-head-center {
+    width: 1000px;
+    margin: 0px 20px;
 }
-.advertisement{
-    display:flex;
+
+.advertisement {
+    display: flex;
 }
-.advertisement-left{
-    margin-right:100px;
+
+.advertisement-left {
+    margin-right: 100px;
 }
-.advertisement-left,.advertisement-right{
+
+.advertisement-left, .advertisement-right {
     width: 700px;
     height: 75px;
 }
-.suggest > div{
-    margin: 40px 0px;
-    display:flex;
+
+#anchor-3 ul {
+    margin: 0 !important;
+    padding: 0 !important;
 }
-.suggest-content{
-    width: 1150px;
-    height: 500px;
+
+    #anchor-3 ul > li {
+        width: 965.33px !important;
+        height: 500px !important;
+        list-style: none;
+        padding: 0 !important;
+    }
+
+.tb-arrow {
+    margin-left: -460px !important;
 }
-.suggest-advertisement{
-    margin-left: 100px;
-    width: 250px;
-    height: 600px;
-}
-.guess-content{
-    height:500px;
+
+    .tb-arrow > a {
+        width: 50px;
+        text-align: center;
+        border-radius: 10px;
+    }
+
+        .tb-arrow > a:hover {
+            animation: fade 1s;
+            animation-fill-mode: forwards;
+        }
+
+@-webkit-keyframes fade {
+    from {
+        background-color: rgba(128, 128, 128, 0.00);
+    }
+
+    to {
+        background-color: rgba(128, 128, 128, 0.75);
+    }
 }

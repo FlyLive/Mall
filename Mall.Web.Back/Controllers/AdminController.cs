@@ -76,9 +76,10 @@ namespace Mall.Web.Back.Controllers
         }
 
         [HttpPost]
-        public ActionResult PersonalInfoSet(string name)
+        public ActionResult PersonalInfoSet(string nickName, int gender, DateTime birthday, string phoneNumber, string email)
         {
-            return RedirectToAction("");
+
+            return RedirectToAction("PersonalInfoSet");
         }
 
         [HttpGet]
@@ -88,8 +89,23 @@ namespace Mall.Web.Back.Controllers
             return View(employee.User);
         }
         [HttpPost]
-        public ActionResult SecuritySet(int employeeId,string password)
+        public ActionResult SecuritySet(int employeeId, string password)
         {
+            return RedirectToAction("");
+        }
+        [HttpGet]
+        public ActionResult CreateEmployee()
+        {
+            List<Permissions> permissions = _menuViewService.GetAllPermissions();
+            return View(permissions);
+        }
+        [HttpPost]
+        public ActionResult CreateEmployee(string account, string nick,
+                string birthday, string gender, string logPassword,
+                string managePassword, string phoneNumber, string email
+                ,int[] permissionIds)
+        {
+            //DateTime birthdayDate = DateTime.Parse(birthday);
             return RedirectToAction("");
         }
         #endregion

@@ -120,6 +120,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\GoodsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
@@ -131,7 +132,14 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Css\Goods\Goods.css" />
+    <Content Include="Css\Goods\GoodsDetails.css" />
+    <Content Include="Css\Goods\GoodsEvaluates.css" />
+    <Content Include="Css\Goods\GoodsSaleInfo.css" />
     <Content Include="Css\Home\Home.css" />
+    <Content Include="Css\Home\Suggest.css" />
+    <Content Include="JS\Goods\Goods.js" />
+    <Content Include="JS\Layout\_Layout.js" />
     <Content Include="Css\Shared\font-awesome.min.css" />
     <Content Include="Css\Shared\Foot.css" />
     <Content Include="Css\Shared\Head.css" />
@@ -147,6 +155,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="JS\Shared\jquery-2.2.3.min.js" />
+    <Content Include="JS\Home\jquery.terseBanner.min.js" />
+    <Content Include="JS\Home\script.js" />
     <Content Include="Pictures\Chat\chat_bg.jpg" />
     <Content Include="Pictures\Chat\Img\Img1.gif" />
     <Content Include="Pictures\Chat\Img\Img2.gif" />
@@ -154,6 +165,7 @@
     <Content Include="Pictures\Chat\Img\Img4.gif" />
     <Content Include="Pictures\Chat\电脑%28Myself%29.png" />
     <Content Include="Pictures\Chat\电脑%28Others%29.png" />
+    <Content Include="Pictures\goods-test.jpg" />
     <Content Include="Pictures\Shared\contact.png" />
     <Content Include="Pictures\Shared\phone.png" />
     <Content Include="Pictures\Shared\Search%28Touch%29.png" />
@@ -161,6 +173,7 @@
     <Content Include="Pictures\Shared\Welcome.png" />
     <Content Include="Pictures\Shared\云翳%28logo%29.png" />
     <Content Include="Pictures\Users\图书.jpg" />
+    <Content Include="Pictures\人类简史.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -195,11 +208,21 @@
     <Content Include="Views\Users\OrderDetails.cshtml" />
     <Content Include="Views\Users\ConfirmReceipt.cshtml" />
     <Content Include="Views\Users\Evaluate.cshtml" />
+    <Content Include="Views\Home\SuggestById.cshtml" />
+    <Content Include="Views\Home\MallHead.cshtml" />
+    <Content Include="Views\Home\Advertisement.cshtml" />
+    <Content Include="Views\Home\Carousel.cshtml" />
+    <Content Include="Views\Goods\Goods.cshtml" />
+    <Content Include="Views\Goods\GoodsDetails.cshtml" />
+    <Content Include="Views\Goods\GoodsEvaluates.cshtml" />
+    <Content Include="Views\Goods\SearchResult.cshtml" />
+    <Content Include="Views\Goods\GoodsSaleInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Css\Order\" />
     <Folder Include="Models\" />
+    <Folder Include="NewFolder1\img\" />
     <Folder Include="Pictures\Home\" />
     <Folder Include="Views\Order\" />
   </ItemGroup>

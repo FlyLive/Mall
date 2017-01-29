@@ -1,0 +1,54 @@
+﻿.goods-sale-info > div {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.goods-detail > .active {
+    display: block;
+}
+
+.goods-detail-detail, .goods-detail-evaluate {
+    display: none;
+    margin-left: 300px;
+    margin-bottom: 100px;
+}
+
+.goods-detail-select {
+    margin-left: 300px;
+}
+
+    .goods-detail-select > ul {
+        list-style: none;
+        font-size: 20px;
+        color: #666666;
+        padding: 0;
+        border-bottom: 2px solid #666666;
+    }
+
+        .goods-detail-select > ul > li {
+            display: inline-block;
+            width: 150px;
+            height: 40px;
+            text-align: center;
+            line-height: 2;
+            cursor: pointer;
+            border-bottom: none;
+            border: 2px solid rgba(0, 0, 0, 0.00);
+        }
+
+            .goods-detail-select > ul > li:hover {
+                border: 2px solid rgb(255, 0, 0);
+                color: #ff6a00;
+            }
+
+            .goods-detail-select > ul > li:active {
+                border: 2px solid rgba(0, 0, 0, 0.00);
+                background-color: #666666;
+                color: white;
+            }
+
+    .goods-detail-select .selected {
+        border: 2px solid #666666;
+        color: #FF0000;
+        border-bottom: none;
+    }

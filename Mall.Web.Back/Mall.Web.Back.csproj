@@ -154,6 +154,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Css\Admin\CreateEmployee.css" />
     <Content Include="Css\Admin\PersonalInfoSet.css" />
     <Content Include="Css\Admin\SecuritySet.css" />
     <Content Include="Css\Goods\CreateGoods.css" />
@@ -244,6 +245,8 @@
     <Content Include="Views\Admin\ClassSet.cshtml" />
     <Content Include="Views\Goods\CreateGoods.cshtml" />
     <Content Include="Views\Goods\GoodsEdit.cshtml" />
+    <Content Include="Views\Admin\CreateEmployee.cshtml" />
+    <Content Include="Views\Goods\GoodsInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
