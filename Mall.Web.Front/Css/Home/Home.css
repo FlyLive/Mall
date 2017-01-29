@@ -10,10 +10,6 @@
         margin: 20px 0px;
     }
 
-.outside {
-    border: 2px solid rgba(203, 193, 193, 0.00);
-}
-
 .navigate {
     height: 70px;
     margin: 0px 50px;
@@ -32,6 +28,10 @@
 .mall-head-left, .mall-head-right {
     width: 250px;
 }
+.mall-head-left img, .mall-head-right img{
+    width: 250px;
+    height:500px;
+}
 
 .mall-head-center {
     width: 1000px;
@@ -41,7 +41,7 @@
 .advertisement {
     display: flex;
 }
-
+/*广告*/
 .advertisement-left {
     margin-right: 100px;
 }
@@ -49,6 +49,16 @@
 .advertisement-left, .advertisement-right {
     width: 700px;
     height: 75px;
+    text-align:right;
+}
+.advertisement-left img, .advertisement-right img{
+    width:700px;
+    height: 75px;
+}
+.advertisement-left span, .advertisement-right span{
+    position: relative;
+    top: -20px;
+    color: #aaaaaa;
 }
 
 #anchor-3 ul {

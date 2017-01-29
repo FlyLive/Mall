@@ -136,6 +136,7 @@
     <Content Include="Css\Goods\GoodsDetails.css" />
     <Content Include="Css\Goods\GoodsEvaluates.css" />
     <Content Include="Css\Goods\GoodsSaleInfo.css" />
+    <Content Include="Css\Goods\SearchResult.css" />
     <Content Include="Css\Home\Home.css" />
     <Content Include="Css\Home\Suggest.css" />
     <Content Include="JS\Goods\Goods.js" />
@@ -166,6 +167,7 @@
     <Content Include="Pictures\Chat\电脑%28Myself%29.png" />
     <Content Include="Pictures\Chat\电脑%28Others%29.png" />
     <Content Include="Pictures\goods-test.jpg" />
+    <Content Include="Pictures\Home\advertisement-left.jpg" />
     <Content Include="Pictures\Shared\contact.png" />
     <Content Include="Pictures\Shared\phone.png" />
     <Content Include="Pictures\Shared\Search%28Touch%29.png" />
@@ -223,7 +225,6 @@
     <Folder Include="Css\Order\" />
     <Folder Include="Models\" />
     <Folder Include="NewFolder1\img\" />
-    <Folder Include="Pictures\Home\" />
     <Folder Include="Views\Order\" />
   </ItemGroup>
   <ItemGroup>
