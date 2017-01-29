@@ -5,7 +5,54 @@
     Layout = "~/Views/Layout/_Layout.cshtml";
 }
 
-<h2>SearchResult</h2>
+<div class="">
+
+</div>
+<div class="result">
+    <div class="">
+
+    </div>
+    <div class="result-list">
+        @{
+            List<int> i = new List<int>();
+            i.Add(1); i.Add(1); i.Add(1); i.Add(1);
+            i.Add(1); i.Add(1); i.Add(1); i.Add(1);
+            i.Add(1); i.Add(1); i.Add(1); i.Add(1);
+        }
+        @foreach (var item in i)
+        {
+            <div class="result-list-item">
+                <div class="item-img">
+                    <a href="#">
+                        <img src="~/Pictures/人类简史.jpg" />
+                    </a>
+                    <div class="caption">
+                        <div class="caption-text">
+                            <div class="item-intro">
+                                作 者:Author
+                            </div>
+                            <div class="item-intro">
+                                出版社:重庆人民出版社
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item-info">
+                    <div class="title">
+                        <a href="#" title="">Title</a>
+                        <p>1235人已购买</p>
+                    </div>
+                    <div class="item-money">
+                        ￥123.00&ensp;<span>￥135.00</span>
+                    </div>
+                    <div class="item-intro">
+                        简 介:XXXXXX
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
 
 @section css{
     @Styles.Render("~/Css/Goods/SearchResult.css")

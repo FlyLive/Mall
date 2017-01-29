@@ -98,10 +98,6 @@
     background-color: rgba(0,0,0,0.7);
 }
 
-.suggest-advertisement .caption {
-    width: 250px;
-}
-
 .suggest-advertisement img:hover {
     animation: border 1s;
     animation-fill-mode: forwards;

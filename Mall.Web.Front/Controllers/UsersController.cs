@@ -36,6 +36,21 @@ namespace Mall.Web.Front.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        /// <summary>
+        /// 个人中心
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult PersonalCenter()
+        {
+            Client client = (Client)Session["Client"];
+            if(client != null)
+            {
+                return View();
+            }
+            return RedirectToAction("Index");
+        }
+
         #region 找回密码
         /// <summary>
         /// 找回密码
@@ -52,6 +67,7 @@ namespace Mall.Web.Front.Controllers
             return RedirectToAction("Index");
         }
         #endregion
+
         #region 注册
         /// <summary>
         /// 注册
@@ -72,25 +88,48 @@ namespace Mall.Web.Front.Controllers
             return RedirectToAction("../Home/Home");
         }
         #endregion
+
+        /// <summary>
+        /// 支付
+        /// </summary>
+        /// <returns></returns>
         public ActionResult BuyNow()
         {
             return View();
         }
+
+        /// <summary>
+        /// 购物车
+        /// </summary>
+        /// <returns></returns>
         public ActionResult ShoppingCart()
         {
             List<GoodsInfo> cartGoods = new List<GoodsInfo>();
             return View(cartGoods);
         }
+
+        /// <summary>
+        /// 订单
+        /// </summary>
+        /// <returns></returns>
         public ActionResult OrderDetails()
         {
             return View();
         }
 
+        /// <summary>
+        /// 确认收货
+        /// </summary>
+        /// <returns></returns>
         public ActionResult ConfirmReceipt()
         {
             return View();
         }
 
+        /// <summary>
+        /// 评价
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Evaluate()
         {
             return View();
