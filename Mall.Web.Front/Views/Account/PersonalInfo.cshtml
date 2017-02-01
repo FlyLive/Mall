@@ -1,0 +1,56 @@
+﻿@model Mall.Data.DataBase.User
+
+@{
+    ViewBag.Title = "PersonalInfo";
+    Layout = "~/Views/Layout/_Layout.cshtml";
+}
+
+<div class="personal-info-title">
+    <h2>PersonalInfo</h2>
+
+</div>
+<div class="personal-info-content">
+    <div class="content-sign">
+        <h4>亲爱的，填写真实资料，有助于购物哦！</h4>
+    </div>
+    <div class="content-photo">
+        <p class="title">当前头像</p>
+        <img src="~/Pictures/Shared/contact.png" />
+    </div>
+    <div class="content-account">
+        <p class="title">账户</p>
+        <input type="text" value="@Model.Account" disabled="disabled" />
+        <p class="sign"><span class="star">*</span>账户注册时生成，不可更改</p>
+    </div>
+    <div class="content-nick">
+        <p class="title"><span class="star">*</span>昵称</p>
+        <input name="nick" type="text" value="@Model.NickName" />
+    </div>
+    <div class="content-name">
+        <p class="title"><span class="star">*</span>姓名</p>
+        <input name="name" type="text" value="" />
+    </div>
+    <div class="content-gender">
+        <p class="title">性别</p>
+        <label><input name="gender" type="radio" value="1" />男</label>
+        <label><input name="gender" type="radio" value="0" />女</label>
+    </div>
+    <div class="content-birthday">
+        <p class="title">生日</p>
+        <input name="birthday" type="date" />
+    </div>
+    <div class="content-phone">
+        <p class="title"><span class="star">*</span>电话</p>
+        <input name="phone" maxlength="11" value="@Model.PhoneNumber"/>
+    </div>
+    <div class="content-email">
+        <p class="title"><span class="star">*</span>E-Mail</p>
+        <input name="email value=@Model.Email"/>
+    </div>
+    <div class="content-submit">
+        <button type="submit">提交修改</button>
+    </div>
+</div>
+@section css{
+    <link href="~/Css/Account/PersonalInfo.css" rel="stylesheet" />
+}

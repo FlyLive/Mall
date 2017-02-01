@@ -120,6 +120,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\GoodsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
@@ -132,6 +133,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Css\Account\PersonalInfo.css" />
     <Content Include="Css\Goods\Goods.css" />
     <Content Include="Css\Goods\GoodsDetails.css" />
     <Content Include="Css\Goods\GoodsEvaluates.css" />
@@ -219,6 +221,9 @@
     <Content Include="Views\Goods\GoodsEvaluates.cshtml" />
     <Content Include="Views\Goods\SearchResult.cshtml" />
     <Content Include="Views\Goods\GoodsSaleInfo.cshtml" />
+    <Content Include="Views\Account\Index.cshtml" />
+    <Content Include="Views\Account\PersonalInfo.cshtml" />
+    <Content Include="Views\Account\SecuritySet.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

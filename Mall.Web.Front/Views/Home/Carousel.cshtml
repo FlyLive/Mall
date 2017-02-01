@@ -1,8 +1,14 @@
 ﻿<!--轮播-->
+@model List<Mall.Data.DataBase.GoodsInfo>
+
 <div class="mall-head-center">
     <div class="container animation" id="anchor-3">
         <div class="banner" id="animation">
             <ul>
+                @foreach (var goods in Model)
+                {
+                    <li><a href="#"><img src="~/NewFolder1/img/banner-1.jpg"></a></li>
+                }
                 <li><a href="#"><img src="~/NewFolder1/img/banner-1.jpg"></a></li>
                 <li><a href="#"><img src="~/NewFolder1/img/banner-2.jpg"></a></li>
                 <li><a href="#"><img src="~/NewFolder1/img/banner-3.jpg"></a></li>

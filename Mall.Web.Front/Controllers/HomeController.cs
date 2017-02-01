@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Mall.Data.DataBase;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -17,7 +18,6 @@ namespace Mall.Web.Front.Controllers
             return View();
         }
 
-
         /// <summary>
         /// 商城头部
         /// </summary>
@@ -33,7 +33,8 @@ namespace Mall.Web.Front.Controllers
         /// <returns></returns>
         public ActionResult Carousel()
         {
-            return PartialView();
+            List<GoodsInfo> carousels = new List<GoodsInfo>();
+            return PartialView(carousels);
         }
 
         /// <summary>
@@ -52,7 +53,8 @@ namespace Mall.Web.Front.Controllers
         /// <returns></returns>
         public ActionResult SuggestById(int id)
         {
-            return PartialView();
+            List<GoodsInfo> suggests = new List<GoodsInfo>();
+            return PartialView(suggests);
         }
     }
 }

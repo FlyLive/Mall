@@ -1,0 +1,57 @@
+﻿
+.personal-info-content{
+    font-size:20px;
+    margin-bottom:50px;
+}
+.personal-info-content > div{
+    margin:20px;
+}
+.personal-info-content > div > input{
+    width:350px;
+    height:40px;
+    text-indent:5px;
+    border-radius:4px;
+    border:1px solid #ccc;
+}
+.personal-info-content > div > .title{
+    width: 100px;
+    text-align: right;
+    display: inline-block;
+    color: #808080;
+    margin:0px 20px 10px 0px;
+}
+.personal-info-content > div .star{
+    color:red;
+    font-size:12px;
+}
+.content-sign{
+    margin-top: 50px;
+    margin-left: 50px;
+    margin-bottom: 20px;
+    width: 500px;
+    border-bottom: 2px solid #b9b9b9;
+}
+.content-sign > .title{
+    width:100%;
+}
+.content-photo > img{
+    width:100px;
+    height:100px;
+    vertical-align:middle;
+    border-radius:50%;
+}
+.content-account .sign{
+    margin-left:130px;
+    font-size:12px;
+    color: #808080;
+}
+.content-submit{
+    width:1000px;
+    border-top:2px solid #b9b9b9;
+}
+.content-submit > button{
+    width:100px;
+    height:40px;
+    margin:20px 0px 20px 130px;
+    font-size:16px;
+}

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Mall.Data.Interface.Client
 {
-    public interface IOrderClientManager
+    public interface IOrderClientApplicationService
     {
         /// <summary>
         /// 生成订单

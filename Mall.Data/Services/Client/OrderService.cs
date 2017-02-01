@@ -9,7 +9,7 @@ using Mall.Data.Models;
 
 namespace Mall.Data.Services.Client
 {
-    public class OrderService : IDisposable, IOrderClientManager
+    public class OrderService : IDisposable, IOrderClientApplicationService
     {
         private MallDBContext _db;
         private ClientService _clientService;
