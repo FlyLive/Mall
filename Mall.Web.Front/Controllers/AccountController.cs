@@ -39,11 +39,19 @@ namespace Mall.Web.Front.Controllers
             return RedirectToAction("Index");
         }
 
+        /// <summary>
+        /// 安全设置
+        /// </summary>
+        /// <returns></returns>
         public ActionResult SecuritySet()
         {
             return View();
         }
 
+        /// <summary>
+        /// 收货地址管理
+        /// </summary>
+        /// <returns></returns>
         public ActionResult AddressSet()
         {
             return View();

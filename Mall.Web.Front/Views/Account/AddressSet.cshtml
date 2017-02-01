@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewBag.Title = "AddressSet";
+    Layout = "~/Views/Layout/_Layout.cshtml";
+}
+
+<h2>AddressSet</h2>
+
+<div class="address-set">
+    <div class="address-set-title">
+        <span class="star">*</span>亲爱的，认真填写收货地址，方便收货哦！
+    </div>
+    <div class="address-create">
+        <div class="create-detail-address">
+            <p class="title"><span class="star">*</span>详细地址</p>
+            <textarea name="address"></textarea>
+        </div>
+        <div class="create-name">
+            <p class="title"><span class="star">*</span>联系人</p>
+            <input name="name" type="text" />
+        </div>
+        <div class="create-phone">
+            <p class="title"><span class="star">*</span>联系电话</p>
+            <input name="phone" type="text" maxlength="11" />
+        </div>
+        <div class="create-zip">
+            <p class="title">邮编</p>
+            <input name="zip" type="text" />
+        </div>
+        <div class="create-submit">
+            <button>新建地址</button>
+        </div>
+    </div>
+    <div class="address-">
+
+    </div>
+</div>
+@section css{
+    <link href="~/Css/Account/AddressSet.css" rel="stylesheet" />
+}

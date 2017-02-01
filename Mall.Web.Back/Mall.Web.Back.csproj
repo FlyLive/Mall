@@ -163,7 +163,7 @@
     <Content Include="Css\Goods\GoodsEdit.css" />
     <Content Include="Css\MenuView\AdminLTE.css" />
     <Content Include="Css\MenuView\blue.css" />
-    <Content Include="Css\MenuView\boot.css" />
+    <Content Include="Content\boot.css" />
     <Content Include="Css\MenuView\morris.css" />
     <Content Include="Css\MenuView\_all-skins.css" />
     <Content Include="Css\Order\ReplyEvaluate.css" />
