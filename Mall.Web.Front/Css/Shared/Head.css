@@ -34,7 +34,7 @@ a{
 }
 .head-message{
     font-size: 25px;
-    margin: 15px 5px;
+    margin: 15px 0px;
     border-radius:5px;
     background-color:#ffffff;
 }
@@ -60,7 +60,6 @@ a{
     position: relative;
     top: 7px;
     right: 12px;
-}
 }
 #search-button:hover {
     background-image: url('../../Pictures/Shared/Search(Touch).png');
@@ -97,4 +96,20 @@ a{
     position: relative;
     top: 5px;
     height:20px;
+}
+.client > div{
+    margin: 12px 0px 12px 80px;
+    display:none;
+    color:#999999;
+}
+.client > div > a{
+    color:#999999;
+}
+.client > div > a:hover{
+    color:#f8f8f8;
+}
+.client > div > a > img{
+    border-radius:50%;
+    background-color:#999999;
+    vertical-align:middle;
 }

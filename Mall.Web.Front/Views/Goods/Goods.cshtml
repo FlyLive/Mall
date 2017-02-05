@@ -1,13 +1,14 @@
-﻿
+﻿@model Mall.Data.DataBase.GoodsInfo
+
 @{
-    ViewBag.Title = "Goods";
+    ViewBag.Title = Model.GoodsName;
     Layout = "~/Views/Layout/_Layout.cshtml";
 }
 
 <div class="goods">
     <!-- 销售详情 -->
     <div class="goods-sale-info">
-        @Html.Action("GoodsSaleInfo", new { goodsId = 1 })
+        @Html.Action("GoodsSaleInfo", new { goodsId = Model.GoodsId })
     </div>
     <div class="goods-detail">
         <div class="goods-detail-select">
@@ -18,11 +19,11 @@
         </div>
         <!-- 商品详情 -->
         <div class="goods-detail-detail active" id="li-detail-detail">
-            @Html.Action("GoodsDetails", new { goodsId = 1 })
+            @Html.Action("GoodsDetails", new { goodsId = Model.GoodsId })
         </div>
         <!-- 评价列表 -->
         <div class="goods-detail-evaluate" id="li-evaluate-detail">
-            @Html.Action("GoodsEvaluates", new { goodsId = 1 })
+            @Html.Action("GoodsEvaluates", new { goodsId = Model.GoodsId })
         </div>
     </div>
 </div>
@@ -34,4 +35,7 @@
 }
 @section scripts{
     @Scripts.Render("~/JS/Goods/Goods.js")
+}
+@{ 
+
 }

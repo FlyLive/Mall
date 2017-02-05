@@ -251,6 +251,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="JS\Home\" />
+    <Folder Include="layer\" />
     <Folder Include="Pictures\Home\" />
   </ItemGroup>
   <ItemGroup>

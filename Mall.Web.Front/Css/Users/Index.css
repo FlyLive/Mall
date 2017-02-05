@@ -44,16 +44,31 @@
     margin-top: 40px;
     margin-bottom: 20px;
     background-color:#0066ff;
+    border:none;
+    cursor:pointer;
 }
 .login_login:hover{
-
+    background-color:#2277ff;
+}
+.login_login:active{
     background-color:#0066ff;
+}
+.no-account{
+    border:none;
+    border-top:1px solid #808080;
+}
+.no-account legend{
+    margin:0 auto;
 }
 .login_registe{
     margin:20px auto;
-    background-color:#33ff66;
+    background-color:#11ff66;
+    border:none;
+    cursor:pointer;
 }
 .login_registe:hover{
-    background-color:#33ff66;
-
+    background-color:#44ff66;
+}
+.login_registe:hover:active{
+    background-color:#11ff66;
 }

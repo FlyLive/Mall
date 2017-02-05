@@ -28,11 +28,19 @@ namespace Mall.Web.Front.Controllers
         [HttpPost]
         public ActionResult Login(string name,string password)
         {
-            Client client = _userService.Login(name, password);
-            if(client != null)
+            if(name == null || password == null)
             {
-                Session.Add("Client", client);
-                return RedirectToAction("../Home/Home");
+                TempData["loginError"] = "input";
+            }
+            else
+            {
+                Client client = _userService.Login(name, password);
+                if(client != null)
+                {
+                    Session.Add("Client", client);
+                    return RedirectToAction("../Home/Home");
+                }
+                TempData["loginError"] = "password";
             }
             return RedirectToAction("Index");
         }

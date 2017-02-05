@@ -20,36 +20,46 @@
         <div class="menu">
             <ul>
                 <li>
-                    <a href="#">
+                    <a href="/Account/Index" title="个人中心">
                         <i class="fa fa-male"></i>
                         个人中心
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="/Users/ShoppingCart" title="购物车">
                         <i class="fa fa-shopping-cart"></i>
                         购物车
                     </a>
                 </li>
                 <li>
-                    <a href="#">
-                        <i class="fa fa-laptop"></i>
-                        [登录]
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
+                    <a href="#" title="联系客服">
                         <i class="fa fa-phone"></i>
                         联系客服
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="#" title="网站导航">
                         <i class="fa fa-compass"></i>
                         网站导航
                     </a>
                 </li>
             </ul>
+        </div>
+        <div class="client">
+            <div id="no_account" class="client-no-account">
+                <a href="/Account/Index" title="个人中心">
+                    <img src="~/Pictures/Shared/contact.png" />
+                </a>
+                <span>亲,请</span>
+                <a href="/Users/Index">[登录]</a>
+            </div>
+            <div id="has_account" class="client-has-account">
+                <a href="/Account/Index">
+                    <img src="~/Pictures/Shared/contact.png" />
+                </a>
+                <span>欢迎您,</span>
+                <a id="account_name" href="/Account/Index"></a>
+            </div>
         </div>
     </div>
 </div>
@@ -67,5 +77,24 @@
     </div>
 </div>
 @section css{
-    @Styles.Render("~/ Css / Shared / Head.css");
+    @Styles.Render("~/Css/Shared/Head.css");
+}
+@{
+    var client = Session["Client"];
+    if (client != null)
+    {
+        Mall.Data.DataBase.Client c = (Mall.Data.DataBase.Client)Session["Client"];
+        <script>
+            $("#has_account").show();
+            $("#no_account").hide();
+            $("#account_name").text("@c.User.NickName");
+        </script>
+    }
+    else
+    {
+        <script>
+            $("#has_account").hide();
+            $("#no_account").show();
+        </script>
+    }
 }

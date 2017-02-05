@@ -44,9 +44,11 @@
     margin-top: 20px;
     margin-bottom: 20px;
     background-color:#0066ff;
+    cursor:pointer;
+    border:none;
 }
 .registe_registe:hover{
-    background-color:#008fff;
+    background-color:#2277ff;
 }
 .registe_registe:active{
     background-color:#0066ff;
@@ -63,4 +65,20 @@
 .registe_notice{
     font-weight:100;
     font-size: 10px;
+}
+.has-account{
+    border:none;
+    border-top:1px solid #808080;
+    margin-bottom:50px;
+}
+.has-account legend{
+    color:#666666;
+    margin:0 auto;
+}
+.has-account legend > a{
+    font-size:14px;
+    color:#0022ff;
+}
+.has-account legend > a:hover{
+    text-decoration:underline;
 }

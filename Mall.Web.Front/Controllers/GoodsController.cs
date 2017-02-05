@@ -14,9 +14,10 @@ namespace Mall.Web.Front.Controllers
         /// </summary>
         /// <param name="goodsId"></param>
         /// <returns></returns>
-        public ActionResult Goods()
+        public ActionResult Goods(int goodsId)
         {
-            return View();
+            GoodsInfo goods = new GoodsInfo();
+            return View(goods);
         }
 
         /// <summary>
