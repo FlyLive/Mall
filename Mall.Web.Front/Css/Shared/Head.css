@@ -1,4 +1,7 @@
-﻿.head {
+﻿a:hover{
+    text-decoration:none;
+}
+.head {
     width:1500px;
     display:flex;
     margin:0 auto;
@@ -80,6 +83,9 @@ a{
 }
 .menu{
     margin-top:10px;
+}
+.menu ul{
+    margin-top:14px;
 }
 .menu li{
     list-style:none;

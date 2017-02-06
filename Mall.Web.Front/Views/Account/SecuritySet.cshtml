@@ -16,8 +16,9 @@
         </div>
         <div class="pay-password">
             <p class="title"><span class="star">*</span>旧登录密码</p>
-            <input type="password" />
-            <button>确认</button>
+            <input id="old_log_password" type="hidden"/>
+            <input id="input_log_password" type="password" />
+            <button onclick="ConfirmLP()" type="button">确认</button>
         </div>
     </div>
     <div class="security-set-pay">
@@ -25,12 +26,19 @@
             <h4>支付密码</h4>
         </div>
         <div class="pay-password">
-            <p class="title"><span class="star">*</span>旧登录密码</p>
-            <input type="password" />
-            <button>确认</button>
+            <p class="title"><span class="star">*</span>旧支付密码</p>
+            <input id="old_pay_password" type="hidden" />
+            <input id="input_pay_password" type="password" />
+            <button onclick="ConfirmPP()" type="button">确认</button>
         </div>
     </div>
 </div>
+@Html.Partial("ChangeLP");
+@Html.Partial("ChangePP");
 @section css{
     <link href="~/Css/Account/SecuritySet.css" rel="stylesheet" />
+}
+@section scripts{
+    <!--<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+    @Scripts.Render("~/JS/Account/SecuritySet.js")
 }

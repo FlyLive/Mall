@@ -56,8 +56,10 @@ namespace Mall.Web.Front.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult RetrievePW(int id,string newPassword)
+        public ActionResult RetrievePW(string newPassword)
         {
+            Client client = (Client)Session["Client"];
+            _userService.ModifyPasswordByClientId(client.ClientId, newPassword);
             return RedirectToAction("Index");
         }
         #endregion

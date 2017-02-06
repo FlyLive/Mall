@@ -9,17 +9,17 @@
         <div>
             <h2>登录</h2>
             <div>
-                <form action="Login" method="post">
+                <form action="Login" name="login" method="post">
                     <p class="login_sign">账户</p>
-                    <input name="name" class="login_input" type="text" placeholder="账户" />
+                    <input name="name" id="account" class="login_input" type="text" placeholder="账户" />
                     <p class="login_sign">
                         密码
                         <span class="login_forget">
                             <a href="RetrievePW">忘记密码?</a>
                         </span>
                     </p>
-                    <input name="password" class="login_input" type="password" placeholder="密码" />
-                    <button class="login_button login_login" type="submit">登录</button>
+                    <input name="password" id="password" class="login_input" type="password" placeholder="密码" />
+                    <button onclick="log()" class="login_button login_login" type="button">登录</button>
                 </form>
             </div>
             <fieldset class="no-account">
@@ -38,21 +38,14 @@
 @section css{
     @Styles.Render("~/Css/Users/Index.css")
 }
+@section scripts{
+    @Scripts.Render("~/JS/Users/Index.js")
+}
 @{
     var loginError = TempData["loginError"];
     if (loginError != null)
     {
-
-        if (loginError.Equals("input"))
-        {
-            <script>
-                layer.open({
-                    title: '错误提示',
-                    content: '请输入正确的账户和密码',
-                });
-            </script>
-        }
-        else if (loginError.Equals("password"))
+        if (loginError.Equals("password"))
         {
             <script>
                 layer.open({

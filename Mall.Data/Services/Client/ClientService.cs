@@ -174,7 +174,7 @@ namespace Mall.Data.Services.Client
         /// </summary>
         /// <param name="clientId">用户Id</param>
         /// <param name="newPassword">新密码</param>
-        public void ModifyPasswordByUserId(int clientId, string newPassword)
+        public void ModifyPasswordByClientId(int clientId, string newPassword)
         {
             DataBase.Client client = GetClientById(clientId);
             client.User.Password = newPassword;

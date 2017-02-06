@@ -29,6 +29,6 @@ namespace Mall.Data.Interface.Client
         /// </summary>
         /// <param name="clientId">用户Id</param>
         /// <param name="newPassword">新密码</param>
-        void ModifyPasswordByUserId(int clientId, string newPassword);
+        void ModifyPasswordByClientId(int clientId, string newPassword);
     }
 }

@@ -9,26 +9,26 @@
         <div>
             <h2>注册</h2>
             <div>
-                <form action="Registe" method="post">
+                <form action="Registe" name="registe" method="post">
                     <p class="registe_sign">您的姓名<span class="registe_notice">(登录名)</span></p>
-                    <input name="name" class="registe_input" type="text" placeholder="账户" />
+                    <input name="name" id="name" class="registe_input" type="text" placeholder="账户" />
 
                     <p class="registe_sign">密码</p>
-                    <input name="fPWord" class="registe_input" type="password" placeholder="密码" />
+                    <input name="fPWord" id="fPWord" class="registe_input" type="password" placeholder="密码" />
 
                     <p class="registe_sign registe_confirm">确认密码</p>
-                    <input name="sPWord" class="registe_input" type="password" placeholder="确认密码" />
+                    <input name="sPWord" id="sPWord" class="registe_input" type="password" placeholder="确认密码" />
 
                     <p class="registe_sign registe_email">邮箱<span class="registe_notice">(忘记密码时找回密码)</span></p>
-                    <input name="email" class="registe_input" type="email" placeholder="邮箱" />
+                    <input name="email" id="email" class="registe_input" type="email" placeholder="邮箱" />
 
                     <div class="registe_condition registe_notice">
-                        <input name="agree" type="checkbox" value="check" />我已阅读并同意网站的
+                        <input name="agree" id="agree" type="checkbox" value="check" />我已阅读并同意网站的
                         <a href="">使用条件</a>
                         <span>及</span>
                         <a href="">隐私声明</a>
                     </div>
-                    <button class="registe_button registe_registe" type="submit">立即注册</button>
+                    <button class="registe_button registe_registe" onclick="Registe()" type="button">立即注册</button>
                 </form>
             </div>
             <div class="registe_notice">
@@ -43,8 +43,11 @@
     </div>
 </div>
 @section css{
-    @Styles.Render("~/Css/Users/Registe.css");
+    @Styles.Render("~/Css/Users/Registe.css")
 }
-@{
+@section scripts{
+    @Scripts.Render("~/JS/Users/Registe.js")
+}
+@{ 
 
 }

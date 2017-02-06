@@ -47,7 +47,7 @@ namespace Mall.Web.Front.Controllers
         {
             return View();
         }
-        
+
         /// <summary>
         /// 收货地址管理
         /// </summary>

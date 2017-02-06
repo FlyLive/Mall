@@ -144,6 +144,7 @@
     <Content Include="Css\Goods\SearchResult.css" />
     <Content Include="Css\Home\Home.css" />
     <Content Include="Css\Home\Suggest.css" />
+    <Content Include="JS\Account\SecuritySet.js" />
     <Content Include="JS\Goods\Goods.js" />
     <Content Include="JS\Layout\_Layout.js" />
     <Content Include="Css\Shared\font-awesome.min.css" />
@@ -164,6 +165,8 @@
     <Content Include="JS\Shared\jquery-2.2.3.min.js" />
     <Content Include="JS\Home\jquery.terseBanner.min.js" />
     <Content Include="JS\Home\script.js" />
+    <Content Include="JS\Users\Index.js" />
+    <Content Include="JS\Users\Registe.js" />
     <Content Include="Pictures\Chat\chat_bg.jpg" />
     <Content Include="Pictures\Chat\Img\Img1.gif" />
     <Content Include="Pictures\Chat\Img\Img2.gif" />
@@ -228,6 +231,8 @@
     <Content Include="Views\Account\PersonalInfo.cshtml" />
     <Content Include="Views\Account\SecuritySet.cshtml" />
     <Content Include="Views\Account\AddressSet.cshtml" />
+    <Content Include="Views\Account\ChangeLP.cshtml" />
+    <Content Include="Views\Account\ChangePP.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

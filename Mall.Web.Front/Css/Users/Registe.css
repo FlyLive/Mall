@@ -74,6 +74,8 @@
 .has-account legend{
     color:#666666;
     margin:0 auto;
+    font-size:12px;
+    width:auto;
 }
 .has-account legend > a{
     font-size:14px;
