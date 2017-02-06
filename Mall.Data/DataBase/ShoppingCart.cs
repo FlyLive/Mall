@@ -20,7 +20,7 @@ namespace Mall.Data.DataBase
         public int Number { get; set; }
         public int GoodsId { get; set; }
     
-        public virtual Client Client { get; set; }
         public virtual GoodsInfo GoodsInfo { get; set; }
+        public virtual Client Client { get; set; }
     }
 }

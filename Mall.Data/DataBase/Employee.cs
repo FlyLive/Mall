@@ -23,6 +23,7 @@ namespace Mall.Data.DataBase
     
         public int UserId { get; set; }
         public int EmployeeId { get; set; }
+        public string ManagePassword { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Permissions> Permissions { get; set; }

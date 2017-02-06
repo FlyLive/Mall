@@ -55,4 +55,14 @@
             </script>
         }
     }
+    var registe = TempData["Registe"];
+    if (registe != null && registe.Equals("true"))
+    {
+        <script>
+                layer.open({
+                    title: '提示',
+                    content: '注册成功,请用您刚才注册的信息登录,欢迎使用云翳书籍商城',
+                });
+        </script>
+    }
 }

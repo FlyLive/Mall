@@ -75,13 +75,19 @@ namespace Mall.Web.Front.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Registe(string name,string fPWord,string sPWord,string email)
+        public ActionResult Registe(string name,string fPWord,string email)
         {
-            if(fPWord == sPWord)
+            Client client = _userService.Registe(name,fPWord,email);
+            if(client == null)
             {
-                Client client = _userService.Registe(name,fPWord,email);
+                TempData["Registe"] = "false";
+                return RedirectToAction("Registe");
             }
-            return RedirectToAction("../Home/Home");
+            else
+            {
+                TempData["Registe"] = "true";
+                return RedirectToAction("Index");
+            }
         }
         #endregion
 

@@ -48,6 +48,16 @@
 @section scripts{
     @Scripts.Render("~/JS/Users/Registe.js")
 }
-@{ 
-
+@{
+    var registe = TempData["Registe"];
+    if (registe != null && registe.Equals("false"))
+    {
+        <script>
+            layer.open({
+                title: '错误提示',
+                content: '注册失败了,请重试或联系客服,给您带来的不便敬请谅解！',
+                icon: 5,
+            })
+        </script>
+    }
 }

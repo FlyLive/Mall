@@ -49,6 +49,7 @@
     <EntitySetMapping Name="Employee">
       <EntityTypeMapping TypeName="MallDBModel.Employee">
         <MappingFragment StoreEntitySet="Employee">
+          <ScalarProperty Name="ManagePassword" ColumnName="ManagePassword" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
         </MappingFragment>
@@ -166,15 +167,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Client">
-      <EntityTypeMapping TypeName="MallDBModel.Client">
-        <MappingFragment StoreEntitySet="Client">
-          <ScalarProperty Name="Wallet" ColumnName="Wallet" />
-          <ScalarProperty Name="UserId" ColumnName="UserId" />
-          <ScalarProperty Name="ClientId" ColumnName="ClientId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Order">
       <EntityTypeMapping TypeName="MallDBModel.Order">
         <MappingFragment StoreEntitySet="Order">
@@ -204,6 +196,16 @@
           <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
           <ScalarProperty Name="ClientId" ColumnName="ClientId" />
           <ScalarProperty Name="ShoppingCartId" ColumnName="ShoppingCartId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Client">
+      <EntityTypeMapping TypeName="MallDBModel.Client">
+        <MappingFragment StoreEntitySet="Client">
+          <ScalarProperty Name="PayPassword" ColumnName="PayPassword" />
+          <ScalarProperty Name="Wallet" ColumnName="Wallet" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="ClientId" ColumnName="ClientId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

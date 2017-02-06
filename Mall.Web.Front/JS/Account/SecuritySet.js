@@ -35,32 +35,44 @@ function ConfirmPP() {
         });
     }
 }
-    //document.forms["表单name"].submit()//普通按钮提交表单
+//document.forms["表单name"].submit()//普通按钮提交表单
+//修改登录密码
 function ChangeLP() {
+    var oldLP = $("#old_log_password").val();
     var firstLP = $("#log_password").val();
     var secondeLP = $("#re_log_password").val();
 
-    if (ConfirmPassword(firstLP,secondeLP)) {
+    if (ConfirmPassword(oldLP,firstLP,secondeLP)) {
         document.forms["changeLP"].submit();
     }
     return false;
 }
 
+//修改支付密码
 function ChangePP() {
+    var oldPP = $("#old_pay_password").val();
     var firstPP = $("#pay_password").val();
     var secondePP = $("#re_pay_password").val();
 
-    if (Confirm(firstPP, secondePP)) {
+    if (Confirm(oldPP,firstPP, secondePP)) {
         document.forms["changePP"].submit();
     }
     return false;
 }
 
-function ConfirmPassword(first, second) {
+//验证密码
+function ConfirmPassword(old,first, second) {
     if (first == "" || first.substring(0, first.length) == 0) {
         layer.open({
             title: '错误提示',
             content: '密码不能为空，请重试!',
+        });
+        return false;
+    }
+    else if (old == first) {
+        layer.open({
+            title: '错误提示',
+            content: '新密码不能与原密码相同,请重试!',
         });
         return false;
     }

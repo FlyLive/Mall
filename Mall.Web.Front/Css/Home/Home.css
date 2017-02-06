@@ -37,6 +37,9 @@
     width: 1000px;
     margin: 0px 20px;
 }
+.mall-head-center > div{
+    width:965px;
+}
 
 .advertisement {
     display: flex;
@@ -67,14 +70,13 @@
 }
 
     #anchor-3 ul > li {
-        width: 965.33px !important;
         height: 500px !important;
         list-style: none;
         padding: 0 !important;
     }
 
 .tb-arrow {
-    margin-left: -460px !important;
+    margin-left: -445px !important;
 }
 
     .tb-arrow > a {

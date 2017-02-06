@@ -32,8 +32,8 @@
     </div>
     <div class="content-gender">
         <p class="title">性别</p>
-        <label><input name="gender" type="radio" value="1" />男</label>
-        <label><input name="gender" type="radio" value="0" />女</label>
+        <label><input name="gender" id="male" type="radio" value="1" />男</label>
+        <label><input name="gender" id="female" type="radio" value="0" />女</label>
     </div>
     <div class="content-birthday">
         <p class="title">生日</p>
@@ -45,7 +45,7 @@
     </div>
     <div class="content-email">
         <p class="title"><span class="star">*</span>E-Mail</p>
-        <input name="email value=@Model.Email"/>
+        <input name="email" value="@Model.Email"/>
     </div>
     <div class="content-submit">
         <button type="submit">提交修改</button>

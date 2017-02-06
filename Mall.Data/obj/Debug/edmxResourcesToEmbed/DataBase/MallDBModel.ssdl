@@ -26,6 +26,7 @@
     <Property Name="ClientId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="UserId" Type="int" Nullable="false" />
     <Property Name="Wallet" Type="float" Nullable="false" />
+    <Property Name="PayPassword" Type="nvarchar" MaxLength="20" Nullable="false" />
   </EntityType>
   <EntityType Name="Comment">
     <Key>
@@ -55,6 +56,7 @@
     </Key>
     <Property Name="UserId" Type="int" Nullable="false" />
     <Property Name="EmployeeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ManagePassword" Type="nvarchar" MaxLength="20" Nullable="false" />
   </EntityType>
   <EntityType Name="EmployeePermissions">
     <Key>
@@ -189,7 +191,7 @@
     <Property Name="Birthday" Type="datetime" />
     <Property Name="CreateTime" Type="datetime" Nullable="false" />
     <Property Name="PhoneNumber" Type="nvarchar" MaxLength="11" />
-    <Property Name="Email" Type="nvarchar" MaxLength="50" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
   </EntityType>
   <Association Name="FK_CLIENT_REFERENCE_USER">
     <End Role="User" Type="Self.User" Multiplicity="1" />

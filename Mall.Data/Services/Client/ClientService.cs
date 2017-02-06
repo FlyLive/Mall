@@ -58,6 +58,7 @@ namespace Mall.Data.Services.Client
                 {
                     UserId = user.UserId,
                     Wallet = 10000,
+                    PayPassword = password,
                 };
 
                 _db.User.Add(user);
@@ -76,7 +77,7 @@ namespace Mall.Data.Services.Client
         /// <returns></returns>
         public bool ReName(string name)
         {
-            var user = _db.User.Where(u => u.Account == name);
+            var user = _db.User.SingleOrDefault(u => u.Account == name);
             return user == null ? false : true;
         }
 
@@ -170,14 +171,27 @@ namespace Mall.Data.Services.Client
         }
 
         /// <summary>
-        /// 修改密码
+        /// 修改登录密码
         /// </summary>
         /// <param name="clientId">用户Id</param>
-        /// <param name="newPassword">新密码</param>
+        /// <param name="newPassword">新登录密码</param>
         public void ModifyPasswordByClientId(int clientId, string newPassword)
         {
             DataBase.Client client = GetClientById(clientId);
             client.User.Password = newPassword;
+
+            _db.SaveChanges();
+        }
+
+        /// <summary>
+        /// 修改支付密码
+        /// </summary>
+        /// <param name="clientId">客户Id</param>
+        /// <param name="newPayPassword">新支付密码</param>
+        public void ModifyPayPasswordByClientId(int clientId,string newPayPassword)
+        {
+            DataBase.Client client = GetClientById(clientId);
+            client.PayPassword = newPayPassword;
 
             _db.SaveChanges();
         }

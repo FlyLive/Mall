@@ -47,7 +47,17 @@ namespace Mall.Web.Front.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public ActionResult ChangeLP(string log_password)
+        {
+            Client client = (Client)Session["Client"];
+            _clientService.ModifyPasswordByClientId(client.ClientId, log_password);
 
+            Session["Client"] = null;
+            TempData["ChangeLP"] = "success";
+
+            return RedirectToAction("../Users/Index");
+        }
         /// <summary>
         /// 收货地址管理
         /// </summary>

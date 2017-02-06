@@ -21,7 +21,7 @@ namespace Mall.Data.DataBase
         public Nullable<System.DateTime> DealTime { get; set; }
         public string Remark { get; set; }
     
-        public virtual Client Client { get; set; }
         public virtual Order Order { get; set; }
+        public virtual Client Client { get; set; }
     }
 }

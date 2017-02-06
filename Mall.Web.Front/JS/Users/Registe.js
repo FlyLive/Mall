@@ -6,7 +6,7 @@
 
     var email = $("#email").val();
 
-    var agree = $("#agree").val();
+    var agree = $("#agree").is(":checked");
 
     //账户确认
     if (account == "" || account.substring(0, account.length) == 0) {
@@ -32,6 +32,14 @@
     //邮箱确认
     if (!/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(email)) {
         Tips('邮箱格式错误,请重试!', "email");
+        return false;
+    }
+
+    if (!agree) {
+        layer.open({
+            title: '提示',
+            content: '必须同意本网站使用规则！',
+        });
         return false;
     }
 

@@ -42,3 +42,13 @@
     <!--<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
     @Scripts.Render("~/JS/Account/SecuritySet.js")
 }
+@{ 
+    Mall.Data.DataBase.Client client = (Mall.Data.DataBase.Client)Session["Client"];
+    if(client != null)
+    {
+        <script>
+            $("#old_log_password").val(@client.User.Password);
+            $("#old_pay_password").val(@client.PayPassword);
+        </script>
+    }
+}
