@@ -33,8 +33,8 @@
         </div>
     </div>
 </div>
-@Html.Partial("ChangeLP");
-@Html.Partial("ChangePP");
+@Html.Partial("ChangeLP")
+@Html.Partial("ChangePP")
 @section css{
     <link href="~/Css/Account/SecuritySet.css" rel="stylesheet" />
 }
@@ -50,5 +50,18 @@
             $("#old_log_password").val(@client.User.Password);
             $("#old_pay_password").val(@client.PayPassword);
         </script>
+    }
+    var changePP = TempData["ChangePP"];
+    if(changePP != null)
+    {
+        if (changePP.Equals("success"))
+        {
+            <script>
+                layer.open({
+                    title: '提示',
+                    content: '修改支付密码成功,下次使用时生效!',
+                });
+            </script>
+        }
     }
 }

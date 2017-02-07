@@ -144,6 +144,8 @@
     <Content Include="Css\Goods\SearchResult.css" />
     <Content Include="Css\Home\Home.css" />
     <Content Include="Css\Home\Suggest.css" />
+    <Content Include="JS\Account\AddressSet.js" />
+    <Content Include="JS\Account\PersonalInfo.js" />
     <Content Include="JS\Account\SecuritySet.js" />
     <Content Include="JS\Goods\Goods.js" />
     <Content Include="JS\Layout\_Layout.js" />
@@ -162,6 +164,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="JS\Shared\cropbox.js" />
     <Content Include="JS\Shared\jquery-2.2.3.min.js" />
     <Content Include="JS\Home\jquery.terseBanner.min.js" />
     <Content Include="JS\Home\script.js" />
@@ -233,6 +236,7 @@
     <Content Include="Views\Account\AddressSet.cshtml" />
     <Content Include="Views\Account\ChangeLP.cshtml" />
     <Content Include="Views\Account\ChangePP.cshtml" />
+    <Content Include="Views\Account\ModifyPhoto.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -42,6 +42,7 @@
     @Scripts.Render("~/JS/Users/Index.js")
 }
 @{
+    //登录
     var loginError = TempData["loginError"];
     if (loginError != null)
     {
@@ -55,6 +56,7 @@
             </script>
         }
     }
+    //注册
     var registe = TempData["Registe"];
     if (registe != null && registe.Equals("true"))
     {
@@ -63,6 +65,17 @@
                     title: '提示',
                     content: '注册成功,请用您刚才注册的信息登录,欢迎使用云翳书籍商城',
                 });
+        </script>
+    }
+    //修改密码
+    var changeLP = TempData["ChangeLP"];
+    if(changeLP != null)
+    {
+        <script>
+            layer.open({
+                title: '提示',
+                content: '修改成功,请重新登录!',
+            });
         </script>
     }
 }

@@ -84,12 +84,12 @@ namespace Mall.Data.Services.Client
         /// <summary>
         /// 根据账户Id获取用户
         /// </summary>
-        /// <param name="id">账户Id</param>
+        /// <param name="cilentId">账户Id</param>
         /// <returns></returns>
-        public DataBase.Client GetClientById(int id)
+        public DataBase.Client GetClientById(int cilentId)
         {
             var clients = GetAllClient();
-            DataBase.Client client = clients.SingleOrDefault(c => c.ClientId == id);
+            DataBase.Client client = clients.SingleOrDefault(c => c.ClientId == cilentId);
             return client;
         }
 
@@ -155,9 +155,17 @@ namespace Mall.Data.Services.Client
         /// 新建收货信息
         /// </summary>
         /// <param name="deliverInfo"></param>
-        public void CreatDeliverInfo(DeliveryInfo deliverInfo)
+        public void CreatDeliverInfo(int clientId,string address,string contact,string phone,string zip = " ")
         {
-            _db.DeliveryInfo.Add(deliverInfo);
+            DataBase.Client client = GetClientById(clientId);
+            DeliveryInfo deliveryInfo = new DeliveryInfo
+            {
+                ClientId = client.ClientId,
+                DetailedAddress = address,
+                PhoneNumber = phone,
+                Consignee = contact,
+            };
+            _db.DeliveryInfo.Add(deliveryInfo);
             _db.SaveChanges();
         }
 
@@ -165,9 +173,15 @@ namespace Mall.Data.Services.Client
         /// 修改收货地址
         /// </summary>
         /// <param name="newDeliverInfo"></param>
-        public void ModifyDeliverInfo(DeliveryInfo newDeliverInfo,int deliveryInfoId)
+        public void ModifyDeliverInfo(int deliveryInfoId, string address, string contact, string phone, string zip = " ")
         {
-            //newDeliverInfo.Id = 
+            DeliveryInfo deliveryInfo = GetDeliveryInfoById(deliveryInfoId);
+
+            deliveryInfo.DetailedAddress = address;
+            deliveryInfo.Consignee = contact;
+            deliveryInfo.PhoneNumber = phone;
+
+            _db.SaveChanges();
         }
 
         /// <summary>

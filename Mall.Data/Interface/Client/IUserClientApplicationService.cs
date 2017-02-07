@@ -17,13 +17,21 @@ namespace Mall.Data.Interface.Client
         /// <summary>
         /// 新建收货信息
         /// </summary>
-        /// <param name="deliverInfo"></param>
-        void CreatDeliverInfo(DeliveryInfo deliverInfo);
+        /// <param name="clientId"></param>
+        /// <param name="address"></param>
+        /// <param name="contact"></param>
+        /// <param name="phone"></param>
+        /// <param name="zip"></param>
+        void CreatDeliverInfo(int clientId, string address, string contact, string phone, string zip = " ");
         /// <summary>
         /// 修改收货信息
         /// </summary>
-        /// <param name="deliverInfo"></param>
-        void ModifyDeliverInfo(DeliveryInfo newDeliverInfo,int deliveryInfoId);
+        /// <param name="deliveryInfoId"></param>
+        /// <param name="address"></param>
+        /// <param name="contact"></param>
+        /// <param name="phone"></param>
+        /// <param name="zip"></param>
+        void ModifyDeliverInfo(int deliveryInfoId, string address, string contact, string phone, string zip = " ");
         /// <summary>
         /// 修改密码
         /// </summary>

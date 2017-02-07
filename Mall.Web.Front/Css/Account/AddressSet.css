@@ -19,7 +19,7 @@
     border-radius:4px;
     border:1px solid #ccc;
 }
-.address-create > div{
+.address-create > form > div{
     margin:20px;
 }
 .create-detail-address textarea{

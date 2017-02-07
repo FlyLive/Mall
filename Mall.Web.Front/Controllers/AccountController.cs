@@ -39,6 +39,17 @@ namespace Mall.Web.Front.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpPost]
+        public ActionResult ModifyPersonalInfo(string email,DateTime ? birthday,string nick = " ",string name = " ",string phone = " ", bool gender = true)
+        {
+            Client client = (Client)Session["Client"];
+            _clientService.ModifyUserInfo(client.User, client.UserId);
+            TempData["ModifyInfo"] = "success";
+
+            return RedirectToAction("PersonalInfo");
+        }
+
+        #region 安全设置
         /// <summary>
         /// 安全设置
         /// </summary>
@@ -47,6 +58,7 @@ namespace Mall.Web.Front.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public ActionResult ChangeLP(string log_password)
         {
@@ -58,6 +70,18 @@ namespace Mall.Web.Front.Controllers
 
             return RedirectToAction("../Users/Index");
         }
+
+        [HttpPost]
+        public ActionResult ChangePP(string pay_password)
+        {
+            Client client = (Client)Session["Client"];
+            _clientService.ModifyPayPasswordByClientId(client.ClientId, pay_password);
+            TempData["ChangePP"] = "success";
+            return RedirectToAction("SecuritySet");
+        }
+        #endregion
+
+        #region 收货地址管理
         /// <summary>
         /// 收货地址管理
         /// </summary>
@@ -66,5 +90,22 @@ namespace Mall.Web.Front.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public ActionResult CreateAddress(string address,string phone,string name,string zip = " ")
+        {
+            Client client = (Client)Session["Client"];
+            _clientService.CreatDeliverInfo(client.ClientId,address,name,phone,zip);
+            TempData["Create"] = "success";
+            return RedirectToAction("AddressSet");
+        }
+
+        [HttpPost]
+        public ActionResult ModifyAddress(int addressId)
+        {
+            return RedirectToAction("AddressSet");
+        }
+
+        #endregion
     }
 }

@@ -15,42 +15,65 @@
     </div>
     <div class="content-photo">
         <p class="title">当前头像</p>
-        <img src="~/Pictures/Shared/contact.png" />
+        <button type="button" onclick="ModifyPhoto()">修改头像</button>
+        @Html.Partial("ModifyPhoto")
     </div>
-    <div class="content-account">
-        <p class="title">账户</p>
-        <input type="text" value="@Model.Account" disabled="disabled" />
-        <p class="sign"><span class="star">*</span>账户注册时生成，不可更改</p>
-    </div>
-    <div class="content-nick">
-        <p class="title"><span class="star">*</span>昵称</p>
-        <input name="nick" type="text" value="@Model.NickName" />
-    </div>
-    <div class="content-name">
-        <p class="title"><span class="star">*</span>姓名</p>
-        <input name="name" type="text" value="" />
-    </div>
-    <div class="content-gender">
-        <p class="title">性别</p>
-        <label><input name="gender" id="male" type="radio" value="1" />男</label>
-        <label><input name="gender" id="female" type="radio" value="0" />女</label>
-    </div>
-    <div class="content-birthday">
-        <p class="title">生日</p>
-        <input name="birthday" type="date" />
-    </div>
-    <div class="content-phone">
-        <p class="title"><span class="star">*</span>电话</p>
-        <input name="phone" maxlength="11" value="@Model.PhoneNumber"/>
-    </div>
-    <div class="content-email">
-        <p class="title"><span class="star">*</span>E-Mail</p>
-        <input name="email" value="@Model.Email"/>
-    </div>
-    <div class="content-submit">
-        <button type="submit">提交修改</button>
-    </div>
+    <form action="ModifyPersonalInfo" name="modifyInfo" method="post">
+        <div class="content-account">
+            <p class="title">账户</p>
+            <input type="text" value="@Model.Account" disabled="disabled" />
+            <p class="sign"><span class="star">*</span>账户注册时生成，不可更改</p>
+        </div>
+        <div class="content-nick">
+            <p class="title"><span class="star">*</span>昵称</p>
+            <input name="nick" id="nick" type="text" value="@Model.NickName" />
+        </div>
+        <div class="content-name">
+            <p class="title"><span class="star">*</span>姓名</p>
+            <input name="name" id="name" type="text" value="" />
+        </div>
+        <div class="content-gender">
+            <p class="title">性别</p>
+            <label><input name="gender" id="male" type="radio" value="1" />男</label>
+            <label><input name="gender" id="female" type="radio" value="0" />女</label>
+        </div>
+        <div class="content-birthday">
+            <p class="title">生日</p>
+            <input name="birthday" id="birthday" type="date" />
+        </div>
+        <div class="content-phone">
+            <p class="title"><span class="star">*</span>电话</p>
+            <input name="phone" id="phone" maxlength="11" value="@Model.PhoneNumber" />
+        </div>
+        <div class="content-email">
+            <p class="title"><span class="star">*</span>E-Mail</p>
+            <input name="email" id="email" value="@Model.Email" />
+        </div>
+        <div class="content-submit">
+            <button type="button" onclick="Modify()">提交修改</button>
+        </div>
+    </form>
 </div>
 @section css{
-    <link href="~/Css/Account/PersonalInfo.css" rel="stylesheet" />
+    @Styles.Render("~/Css/Account/PersonalInfo.css")
+}
+@section scripts{
+    @Scripts.Render("~/JS/Account/PersonalInfo.js")
+    <script src="~/JS/Shared/cropbox.js"></script>
+}
+@{
+    var modifyInfo = TempData["ModifyInfo"];
+    if (modifyInfo != null)
+    {
+        if (modifyInfo.Equals("success"))
+        {
+            <script>
+                layer.open({
+                    title: '提示',
+                    content: '修改成功!',
+                    icon: 6,
+                });
+            </script>
+        }
+    }
 }
