@@ -55,11 +55,23 @@ namespace Mall.Web.Front.Controllers
         {
             return View();
         }
+        [HttpGet]
+        public bool ClientConfirm(string account,string email)
+        {
+            var result = _userService.ClientConfirm(account, email);
+            if (result)
+            {
+                TempData["Account"] = account;
+            }
+            return result;
+        }
         [HttpPost]
         public ActionResult RetrievePW(string newPassword)
         {
-            Client client = (Client)Session["Client"];
+            var account = (string)TempData["Account"];
+            Client client = _userService.GetClientByAccount(account);
             _userService.ModifyPasswordByClientId(client.ClientId, newPassword);
+            TempData["RetrievePW"] = "successs";
             return RedirectToAction("Index");
         }
         #endregion

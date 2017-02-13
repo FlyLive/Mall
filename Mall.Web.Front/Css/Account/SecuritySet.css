@@ -16,10 +16,22 @@
     border:1px solid #ccc;
     display:block;
 }
-.security-set > div > div > button{
+.password-submit{
     width:100px;
     height:40px;
     margin: 20px 0px;
+    border:none;
+    border-radius:5px;
+    background-color:#2ca9e1;
+}
+.password-submit:hover{
+    background-color:#0095d9;
+}
+.password-submit:active{
+    background-color:#2ca9e1;
+}
+.tip{
+    color:red;
 }
 .log-tip,.pay-tip{
     width: 200px;

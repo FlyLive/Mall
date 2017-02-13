@@ -16,19 +16,23 @@
     <p class="retrieve-body-sign">
         <i class="fa fa-exclamation-circle" style="color:#68b5e2;"></i>&ensp;请输入您注册时使用的用户名和Email
     </p>
-    <form action="">
+    <form action="" method="get">
         <div class="retrieve-name">
-            <span class="retrieve-name-input">用户名:&emsp;</span>
-            <input name="name" placeholder="注册名/登录名" />
+            <span class="retrieve-name-input">账户:&emsp;&ensp;</span>
+            <input name="account" id="account" placeholder="注册名/登录名" />
             <span>忘记登录名？联系客服或重新注册</span>
         </div>
         <div class="retrieve-email">
-            <span class="retrieve-email-input">Email:&emsp;&ensp;</span>
-            <input name="email" placeholder="注册时的邮箱" type="email" />
+            <span class="retrieve-email-input">Email:&emsp;</span>
+            <input name="email" id="email" placeholder="注册时的邮箱" type="email" />
         </div>
-        <button type="submit">重置密码</button>
+        <button onclick="ClientConfirm()" type="button">重置密码</button>
     </form>
 </div>
+@Html.Partial("ReSetPW");
 @section css{
     <link href="~/Css/Users/RetrievePW.css" rel="stylesheet" />
+}
+@section scripts{
+    <script src="~/JS/Users/RetrievePW.js"></script>
 }

@@ -17,8 +17,8 @@ namespace Mall.Data.DataBase
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public User()
         {
-            this.Employee = new HashSet<Employee>();
             this.Client = new HashSet<Client>();
+            this.Employee = new HashSet<Employee>();
         }
     
         public int UserId { get; set; }
@@ -30,10 +30,12 @@ namespace Mall.Data.DataBase
         public System.DateTime CreateTime { get; set; }
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
+        public string Photo { get; set; }
+        public string RealName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Employee> Employee { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Client> Client { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Employee> Employee { get; set; }
     }
 }

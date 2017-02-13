@@ -1,50 +1,52 @@
 ﻿
 @{
-    ViewBag.Title = "SecuritySet";
-    Layout = "~/Views/Layout/_Layout.cshtml";
+    ViewBag.Title = "Security";
+    Layout = "~/Views/Layout/_ClientLayout.cshtml";
 }
 
-<h2>SecuritySet</h2>
-
-<div class="security-set">
-    <div class="security-set-title">
-        <h4>管理密码</h4>
+<section class="content-header">
+    <h1>Security</h1>
+</section>
+<section class="content">
+    <div class="security-set">
+        <div class="security-set-title">
+            <h4>管理密码</h4>
+        </div>
+        <div class="security-set-log">
+            <div class="tip log-tip">
+                <h4>登录密码</h4>
+            </div>
+            <div class="pay-password">
+                <p class="title"><span class="star">*</span>旧登录密码</p>
+                <input id="old_log_password" type="hidden" />
+                <input id="input_log_password" type="password" />
+                <button onclick="ConfirmLP()" type="button" class="password-submit">确认</button>
+            </div>
+        </div>
+        <div class="security-set-pay">
+            <div class="tip pay-tip">
+                <h4>支付密码</h4>
+            </div>
+            <div class="pay-password">
+                <p class="title"><span class="star">*</span>旧支付密码</p>
+                <input id="old_pay_password" type="hidden" />
+                <input id="input_pay_password" type="password" />
+                <button onclick="ConfirmPP()" type="button" class="password-submit">确认</button>
+            </div>
+        </div>
     </div>
-    <div class="security-set-log">
-        <div class="log-tip">
-            <h4>登录密码</h4>
-        </div>
-        <div class="pay-password">
-            <p class="title"><span class="star">*</span>旧登录密码</p>
-            <input id="old_log_password" type="hidden"/>
-            <input id="input_log_password" type="password" />
-            <button onclick="ConfirmLP()" type="button">确认</button>
-        </div>
-    </div>
-    <div class="security-set-pay">
-        <div class="pay-tip">
-            <h4>支付密码</h4>
-        </div>
-        <div class="pay-password">
-            <p class="title"><span class="star">*</span>旧支付密码</p>
-            <input id="old_pay_password" type="hidden" />
-            <input id="input_pay_password" type="password" />
-            <button onclick="ConfirmPP()" type="button">确认</button>
-        </div>
-    </div>
-</div>
-@Html.Partial("ChangeLP")
-@Html.Partial("ChangePP")
+    @Html.Partial("_ModifyLP")
+    @Html.Partial("_ModifyPP")
+</section>
 @section css{
     <link href="~/Css/Account/SecuritySet.css" rel="stylesheet" />
 }
 @section scripts{
-    <!--<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
     @Scripts.Render("~/JS/Account/SecuritySet.js")
 }
-@{ 
+@{
     Mall.Data.DataBase.Client client = (Mall.Data.DataBase.Client)Session["Client"];
-    if(client != null)
+    if (client != null)
     {
         <script>
             $("#old_log_password").val(@client.User.Password);
@@ -52,7 +54,7 @@
         </script>
     }
     var changePP = TempData["ChangePP"];
-    if(changePP != null)
+    if (changePP != null)
     {
         if (changePP.Equals("success"))
         {
@@ -62,6 +64,7 @@
                     content: '修改支付密码成功,下次使用时生效!',
                 });
             </script>
+            TempData["ChangePP"] = null;
         }
     }
 }

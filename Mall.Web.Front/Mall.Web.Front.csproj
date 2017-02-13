@@ -123,17 +123,20 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\GoodsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MenuViewController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\MenuViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\boot.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Css\Account\AddressAlready.css" />
     <Content Include="Css\Account\AddressSet.css" />
     <Content Include="Css\Account\PersonalInfo.css" />
     <Content Include="Css\Account\SecuritySet.css" />
@@ -144,6 +147,12 @@
     <Content Include="Css\Goods\SearchResult.css" />
     <Content Include="Css\Home\Home.css" />
     <Content Include="Css\Home\Suggest.css" />
+    <Content Include="Css\MenuView\AdminLTE.css" />
+    <Content Include="Css\MenuView\blue.css" />
+    <Content Include="Css\MenuView\morris.css" />
+    <Content Include="Css\MenuView\_all-skins.css" />
+    <Content Include="Css\Shared\MenuViewHeader.css" />
+    <Content Include="JS\Account\AddressAlready.js" />
     <Content Include="JS\Account\AddressSet.js" />
     <Content Include="JS\Account\PersonalInfo.js" />
     <Content Include="JS\Account\SecuritySet.js" />
@@ -164,12 +173,14 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="JS\MenuView\app.js" />
     <Content Include="JS\Shared\cropbox.js" />
     <Content Include="JS\Shared\jquery-2.2.3.min.js" />
     <Content Include="JS\Home\jquery.terseBanner.min.js" />
     <Content Include="JS\Home\script.js" />
     <Content Include="JS\Users\Index.js" />
     <Content Include="JS\Users\Registe.js" />
+    <Content Include="JS\Users\RetrievePW.js" />
     <Content Include="Pictures\Chat\chat_bg.jpg" />
     <Content Include="Pictures\Chat\Img\Img1.gif" />
     <Content Include="Pictures\Chat\Img\Img2.gif" />
@@ -179,6 +190,7 @@
     <Content Include="Pictures\Chat\电脑%28Others%29.png" />
     <Content Include="Pictures\goods-test.jpg" />
     <Content Include="Pictures\Home\advertisement-left.jpg" />
+    <Content Include="Pictures\Shared\avatar5.png" />
     <Content Include="Pictures\Shared\contact.png" />
     <Content Include="Pictures\Shared\phone.png" />
     <Content Include="Pictures\Shared\Search%28Touch%29.png" />
@@ -234,15 +246,27 @@
     <Content Include="Views\Account\PersonalInfo.cshtml" />
     <Content Include="Views\Account\SecuritySet.cshtml" />
     <Content Include="Views\Account\AddressSet.cshtml" />
-    <Content Include="Views\Account\ChangeLP.cshtml" />
-    <Content Include="Views\Account\ChangePP.cshtml" />
-    <Content Include="Views\Account\ModifyPhoto.cshtml" />
+    <Content Include="Views\Account\_ModifyLP.cshtml" />
+    <Content Include="Views\Account\_ModifyPP.cshtml" />
+    <Content Include="Views\Account\_ModifyPhoto.cshtml" />
+    <Content Include="Views\Users\ReSetPW.cshtml" />
+    <Content Include="Views\Layout\_ClientLayout.cshtml" />
+    <Content Include="Views\Shared\MenuView\_ControlSideBar.cshtml" />
+    <Content Include="Views\Shared\MenuView\_Header.cshtml" />
+    <Content Include="Views\Shared\MenuView\_Layout.cshtml" />
+    <Content Include="Views\Shared\MenuView\_SideBar.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\MenuView\SideBarMenu.cshtml" />
+    <Content Include="Views\MenuView\SubSideBarMenu.cshtml" />
+    <Content Include="Views\Account\UserInfo.cshtml" />
+    <Content Include="Views\Account\AddressAlready.cshtml" />
+    <Content Include="Views\Account\_ModifyAddress.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Css\Order\" />
     <Folder Include="layer\" />
-    <Folder Include="Models\" />
     <Folder Include="NewFolder1\img\" />
     <Folder Include="Views\Order\" />
   </ItemGroup>

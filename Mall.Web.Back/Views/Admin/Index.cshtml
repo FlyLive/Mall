@@ -9,32 +9,58 @@
         <div class="admin_login_head"></div>
         <h2>欢迎使用云翳商城管理系统</h2>
         <div>
-            <form action="Login">
-                <div>
-                    <span id="admin_login_id" class="admin_login_sign_img">
-                        <img src="~/Pictures/Shared/Serch(Touch).png" />
-                    </span>
-                    <input id="id" name="account" class="admin_login_input" type="text" placeholder="账户" />
+            <form action="Login" name="login" method="">
+                <div class="admin-login-account">
+                    <img src="~/Pictures/Shared/contact.png" title="账户"/>
+                    <input id="account" name="account" class="admin_login_input" type="text" placeholder="账户" />
                 </div>
-                <div>
-                    <span id="admin_login_password" class="admin_login_sign_img">
-                        <img src="~/Pictures/Shared/Serch(Touch).png" />
-                    </span>
+                <div class="admin-login-password">
+                    <img src="~/Pictures/Shared/phone.png" title="密码"/>
                     <input id="password" name="password" class="admin_login_input" type="password" placeholder="密码" />
                 </div>
-                <button class="admin_login_button">登录</button>
+                <button class="admin_login_button" type="button" onclick="log()">登录</button>
             </form>
         </div>
         <div class="admin_login_forget">
-            <p>
-                <span></span>
-                忘记密码?
-                <a href="#">点这里</a>
-                <span></span>
-            </p>
+            <fieldset class="forgot">
+                <legend>忘记密码?<a href="#">点这里</a></legend>
+            </fieldset>
         </div>
     </div>
 </div>
 @section css{
-    <link href="~/Css/Admin/Login.css" rel="stylesheet" />
+    @Styles.Render("~/Css/Admin/Index.css")
+}
+@section scripts{
+    @Scripts.Render("~/JS/Admin/Index.js")
+}
+@{
+    //登录
+    var log = TempData["log"];
+    if (log != null)
+    {
+        if (log.Equals("password"))
+        {
+            <script>
+                layer.open({
+                    title: '错误提示',
+                    content: '管理员不存在!',
+                });
+            </script>
+        }
+    }
+    //修改密码
+    var modifyLP = TempData["ChangeLP"];
+    if (modifyLP != null)
+    {
+        if (modifyLP.Equals("success"))
+        {
+            <script>
+                layer.open({
+                    title: '提示',
+                    content: '修改成功,请重新登录!',
+                });
+            </script>
+        }
+    }
 }

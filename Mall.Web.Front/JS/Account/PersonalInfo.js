@@ -38,3 +38,57 @@ function Tips(content,name){
         time:1500,
     });
 }
+$(window).load(function () {
+    var options =
+    {
+        thumbBox: '.thumbBox',
+        spinner: '.spinner',
+        imgSrc: '../Pictures/Shared/avatar5.png'
+    }
+    var cropper = $('.imageBox').cropbox(options);
+    $('#upload-file').on('change', function () {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            options.imgSrc = e.target.result;
+            cropper = $('.imageBox').cropbox(options);
+        }
+        reader.readAsDataURL(this.files[0]);
+        this.files = null;
+    })
+    $('#btnCrop').on('click', function () {
+        var img = cropper.getDataURL();
+        $('.cropped').html('');
+        $('.cropped').append('<img src="' + img + '" align="absmiddle" style="width:64px;margin-top:4px;border-radius:64px;box-shadow:0px 0px 12px #7E7E7E;" ><p>64px*64px</p>');
+        $('.cropped').append('<img src="' + img + '" align="absmiddle" style="width:128px;margin-top:4px;border-radius:128px;box-shadow:0px 0px 12px #7E7E7E;"><p>128px*128px</p>');
+        $('.cropped').append('<img src="' + img + '" align="absmiddle" style="width:180px;margin-top:4px;border-radius:180px;box-shadow:0px 0px 12px #7E7E7E;"><p>180px*180px</p>');
+    })
+    $('#btnZoomIn').on('click', function () {
+        cropper.zoomIn();
+    })
+    $('#btnZoomOut').on('click', function () {
+        cropper.zoomOut();
+    })
+    $("#save").on('click', function () {
+        var imgBase = cropper.getDataURL();
+        $.ajax({
+            type: "post",
+            url: "ModifyPhoto",
+            data: { "imgBase": imgBase },
+            datatype: Text,
+            success: function (src) {
+                if (src != null) {
+                    layer.msg("修改成功!");
+                    location.reload();
+                }
+            },
+            error: function () {
+                layer.open({
+                    title: "错误提示",
+                    content: "出错啦!",
+                    icon: 5,
+                });
+                return false;
+            }
+        })
+    })
+});

@@ -27,18 +27,18 @@ namespace Mall.Data.DataBase
     
         public virtual DbSet<AdminLog> AdminLog { get; set; }
         public virtual DbSet<Advertisement> Advertisement { get; set; }
+        public virtual DbSet<Client> Client { get; set; }
         public virtual DbSet<Comment> Comment { get; set; }
         public virtual DbSet<DeliveryInfo> DeliveryInfo { get; set; }
         public virtual DbSet<Employee> Employee { get; set; }
         public virtual DbSet<GoodsInfo> GoodsInfo { get; set; }
         public virtual DbSet<Image> Image { get; set; }
         public virtual DbSet<Menus> Menus { get; set; }
+        public virtual DbSet<Order> Order { get; set; }
         public virtual DbSet<Permissions> Permissions { get; set; }
         public virtual DbSet<Refund> Refund { get; set; }
         public virtual DbSet<Roles> Roles { get; set; }
-        public virtual DbSet<User> User { get; set; }
-        public virtual DbSet<Order> Order { get; set; }
         public virtual DbSet<ShoppingCart> ShoppingCart { get; set; }
-        public virtual DbSet<Client> Client { get; set; }
+        public virtual DbSet<User> User { get; set; }
     }
 }

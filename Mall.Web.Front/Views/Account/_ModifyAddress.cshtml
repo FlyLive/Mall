@@ -1,0 +1,36 @@
+﻿
+<div class="modal fade" id="modifyAddressModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form name="modifyAddress" action="ModifyAddress" method="post">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">修改地址</h4>
+                </div>
+                <div class="modal-body">
+                    <input name="modify_id" id="modify_id" value="" type="hidden"/>
+                    <div class="form-group">
+                        <label>新联系人</label>
+                        <input name="modify_name" id="modify_name" class="form-control" placeholder="新联系人" type="text" />
+                    </div>
+                    <div class="form-group">
+                        <label>新联系方式</label>
+                        <input name="modify_phone" id="modify_phone" class="form-control" placeholder="新联系方式" type="text" maxlength="11" />
+                    </div>
+                    <div class="form-group">
+                        <label>新地址</label>
+                        <textarea name="modify_address" id="modify_address" class="form-control" rows="3"placeholder="新地址"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>新邮编</label>
+                        <input name="modify_zip" id="modify_aip" class="form-control" placeholder="新邮编" type="text" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="SubmitModify()">确认修改</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>

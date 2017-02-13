@@ -51,9 +51,8 @@ function ReName(account) {
 }
 function Tips(text,id) {
     layer.tips(text, "#" + id, {
-        tips: [2, "#2277ff"],
+        tip: [2, "#2277ff"],
         time: 1500,
-        shade: [0.35, "#000"],
     });
 }
 function ConfirmPassword(first, second) {

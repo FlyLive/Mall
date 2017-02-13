@@ -1,6 +1,11 @@
 ﻿.address-set{
     font-size:20px;
 }
+.create-title, .already-title{
+    color:red;
+    font-weight:700;
+    font-family:'Source Sans Pro';
+}
 .address-set .star{
     color:red;
     font-size:12px;
@@ -37,5 +42,14 @@
 .create-submit button{
     width:100px;
     height:40px;
-    margin:20px 0px;
+    margin:20px 0px 20px 130px;
+    border:none;
+    border-radius:5px;
+    background-color:#2ca9e1;
+}
+.create-submit button:hover{
+    background-color:#0095d9;
+}
+.create-submit button:active{
+    background-color:#2ca9e1;
 }

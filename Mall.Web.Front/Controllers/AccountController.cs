@@ -24,6 +24,16 @@ namespace Mall.Web.Front.Controllers
         }
 
         /// <summary>
+        /// 客户信息
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult UserInfo()
+        {
+            User user = ((Client)Session["Client"]).User;
+            return PartialView(user);
+        }
+
+        /// <summary>
         /// 个人中心
         /// </summary>
         /// <returns></returns>
@@ -40,13 +50,21 @@ namespace Mall.Web.Front.Controllers
         }
 
         [HttpPost]
-        public ActionResult ModifyPersonalInfo(string email,DateTime ? birthday,string nick = " ",string name = " ",string phone = " ", bool gender = true)
+        public ActionResult ModifyPersonalInfo(string email,DateTime ? birthday,string nick,string name,string phone, bool gender = true)
         {
             Client client = (Client)Session["Client"];
-            _clientService.ModifyUserInfo(client.User, client.UserId);
+            _clientService.ModifyUserInfo(client.ClientId, email,birthday, nick, name, phone, gender);
             TempData["ModifyInfo"] = "success";
 
             return RedirectToAction("PersonalInfo");
+        }
+
+        [HttpPost]
+        public string ModifyPhoto(string imgBase)
+        {
+            Client client = (Client)Session["Client"];
+            var path = _clientService.ModifyPhoto(client.ClientId, imgBase);
+            return path;
         }
 
         #region 安全设置
@@ -60,7 +78,7 @@ namespace Mall.Web.Front.Controllers
         }
 
         [HttpPost]
-        public ActionResult ChangeLP(string log_password)
+        public ActionResult ModifyLP(string log_password)
         {
             Client client = (Client)Session["Client"];
             _clientService.ModifyPasswordByClientId(client.ClientId, log_password);
@@ -72,7 +90,7 @@ namespace Mall.Web.Front.Controllers
         }
 
         [HttpPost]
-        public ActionResult ChangePP(string pay_password)
+        public ActionResult ModifyPP(string pay_password)
         {
             Client client = (Client)Session["Client"];
             _clientService.ModifyPayPasswordByClientId(client.ClientId, pay_password);
@@ -91,6 +109,13 @@ namespace Mall.Web.Front.Controllers
             return View();
         }
 
+        public ActionResult AddressAlready()
+        {
+            Client client = (Client)Session["Client"];
+            List<DeliveryInfo> delivertInfos = _clientService.GetAllDeliveryInfoByClientId(client.ClientId);
+            return PartialView();
+        }
+
         [HttpPost]
         public ActionResult CreateAddress(string address,string phone,string name,string zip = " ")
         {
@@ -101,9 +126,15 @@ namespace Mall.Web.Front.Controllers
         }
 
         [HttpPost]
-        public ActionResult ModifyAddress(int addressId)
+        public ActionResult ModifyAddress(int modify_id,string modify_name,string modify_address,string modify_phone,string zip)
         {
             return RedirectToAction("AddressSet");
+        }
+
+        [HttpDelete]
+        public ActionResult DeletAddress(int addressId)
+        {
+            return RedirectToAction("");
         }
 
         #endregion

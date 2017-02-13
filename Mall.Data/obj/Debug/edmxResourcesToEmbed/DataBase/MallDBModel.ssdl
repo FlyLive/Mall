@@ -85,11 +85,10 @@
     <Property Name="Details" Type="nvarchar" MaxLength="400" Nullable="false" />
     <Property Name="Category" Type="nvarchar" MaxLength="10" Nullable="false" />
     <Property Name="CommentNumber" Type="int" Nullable="false" />
-    <Property Name="Deal" Type="int" Nullable="false" />
     <Property Name="State" Type="int" Nullable="false" />
     <Property Name="AddTime" Type="datetime" Nullable="false" />
-    <Property Name="Grounding" Type="datetime" />
-    <Property Name="Undercarriage" Type="datetime" />
+    <Property Name="ShelfTime" Type="datetime" />
+    <Property Name="UnderShelfTime" Type="datetime" />
     <Property Name="IsDelete" Type="bit" Nullable="false" />
     <Property Name="Author" Type="nvarchar" MaxLength="20" Nullable="false" />
     <Property Name="Press" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -99,8 +98,8 @@
       <PropertyRef Name="ImageId" />
     </Key>
     <Property Name="ImageId" Type="int" Nullable="false" />
-    <Property Name="GoodsId" Type="int" />
-    <Property Name="Image" Type="image" Nullable="false" />
+    <Property Name="GoodsId" Type="int" Nullable="false" />
+    <Property Name="ImageSrc" Type="nvarchar" MaxLength="200" Nullable="false" />
   </EntityType>
   <EntityType Name="Menus">
     <Key>
@@ -192,6 +191,8 @@
     <Property Name="CreateTime" Type="datetime" Nullable="false" />
     <Property Name="PhoneNumber" Type="nvarchar" MaxLength="11" />
     <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Photo" Type="nvarchar" MaxLength="200" />
+    <Property Name="RealName" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <Association Name="FK_CLIENT_REFERENCE_USER">
     <End Role="User" Type="Self.User" Multiplicity="1" />
@@ -302,7 +303,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_IMAGE_REFERENCE_GOODSINF">
-    <End Role="GoodsInfo" Type="Self.GoodsInfo" Multiplicity="0..1" />
+    <End Role="GoodsInfo" Type="Self.GoodsInfo" Multiplicity="1" />
     <End Role="Image" Type="Self.Image" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="GoodsInfo">

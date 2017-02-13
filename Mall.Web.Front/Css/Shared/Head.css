@@ -67,6 +67,10 @@ a{
 #search-button:hover {
     background-image: url('../../Pictures/Shared/Search(Touch).png');
 }
+.client > div > a > img{
+    width:50px;
+    height:50px;
+}
 .login,.menu,.head-message{
     color:#999999;
 }

@@ -36,8 +36,8 @@ namespace Mall.Data.DataBase
         public string ClientRemark { get; set; }
         public string OrderRemark { get; set; }
     
+        public virtual Client Client { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Refund> Refund { get; set; }
-        public virtual Client Client { get; set; }
     }
 }

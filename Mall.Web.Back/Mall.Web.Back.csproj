@@ -158,7 +158,7 @@
     <Content Include="Css\Admin\PersonalInfoSet.css" />
     <Content Include="Css\Admin\SecuritySet.css" />
     <Content Include="Css\Goods\CreateGoods.css" />
-    <Content Include="Css\Admin\Login.css" />
+    <Content Include="Css\Admin\Index.css" />
     <Content Include="Css\Chat\Chat.css" />
     <Content Include="Css\Goods\GoodsEdit.css" />
     <Content Include="Css\MenuView\AdminLTE.css" />
@@ -174,11 +174,11 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="JS\Admin\Index.js" />
     <Content Include="JS\Admin\SecuritySet.js" />
     <Content Include="JS\Chat\Chat.js" />
     <Content Include="JS\MenuView\app.js" />
-    <Content Include="JS\MenuView\boot.js" />
-    <Content Include="JS\MenuView\jquery-2.2.3.min.js" />
+    <Content Include="JS\Shared\jquery-2.2.3.min.js" />
     <Content Include="JS\Shared\_Layout.js" />
     <Content Include="Music\Chat\Global.wav" />
     <Content Include="Music\Chat\shake.wav" />

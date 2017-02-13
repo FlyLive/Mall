@@ -27,8 +27,11 @@ namespace Mall.Web.Back.Controllers
             if (employee != null)
             {
                 Session.Add("Employee", employee);
+                TempData["log"] = "success";
+                TempData["Admin"] = employee.User.Account;
                 return RedirectToAction("ManageCenter");
             }
+            TempData["log"] = "password";
             return RedirectToAction("Index");
         }
 

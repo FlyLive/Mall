@@ -6,3 +6,18 @@
 
 <h2>ManageCenter</h2>
 
+@{
+    var log = TempData["log"];
+    if (log != null)
+    {
+        if (log.Equals("success"))
+        {
+            <script>
+                layer.msg(@TempData["Admin"] + ",欢迎您上班,祝您有个好心情!", {
+                    icon: 6,
+                    time:3000,
+                });
+            </script>
+        }
+    }
+}

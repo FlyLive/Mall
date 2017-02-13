@@ -15,8 +15,8 @@ namespace Mall.Data.DataBase
     public partial class Image
     {
         public int ImageId { get; set; }
-        public Nullable<int> GoodsId { get; set; }
-        public byte[] Image1 { get; set; }
+        public int GoodsId { get; set; }
+        public string ImageSrc { get; set; }
     
         public virtual GoodsInfo GoodsInfo { get; set; }
     }

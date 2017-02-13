@@ -3,6 +3,7 @@ using Mall.Data.Interface.Client;
 using Mall.Data.Interface.Enterprise;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -51,6 +52,7 @@ namespace Mall.Data.Services.Client
                     NickName = "小白",
                     Password = password,
                     Email = email,
+                    Photo = "../Pictures/Users/Avatar/avatar.png";
                     CreateTime = DateTime.Now,
                 };
 
@@ -82,14 +84,26 @@ namespace Mall.Data.Services.Client
         }
 
         /// <summary>
+        /// 验证用户
+        /// </summary>
+        /// <param name="account"></param>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public bool ClientConfirm(string account,string email)
+        {
+            var client = GetClientByAccount(account);
+            return client.User.Email.Equals(email);
+        }
+
+        /// <summary>
         /// 根据账户Id获取用户
         /// </summary>
-        /// <param name="cilentId">账户Id</param>
+        /// <param name="clientId">账户Id</param>
         /// <returns></returns>
-        public DataBase.Client GetClientById(int cilentId)
+        public DataBase.Client GetClientByClientId(int clientId)
         {
             var clients = GetAllClient();
-            DataBase.Client client = clients.SingleOrDefault(c => c.ClientId == cilentId);
+            DataBase.Client client = clients.SingleOrDefault(c => c.ClientId == clientId);
             return client;
         }
 
@@ -140,15 +154,46 @@ namespace Mall.Data.Services.Client
         /// 修改个人信息
         /// </summary>
         /// <param name="user"></param>
-        public void ModifyUserInfo(User user,int clientId)
+        public void ModifyUserInfo(int clientId,string email, DateTime? birthday, string nick, string name, string phone, bool gender = true)
         {
-            DataBase.Client client = GetClientById(clientId);
-            user.UserId = client.UserId;
+            User user = GetClientByClientId(clientId).User;
 
-            _db.User.Remove(client.User);
-            _db.User.Add(user);
+            user.Email = email;
+            user.Birthday = birthday == null ? user.Birthday : birthday;
+            user.NickName = nick;
+            user.RealName = name;
+            user.PhoneNumber = phone;
+            user.Gender = gender;
 
             _db.SaveChanges();
+        }
+
+        /// <summary>
+        /// 修改头像
+        /// </summary>
+        /// <param name="clientId"></param>
+        /// <param name="imgBase"></param>
+        public string ModifyPhoto(int clientId,string imgBase)
+        {
+            DataBase.Client client = GetClientByClientId(clientId);
+
+            try
+            {
+                var img = imgBase.Split(',');
+                byte[] bt = Convert.FromBase64String(img[1]);
+                string now = DateTime.Now.ToString("yyyy-MM-ddHHmmss");
+                string path = "C:/Users/LL/Documents/Visual Studio 2015/Projects/Mall/Mall.Web.Front/Pictures/Users/Avatar/avatar" + now + ".png";
+                string dataPath = "../Pictures/Users/Avatar/avatar" + now + ".png";
+                File.WriteAllBytes(path, bt);
+                client.User.Photo = dataPath;
+                _db.SaveChanges();
+                return dataPath;
+            }
+            catch(Exception e )
+            {
+                return e.ToString();
+            }
+
         }
 
         /// <summary>
@@ -157,7 +202,7 @@ namespace Mall.Data.Services.Client
         /// <param name="deliverInfo"></param>
         public void CreatDeliverInfo(int clientId,string address,string contact,string phone,string zip = " ")
         {
-            DataBase.Client client = GetClientById(clientId);
+            DataBase.Client client = GetClientByClientId(clientId);
             DeliveryInfo deliveryInfo = new DeliveryInfo
             {
                 ClientId = client.ClientId,
@@ -191,7 +236,7 @@ namespace Mall.Data.Services.Client
         /// <param name="newPassword">新登录密码</param>
         public void ModifyPasswordByClientId(int clientId, string newPassword)
         {
-            DataBase.Client client = GetClientById(clientId);
+            DataBase.Client client = GetClientByClientId(clientId);
             client.User.Password = newPassword;
 
             _db.SaveChanges();
@@ -204,7 +249,7 @@ namespace Mall.Data.Services.Client
         /// <param name="newPayPassword">新支付密码</param>
         public void ModifyPayPasswordByClientId(int clientId,string newPayPassword)
         {
-            DataBase.Client client = GetClientById(clientId);
+            DataBase.Client client = GetClientByClientId(clientId);
             client.PayPassword = newPayPassword;
 
             _db.SaveChanges();

@@ -29,11 +29,10 @@ namespace Mall.Data.DataBase
         public string Details { get; set; }
         public string Category { get; set; }
         public int CommentNumber { get; set; }
-        public int Deal { get; set; }
         public int State { get; set; }
         public System.DateTime AddTime { get; set; }
-        public Nullable<System.DateTime> Grounding { get; set; }
-        public Nullable<System.DateTime> Undercarriage { get; set; }
+        public Nullable<System.DateTime> ShelfTime { get; set; }
+        public Nullable<System.DateTime> UnderShelfTime { get; set; }
         public bool IsDelete { get; set; }
         public string Author { get; set; }
         public string Press { get; set; }
@@ -42,8 +41,6 @@ namespace Mall.Data.DataBase
         public virtual ICollection<Comment> Comment { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Image> Image { get; set; }
-        public virtual GoodsInfo GoodsInfo1 { get; set; }
-        public virtual GoodsInfo GoodsInfo2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ShoppingCart> ShoppingCart { get; set; }
     }
