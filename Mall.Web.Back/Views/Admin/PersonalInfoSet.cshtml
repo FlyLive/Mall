@@ -7,45 +7,71 @@
 
 <h2>PersonalInfoSet</h2>
 <div class="info-set">
-    <form action="PersonalInfoSet" method="post">
+    <form name="modifyInfo" action="ModifyInfo" method="post">
         <div class="info-set-tip">
             <h4>亲爱的管理XXX，认真填写资料，有助于与顾客交流哦！</h4>
         </div>
         <div class="info-set-head info">
             <p class="title">当前头像:</p>
-            <img src="~/Pictures/Shared/contact.png" />
-        </div>
-        <div class="info-set-nick info">
-            <p class="title"><span class="star">*</span>昵称:</p>
-            <input name="nickName" type="text" value="@Model.NickName" />
+            <img src="@Model.Photo" title="点击修改头像" onclick="ModifyPhoto()" />
+            @Html.Partial("Admin/_ModifyPhoto")
         </div>
         <div class="info-set-name info">
-            <p class="title">真实姓名:</p>
-            <input name="account" type="text" value="@Model.Account" disabled="disabled"/>
-            <p class="no-change title"><span class="star">*</span>真实姓名不可更改</p>
+            <p class="title">账户:</p>
+            <input name="account" type="text" value="@Model.Account" disabled="disabled" />
+            <p class="no-change"><span class="star">*</span>账户不可更改</p>
+        </div>
+        <div class="info-set-nick info">
+            <p class="title">昵称:</p>
+            <input name="nick" type="text" value="@Model.NickName" />
+        </div>
+        <div class="info-set-name info">
+            <p class="title"><span class="star">*</span>姓名:</p>
+            <input name="realName" id="realName" type="text" value="@Model.RealName"/>
         </div>
         <div class="info-set-gender info">
             <p class="title">性别:</p>
-            <label><input name="gender" type="radio" value="1"/>男</label>
-            <label><input name="gender" type="radio" value="0"/>女</label>
+            <label><input name="gender" type="radio" value="1" checked="checked"/>男</label>
+            <label><input name="gender" type="radio" value="0" />女</label>
         </div>
         <div class="info-set-birthday info">
             <p class="title">生日:</p>
-            <input name="data" type="date" value="@Model.Birthday" />
+            <input name="data" type="date"/>
         </div>
         <div class="info-set-phone info">
             <p class="title"><span class="star">*</span>联系电话:</p>
-            <input name="phoneNumber" type="number" maxlength="11" value="@Model.PhoneNumber"/>
+            <input name="phone" id="phone" type="text" maxlength="11" value="@Model.PhoneNumber" />
         </div>
         <div class="info-set-email info">
             <p class="title"><span class="star">*</span>邮箱:</p>
-            <input name="email" type="email" value="@Model.Email"/>
+            <input name="email" id="email" type="email" value="@Model.Email" />
         </div>
         <div class="info-set-submit info">
-            <button type="submit">保存修改</button>
+            <button type="button" onclick="Modify()">保存修改</button>
         </div>
     </form>
 </div>
 @section css{
-    <link rel="stylesheet" href="~/Css/Admin/PersonalInfoSet.css" />
+    <link rel="stylesheet" href="~/Css/Admin/PersonalInfo.css" />
+}
+@section scripts{
+    @Scripts.Render("~/JS/Admin/PersonalInfo.js")
+    @Scripts.Render("~/JS/Shared/cropbox.js")
+}
+@{
+    var modifyInfo = TempData["ModifyInfo"];
+    if (modifyInfo != null)
+    {
+        if (modifyInfo.Equals("success"))
+        {
+            <script>
+                layer.open({
+                    title: '提示',
+                    content: '修改成功!',
+                    icon: 6,
+                });
+            </script>
+            TempData["ModifyInfo"] = null;
+        }
+    }
 }

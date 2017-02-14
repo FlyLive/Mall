@@ -2,6 +2,7 @@
 using Mall.Data.Interface.Enterprise;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -39,8 +40,7 @@ namespace Mall.Data.Services.Enterprise
         /// <returns></returns>
         public bool ReName(string account)
         {
-            var ul = GetAllEmployee()
-                .SingleOrDefault(employee => employee.User.Account == account);
+            var ul = _db.User.SingleOrDefault(u => u.Account == account);
             return ul == null ? false : true;
         }
 
@@ -48,26 +48,43 @@ namespace Mall.Data.Services.Enterprise
         /// 创建员工
         /// </summary>
         /// <param name="account">员工账户</param>
-        public bool CreateEmployee(string account)
+        public bool CreateEmployee(string account, string logPassword, string email,
+                DateTime? birthday, bool gender = true, string nick = null,
+                string managePassword = null, string phoneNumber = null
+                , int[] permissionIds = null)
         {
             if (!ReName(account))
             {
                 User user = new User
                 {
                     Account = account,
-                    NickName = "新员工",
-                    Password = "654321",
-                    CreateTime = DateTime.Now
+                    Password = logPassword,
+                    Email = email,
+                    Photo = "../Pictures/Users/Avatar/avatar.png",
+                    CreateTime = DateTime.Now,
+
+                    NickName = nick == "" ? account : nick,
+                    PhoneNumber = phoneNumber,
+                    Gender = gender
                 };
 
                 _db.User.Add(user);
-                _db.Employee.Add(
-                    new Employee
-                    {
-                        UserId = user.UserId
-                    }
-                );
+
+                Employee employee = new Employee
+                {
+                    UserId = user.UserId,
+                    ManagePassword = managePassword == "" ? logPassword : managePassword,
+                };
+                _db.Employee.Add(employee);
+
                 _db.SaveChanges();
+
+                if(permissionIds != null)
+                {
+                    SetPermissionsToEmployee(employee.EmployeeId, permissionIds);
+                
+                    _db.SaveChanges();
+                }
 
                 return true;
             }
@@ -93,6 +110,58 @@ namespace Mall.Data.Services.Enterprise
             Employee employee = GetAllEmployee()
                 .SingleOrDefault(u => u.User.Account == account);
             return employee;
+        }
+
+        /// <summary>
+        /// 修改个人信息
+        /// </summary>
+        /// <param name="employeeId"></param>
+        /// <param name="realName"></param>
+        /// <param name="phone"></param>
+        /// <param name="email"></param>
+        /// <param name="nick"></param>
+        /// <param name="gender"></param>
+        /// <param name="birthday"></param>
+        public void ModifyInfo(int employeeId, string realName, string phone, string email, DateTime? birthday, string nick, int gender)
+        {
+            Employee employee = GetEmployeeByEmployeeId(employeeId);
+            User user = employee.User;
+
+            user.RealName = realName;
+            user.PhoneNumber = phone;
+            user.Email = email;
+            user.NickName = nick;
+            user.Gender = gender == 1 ? true : false;
+            user.Birthday = birthday;
+
+            _db.SaveChanges();
+        }
+
+        /// <summary>
+        /// 修改头像
+        /// </summary>
+        /// <param name="employeeId"></param>
+        /// <param name="imgBase"></param>
+        public string ModifyPhoto(int employeeId, string imgBase)
+        {
+            Employee employee = GetEmployeeByEmployeeId(employeeId);
+
+            try
+            {
+                var img = imgBase.Split(',');
+                byte[] bt = Convert.FromBase64String(img[1]);
+                string now = DateTime.Now.ToString("yyyy-MM-ddHHmmss");
+                string path = "C:/Users/LL/Documents/Visual Studio 2015/Projects/Mall/Mall.Web.Back/Pictures/Users/Avatar/avatar" + now + ".png";
+                string dataPath = "../Pictures/Users/Avatar/avatar" + now + ".png";
+                File.WriteAllBytes(path, bt);
+                employee.User.Photo = dataPath;
+                _db.SaveChanges();
+                return dataPath;
+            }
+            catch (Exception e)
+            {
+                return e.ToString();
+            }
         }
 
         /// <summary>

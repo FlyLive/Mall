@@ -197,6 +197,8 @@
     <Content Include="Pictures\Shared\Search%28UnTouch%29.png" />
     <Content Include="Pictures\Shared\Welcome.png" />
     <Content Include="Pictures\Shared\云翳%28logo%29.png" />
+    <Content Include="Pictures\Users\Avatar\avatar.png" />
+    <Content Include="Pictures\Users\Avatar\avatar2017-02-13174437.png" />
     <Content Include="Pictures\Users\图书.jpg" />
     <Content Include="Pictures\人类简史.jpg" />
     <Content Include="Scripts\bootstrap.js" />

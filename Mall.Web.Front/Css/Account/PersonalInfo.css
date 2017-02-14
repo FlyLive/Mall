@@ -41,7 +41,7 @@
         width: 100%;
     }
 
-.modal-content{
+.modal-dialog{
     width:700px;
 }
 .content-photo > img{

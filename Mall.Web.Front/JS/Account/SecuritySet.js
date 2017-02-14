@@ -42,7 +42,14 @@ function ChangeLP() {
     var firstLP = $("#log_password").val();
     var secondeLP = $("#re_log_password").val();
 
-    if (ConfirmPassword(oldLP,firstLP,secondeLP)) {
+    if (ConfirmPassword(oldLP, firstLP, secondeLP)) {
+        if (firstLP.length < 6 || firstLP.length > 12) {
+            layer.tips('密码长度为6-12位,请重试!', "#log_password", {
+                tip: [2, "#2277ff"],
+                time: 1500,
+            });
+            return false;
+        }
         document.forms["changeLP"].submit();
     }
     return false;
@@ -62,7 +69,7 @@ function ChangePP() {
 
 //验证密码
 function ConfirmPassword(old,first, second) {
-    if (first == "" || first.substring(0, first.length) == 0) {
+    if (first == "" || /\s+/g.test(first)) {
         layer.open({
             title: '错误提示',
             content: '密码不能为空，请重试!',

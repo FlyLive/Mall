@@ -41,6 +41,7 @@ namespace Mall.Web.Back.Controllers
             return View();
         }
 
+        [HttpGet]
         public ActionResult EmployeeInfor()
         {
             //Employee employee = (Employee)Session["Employee"];
@@ -79,11 +80,26 @@ namespace Mall.Web.Back.Controllers
         }
 
         [HttpPost]
-        public ActionResult PersonalInfoSet(string nickName, int gender, DateTime birthday, string phoneNumber, string email)
+        public ActionResult ModifyInfo(string realName,
+            string phone, string email, DateTime ? birthday,
+            string nick = null,int gender = 1)
         {
+            Employee employee = (Employee)Session["Employee"];
+            _enterpriseService.ModifyInfo(employee.EmployeeId,realName,phone,email,birthday,nick,gender);
+            TempData["ModifyInfo"] = "success";
 
             return RedirectToAction("PersonalInfoSet");
         }
+
+        [HttpPost]
+        public string ModifyPhoto(string imgBase)
+        {
+            Employee employee = (Employee)Session["Employee"];
+            var path = _enterpriseService.ModifyPhoto(employee.EmployeeId, imgBase);
+            return path;
+        }
+
+        #region 安全设置
 
         [HttpGet]
         public ActionResult SecuritySet()
@@ -91,25 +107,61 @@ namespace Mall.Web.Back.Controllers
             Employee employee = (Employee)Session["Employee"];
             return View(employee.User);
         }
+        
         [HttpPost]
-        public ActionResult SecuritySet(int employeeId, string password)
+        public ActionResult ModifyLP(string log_password)
         {
-            return RedirectToAction("");
+            Employee employee = (Employee)Session["Employee"];
+            //_enterpriseService.ModifyLP(employee.EmployeeId,log_password);
+            return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        public void ModifyMP(string manage_password)
+        {
+            Employee employee = (Employee)Session["Employee"];
+            //_enterpriseService.ModifyMP(employee.EmployeeId,log_password);
+        }
+
+        [HttpGet]
+        public bool ConfirmLP(string log_password)
+        {
+            Employee employee = (Employee)Session["Employee"];
+            var result = employee.User.Password == log_password;
+            return result;
+        }
+
+        [HttpGet]
+        public bool ConfirmMP(string manage_password)
+        {
+            Employee employee = (Employee)Session["Employee"];
+            var result = employee.ManagePassword == manage_password;
+            return result;
+        }
+
+        #endregion
+
+        [HttpGet]
+        public bool ReAccount(string account)
+        {
+            var result = _enterpriseService.ReName(account);
+            return result;
+        }
+
         [HttpGet]
         public ActionResult CreateEmployee()
         {
             List<Permissions> permissions = _menuViewService.GetAllPermissions();
             return View(permissions);
         }
-        [HttpPost]
-        public ActionResult CreateEmployee(string account, string nick,
-                string birthday, string gender, string logPassword,
-                string managePassword, string phoneNumber, string email
-                ,int[] permissionIds)
+
+        public void CreateEmployee(string account, string logPassword, string phoneNumber,
+                DateTime ? birthday, bool gender = true, string nick = null,
+                string managePassword = null, string email = null
+                ,int[] permissionIds = null)
         {
-            //DateTime birthdayDate = DateTime.Parse(birthday);
-            return RedirectToAction("");
+            _enterpriseService.CreateEmployee(account,logPassword,email,
+                birthday,gender,nick,managePassword,phoneNumber,permissionIds);
         }
         #endregion
     }

@@ -2,7 +2,7 @@
     var account = $("#account").val();
     var email = $("#email").val();
 
-    if (account == null || account.substring(0, account.length) == 0) {
+    if (account == null || /\s+/g.test(account)) {
         layer.tips("账户不能为空!", "#account", {
             tip: [2, "#2277ff"],
             time: 1500,
@@ -29,6 +29,7 @@
                         keyboard: true
                     })
                 });
+                return false;
             }
             else {
                 layer.open({
@@ -68,7 +69,7 @@ function ReSetPW() {
 
 //验证密码
 function ConfirmPassword(first, second) {
-    if (first == null || first.substring(0, first.length) == 0) {
+    if (first == null || /\s+/g.test(frist)) {
         layer.open({
             title: '错误提示',
             content: '密码不能为空，请重试!',

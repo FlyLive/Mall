@@ -9,26 +9,26 @@
     <div class="create-employee-title">
         新建管理员
     </div>
-    <form action="CreateEmployee" method="post">
+    <form name="createEmployee" id="createEmployee" action="CreateEmployee">
         <table>
             <tbody>
                 <tr>
                     <td>
                         <div class="create-employee-left">
                             <div class="create-employee-left-title">
-                                <p class="title">基本信息</p>
+                                <p class="title">基本信息</p><span class="star">*</span><span>为必填项</span>
                             </div>
                             <div class="create-employee-left-account info">
-                                <p class="title">账户</p>
-                                <input name="account" type="text" />
+                                <p class="title"><span class="star">*</span>账户</p>
+                                <input name="account" id="account" type="text" />
                             </div>
                             <div class="create-employee-left-nick info">
                                 <p class="title">昵称</p>
-                                <input name="nick" type="text" />
+                                <input name="nick" id="nick" type="text" /><span>(默认与登录密码相同)</span>
                             </div>
                             <div class="create-employee-left-birthday info">
                                 <p class="title">生日</p>
-                                <input name="birthday" type="date" min="1900-1-1"max="@DateTime.Now"/>
+                                <input name="birthday" id="birthday" type="date" min="1900-1-1" max="@DateTime.Now" />
                             </div>
                             <div class="create-employee-left-gender info">
                                 <p class="title">性别</p>
@@ -36,23 +36,23 @@
                                 <label><input name="gender" type="radio" />女</label>
                             </div>
                             <div class="create-employee-left-log-password info">
-                                <p class="title">登录密码</p>
-                                <input name="logPassword" type="password" />
+                                <p class="title"><span class="star">*</span>登录密码</p>
+                                <input name="logPassword" id="logPassword" type="password" />
                             </div>
                             <div class="create-employee-left-manage-password info">
                                 <p class="title">管理密码</p>
-                                <input name="managePassword" type="password" />
+                                <input name="managePassword" id="managePassword" type="password" /><span>(默认与登录密码相同)</span>
                             </div>
                             <div class="create-employee-left-phone info">
                                 <p class="title">联系电话</p>
-                                <input name="phoneNumber" type="text" maxlength="11" />
+                                <input name="phoneNumber" id="phoneNumber" type="text" maxlength="11" />
                             </div>
                             <div class="create-employee-left-email info">
-                                <p class="title">E-mail</p>
-                                <input name="email" type="email" />
+                                <p class="title"><span class="star">*</span>E-mail</p>
+                                <input name="email" id="email" type="email" />
                             </div>
                             <div class="create-employee-left-submit info">
-                                <button type="submit">添加管理员</button>
+                                <button type="button" onclick="CreateEmployee()">添加管理员</button>
                             </div>
                         </div>
                     </td>
@@ -92,4 +92,10 @@
 </div>
 @section css{
     <link rel="stylesheet" href="~/Css/Admin/CreateEmployee.css" />
+}
+@section scripts{
+    @Scripts.Render("~/JS/Admin/CreateEmployee.js");
+}
+@{
+
 }

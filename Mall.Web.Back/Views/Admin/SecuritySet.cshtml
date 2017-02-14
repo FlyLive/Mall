@@ -4,32 +4,41 @@
     Layout = "~/Views/Layout/_AdminTLE.cshtml";
 }
 
-<h2>SecuritySet</h2>
-<div class="security-set">
-    <div class="security-set-title">
-        <h4>安全设置</h4>
+<section class="content-header">
+    <h1>Security</h1>
+</section>
+<section class="content">
+    <div class="security-set">
+        <div class="security-set-title">
+            <h4>安全设置</h4>
+        </div>
+        <div class="security-set-log">
+            <div class="security-set-log-tip">
+                <h4>登录密码</h4>
+            </div>
+            <div class="security-set-log-password">
+                <p class="title"><span class="star">*</span>旧登录密码</p>
+                <input id="log_password" name="password" type="password" />
+                <button type="button" onclick="ConfirmLP()">确认</button>
+            </div>
+        </div>
+        <div class="security-set-manage">
+            <div class="security-set-manage-tip">
+                <h4>管理密码</h4>
+            </div>
+            <div class="security-set-log-password">
+                <p class="title"><span class="star">*</span>旧管理密码</p>
+                <input id="manage_password" name="password" type="password" />
+                <button type="button" onclick="ConfirmMP()">确认</button>
+            </div>
+        </div>
     </div>
-    <div class="security-set-log">
-        <div class="security-set-log-tip">
-            <h4>登录密码</h4>
-        </div>
-        <div class="security-set-log-password">
-            <p class="title"><span class="star">*</span>旧登录密码</p>
-            <input id="logPassword" name="password" type="password"/>
-            <button onclick="">确认</button>
-        </div>
-    </div>
-    <div class="security-set-manage">
-        <div class="security-set-manage-tip">
-            <h4>管理密码</h4>
-        </div>
-        <div class="security-set-log-password">
-            <p class="title"><span class="star">*</span>旧管理密码</p>
-            <input id="managePassword" name="password" type="password" />
-            <button onclick="">确认</button>
-        </div>
-    </div>
-</div>
+    @Html.Partial("Admin/_ModifyLP")
+    @Html.Partial("Admin/_ModifyMP")
+</section>
 @section css{
     <link rel="stylesheet" href="~/Css/Admin/SecuritySet.css" />
+}
+@section scripts{
+    @Scripts.Render("~/JS/Admin/SecuritySet.js")
 }

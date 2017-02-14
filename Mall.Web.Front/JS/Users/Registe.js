@@ -9,7 +9,7 @@
     var agree = $("#agree").is(":checked");
 
     //账户确认
-    if (account == "" || account.substring(0, account.length) == 0) {
+    if (account == "" || /\s+/g.test(account)) {
         Tips('账户不能为空,请重试!', "name");
         return false;
     }
@@ -56,7 +56,7 @@ function Tips(text,id) {
     });
 }
 function ConfirmPassword(first, second) {
-    if (first == "" || first.substring(0, first.length) == 0) {
+    if (first == "" || /\s+/g.test(first)) {
         Tips('密码不能为空,请重试!', "fPWord");
         return false;
     }

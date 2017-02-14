@@ -155,7 +155,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Css\Admin\CreateEmployee.css" />
-    <Content Include="Css\Admin\PersonalInfoSet.css" />
+    <Content Include="Css\Admin\PersonalInfo.css" />
     <Content Include="Css\Admin\SecuritySet.css" />
     <Content Include="Css\Goods\CreateGoods.css" />
     <Content Include="Css\Admin\Index.css" />
@@ -164,6 +164,7 @@
     <Content Include="Css\MenuView\AdminLTE.css" />
     <Content Include="Css\MenuView\blue.css" />
     <Content Include="Content\boot.css" />
+    <Content Include="Css\Shared\MenuViewHead.css" />
     <Content Include="Css\MenuView\morris.css" />
     <Content Include="Css\MenuView\_all-skins.css" />
     <Content Include="Css\Order\ReplyEvaluate.css" />
@@ -174,10 +175,13 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="JS\Admin\CreateEmployee.js" />
     <Content Include="JS\Admin\Index.js" />
+    <Content Include="JS\Admin\PersonalInfo.js" />
     <Content Include="JS\Admin\SecuritySet.js" />
     <Content Include="JS\Chat\Chat.js" />
     <Content Include="JS\MenuView\app.js" />
+    <Content Include="JS\Shared\cropbox.js" />
     <Content Include="JS\Shared\jquery-2.2.3.min.js" />
     <Content Include="JS\Shared\_Layout.js" />
     <Content Include="Music\Chat\Global.wav" />
@@ -196,6 +200,7 @@
     <Content Include="Pictures\Chat\电脑%28Myself%29.png" />
     <Content Include="Pictures\Chat\电脑%28Others%29.png" />
     <Content Include="Pictures\Chat\Img\Img1.gif" />
+    <Content Include="Pictures\Users\Avatar\avatar.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
@@ -230,7 +235,6 @@
     <Content Include="Views\MenuView\SubSideBarMenu.cshtml" />
     <Content Include="Views\Shared\MenuView\_ControlSideBar.cshtml" />
     <Content Include="Views\Shared\MenuView\_Header.cshtml" />
-    <Content Include="Views\Shared\MenuView\_Layout.cshtml" />
     <Content Include="Views\Shared\MenuView\_SideBar.cshtml" />
     <Content Include="Views\Admin\ManageCenter.cshtml" />
     <Content Include="Views\Admin\EmployeeInfor.cshtml" />
@@ -247,6 +251,9 @@
     <Content Include="Views\Goods\GoodsEdit.cshtml" />
     <Content Include="Views\Admin\CreateEmployee.cshtml" />
     <Content Include="Views\Goods\GoodsInfo.cshtml" />
+    <Content Include="Views\Shared\Admin\_ModifyLP.cshtml" />
+    <Content Include="Views\Shared\Admin\_ModifyPhoto.cshtml" />
+    <Content Include="Views\Shared\Admin\_ModifyMP.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

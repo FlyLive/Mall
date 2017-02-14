@@ -25,7 +25,7 @@
                 <p class="sign"><span class="star">*</span>账户注册时生成，不可更改</p>
             </div>
             <div class="content-nick">
-                <p class="title"><span class="star">*</span>昵称</p>
+                <p class="title">昵称</p>
                 <input name="nick" id="nick" type="text" value="@Model.NickName" />
             </div>
             <div class="content-name">
@@ -42,7 +42,7 @@
                 <input name="birthday" type="date"/>
             </div>
             <div class="content-phone">
-                <p class="title"><span class="star">*</span>电话</p>
+                <p class="title">电话</p>
                 <input name="phone" id="phone" maxlength="11" value="@Model.PhoneNumber" />
             </div>
             <div class="content-email">
@@ -60,7 +60,7 @@
 }
 @section scripts{
     @Scripts.Render("~/JS/Account/PersonalInfo.js")
-    <script src="~/JS/Shared/cropbox.js"></script>
+    @Scripts.Render("~/JS/Shared/cropbox.js")
 }
 @{
     var modifyInfo = TempData["ModifyInfo"];

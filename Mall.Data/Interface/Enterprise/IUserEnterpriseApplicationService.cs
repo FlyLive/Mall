@@ -21,10 +21,22 @@ namespace Mall.Data.Interface.Enterprise
         /// <param name="permissionIds">权限Ids</param>
         void SetPermissionsToEmployee(int userId, int[] permissionIds);
         /// <summary>
-        /// 创建员工
+        /// 创建管理员
         /// </summary>
-        /// <param name="account">员工账户</param>
-        bool CreateEmployee(string account);
+        /// <param name="account"></param>
+        /// <param name="logPassword"></param>
+        /// <param name="phoneNumber"></param>
+        /// <param name="birthday"></param>
+        /// <param name="gender"></param>
+        /// <param name="nick"></param>
+        /// <param name="managePassword"></param>
+        /// <param name="email"></param>
+        /// <param name="permissionIds"></param>
+        /// <returns></returns>
+        bool CreateEmployee(string account, string logPassword, string email,
+                DateTime? birthday, bool gender = true, string nick = null,
+                string managePassword = null, string phoneNumber = null
+                , int[] permissionIds = null);
         /// <summary>
         /// 删除员工
         /// </summary>

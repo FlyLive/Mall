@@ -13,7 +13,7 @@ namespace Mall.Data.Interface.Client
         /// 修改个人信息
         /// </summary>
         /// <param name="client"></param>
-        void ModifyUserInfo(int clientId, string email, DateTime? birthday, string nick, string name, string phone, bool gender = true);
+        void ModifyUserInfo(int clientId, string email, DateTime? birthday, string nick, string name, string phone, int gender = 1);
         /// <summary>
         /// 新建收货信息
         /// </summary>

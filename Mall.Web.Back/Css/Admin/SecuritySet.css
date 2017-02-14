@@ -28,6 +28,15 @@
     width: 100px;
     height: 40px;
     margin: 20px 0px;
+    border:none;
+    border-radius:5px;
+    background-color:#2ca9e1;
+}
+.security-set button:hover{
+    background-color:#0095d9;
+}
+.security-set button:active{
+    background-color:#2ca9e1;
 }
 
 .security-set .star {

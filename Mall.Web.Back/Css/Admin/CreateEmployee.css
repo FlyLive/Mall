@@ -24,12 +24,19 @@
 .create-employee-left-title,.create-employee-right-title{
     margin-left:0px;
 }
+.create-employee-left-title span,.info span{
+    font-size:14px;
+    color:red;
+}
 .create-employee-left{
     border-right: 2px solid #b9b9b9;
 }
 .create-employee-left,.create-employee-right{
     width:800px;
     min-height:620px;
+}
+.create-employee-left .star{
+    color:red;
 }
 .create-employee-left > .info{
     margin:20px 0px 20px 50px;
@@ -44,17 +51,27 @@
     width:100px;
     text-align:right;
     margin-right:20px;
+    vertical-align:middle;
 }
 .create-employee-left-gender > label{
     display:inline-block;
     padding-right:10px;
 }
 .create-employee-left-submit > button{
-    width:100px;
+    width:140px;
     height:40px;
     margin-left:130px;
+    border:none;
+    border-radius:5px;
+    background-color:#2ca9e1;
 }
-.create-employee-right-permissions{
+.create-employee-left-submit > button:hover{
+    background-color:#0095d9;
+}
+.create-empl
+.create-employee-left-submit > button:active{
+    background-color:#0095d9;
+}oyee-right-permissions{
     margin:20px 0px 20px 50px;
 }
 .create-employee-right table > tbody > tr > td{

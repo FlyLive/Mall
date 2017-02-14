@@ -50,7 +50,7 @@ namespace Mall.Web.Front.Controllers
         }
 
         [HttpPost]
-        public ActionResult ModifyPersonalInfo(string email,DateTime ? birthday,string nick,string name,string phone, bool gender = true)
+        public ActionResult ModifyPersonalInfo(string email,DateTime ? birthday,string nick,string name,string phone, int gender = 1)
         {
             Client client = (Client)Session["Client"];
             _clientService.ModifyUserInfo(client.ClientId, email,birthday, nick, name, phone, gender);

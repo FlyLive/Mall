@@ -1,24 +1,17 @@
-﻿
-function ModifyPhoto() {
+﻿function ModifyPhoto() {
     $(function () {
         $('#modifyPhotoModal').modal({
             keyboard: true
         })
     });
 }
-
 function Modify() {
-    var nick = $("#nick").val();
-    var name = $("#name").val();
+    var name = $("#realName").val();
     var phone = $("#phone").val();
     var email = $("#email").val();
 
-    if (nick == null || /\s+/g.test(nick)) {
-        Tips("昵称不能为空!", "nick")
-        return false;
-    }
-    if (name == null || /\s+/g.test(name)) {
-        Tips("真实姓名不能为空!", "name")
+    if (name == "" || /\s+/g.test(name)) {
+        Tips("真实姓名不能为空!", "realName")
         return false;
     }
     if (!(/^1(3|4|5|7|8)\d{9}$/.test(phone)) && !(/^0[\d]{2,3}-[\d]{7,8}$/.test(phone))) {
@@ -32,10 +25,10 @@ function Modify() {
 
     document.forms["modifyInfo"].submit();
 }
-function Tips(content,name){
-    layer.tips(content,"#" + name,{
-        tips:[2,"#2277ff"],
-        time:1500,
+function Tips(content, name) {
+    layer.tips(content, "#" + name, {
+        tips: [2, "#2277ff"],
+        time: 1500,
     });
 }
 $(window).load(function () {
@@ -43,7 +36,7 @@ $(window).load(function () {
     {
         thumbBox: '.thumbBox',
         spinner: '.spinner',
-        imgSrc: '../Pictures/Shared/avatar.png'
+        imgSrc: '../Pictures/Users/Avatar/avatar.png'
     }
     var cropper = $('.imageBox').cropbox(options);
     $('#upload-file').on('change', function () {

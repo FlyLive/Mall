@@ -52,7 +52,7 @@ namespace Mall.Data.Services.Client
                     NickName = "小白",
                     Password = password,
                     Email = email,
-                    Photo = "../Pictures/Users/Avatar/avatar.png";
+                    Photo = "../Pictures/Users/Avatar/avatar.png",
                     CreateTime = DateTime.Now,
                 };
 
@@ -154,7 +154,7 @@ namespace Mall.Data.Services.Client
         /// 修改个人信息
         /// </summary>
         /// <param name="user"></param>
-        public void ModifyUserInfo(int clientId,string email, DateTime? birthday, string nick, string name, string phone, bool gender = true)
+        public void ModifyUserInfo(int clientId,string email, DateTime? birthday, string nick, string name, string phone, int gender = 1)
         {
             User user = GetClientByClientId(clientId).User;
 
@@ -163,7 +163,7 @@ namespace Mall.Data.Services.Client
             user.NickName = nick;
             user.RealName = name;
             user.PhoneNumber = phone;
-            user.Gender = gender;
+            user.Gender = gender == 1 ? true : false;
 
             _db.SaveChanges();
         }
