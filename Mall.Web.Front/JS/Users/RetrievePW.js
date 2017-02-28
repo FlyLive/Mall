@@ -3,38 +3,74 @@
     var email = $("#email").val();
 
     if (account == null || /\s+/g.test(account)) {
-        layer.tips("账户不能为空!", "#account", {
-            tip: [2, "#2277ff"],
-            time: 1500,
-        });
+        Tips("账户不能为空!", "account");
         return false;
     }
     if (!/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(email)) {
-        layer.tips("邮箱格式不正确!", "#email", {
-            tip: [2, "#2277ff"],
-            time: 1500,
-        });
+        Tip("邮箱格式不正确!", "email");
         return false;
     }
 
     $.ajax({
         type: "Get",
         url: "ClientConfirm",
-        data: { account, email},
-        datatype: Boolean,
-        success: function (data) {
-            if (data == "True") {
-                $(function () {
-                    $('#ReSetPWModal').modal({
-                        keyboard: true
-                    })
+        Data: { account, email},
+        Datatype: Boolean,
+        success: function (Data) {
+            if (Data == "True") {
+                layer.confirm("验证码已发送,请及时查看并进行重置密码",{
+                    btn: ["好的"],
                 });
+                $('#VerifyCodeModal').modal({
+                    keyboard: true
+                })
                 return false;
             }
             else {
                 layer.open({
                     title: "错误提示",
                     content: "账户不存在或邮箱错误,请重试!",
+                });
+                return false;
+            }
+        },
+        error: function () {
+            layer.open({
+                title: "错误提示",
+                content: "出错啦!",
+                icon: 5,
+            });
+            return false;
+        }
+    })
+}
+
+function VerifyCode() {
+    var verifyCode = $("#verifyCode").val();
+    if (!/^\w{8}-(\w{4}-){3}\w{12}$/.test(verifyCode)) {
+        Tip("请输入有效的32位验证码", "verifyCode");
+        return false;
+    }
+    $.ajax({
+        type: "Get",
+        url: "VerifyCodeConfirm",
+        Data: { "verifyCode": verifyCode },
+        Datatype: Boolean,
+        success: function (Data) {
+            if (Data == "True") {
+                $('#VerifyCodeModal').modal('hide');
+                $(function () {
+                    $('#ReSetPWModal').modal({
+                        keyboard: true
+                    })
+                });
+                layer.msg("验证码正确,请及时重置密码", { time: 2000 ,icon:1});
+                return true;
+            }
+            else {
+                layer.open({
+                    title: "错误提示",
+                    content: "验证码错误,请重试!",
                 });
                 return false;
             }
@@ -69,7 +105,7 @@ function ReSetPW() {
 
 //验证密码
 function ConfirmPassword(first, second) {
-    if (first == null || /\s+/g.test(frist)) {
+    if (first == null || /\s+/g.test(first)) {
         layer.open({
             title: '错误提示',
             content: '密码不能为空，请重试!',

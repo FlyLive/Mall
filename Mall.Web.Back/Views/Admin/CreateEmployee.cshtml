@@ -1,95 +1,96 @@
-﻿@model List<Mall.Data.DataBase.Permissions>
+﻿@model List<Mall.Web.Back.ViewModel.PermissionsViewModel>
 
 @{
     ViewBag.Title = "CreateEmployee";
     Layout = "~/Views/Layout/_AdminTLE.cshtml";
 }
-
-<div class="create-employee-all">
-    <div class="create-employee-title">
-        新建管理员
-    </div>
-    <form name="createEmployee" id="createEmployee" action="CreateEmployee">
-        <table>
-            <tbody>
-                <tr>
-                    <td>
-                        <div class="create-employee-left">
-                            <div class="create-employee-left-title">
-                                <p class="title">基本信息</p><span class="star">*</span><span>为必填项</span>
+<section class="content-header">
+    <h1><i class="fa fa-plus-square"></i>CreateEmployee</h1>
+</section>
+<section class="content">
+    <div class="create-employee-all">
+        <form name="createEmployee" id="createEmployee" action="CreateEmployee">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="create-employee-left">
+                                <div class="create-employee-left-title">
+                                    <p class="title">基本信息</p><span class="star">*</span><span>为必填项</span>
+                                </div>
+                                <div class="create-employee-left-account info">
+                                    <p class="title"><span class="star">*</span>账户</p>
+                                    <input name="account" id="account" type="text" />
+                                </div>
+                                <div class="create-employee-left-nick info">
+                                    <p class="title">昵称</p>
+                                    <input name="nick" id="nick" type="text" /><span>(默认与登录密码相同)</span>
+                                </div>
+                                <div class="create-employee-left-birthday info">
+                                    <p class="title">生日</p>
+                                    <input name="birthday" id="birthday" type="date" min="1900-1-1" max="@DateTime.Now" />
+                                </div>
+                                <div class="create-employee-left-gender info">
+                                    <p class="title">性别</p>
+                                    <label><input name="gender" type="radio" />男</label>
+                                    <label><input name="gender" type="radio" />女</label>
+                                </div>
+                                <div class="create-employee-left-log-password info">
+                                    <p class="title"><span class="star">*</span>登录密码</p>
+                                    <input name="logPassword" id="logPassword" type="password" />
+                                </div>
+                                <div class="create-employee-left-manage-password info">
+                                    <p class="title">管理密码</p>
+                                    <input name="managePassword" id="managePassword" type="password" /><span>(默认与登录密码相同)</span>
+                                </div>
+                                <div class="create-employee-left-phone info">
+                                    <p class="title">联系电话</p>
+                                    <input name="phoneNumber" id="phoneNumber" type="text" maxlength="11" />
+                                </div>
+                                <div class="create-employee-left-email info">
+                                    <p class="title"><span class="star">*</span>E-mail</p>
+                                    <input name="email" id="email" type="email" />
+                                </div>
+                                <div class="create-employee-left-submit info">
+                                    <button type="button" onclick="CreateEmployee()">添加管理员</button>
+                                </div>
                             </div>
-                            <div class="create-employee-left-account info">
-                                <p class="title"><span class="star">*</span>账户</p>
-                                <input name="account" id="account" type="text" />
-                            </div>
-                            <div class="create-employee-left-nick info">
-                                <p class="title">昵称</p>
-                                <input name="nick" id="nick" type="text" /><span>(默认与登录密码相同)</span>
-                            </div>
-                            <div class="create-employee-left-birthday info">
-                                <p class="title">生日</p>
-                                <input name="birthday" id="birthday" type="date" min="1900-1-1" max="@DateTime.Now" />
-                            </div>
-                            <div class="create-employee-left-gender info">
-                                <p class="title">性别</p>
-                                <label><input name="gender" type="radio" />男</label>
-                                <label><input name="gender" type="radio" />女</label>
-                            </div>
-                            <div class="create-employee-left-log-password info">
-                                <p class="title"><span class="star">*</span>登录密码</p>
-                                <input name="logPassword" id="logPassword" type="password" />
-                            </div>
-                            <div class="create-employee-left-manage-password info">
-                                <p class="title">管理密码</p>
-                                <input name="managePassword" id="managePassword" type="password" /><span>(默认与登录密码相同)</span>
-                            </div>
-                            <div class="create-employee-left-phone info">
-                                <p class="title">联系电话</p>
-                                <input name="phoneNumber" id="phoneNumber" type="text" maxlength="11" />
-                            </div>
-                            <div class="create-employee-left-email info">
-                                <p class="title"><span class="star">*</span>E-mail</p>
-                                <input name="email" id="email" type="email" />
-                            </div>
-                            <div class="create-employee-left-submit info">
-                                <button type="button" onclick="CreateEmployee()">添加管理员</button>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="create-employee-right">
-                            <div class="creat-employee-right-title">
-                                <p class="title">权限设置</p>
-                            </div>
-                            <div class="create-employee-right-permissions">
-                                <table>
-                                    <tbody>
-                                        <tr>
-                                            @{var number = 0;}
-                                            @foreach (var permission in Model)
-                                            {
-                                                if (number % 4 == 0)
+                        </td>
+                        <td>
+                            <div class="create-employee-right">
+                                <div class="creat-employee-right-title">
+                                    <p class="title">权限设置</p>
+                                </div>
+                                <div class="create-employee-right-permissions">
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                @{var number = 0;}
+                                                @foreach (var permission in Model)
                                                 {
-                                                    @Html.Raw("</tr><tr>");
+                                                    if (number % 4 == 0)
+                                                    {
+                                                        @Html.Raw("</tr><tr>");
+                                                    }
+                                                    number++;
+                                                    <td>
+                                                        <label>
+                                                            <input name="permissionIds" type="checkbox" value="@permission.PermissionId" />@permission.Name
+                                                        </label>
+                                                    </td>
                                                 }
-                                                number++;
-                                                <td>
-                                                    <label>
-                                                        <input name="permissionIds" type="checkbox" value="@permission.PermissionId" />@permission.Name
-                                                    </label>
-                                                </td>
-                                            }
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </form>
-</div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</section>
 @section css{
     <link rel="stylesheet" href="~/Css/Admin/CreateEmployee.css" />
 }

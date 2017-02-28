@@ -2,27 +2,15 @@
     font-size:20px;
     border:1px solid #b9b9b9;
     border-radius:5px;
-    margin-top:50px;
+    margin-top:80px;
     width:1624px;
-}
-.create-employee-title{
-    position: relative;
-    top: -38px;
-    left: 80px;
-    line-height: 2;
-    border: 1px solid #b9b9b9;
-    width: 150px;
-    text-align: center;
-    border-bottom: none;
-    border-radius: 5px;
-    background-color: #ecf0f5;
-
 }
 .create-employee-left table > tbody > tr > td{
     padding-left:25px;
 }
 .create-employee-left-title,.create-employee-right-title{
     margin-left:0px;
+    margin-top:20px;
 }
 .create-employee-left-title span,.info span{
     font-size:14px;

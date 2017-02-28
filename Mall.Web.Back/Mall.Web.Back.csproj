@@ -57,6 +57,14 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -76,6 +84,10 @@
     </Reference>
     <Reference Include="System.Web.Http.WebHost">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Xml.Linq" />
@@ -98,10 +110,6 @@
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Optimization">
       <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
@@ -145,25 +153,46 @@
     <Compile Include="Controllers\GoodsController.cs" />
     <Compile Include="Controllers\MenuViewController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Filter\PermissionExceptionAttribute .cs" />
+    <Compile Include="Filter\PermissionAuthorizeAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\AdminLogViewModel.cs" />
+    <Compile Include="ViewModel\AdvertisementViewModel.cs" />
+    <Compile Include="ViewModel\CommentViewModel.cs" />
+    <Compile Include="ViewModel\EmployeeViewModel.cs" />
+    <Compile Include="ViewModel\GoodsInfoViewModel.cs" />
+    <Compile Include="ViewModel\ImageViewModel.cs" />
     <Compile Include="ViewModel\MenuViewModel.cs" />
+    <Compile Include="ViewModel\OrderViewModel.cs" />
+    <Compile Include="ViewModel\PermissionsViewModel.cs" />
+    <Compile Include="ViewModel\RefundViewModel.cs" />
+    <Compile Include="ViewModel\RolesViewModel.cs" />
+    <Compile Include="ViewModel\UserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="Css\Admin\CreateEmployee.css" />
+    <Content Include="Css\Admin\EmployeeDetails.css" />
+    <Content Include="Css\Admin\EmployeePermissions.css" />
+    <Content Include="Css\Admin\PermissionSet.css" />
     <Content Include="Css\Admin\PersonalInfo.css" />
     <Content Include="Css\Admin\SecuritySet.css" />
     <Content Include="Css\Goods\CreateGoods.css" />
     <Content Include="Css\Admin\Index.css" />
     <Content Include="Css\Chat\Chat.css" />
     <Content Include="Css\Goods\GoodsEdit.css" />
+    <Content Include="Css\Goods\htmleaf-demo.css" />
+    <Content Include="Css\Goods\ssi-uploader.css" />
     <Content Include="Css\MenuView\AdminLTE.css" />
     <Content Include="Css\MenuView\blue.css" />
     <Content Include="Content\boot.css" />
+    <Content Include="Css\Order\AllOrders.css" />
+    <Content Include="JS\Shared\jquery.ztree.all.min.js" />
     <Content Include="Css\Shared\MenuViewHead.css" />
     <Content Include="Css\MenuView\morris.css" />
     <Content Include="Css\MenuView\_all-skins.css" />
@@ -171,18 +200,27 @@
     <Content Include="Css\Shared\font-awesome.min.css" />
     <Content Include="Css\Shared\Foot.css" />
     <Content Include="Css\Shared\Head.css" />
+    <Content Include="Css\Shared\zTreeStyle.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="JS\Admin\CreateEmployee.js" />
+    <Content Include="JS\Admin\EmployeeDetails.js" />
     <Content Include="JS\Admin\Index.js" />
+    <Content Include="JS\Admin\PermissionSet.js" />
     <Content Include="JS\Admin\PersonalInfo.js" />
     <Content Include="JS\Admin\SecuritySet.js" />
     <Content Include="JS\Chat\Chat.js" />
+    <Content Include="JS\Goods\CreateGoods.js" />
+    <Content Include="JS\Goods\GoodsEdit.js" />
     <Content Include="JS\MenuView\app.js" />
+    <Content Include="JS\Order\AllOrders.js" />
     <Content Include="JS\Shared\cropbox.js" />
     <Content Include="JS\Shared\jquery-2.2.3.min.js" />
+    <Content Include="JS\Shared\layer_open_tip.js" />
+    <Content Include="JS\Shared\ManageConfirm.js" />
+    <Content Include="JS\Shared\ssi-uploader.js" />
     <Content Include="JS\Shared\_Layout.js" />
     <Content Include="Music\Chat\Global.wav" />
     <Content Include="Music\Chat\shake.wav" />
@@ -250,15 +288,27 @@
     <Content Include="Views\Goods\CreateGoods.cshtml" />
     <Content Include="Views\Goods\GoodsEdit.cshtml" />
     <Content Include="Views\Admin\CreateEmployee.cshtml" />
-    <Content Include="Views\Goods\GoodsInfo.cshtml" />
+    <Content Include="Views\Goods\GoodsDetails.cshtml" />
     <Content Include="Views\Shared\Admin\_ModifyLP.cshtml" />
     <Content Include="Views\Shared\Admin\_ModifyPhoto.cshtml" />
     <Content Include="Views\Shared\Admin\_ModifyMP.cshtml" />
+    <Content Include="Views\Admin\EmployeeDetails.cshtml" />
+    <Content Include="Views\Admin\EmployeeActions.cshtml" />
+    <Content Include="Views\Order\AllOrders.cshtml" />
+    <Content Include="Views\Shared\Order\_ModifyRemark.cshtml" />
+    <Content Include="Views\Admin\RoleManage.cshtml" />
+    <Content Include="Views\Admin\PermissionSet.cshtml" />
+    <Content Include="Views\Admin\GetEmployeeInfo.cshtml" />
+    <Content Include="Views\Admin\GetEmployeePermissions.cshtml" />
+    <Content Include="Views\Shared\Admin\_ManageConfirm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Css\Goods\images\" />
+    <Folder Include="Css\Shared\img\" />
     <Folder Include="JS\Home\" />
     <Folder Include="layer\" />
+    <Folder Include="Pictures\Goods\" />
     <Folder Include="Pictures\Home\" />
   </ItemGroup>
   <ItemGroup>
@@ -269,9 +319,9 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Mall.Data\Mall.Data.csproj">
+    <ProjectReference Include="..\Mall.Service\Mall.Service.csproj">
       <Project>{FB895D52-0C48-41D2-B323-F4711FC67C38}</Project>
-      <Name>Mall.Data</Name>
+      <Name>Mall.Service</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

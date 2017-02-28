@@ -45,8 +45,12 @@ C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\zh-Han
 C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\obj\Debug\Mall.Web.Front.csprojResolveAssemblyReference.cache
 C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\obj\Debug\Mall.Web.Front.dll
 C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\obj\Debug\Mall.Web.Front.pdb
-C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\Mall.Data.dll
 C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\EntityFramework.dll
-C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\Mall.Data.pdb
 C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\EntityFramework.xml
 C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\zh-Hans\EntityFramework.resources.dll
+C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\PagedList.dll
+C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\PagedList.Mvc.dll
+C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\PagedList.xml
+C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\PagedList.Mvc.xml
+C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\Mall.Service.dll
+C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\Mall.Service.pdb

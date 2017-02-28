@@ -2,7 +2,7 @@
  *
  * Microsoft grants you the right to use these script files for the sole
  * purpose of either: (i) interacting through your browser with the Microsoft
- * website or online service, subject to the applicable licensing or use
+ * website or online Data, subject to the applicable licensing or use
  * terms; or (ii) using the files as included with a Microsoft product subject
  * to that product's license terms. Microsoft reserves all other rights to the
  * files not expressly granted by Microsoft, whether by implication, estoppel
@@ -508,7 +508,7 @@ window.Modernizr = (function( window, document, undefined ) {
 
     // Chrome incognito mode used to throw an exception when using openDatabase
     // It doesn't anymore.
-    tests['websqldatabase'] = function() {
+    tests['websqlDatabase'] = function() {
       return !!window.openDatabase;
     };
 
@@ -886,9 +886,9 @@ window.Modernizr = (function( window, document, undefined ) {
                 attrs[ props[i] ] = !!(props[i] in inputElem);
             }
             if (attrs.list){
-              // safari false positive's on datalist: webk.it/74252
+              // safari false positive's on Datalist: webk.it/74252
               // see also github.com/Modernizr/Modernizr/issues/146
-              attrs.list = !!(document.createElement('datalist') && window.HTMLDataListElement);
+              attrs.list = !!(document.createElement('Datalist') && window.HTMLDataListElement);
             }
             return attrs;
         })('autocomplete autofocus list placeholder max min multiple pattern required step'.split(' '));
@@ -1048,7 +1048,7 @@ window.Modernizr = (function( window, document, undefined ) {
       /** The id for the the documents expando */
       var expanID = 0;
 
-      /** Cached data for each document */
+      /** Cached Data for each document */
       var expandoData = {};
 
       /** Detect whether the browser supports unknown elements */
@@ -1106,20 +1106,20 @@ window.Modernizr = (function( window, document, undefined ) {
       }
 
         /**
-       * Returns the data associated to the given document
+       * Returns the Data associated to the given document
        * @private
        * @param {Document} ownerDocument The document.
-       * @returns {Object} An object of data.
+       * @returns {Object} An object of Data.
        */
       function getExpandoData(ownerDocument) {
-        var data = expandoData[ownerDocument[expando]];
-        if (!data) {
-            data = {};
+        var Data = expandoData[ownerDocument[expando]];
+        if (!Data) {
+            Data = {};
             expanID++;
             ownerDocument[expando] = expanID;
-            expandoData[expanID] = data;
+            expandoData[expanID] = Data;
         }
-        return data;
+        return Data;
       }
 
       /**
@@ -1129,24 +1129,24 @@ window.Modernizr = (function( window, document, undefined ) {
        * @param {Document} ownerDocument The context document.
        * @returns {Object} The shived element.
        */
-      function createElement(nodeName, ownerDocument, data){
+      function createElement(nodeName, ownerDocument, Data){
         if (!ownerDocument) {
             ownerDocument = document;
         }
         if(supportsUnknownElements){
             return ownerDocument.createElement(nodeName);
         }
-        if (!data) {
-            data = getExpandoData(ownerDocument);
+        if (!Data) {
+            Data = getExpandoData(ownerDocument);
         }
         var node;
 
-        if (data.cache[nodeName]) {
-            node = data.cache[nodeName].cloneNode();
+        if (Data.cache[nodeName]) {
+            node = Data.cache[nodeName].cloneNode();
         } else if (saveClones.test(nodeName)) {
-            node = (data.cache[nodeName] = data.createElem(nodeName)).cloneNode();
+            node = (Data.cache[nodeName] = Data.createElem(nodeName)).cloneNode();
         } else {
-            node = data.createElem(nodeName);
+            node = Data.createElem(nodeName);
         }
 
         // Avoid adding some elements to fragments in IE < 9 because
@@ -1156,7 +1156,7 @@ window.Modernizr = (function( window, document, undefined ) {
         //   a 403 response, will cause the tab/window to crash
         // * Script elements appended to fragments will execute when their `src`
         //   or `text` property is set
-        return node.canHaveChildren && !reSkip.test(nodeName) ? data.frag.appendChild(node) : node;
+        return node.canHaveChildren && !reSkip.test(nodeName) ? Data.frag.appendChild(node) : node;
       }
 
       /**
@@ -1165,15 +1165,15 @@ window.Modernizr = (function( window, document, undefined ) {
        * @param {Document} ownerDocument The context document.
        * @returns {Object} The shived DocumentFragment.
        */
-      function createDocumentFragment(ownerDocument, data){
+      function createDocumentFragment(ownerDocument, Data){
         if (!ownerDocument) {
             ownerDocument = document;
         }
         if(supportsUnknownElements){
             return ownerDocument.createDocumentFragment();
         }
-        data = data || getExpandoData(ownerDocument);
-        var clone = data.frag.cloneNode(),
+        Data = Data || getExpandoData(ownerDocument);
+        var clone = Data.frag.cloneNode(),
             i = 0,
             elems = getElements(),
             l = elems.length;
@@ -1187,23 +1187,23 @@ window.Modernizr = (function( window, document, undefined ) {
        * Shivs the `createElement` and `createDocumentFragment` methods of the document.
        * @private
        * @param {Document|DocumentFragment} ownerDocument The document.
-       * @param {Object} data of the document.
+       * @param {Object} Data of the document.
        */
-      function shivMethods(ownerDocument, data) {
-        if (!data.cache) {
-            data.cache = {};
-            data.createElem = ownerDocument.createElement;
-            data.createFrag = ownerDocument.createDocumentFragment;
-            data.frag = data.createFrag();
+      function shivMethods(ownerDocument, Data) {
+        if (!Data.cache) {
+            Data.cache = {};
+            Data.createElem = ownerDocument.createElement;
+            Data.createFrag = ownerDocument.createDocumentFragment;
+            Data.frag = Data.createFrag();
         }
 
 
         ownerDocument.createElement = function(nodeName) {
           //abort shiv
           if (!html5.shivMethods) {
-              return data.createElem(nodeName);
+              return Data.createElem(nodeName);
           }
-          return createElement(nodeName, ownerDocument, data);
+          return createElement(nodeName, ownerDocument, Data);
         };
 
         ownerDocument.createDocumentFragment = Function('h,f', 'return function(){' +
@@ -1211,12 +1211,12 @@ window.Modernizr = (function( window, document, undefined ) {
           'h.shivMethods&&(' +
             // unroll the `createElement` calls
             getElements().join().replace(/\w+/g, function(nodeName) {
-              data.createElem(nodeName);
-              data.frag.createElement(nodeName);
+              Data.createElem(nodeName);
+              Data.frag.createElement(nodeName);
               return 'c("' + nodeName + '")';
             }) +
           ');return n}'
-        )(html5, data.frag);
+        )(html5, Data.frag);
       }
 
       /*--------------------------------------------------------------------------*/
@@ -1231,10 +1231,10 @@ window.Modernizr = (function( window, document, undefined ) {
         if (!ownerDocument) {
             ownerDocument = document;
         }
-        var data = getExpandoData(ownerDocument);
+        var Data = getExpandoData(ownerDocument);
 
-        if (html5.shivCSS && !supportsHtml5Styles && !data.hasCSS) {
-          data.hasCSS = !!addStyleSheet(ownerDocument,
+        if (html5.shivCSS && !supportsHtml5Styles && !Data.hasCSS) {
+          Data.hasCSS = !!addStyleSheet(ownerDocument,
             // corrects block display not defined in IE6/7/8/9
             'article,aside,figcaption,figure,footer,header,hgroup,nav,section{display:block}' +
             // adds styling not present in IE6/7/8/9
@@ -1242,7 +1242,7 @@ window.Modernizr = (function( window, document, undefined ) {
           );
         }
         if (!supportsUnknownElements) {
-          shivMethods(ownerDocument, data);
+          shivMethods(ownerDocument, Data);
         }
         return ownerDocument;
       }
@@ -1265,7 +1265,7 @@ window.Modernizr = (function( window, document, undefined ) {
          * @memberOf html5
          * @type Array|String
          */
-        'elements': options.elements || 'abbr article aside audio bdi canvas data datalist details figcaption figure footer header hgroup mark meter nav output progress section summary time video',
+        'elements': options.elements || 'abbr article aside audio bdi canvas Data Datalist details figcaption figure footer header hgroup mark meter nav output progress section summary time video',
 
         /**
          * A flag to indicate that the HTML5 style sheet should be inserted.

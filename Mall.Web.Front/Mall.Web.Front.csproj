@@ -49,6 +49,14 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -130,12 +138,22 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\CustomViewModel.cs" />
+    <Compile Include="ViewModel\CommentViewModel.cs" />
+    <Compile Include="ViewModel\DeliveryInfoViewModel.cs" />
+    <Compile Include="ViewModel\GoodsInfoViewModel.cs" />
+    <Compile Include="ViewModel\ImageViewModel.cs" />
     <Compile Include="ViewModel\MenuViewModel.cs" />
+    <Compile Include="ViewModel\OrderViewModel.cs" />
+    <Compile Include="ViewModel\RefundViewModel.cs" />
+    <Compile Include="ViewModel\ShoppingCartViewModel.cs" />
+    <Compile Include="ViewModel\UserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\boot.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="Css\Account\AddressAlready.css" />
     <Content Include="Css\Account\AddressSet.css" />
     <Content Include="Css\Account\PersonalInfo.css" />
@@ -151,11 +169,13 @@
     <Content Include="Css\MenuView\blue.css" />
     <Content Include="Css\MenuView\morris.css" />
     <Content Include="Css\MenuView\_all-skins.css" />
+    <Content Include="Css\Order\AllOrders.css" />
     <Content Include="Css\Shared\MenuViewHeader.css" />
     <Content Include="JS\Account\AddressAlready.js" />
     <Content Include="JS\Account\AddressSet.js" />
     <Content Include="JS\Account\PersonalInfo.js" />
     <Content Include="JS\Account\SecuritySet.js" />
+    <Content Include="JS\Order\AllOrders.js" />
     <Content Include="JS\Goods\Goods.js" />
     <Content Include="JS\Layout\_Layout.js" />
     <Content Include="Css\Shared\font-awesome.min.css" />
@@ -178,6 +198,7 @@
     <Content Include="JS\Shared\jquery-2.2.3.min.js" />
     <Content Include="JS\Home\jquery.terseBanner.min.js" />
     <Content Include="JS\Home\script.js" />
+    <Content Include="JS\Shared\layer_open_tip.js" />
     <Content Include="JS\Users\Index.js" />
     <Content Include="JS\Users\Registe.js" />
     <Content Include="JS\Users\RetrievePW.js" />
@@ -190,7 +211,6 @@
     <Content Include="Pictures\Chat\电脑%28Others%29.png" />
     <Content Include="Pictures\goods-test.jpg" />
     <Content Include="Pictures\Home\advertisement-left.jpg" />
-    <Content Include="Pictures\Shared\avatar5.png" />
     <Content Include="Pictures\Shared\contact.png" />
     <Content Include="Pictures\Shared\phone.png" />
     <Content Include="Pictures\Shared\Search%28Touch%29.png" />
@@ -215,7 +235,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -224,7 +246,7 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\Layout\_Layout.cshtml" />
-    <Content Include="Views\Users\BuyNow.cshtml" />
+    <Content Include="Views\Order\BuyNow.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Users\Registe.cshtml" />
     <Content Include="Views\Shared\_Head.cshtml" />
@@ -235,7 +257,7 @@
     <Content Include="Views\Users\OrderDetails.cshtml" />
     <Content Include="Views\Users\ConfirmReceipt.cshtml" />
     <Content Include="Views\Users\Evaluate.cshtml" />
-    <Content Include="Views\Home\SuggestById.cshtml" />
+    <Content Include="Views\Shared\Home\_Suggest.cshtml" />
     <Content Include="Views\Home\MallHead.cshtml" />
     <Content Include="Views\Home\Advertisement.cshtml" />
     <Content Include="Views\Home\Carousel.cshtml" />
@@ -248,29 +270,32 @@
     <Content Include="Views\Account\PersonalInfo.cshtml" />
     <Content Include="Views\Account\SecuritySet.cshtml" />
     <Content Include="Views\Account\AddressSet.cshtml" />
-    <Content Include="Views\Account\_ModifyLP.cshtml" />
-    <Content Include="Views\Account\_ModifyPP.cshtml" />
-    <Content Include="Views\Account\_ModifyPhoto.cshtml" />
-    <Content Include="Views\Users\ReSetPW.cshtml" />
+    <Content Include="Views\Shared\Account\_ModifyLP.cshtml" />
+    <Content Include="Views\Shared\Account\_ModifyPP.cshtml" />
+    <Content Include="Views\Shared\Account\_ModifyPhoto.cshtml" />
+    <Content Include="Views\Shared\Users\_ReSetPW.cshtml" />
     <Content Include="Views\Layout\_ClientLayout.cshtml" />
     <Content Include="Views\Shared\MenuView\_ControlSideBar.cshtml" />
     <Content Include="Views\Shared\MenuView\_Header.cshtml" />
-    <Content Include="Views\Shared\MenuView\_Layout.cshtml" />
     <Content Include="Views\Shared\MenuView\_SideBar.cshtml" />
-    <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\MenuView\SideBarMenu.cshtml" />
     <Content Include="Views\MenuView\SubSideBarMenu.cshtml" />
     <Content Include="Views\Account\UserInfo.cshtml" />
     <Content Include="Views\Account\AddressAlready.cshtml" />
-    <Content Include="Views\Account\_ModifyAddress.cshtml" />
+    <Content Include="Views\Shared\Account\_ModifyAddress.cshtml" />
+    <Content Include="Views\Order\AllOrders.cshtml" />
+    <Content Include="Views\Order\SearchOrderId.cshtml" />
+    <Content Include="Views\Order\SearchOrderByState.cshtml" />
+    <Content Include="Views\Home\NewGoods.cshtml" />
+    <Content Include="Views\Home\HotSale.cshtml" />
+    <Content Include="Views\Home\Suggest.cshtml" />
+    <Content Include="Views\Shared\Home\_SuggestAdvertisement.cshtml" />
+    <Content Include="Views\Shared\Users\_ConfirmVerifyCode.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Css\Order\" />
     <Folder Include="layer\" />
     <Folder Include="NewFolder1\img\" />
-    <Folder Include="Views\Order\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -280,9 +305,9 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Mall.Data\Mall.Data.csproj">
+    <ProjectReference Include="..\Mall.Service\Mall.Service.csproj">
       <Project>{FB895D52-0C48-41D2-B323-F4711FC67C38}</Project>
-      <Name>Mall.Data</Name>
+      <Name>Mall.Service</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

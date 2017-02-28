@@ -1,0 +1,23 @@
+﻿@model List<Mall.Web.Back.ViewModel.PermissionsViewModel>
+
+<div class="permission-title">
+    <ul>
+        <li class="permission-name">权限名称</li>
+        <li class="permission-detail">权限简介</li>
+        <li class="permission-time">授权时间</li>
+    </ul>
+</div>
+<div class="permission-content">
+    <ul>
+        @for (var i = 0; i < Model.Count; i++)
+        {
+            <li class="permission-item @(i % 2 == 0 ? "even" : "odd")">
+                <ul>
+                    <li class="permission-name">@Model[i].Name</li>
+                    <li class="permission-detail">@Model[i]</li>
+                    <li class="permission-time">@Model[i].CreationTime</li>
+                </ul>
+            </li>
+        }
+    </ul>
+</div>

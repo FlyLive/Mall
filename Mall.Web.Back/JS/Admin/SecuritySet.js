@@ -8,8 +8,8 @@
         $.ajax({
             type: 'Get',
             url: 'ConfirmLP',
-            data: { 'log_password': logPassword },
-            datatype: Boolean,
+            Data: { 'log_password': logPassword },
+            Datatype: Boolean,
             success: function (result) {
                 if (result == 'True') {
                     $(function () {
@@ -19,11 +19,11 @@
                     });
                 }
                 else {
-                    OpenTip("登录密码错误，请重试!");
+                    OpenTip("登录密码错误，请重试!",3);
                 }
             },
             error: function () {
-                OpenTip("出错啦!");
+                OpenTip("出错啦!",2);
             }
         });
     }
@@ -39,8 +39,8 @@ function ConfirmMP() {
         $.ajax({
             type: "Get",
             url: "ConfirmMP",
-            data: { "manage_password": managePassword },
-            datatype: Boolean,
+            Data: { "manage_password": managePassword },
+            Datatype: Boolean,
             success: function (result) {
                 if (result == "True") {
                     $(function () {
@@ -58,24 +58,6 @@ function ConfirmMP() {
             }
         });
     }
-}
-
-function OpenTip(content) {
-    layer.open({
-        title: '提示',
-        content: content,
-        icon: 5,
-        skin: 'layui-layer-lan',
-        closeBtn: 0,
-        anim: 3,
-    });
-}
-
-function Tip(content, tag) {
-    layer.tips(content, "#" + tag, {
-        tips: [2, "#2277ff"],
-        time: 1500,
-    });
 }
 
 //修改登录密码

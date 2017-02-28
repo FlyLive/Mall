@@ -1,0 +1,28 @@
+﻿
+@model Mall.Web.Front.ViewModel.OrderViewModel
+
+<ul>
+    @{
+        if (Model == null)
+        {
+            <li class="no-result">
+                <h3>未查询到订单,请检查订单号后再试！</h3>
+            </li>
+        }
+        else
+        {
+            <li class="order-item">
+                <div class="item-head">&emsp;<strong>下单时间:&emsp;@Model.CreateTime</strong>&emsp;&emsp;&emsp;订单编号:&emsp;@Model.OrderId</div>
+                <ul class="item-info">
+                    <li class="good-info"><div><a href=""><img src="~/Pictures/人类简史.jpg" /></a><div><p class="good-detail">Morbi sed mi luctus, tempor arcu nec, hendrerit purus.</p><p class="good-author">作者:&emsp;<span>张嘉佳</span></p></div></div></li>
+                    <li class="good-price">@Model.Price</li>
+                    <li class="good-count">@Model.Count</li>
+                    <li class="good-freight">@Model.Freight</li>
+                    <li class="good-total">@Model.Totla</li>
+                    <li class="order-state"><span class="label label-warning">@Model.State</span></li>
+                    <li class="order-action"><a onclick=""><span class="label label-danger">支付</span></a></li>
+                </ul>
+            </li>
+        }
+    }
+</ul>

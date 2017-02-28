@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Mall.Data.DataBase;
-using Mall.Data.Services.Client;
+using Mall.Service.DataBase;
+using Mall.Service.Services.Client;
 
 namespace Mall.Web.Front.Controllers
 {
     public class UsersController : Controller
     {
-        public ClientService _userService = new ClientService();
+        public CustomService _clientService = new CustomService();
+
         /// <summary>
         /// 用户登录首页
         /// </summary>
@@ -19,6 +20,7 @@ namespace Mall.Web.Front.Controllers
         {
             return View();
         }
+
         /// <summary>
         /// 登录
         /// </summary>
@@ -34,11 +36,11 @@ namespace Mall.Web.Front.Controllers
             }
             else
             {
-                Client client = _userService.Login(name, password);
+                Client client = _clientService.Login(name, password);
                 if(client != null)
                 {
                     Session.Add("Client", client);
-                    return RedirectToAction("../Home/Home");
+                    return RedirectToAction("Home","Home");
                 }
                 TempData["loginError"] = "password";
             }
@@ -55,25 +57,41 @@ namespace Mall.Web.Front.Controllers
         {
             return View();
         }
+
         [HttpGet]
         public bool ClientConfirm(string account,string email)
         {
-            var result = _userService.ClientConfirm(account, email);
+            var result = _clientService.ClientConfirm(account, email);
             if (result)
             {
                 TempData["Account"] = account;
+                string verifyCode = _clientService.SendEmailOfVerifyCode(email);
+                Session.Add("VerifyCode", verifyCode);
             }
             return result;
         }
+
+        [HttpGet]
+        public bool VerifyCodeConfirm(string verifyCode)
+        {
+            string code = (string)Session["VerifyCode"];
+            var result = code == verifyCode;
+            return result;
+        }
+
         [HttpPost]
         public ActionResult RetrievePW(string newPassword)
         {
             var account = (string)TempData["Account"];
-            Client client = _userService.GetClientByAccount(account);
-            _userService.ModifyPasswordByClientId(client.ClientId, newPassword);
-            TempData["RetrievePW"] = "successs";
+            Client client = _clientService.GetCustomByAccount(account);
+            _clientService.ModifyPasswordByClientId(client.ClientId, newPassword);
+
+            TempData["RetrievePW"] = "success";
+            Session["VerifyCode"] = null;
+
             return RedirectToAction("Index");
         }
+        
         #endregion
 
         #region 注册
@@ -89,7 +107,7 @@ namespace Mall.Web.Front.Controllers
         [HttpPost]
         public ActionResult Registe(string name,string fPWord,string email)
         {
-            Client client = _userService.Registe(name,fPWord,email);
+            Client client = _clientService.Registe(name,fPWord,email);
             if(client == null)
             {
                 TempData["Registe"] = "false";
@@ -107,8 +125,13 @@ namespace Mall.Web.Front.Controllers
         /// 支付
         /// </summary>
         /// <returns></returns>
-        public ActionResult BuyNow()
+        public ActionResult BuyNow(Guid orderId)
         {
+            Client client = (Client)Session["Client"];
+            if (client == null)
+            {
+                return RedirectToAction("Index", "Users");
+            }
             return View();
         }
 
@@ -133,6 +156,11 @@ namespace Mall.Web.Front.Controllers
         /// <returns></returns>
         public ActionResult OrderDetails()
         {
+            Client client = (Client)Session["Client"];
+            if (client == null)
+            {
+                return RedirectToAction("Index", "Users");
+            }
             return View();
         }
 
@@ -142,6 +170,11 @@ namespace Mall.Web.Front.Controllers
         /// <returns></returns>
         public ActionResult ConfirmReceipt()
         {
+            Client client = (Client)Session["Client"];
+            if (client == null)
+            {
+                return RedirectToAction("Index", "Users");
+            }
             return View();
         }
 
@@ -151,6 +184,11 @@ namespace Mall.Web.Front.Controllers
         /// <returns></returns>
         public ActionResult Evaluate()
         {
+            Client client = (Client)Session["Client"];
+            if (client == null)
+            {
+                return RedirectToAction("Index", "Users");
+            }
             return View();
         }
     }

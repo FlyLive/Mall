@@ -4,7 +4,13 @@
     Layout = "~/Views/Layout/_AdminTLE.cshtml";
 }
 
-<h2>ManageCenter</h2>
+<section class="content-header">
+    <h1><i class="fa fa-cogs"></i>ManagementCenter</h1>
+</section>
+
+<section class="content">
+
+</section>
 
 @{
     var log = TempData["log"];
@@ -15,7 +21,7 @@
             <script>
                 layer.msg(@TempData["Admin"] + ",欢迎您上班,祝您有个好心情!", {
                     icon: 6,
-                    time:3000,
+                    time:2000,
                 });
             </script>
         }

@@ -230,6 +230,7 @@ a:focus {
 .main-header .navbar-custom-menu,
 .main-header .navbar-right {
   float: right;
+  margin-right:150px;
 }
 @media (max-width: 991px) {
   .main-header .navbar-custom-menu a,
@@ -316,6 +317,16 @@ a:focus {
 .content-header > h1 {
   margin: 0;
   font-size: 24px;
+  background-color: white;
+  padding: 10px;
+  color: red;
+    -webkit-box-shadow: rgba(60, 141, 188, 0.90) 3px 3px;
+    -moz-box-shadow: rgba(60, 141, 188, 0.90) 3px 3px;  
+    box-shadow: rgba(60, 141, 188, 0.90) 3px 3px;
+}
+.content-header > h1 > i{
+    color:#00c0ef;
+    font-size:25px;
 }
 .content-header > h1 > small {
   font-size: 15px;
@@ -1763,7 +1774,7 @@ a:focus {
   right: 10px;
   top: 5px;
 }
-.box-header > .box-tools [data-toggle="tooltip"] {
+.box-header > .box-tools [Data-toggle="tooltip"] {
   position: relative;
 }
 .box-header > .box-tools.pull-right .dropdown-menu {

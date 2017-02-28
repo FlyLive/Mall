@@ -1,5 +1,5 @@
-﻿using Mall.Data.Models;
-using Mall.Data.Services.Client;
+﻿using Mall.Service.Models;
+using Mall.Service.Services.Client;
 using Mall.Web.Front.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -31,7 +31,7 @@ namespace Mall.Web.Front.Controllers
         /// <returns></returns>
         private List<MenuViewModel> GetTree()
         {
-            List<ClientMenuViewModel> menus = MenuViewService._menuView;
+            List<CustomMenu> menus = MenuViewService._menuView;
             List<MenuViewModel> trees = new List<MenuViewModel>();
             foreach (var m in menus)
             {
@@ -43,6 +43,7 @@ namespace Mall.Web.Front.Controllers
                             Id = m.MenuId,
                             Name = m.Name,
                             Url = m.Url,
+                            Icon = m.Icon,
                             Childs = GetChildsByParentId(m.MenuId),
                         }
                     );
@@ -59,7 +60,7 @@ namespace Mall.Web.Front.Controllers
         /// <returns></returns>
         private List<MenuViewModel> GetChildsByParentId(int parentId)
         {
-            List<ClientMenuViewModel> menus = MenuViewService._menuView;
+            List<CustomMenu> menus = MenuViewService._menuView;
             List<MenuViewModel> trees = new List<MenuViewModel>();
             foreach (var m in menus)
             {
@@ -71,6 +72,7 @@ namespace Mall.Web.Front.Controllers
                             Id = m.MenuId,
                             Name = m.Name,
                             Url = m.Url,
+                            Icon = m.Icon,
                             Childs = GetChildsByParentId(m.MenuId),
                         }
                     );

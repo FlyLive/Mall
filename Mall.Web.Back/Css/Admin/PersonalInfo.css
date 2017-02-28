@@ -225,4 +225,13 @@ a.upload-img {
         width: 100px;
         font-size: 16px;
         margin: 10px 0px 10px 130px;
+        border:none;
+        border-radius:5px;
+        background-color:#2ca9e1;
     }
+.info-set-submit > button:hover{
+    background-color:#0095d9;
+}
+.info-set-submit > button:active{
+    background-color:#2ca9e1;
+}

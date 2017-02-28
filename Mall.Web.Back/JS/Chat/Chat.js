@@ -11,21 +11,21 @@ chatServer.connect()
     })
 var content = new Vue({
     el: '#content',
-    data: {
+    Data: {
         items: [],
     }
 })
 
 var onLine = new Vue({
     el: '#onLine',
-    data: {
+    Data: {
         items: []
     }
 })
 
 new Vue({
     el: '.chat-input',
-    data: {
+    Data: {
         newItem: ''
     },
     methods: {
@@ -35,8 +35,8 @@ new Vue({
             this.newItem = '';
         },
         clearItems: function () {//清空聊天记录
-            for (var item in content.$data.items)
-                content.$data.items.splice(item);
+            for (var item in content.$Data.items)
+                content.$Data.items.splice(item);
         },
     }
 })
@@ -59,36 +59,36 @@ function setName() {
     setChatHeadName();
 }
 chatServer.on({
-    receive: function (data) {
-        var data_content = data.content;
+    receive: function (Data) {
+        var Data_content = Data.content;
         var length = chatServer.name.length;
-        var index = data_content.indexOf('@');
-        var end = data_content.length;
-        var restContent = data_content.substring(0, index) + data_content.substring(index + length + 1, end);
-        var isToMe = data_content.substring(index, index + length + 1) == '@' + chatServer.name;
-        var imgContent = data.content.substring(0, 4);
+        var index = Data_content.indexOf('@');
+        var end = Data_content.length;
+        var restContent = Data_content.substring(0, index) + Data_content.substring(index + length + 1, end);
+        var isToMe = Data_content.substring(index, index + length + 1) == '@' + chatServer.name;
+        var imgContent = Data.content.substring(0, 4);
         var isImg = (imgContent == 'Img1' || imgContent == 'Img2' || imgContent == 'Img3' || imgContent == 'Img4');
 
         if (isImg) {
-            if (data.nick == chatServer.name) {
-                content.$data.items.push({ classes: "myself message", display: 'inline', content_Img: "/Pictures/Chat/Img/" + imgContent + ".gif" })
+            if (Data.nick == chatServer.name) {
+                content.$Data.items.push({ classes: "myself message", display: 'inline', content_Img: "/Pictures/Chat/Img/" + imgContent + ".gif" })
             }
             else {
-                content.$data.items.push({ classes: "message", nick: data.nick + ":",display: 'inline' , content_Img: "/Pictures/Chat/Img/" + imgContent + ".gif" })
+                content.$Data.items.push({ classes: "message", nick: Data.nick + ":",display: 'inline' , content_Img: "/Pictures/Chat/Img/" + imgContent + ".gif" })
                 shake.play();
             }
         }
         else {
-            if (data.nick == chatServer.name) {
-                content.$data.items.push({ classes: "myself message", content: data.content})
+            if (Data.nick == chatServer.name) {
+                content.$Data.items.push({ classes: "myself message", content: Data.content})
             }
             else {
                 if (isToMe) {
-                    content.$data.items.push({ classes: "message", nick: data.nick + ":", toMe: "@" + chatServer.name, content: restContent })
+                    content.$Data.items.push({ classes: "message", nick: Data.nick + ":", toMe: "@" + chatServer.name, content: restContent })
                     system.play();
                 }
                 else{
-                    content.$data.items.push({ classes: "message", nick: data.nick + ":", content: data.content, })
+                    content.$Data.items.push({ classes: "message", nick: Data.nick + ":", content: Data.content, })
                     shake.play();
                 }
             }
@@ -96,37 +96,37 @@ chatServer.on({
         };
         $(".chat-content #content").scrollTop($(".chat-content #content")[0].scrollHeight);
     },
-    newbie: function (data) {
-        for (var item in onLine.$data.items)
-            onLine.$data.items.splice(item);
+    newbie: function (Data) {
+        for (var item in onLine.$Data.items)
+            onLine.$Data.items.splice(item);
 
-        content.$data.items.push({ classes: "sign", nick: data.nick + "加入了聊天" });
+        content.$Data.items.push({ classes: "sign", nick: Data.nick + "加入了聊天" });
 
-        var list = data.list;
+        var list = Data.list;
         for (var i = 0; i < list.length; i++) {
             if (list[i] == chatServer.name) {
-                onLine.$data.items.push({ img_src: "电脑(Myself).png", nick: list[i] });
+                onLine.$Data.items.push({ img_src: "电脑(Myself).png", nick: list[i] });
             }
             else {
-                onLine.$data.items.push({ img_src: "电脑(Others).png", nick: list[i] });
+                onLine.$Data.items.push({ img_src: "电脑(Others).png", nick: list[i] });
             }
         }
         global.play();
         $(".chat-content #content").scrollTop($(".chat-content #content")[0].scrollHeight);
     },
-    leave: function (data) {
-        for (var item in onLine.$data.items)
-            onLine.$data.items.splice(item);
+    leave: function (Data) {
+        for (var item in onLine.$Data.items)
+            onLine.$Data.items.splice(item);
 
-        content.$data.items.push({ classes: "sign", nick: data.nick + "退出了聊天" });
+        content.$Data.items.push({ classes: "sign", nick: Data.nick + "退出了聊天" });
 
-        var list = data.list;
+        var list = Data.list;
         for (var i = 0; i < list.length; i++) {
             if (list[i] == chatServer.name) {
-                onLine.$data.items.push({ img_src: "电脑(Myself).png", nick: list[i] });
+                onLine.$Data.items.push({ img_src: "电脑(Myself).png", nick: list[i] });
             }
             else {
-                onLine.$data.items.push({ img_src: "电脑(Others).png", nick: list[i] });
+                onLine.$Data.items.push({ img_src: "电脑(Others).png", nick: list[i] });
             }
         }
         $(".chat-content #content").scrollTop($(".chat-content #content")[0].scrollHeight);

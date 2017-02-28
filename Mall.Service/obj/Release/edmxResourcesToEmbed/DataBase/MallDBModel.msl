@@ -1,0 +1,235 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MallDBModelStoreContainer" CdmEntityContainer="MallDBContext">
+    <EntitySetMapping Name="AdminLog">
+      <EntityTypeMapping TypeName="MallDBModel.AdminLog">
+        <MappingFragment StoreEntitySet="AdminLog">
+          <ScalarProperty Name="Style" ColumnName="Style" />
+          <ScalarProperty Name="Permission" ColumnName="Permission" />
+          <ScalarProperty Name="Object" ColumnName="Object" />
+          <ScalarProperty Name="Operater" ColumnName="Operater" />
+          <ScalarProperty Name="OperatDetail" ColumnName="OperatDetail" />
+          <ScalarProperty Name="OperationTime" ColumnName="OperationTime" />
+          <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+          <ScalarProperty Name="RecordId" ColumnName="RecordId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Advertisement">
+      <EntityTypeMapping TypeName="MallDBModel.Advertisement">
+        <MappingFragment StoreEntitySet="Advertisement">
+          <ScalarProperty Name="Category" ColumnName="Category" />
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="ImageId" ColumnName="ImageId" />
+          <ScalarProperty Name="AdvertisementID" ColumnName="AdvertisementID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Client">
+      <EntityTypeMapping TypeName="MallDBModel.Client">
+        <MappingFragment StoreEntitySet="Client">
+          <ScalarProperty Name="PayPassword" ColumnName="PayPassword" />
+          <ScalarProperty Name="Wallet" ColumnName="Wallet" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Comment">
+      <EntityTypeMapping TypeName="MallDBModel.Comment">
+        <MappingFragment StoreEntitySet="Comment">
+          <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+          <ScalarProperty Name="Rank" ColumnName="Rank" />
+          <ScalarProperty Name="CommentTime" ColumnName="CommentTime" />
+          <ScalarProperty Name="CommentDetail" ColumnName="CommentDetail" />
+          <ScalarProperty Name="GoodsId" ColumnName="GoodsId" />
+          <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+          <ScalarProperty Name="CommentId" ColumnName="CommentId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DeliveryInfo">
+      <EntityTypeMapping TypeName="MallDBModel.DeliveryInfo">
+        <MappingFragment StoreEntitySet="DeliveryInfo">
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="DetailedAddress" ColumnName="DetailedAddress" />
+          <ScalarProperty Name="Consignee" ColumnName="Consignee" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Employee">
+      <EntityTypeMapping TypeName="MallDBModel.Employee">
+        <MappingFragment StoreEntitySet="Employee">
+          <ScalarProperty Name="ManagePassword" ColumnName="ManagePassword" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GoodsInfo">
+      <EntityTypeMapping TypeName="MallDBModel.GoodsInfo">
+        <MappingFragment StoreEntitySet="GoodsInfo">
+          <ScalarProperty Name="freight" ColumnName="freight" />
+          <ScalarProperty Name="PublicationDate" ColumnName="PublicationDate" />
+          <ScalarProperty Name="Press" ColumnName="Press" />
+          <ScalarProperty Name="Author" ColumnName="Author" />
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+          <ScalarProperty Name="UnderShelfTime" ColumnName="UnderShelfTime" />
+          <ScalarProperty Name="ShelfTime" ColumnName="ShelfTime" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="CommentNumber" ColumnName="CommentNumber" />
+          <ScalarProperty Name="Category" ColumnName="Category" />
+          <ScalarProperty Name="Details" ColumnName="Details" />
+          <ScalarProperty Name="Stock" ColumnName="Stock" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="GoodsName" ColumnName="GoodsName" />
+          <ScalarProperty Name="GoodsId" ColumnName="GoodsId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Image">
+      <EntityTypeMapping TypeName="MallDBModel.Image">
+        <MappingFragment StoreEntitySet="Image">
+          <ScalarProperty Name="ImageSrc" ColumnName="ImageSrc" />
+          <ScalarProperty Name="GoodsId" ColumnName="GoodsId" />
+          <ScalarProperty Name="ImageId" ColumnName="ImageId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Menus">
+      <EntityTypeMapping TypeName="MallDBModel.Menus">
+        <MappingFragment StoreEntitySet="Menus">
+          <ScalarProperty Name="Icon" ColumnName="Icon" />
+          <ScalarProperty Name="URL" ColumnName="URL" />
+          <ScalarProperty Name="MenuPath" ColumnName="MenuPath" />
+          <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+          <ScalarProperty Name="MenuName" ColumnName="MenuName" />
+          <ScalarProperty Name="MenuId" ColumnName="MenuId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Order">
+      <EntityTypeMapping TypeName="MallDBModel.Order">
+        <MappingFragment StoreEntitySet="Order">
+          <ScalarProperty Name="OrderRemark" ColumnName="OrderRemark" />
+          <ScalarProperty Name="ClientRemark" ColumnName="ClientRemark" />
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+          <ScalarProperty Name="DeliveryTime" ColumnName="DeliveryTime" />
+          <ScalarProperty Name="PaymentTime" ColumnName="PaymentTime" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="DeliveryAddress" ColumnName="DeliveryAddress" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="Consignee" ColumnName="Consignee" />
+          <ScalarProperty Name="Totla" ColumnName="Totla" />
+          <ScalarProperty Name="Count" ColumnName="Count" />
+          <ScalarProperty Name="Freight" ColumnName="Freight" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="GoodsName" ColumnName="GoodsName" />
+          <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+          <ScalarProperty Name="GoodsId" ColumnName="GoodsId" />
+          <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Permissions">
+      <EntityTypeMapping TypeName="MallDBModel.Permissions">
+        <MappingFragment StoreEntitySet="Permissions">
+          <ScalarProperty Name="CreationTime" ColumnName="CreationTime" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="PermissionId" ColumnName="PermissionId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Refund">
+      <EntityTypeMapping TypeName="MallDBModel.Refund">
+        <MappingFragment StoreEntitySet="Refund">
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="DealTime" ColumnName="DealTime" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+          <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+          <ScalarProperty Name="RefundId" ColumnName="RefundId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="MallDBModel.Roles">
+        <MappingFragment StoreEntitySet="Roles">
+          <ScalarProperty Name="Default" ColumnName="Default" />
+          <ScalarProperty Name="CreationTime" ColumnName="CreationTime" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ShoppingCart">
+      <EntityTypeMapping TypeName="MallDBModel.ShoppingCart">
+        <MappingFragment StoreEntitySet="ShoppingCart">
+          <ScalarProperty Name="GoodsId" ColumnName="GoodsId" />
+          <ScalarProperty Name="Number" ColumnName="Number" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+          <ScalarProperty Name="ShoppingCartId" ColumnName="ShoppingCartId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="MallDBModel.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="definition" ColumnName="definition" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="User">
+      <EntityTypeMapping TypeName="MallDBModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="RealName" ColumnName="RealName" />
+          <ScalarProperty Name="Photo" ColumnName="Photo" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="NickName" ColumnName="NickName" />
+          <ScalarProperty Name="Account" ColumnName="Account" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="EmployeePermissions" TypeName="MallDBModel.EmployeePermissions" StoreEntitySet="EmployeePermissions">
+      <EndProperty Name="Permissions">
+        <ScalarProperty Name="PermissionId" ColumnName="PermissionId" />
+      </EndProperty>
+      <EndProperty Name="Employee">
+        <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="EmployeeRoles" TypeName="MallDBModel.EmployeeRoles" StoreEntitySet="EmployeeRoles">
+      <EndProperty Name="Employee">
+        <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+      </EndProperty>
+      <EndProperty Name="Roles">
+        <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="RolePermissions" TypeName="MallDBModel.RolePermissions" StoreEntitySet="RolePermissions">
+      <EndProperty Name="Roles">
+        <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+      </EndProperty>
+      <EndProperty Name="Permissions">
+        <ScalarProperty Name="PermissionId" ColumnName="PermissionId" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

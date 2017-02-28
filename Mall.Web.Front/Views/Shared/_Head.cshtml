@@ -48,14 +48,14 @@
         <div class="client">
             <div id="no_account" class="client-no-account">
                 <a href="/Account/Index" title="个人中心">
-                    <img src="~/Pictures/Shared/avatar5.png" />
+                    <img src="~/Pictures/Users/Avatar/avatar.png" />
                 </a>
                 <span>亲,请</span>
                 <a href="/Users/Index">[登录]</a>
             </div>
             <div id="has_account" class="client-has-account">
                 <a href="/Account/Index">
-                    <img src="~/Pictures/Shared/avatar5.png" />
+                    <img src="" />
                 </a>
                 <span>欢迎您,</span>
                 <a id="account_name" href="/Account/Index"></a>
@@ -74,6 +74,22 @@
                 <button id="search-button" type="submit"></button>
             </form>
         </div>
+        <div class="client">
+            <div id="navbar_no_account" class="client-no-account">
+                <a href="/Account/Index" title="个人中心">
+                    <img src="~/Pictures/Users/Avatar/avatar.png" />
+                </a>
+                <span>亲,请</span>
+                <a href="/Users/Index">[登录]</a>
+            </div>
+            <div id="navbar_has_account" class="client-has-account">
+                <a href="/Account/Index">
+                    <img src="" />
+                </a>
+                <span>欢迎您,</span>
+                <a id="navbar_account_name" href="/Account/Index"></a>
+            </div>
+        </div>
     </div>
 </div>
 @section css{
@@ -83,11 +99,17 @@
     var client = Session["Client"];
     if (client != null)
     {
-        Mall.Data.DataBase.Client c = (Mall.Data.DataBase.Client)Session["Client"];
+        Mall.Service.DataBase.Client c = (Mall.Service.DataBase.Client)Session["Client"];
         <script>
             $("#has_account").show();
             $("#no_account").hide();
             $("#account_name").text("@c.User.NickName");
+            $("#has_account img").attr("src", "@c.User.Photo");
+
+            $("#navbar_has_account").show();
+            $("#navbar_no_account").hide();
+            $("#navbar_account_name").text("@c.User.NickName");
+            $("#navbar_has_account img").attr("src", "@c.User.Photo");
         </script>
     }
     else
@@ -95,6 +117,9 @@
         <script>
             $("#has_account").hide();
             $("#no_account").show();
+
+            $("#navbar_has_account").hide();
+            $("#navbar_no_account").show();
         </script>
     }
 }

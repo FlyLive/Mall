@@ -30,18 +30,18 @@
 
         <div class="content-wrapper">
 
-            <section class="content-header"></section>
+            @RenderBody()
 
-            <section class="content">
-                @RenderBody()
-            </section>
         </div>
+
         @Html.Partial("MenuView/_SideBar")
 
         @Html.Partial("MenuView/_ControlSideBar")
 
         <footer class="main-footer">
+
             @Html.Partial("_Foot")
+
         </footer>
     </div>
 

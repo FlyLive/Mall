@@ -1,6 +1,6 @@
-﻿using Mall.Data.DataBase;
-using Mall.Data.Services;
-using Mall.Data.Services.Enterprise;
+﻿using Mall.Service.DataBase;
+using Mall.Service;
+using Mall.Service.Services.Enterprise;
 using Mall.Web.Back.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -41,6 +41,7 @@ namespace Mall.Web.Back.Controllers
                             Name = m.MenuName,
                             Url = m.URL,
                             Path = m.MenuPath,
+                            Icon = m.Icon,
                             Childs = GetChildsByParentId(employeeId, m.MenuId),
                         }
                     );
@@ -69,6 +70,7 @@ namespace Mall.Web.Back.Controllers
                             Name = m.MenuName,
                             Url = m.URL,
                             Path = m.MenuPath,
+                            Icon = m.Icon,
                             Childs = GetChildsByParentId(employeeId, m.MenuId),
                         }
                     );

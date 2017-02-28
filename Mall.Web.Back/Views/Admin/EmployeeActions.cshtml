@@ -1,0 +1,62 @@
+﻿@model List<Mall.Web.Back.ViewModel.AdminLogViewModel>
+
+<div class="employee-action-title">
+    <ul>
+        <li class="action-handle">操作者</li>
+        <li class="action-time">时间</li>
+        <li class="action-style">类型</li>
+        <li class="action-permission">使用权限</li>
+        <li class="action-object">操作对象</li>
+        <li class="action-detail">详情</li>
+        <li class="action-edit">编辑</li>
+    </ul>
+</div>
+<div class="employee-action-content">
+    <ul>
+        @{
+            if (Model.Count == 0)
+            {
+                <li class="action-item even no-action">该员工暂未进行任何操作…………</li>
+                <li class="action-item odd">
+                    <ul>
+                        <li class="action-handle">Mick</li>
+                        <li class="action-time">@DateTime.Now</li>
+                        <li class="action-style">XXXXXX</li>
+                        <li class="action-permission">XXXX</li>
+                        <li class="action-object">XXX</li>
+                        <li class="action-detail">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</li>
+                        <li class="action-edit action-delet" onclick="DeletAdminLogItem()">删除</li>
+                    </ul>
+                </li>
+                <li class="action-item even">
+                    <ul>
+                        <li class="action-handle">Mick</li>
+                        <li class="action-time">@DateTime.Now</li>
+                        <li class="action-style">XXXXXX</li>
+                        <li class="action-permission">XXXX</li>
+                        <li class="action-object">XXX</li>
+                        <li class="action-detail"><span>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</span></li>
+                        <li class="action-edit action-delet" onclick="DeletAdminLogItem()">删除</li>
+                    </ul>
+                </li>
+            }
+            else
+            {
+                for (var i = 0; i < Model.Count; i++)
+                {
+                    <li class="action-item @(i % 2 == 0 ? "even" : "odd") ">
+                        <ul>
+                            <li class="action-handle">@Model[i].Operater</li>
+                            <li class="action-time">@Model[i].OperationTime</li>
+                            <li class="action-style">@Model[i].Style</li>
+                            <li class="action-permission">@Model[i].Permission</li>
+                            <li class="action-object">@Model[i].Object</li>
+                            <li class="action-detail">@Model[i].OperatDetail</li>
+                            <li class="action-edit action-delet" onclick="DeletAdminLogItem()">删除</li>
+                        </ul>
+                    </li>
+                }
+            }
+        }
+    </ul>
+</div>

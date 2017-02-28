@@ -1,0 +1,131 @@
+﻿
+.search{
+    display:flex;
+}
+.search-state{
+    margin-right:50px;
+}
+.search-state ul{
+    background-color: #3c8dbc;
+    color: #ffffff;
+    margin-right:50px;
+}
+.search-state ul li{
+    vertical-align:middle;
+    cursor:pointer;
+    background-color: #3c8dbc;
+    color: #ffffff;
+    padding: 10px 25px 10px 25px;
+}
+.search-state ul li:hover{
+    background-color:#367fa9;
+}
+.search-state ul li:active{
+    background-color: #3c8dbc;
+    color: #ffffff;
+}
+.search-orderId{
+    text-align:right;
+}
+.search-orderId #orderId{
+    width: 390px;
+    font-size: 20px;
+    text-indent: 10px;
+    border: 1px solid #c0c0c0;
+    border-radius: 3px;
+    color: #999999;
+    height: 40px;
+}
+.search-orderId .search-submit{
+    background-color:#eaeaea;
+    height: 40px;
+    width: 50px;
+    border:none;
+    border-radius:5px;
+    color:;
+}
+.search-orderId .search-submit:hover{
+    background-color:#cecece;
+    color:;
+}
+.search-orderId .search-submit:active{
+    background-color:;
+    color:;
+}
+.order-title ul,.order-list ul,.search-state ul{
+    margin:0;
+    padding:0;
+    font-size:0px;
+}
+.order-title li,.order-list li,.good-info > div > p,.good-info > div > div,.search-state ul li{
+    display:inline-block;
+    font-size:16px;
+}
+.order-title li{
+    padding:10px 0px;
+    text-align:center;
+}
+.order-title{
+    background-color: #5db4ff;
+    color: white;
+    margin:20px 0px;
+    border-radius:5px;
+}
+.order-item{
+    display:block !important;
+    margin:30px 0px;
+}
+.item-info li{
+    padding:10px 0px;
+}
+.item-info .good-price,.item-info .good-freight,.item-info .good-total{
+    color:red;
+    font-weight:700;
+}
+.item-info{
+    background-color:#ECF0F1;
+    border:1px solid #cecece;
+    border-radius:0px 0px 5px 5px;
+}
+.item-head{
+    padding:10px;
+    border-radius:5px 5px 0px 0px;
+    border:1px solid #cecece;
+}
+.good-info{
+    width:400px;
+    margin-left:50px;
+}
+.item-info .good-info{
+    vertical-align:middle;
+}
+.item-info .no-action{
+    cursor:no-drop;
+}
+.item-info li > a:hover{
+    text-decoration:none;
+}
+.good-info > div > a > img{
+    width:80px;
+    height:100px;
+    vertical-align: top;
+}
+.good-info .good-detail,.good-info .good-author{
+    width:300px;
+    margin:10px;
+}
+.good-info .good-author span{
+    color:#0089ff;
+}
+.good-price,.good-total,.good-count,.good-freight,.order-state{
+    width:100px;
+    text-align: center;
+}
+.order-action{
+    width:200px;
+    text-align: center;
+}
+.no-result{
+    width: 100%;
+    text-align: center;
+}

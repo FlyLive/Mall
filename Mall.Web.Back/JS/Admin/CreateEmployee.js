@@ -46,8 +46,8 @@ function CreateEmployee() {
     $.ajax({
         type: "Get",
         url: "ReAccount",
-        data: { "account": account},
-        datatype: Boolean,
+        Data: { "account": account},
+        Datatype: Boolean,
         success: function (result) {
             if (result == "True") {
                 layer.tips('账户不可用!', "#account", {

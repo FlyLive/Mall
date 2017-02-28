@@ -5,7 +5,7 @@
 }
 
 <section class="content-header">
-    <h1>Security</h1>
+    <h1><i class="fa fa-lock"></i>Security</h1>
 </section>
 <section class="content">
     <div class="security-set">
@@ -37,8 +37,9 @@
     @Html.Partial("Admin/_ModifyMP")
 </section>
 @section css{
-    <link rel="stylesheet" href="~/Css/Admin/SecuritySet.css" />
+    @Styles.Render("~/Css/Admin/SecuritySet.css")
 }
 @section scripts{
     @Scripts.Render("~/JS/Admin/SecuritySet.js")
+    @Scripts.Render("~/JS/Shared/layer_open_tip.js")
 }

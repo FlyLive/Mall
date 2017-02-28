@@ -1,0 +1,15 @@
+﻿
+@model List<Mall.Web.Front.ViewModel.GoodsInfoViewModel>
+
+<div class="suggest-part">
+    <div class="suggest-left">
+        <p class="suggest-title-strong">热<span>销书籍</span></p>
+        <div class="suggest-left-translate"></div>
+        <div class="suggest-content">
+            @Html.Partial("Home/_Suggest", Model.Take(4).ToList())
+        </div>
+    </div>
+    <div class="suggest-advertisement">
+        @Html.Partial("Home/_SuggestAdvertisement", @*Model[5]*@new Mall.Service.DataBase.GoodsInfo())
+    </div>
+</div>

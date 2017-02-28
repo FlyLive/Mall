@@ -1710,7 +1710,7 @@ dd {
     }
 }
 
-abbr[data-original-title], abbr[title] {
+abbr[Data-original-title], abbr[title] {
     cursor: help;
     border-bottom: 1px dotted #777;
 }
@@ -4125,7 +4125,7 @@ tbody.collapse.in {
             left: auto;
         }
 
-[data-toggle=buttons] > .btn input[type=checkbox], [data-toggle=buttons] > .btn input[type=radio], [data-toggle=buttons] > .btn-group > .btn input[type=checkbox], [data-toggle=buttons] > .btn-group > .btn input[type=radio] {
+[Data-toggle=buttons] > .btn input[type=checkbox], [Data-toggle=buttons] > .btn input[type=radio], [Data-toggle=buttons] > .btn-group > .btn input[type=checkbox], [Data-toggle=buttons] > .btn-group > .btn input[type=radio] {
     position: absolute;
     clip: rect(0,0,0,0);
     pointer-events: none;

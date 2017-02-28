@@ -1,0 +1,24 @@
+﻿
+<div class="modal fade" id="modifyRemarkModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form name="modifyRemark" action="ModifyRemark" method="post">
+                <div class="modal-header">
+                    <button type="button" class="close" Data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">修改备注</h4>
+                </div>
+                <div class="modal-body">
+                    <input name="orderId" id="orderId" type="hidden"/>
+                    <div class="form-group">
+                        <label>备注</label>
+                        <input name="modify_remark" id="modify_remark" class="form-control" placeholder="请输入新备注" type="password" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="SubmitRemark()">确认修改</button>
+                    <button type="button" class="btn btn-default" Data-dismiss="modal">关闭</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>

@@ -8,7 +8,7 @@
     font-size:20px;
     display:inline-block;
     width:700px;
-    height:802px;
+    height:1102px;
     margin-left:50px;
 }
 .goods-menu{
@@ -18,9 +18,25 @@
 .goods-menu > ul{
     list-style:none;
     margin:0;
+    padding:0;
 }
 .goods-menu > ul > li{
-    border-bottom:1px solid #666666;
+    border:2px solid rgba(172, 165, 165, 0.00);
+    border-bottom:2px solid #666666;
+    cursor:pointer;
+}
+.goods-menu > ul > li:hover{
+    border:2px solid rgba(255, 0, 0, 0.75);
+    border-radius:5px;
+    background-color:#f8f4e6;
+}
+.goods-menu > ul > li:active{
+    background-color:#ede4cd;
+}
+.goods-menu > ul > .selected{
+    background-color:#e5e5e5;
+    border-radius:5px;
+    border:2px solid rgba(255, 0, 0,0.75);
 }
 .goods-menu > ul > li > a{
     position:relative;
@@ -44,6 +60,15 @@
     text-align:right;
     display:inline-block;
 }
+.goods-edit .star{
+    color:red;
+}
+.goods-edit .sign{
+    font-size:14px;
+    color:dodgerblue;
+    margin:0;
+    margin-left:140px;
+}
 .goods-edit div{
     margin:20px 0px;
 }
@@ -53,6 +78,8 @@
     height:30px;
     font-size:20px;
     text-indent:5px;
+    border:1px solid #ccc;
+    border-radius:5px;
 }
 .goods-edit div textarea{
     margin-left:30px;
@@ -60,6 +87,7 @@
     min-height:100px;
     max-width:530px;
     max-height:100px;
+    vertical-align:middle;
 }
 .goods-edit-class > ul,.goods-edit-class > ul li,
 .goods-search-class > ul,.goods-search-class > ul li{
@@ -69,20 +97,18 @@
 .goods-edit-class > ul li{
     margin-left:20px;
 }
-.goods-edit button{
-    width: 100px;
-    height: 30px;
+.goods-edit-submit > button{
+    width: 140px;
+    height: 40px;
+    margin-left: 135px;
+    border:none;
+    border-radius:5px;
+    background-color:#2ca9e1;
     margin-left: 135px;
 }
-.goods-edit-shelves{
-    margin-left: 135px;
-    top: -30px;
-    position: relative;
+.goods-edit-submit > button:hover,.goods-edit-submit > button:hover{
+    background-color:#0095d9;
 }
-.goods-edit-shelves > label,.goods-edit-shelves label label{
-    display: inline-block;
-    margin-left:50px;
-}
-.goods-edit-shelves label label{
-    margin:20px;
+.goods-edit-submit > button:active,.goods-edit-submit > button:active{
+    background-color:#2ca9e1;
 }

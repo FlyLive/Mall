@@ -2,7 +2,7 @@
  *
  * Microsoft grants you the right to use these script files for the sole
  * purpose of either: (i) interacting through your browser with the Microsoft
- * website or online service, subject to the applicable licensing or use
+ * website or online Data, subject to the applicable licensing or use
  * terms; or (ii) using the files as included with a Microsoft product subject
  * to that product's license terms. Microsoft reserves all other rights to the
  * files not expressly granted by Microsoft, whether by implication, estoppel
@@ -38,7 +38,7 @@ $.extend($.fn, {
 		}
 
 		// check if a validator for this form was already created
-		var validator = $.data( this[0], "validator" );
+		var validator = $.Data( this[0], "validator" );
 		if ( validator ) {
 			return validator;
 		}
@@ -47,7 +47,7 @@ $.extend($.fn, {
 		this.attr( "novalidate", "novalidate" );
 
 		validator = new $.validator( options, this[0] );
-		$.data( this[0], "validator", validator );
+		$.Data( this[0], "validator", validator );
 
 		if ( validator.settings.onsubmit ) {
 
@@ -137,7 +137,7 @@ $.extend($.fn, {
 		var element = this[0];
 
 		if ( command ) {
-			var settings = $.data(element.form, "validator").settings;
+			var settings = $.Data(element.form, "validator").settings;
 			var staticRules = settings.rules;
 			var existingRules = $.validator.staticRules(element);
 			switch(command) {
@@ -164,23 +164,23 @@ $.extend($.fn, {
 			}
 		}
 
-		var data = $.validator.normalizeRules(
+		var Data = $.validator.normalizeRules(
 		$.extend(
 			{},
 			$.validator.classRules(element),
 			$.validator.attributeRules(element),
-			$.validator.dataRules(element),
+			$.validator.DataRules(element),
 			$.validator.staticRules(element)
 		), element);
 
 		// make sure required is at front
-		if ( data.required ) {
-			var param = data.required;
-			delete data.required;
-			data = $.extend({required: param}, data);
+		if ( Data.required ) {
+			var param = Data.required;
+			delete Data.required;
+			Data = $.extend({required: param}, Data);
 		}
 
-		return data;
+		return Data;
 	}
 });
 
@@ -341,7 +341,7 @@ $.extend($.validator, {
 			});
 
 			function delegate(event) {
-				var validator = $.data(this[0].form, "validator"),
+				var validator = $.Data(this[0].form, "validator"),
 					eventType = "on" + event.type.replace(/^validate/, "");
 				if ( validator.settings[eventType] ) {
 					validator.settings[eventType].call(validator, this[0], event);
@@ -596,9 +596,9 @@ $.extend($.validator, {
 		},
 
 		// return the custom message for the given element and validation method
-		// specified in the element's HTML5 data attribute
+		// specified in the element's HTML5 Data attribute
 		customDataMessage: function( element, method ) {
-			return $(element).data("msg-" + method.toLowerCase()) || (element.attributes && $(element).attr("data-msg-" + method.toLowerCase()));
+			return $(element).Data("msg-" + method.toLowerCase()) || (element.attributes && $(element).attr("Data-msg-" + method.toLowerCase()));
 		},
 
 		// return the custom message for the given element name and validation method
@@ -810,7 +810,7 @@ $.extend($.validator, {
 		},
 
 		previousValue: function( element ) {
-			return $.data(element, "previousValue") || $.data(element, "previousValue", {
+			return $.Data(element, "previousValue") || $.Data(element, "previousValue", {
 				old: null,
 				valid: true,
 				message: this.defaultMessage( element, "remote" )
@@ -896,11 +896,11 @@ $.extend($.validator, {
 		return rules;
 	},
 
-	dataRules: function( element ) {
+	DataRules: function( element ) {
 		var method, value,
 			rules = {}, $element = $(element);
 		for (method in $.validator.methods) {
-			value = $element.data("rule-" + method.toLowerCase());
+			value = $element.Data("rule-" + method.toLowerCase());
 			if ( value !== undefined ) {
 				rules[method] = value;
 			}
@@ -910,7 +910,7 @@ $.extend($.validator, {
 
 	staticRules: function( element ) {
 		var rules = {};
-		var validator = $.data(element.form, "validator");
+		var validator = $.Data(element.form, "validator");
 		if ( validator.settings.rules ) {
 			rules = $.validator.normalizeRule(validator.settings.rules[element.name]) || {};
 		}
@@ -984,15 +984,15 @@ $.extend($.validator, {
 	},
 
 	// Converts a simple string to a {string: true} rule, e.g., "required" to {required:true}
-	normalizeRule: function( data ) {
-		if ( typeof data === "string" ) {
+	normalizeRule: function( Data ) {
+		if ( typeof Data === "string" ) {
 			var transformed = {};
-			$.each(data.split(/\s/), function() {
+			$.each(Data.split(/\s/), function() {
 				transformed[this] = true;
 			});
-			data = transformed;
+			Data = transformed;
 		}
-		return data;
+		return Data;
 	},
 
 	// http://docs.jquery.com/Plugins/Validation/Validator/addMethod
@@ -1154,14 +1154,14 @@ $.extend($.validator, {
 			previous.old = value;
 			var validator = this;
 			this.startRequest(element);
-			var data = {};
-			data[element.name] = value;
+			var Data = {};
+			Data[element.name] = value;
 			$.ajax($.extend(true, {
 				url: param,
 				mode: "abort",
 				port: "validate" + element.name,
-				dataType: "json",
-				data: data,
+				DataType: "json",
+				Data: Data,
 				success: function( response ) {
 					validator.settings.messages[element.name].remote = previous.originalMessage;
 					var valid = response === true || response === "true";

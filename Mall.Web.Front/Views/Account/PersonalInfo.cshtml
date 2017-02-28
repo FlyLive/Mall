@@ -1,4 +1,4 @@
-﻿@model Mall.Data.DataBase.User
+﻿@model Mall.Web.Front.ViewModel.UserViewModel
 
 @{
     ViewBag.Title = "PersonalInfo";
@@ -6,7 +6,7 @@
 }
 
 <section class="content-header">
-    <h1>PersonalInfo</h1>
+    <h1><i class="fa fa-male"></i><span>PersonalInfo</span></h1>
 </section>
 <section class="content">
     <div class="personal-info-content">
@@ -16,7 +16,7 @@
         <div class="content-photo">
             <p class="title">当前头像</p>
             <img id="avatar" src="@Model.Photo" title="点击修改头像" onclick="ModifyPhoto()" />
-            @Html.Partial("_ModifyPhoto")
+            @Html.Partial("Account/_ModifyPhoto")
         </div>
         <form action="ModifyPersonalInfo" name="modifyInfo" method="post">
             <div class="content-account">

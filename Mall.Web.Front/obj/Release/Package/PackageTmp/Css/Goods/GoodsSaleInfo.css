@@ -1,0 +1,71 @@
+﻿/* 销售详情 */
+.goods-sale-detail > div > div, .info-count, .money > div {
+    margin: 20px;
+    width: 630px;
+}
+
+.goods-sale-detail .title {
+    color: #808080;
+    display: inline-block;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.goods-sale-detail-info .money {
+    background-color: #ebebeb;
+}
+
+.info-publish {
+    color: #808080;
+}
+
+.info-shop-price {
+    text-decoration: line-through;
+}
+
+.info-money {
+    font-size: 30px;
+    font-weight: 900;
+    color: red;
+}
+
+.info-sale {
+    color: #808080;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.buy-button, .cart-button {
+    border: none;
+    border-radius: 5px;
+    height: 40px;
+    width: 150px;
+    background-color: rgba(0, 0, 0, 0.00);
+    margin: 20px;
+    font-family: 'Microsoft Yahei';
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.buy-button {
+    border: 1px solid #FF9966;
+}
+
+    .buy-button:hover {
+        background-color: #fffeee;
+    }
+
+    .buy-button:active {
+    }
+
+.cart-button {
+    background-color: #FF9900;
+}
+
+    .cart-button:hover {
+        background-color: #ff6a00;
+    }
+
+    .cart-button:active {
+    }

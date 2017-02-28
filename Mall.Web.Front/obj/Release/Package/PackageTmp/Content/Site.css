@@ -1,0 +1,12 @@
+﻿body {
+    padding:0;
+    margin:0;
+}
+.wrap{
+    width:100%;
+}
+.navbar-body{
+    width:1500px;
+    margin:0 auto;
+    min-height:700px;
+}

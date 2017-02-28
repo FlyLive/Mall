@@ -1,0 +1,55 @@
+﻿
+.permission-title > ul {
+    background-color: #0099ff;
+    color: white;
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+}
+
+.permission {
+    text-align: center;
+    font-size: 16px;
+    margin: 20px 40px 20px 50px;
+}
+
+.permission-item {
+    padding: 5px;
+}
+
+.permission-name {
+    width: 150px;
+}
+
+.permission-detail {
+    width: 300px;
+}
+
+.permission-time {
+    width: 200px;
+}
+
+.odd {
+    background-color: #999999;
+}
+
+.even {
+    background-color: #cccccc;
+}
+
+.employee-info-permission ul {
+    padding: 0;
+    margin: 0;
+    border-radius: 5px 5px 0px 0px;
+    font-size: 18px;
+}
+
+    .employee-info-permission ul li {
+        display: inline-block;
+        overflow: hidden;
+        vertical-align: middle;
+        text-align:center;
+    }
+
+.permission-content > ul > li {
+    display: block;
+}

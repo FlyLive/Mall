@@ -1,0 +1,123 @@
+﻿
+@model IPagedList<Mall.Web.Back.ViewModel.UserViewModel>
+@using PagedList.Mvc
+@using PagedList
+
+@{
+    ViewBag.Title = "PermissionSet";
+    Layout = "~/Views/Layout/_AdminTLE.cshtml";
+}
+
+<section class="content-header">
+    <h1><i class="fa fa-cog"></i>PermissionSet</h1>
+</section>
+<section class="content">
+    <div class="role-wrapper">
+        <div class="search-content">
+            <input />
+            <button>搜索</button>
+        </div>
+        <div class="admin-content">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="admin">
+                                <div class="admin-list">
+                                    <ul>
+                                        @foreach (var item in Model)
+                                        {
+                                        <li class="admin-item" id="@item.UserId" onclick="Refresh(this)">
+                                            <div class="item-img"><img src="@item.Photo" /></div>
+                                            <div class="item-info">
+                                                <p>姓名:<span class="info">@item.RealName</span></p>
+                                                <p>账户:<span class="info">@item.Account</span></p>
+                                                <p>Id:<span class="info">@item.UserId</span></p>
+                                            </div>
+                                        </li>
+                                        }
+                                    </ul>
+                                </div>
+                                <div class="admin-list-contorl">
+                                    <div class="list-contorl">@Html.PagedListPager(Model, page => Url.Action("RoleManage", new { page }))</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="admin-detail" id="admin-detail">
+                                <div class="admin-detail-info">
+                                    <div class="info-img">
+                                        <p class="title">头像</p>
+                                        <label><img src="@Model[0].Photo" /></label>
+                                    </div>
+                                    <div class="info-id">
+                                        <p class="title">员工ID</p>
+                                        <label>@Model[0].UserId</label>
+                                        <input id="employeeId" value="@Model[0].UserId" type="hidden" />
+                                    </div>
+                                    <div class="info-name">
+                                        <p class="title">真实姓名</p>
+                                        <label>@Model[0].RealName</label>
+                                    </div>
+                                    <div class="info-gender">
+                                        <p class="title">性别</p>
+                                        <label>@(Model[0].Gender == true ? "男" : "女")</label>
+                                    </div>
+                                    <div class="info-phone">
+                                        <p class="title">联系电话</p>
+                                        <label>@Model[0].PhoneNumber</label>
+                                    </div>
+                                    <div class="info-email">
+                                        <p class="title">E-mail</p>
+                                        <label>@Model[0].Email</label>
+                                    </div>
+                                </div>
+                                <div class="admin-detail-permission">
+                                    <div class="permission-list">
+                                        <div class="employee-info-permission">
+                                            <p class="title">权限</p>
+                                            <div class="permission">
+                                                <div class="permission-title">
+                                                    <ul>
+                                                        <li class="permission-name">权限名称</li>
+                                                        <li class="permission-detail">权限简介</li>
+                                                        <li class="permission-time">授权时间</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="permission-content">
+                                                    <ul>
+                                                        <li class="permission-item even">请选择员工</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="permission-submit">
+                                            <button style="cursor:no-drop;" type="button" disabled="disabled" title="未选择员工，不可修改">修改权限</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="zTreeDemoBackground left">
+        <ul id="treeDemo" class="ztree"></ul>
+    </div>
+    <button type="button" onclick="ModifyPermission()"></button>
+</section>
+@section css{
+    @Styles.Render("~/Css/Admin/PermissionSet.css")
+    @Styles.Render("~/Css/Shared/zTreeStyle.css")
+    @Styles.Render("~/Css/Admin/EmployeePermissions.css")
+}
+@section scripts{
+    @Scripts.Render("~/JS/Admin/PermissionSet.js")
+    @Scripts.Render("~/JS/Shared/jquery.ztree.all.min.js")
+    @Scripts.Render("~/JS/Shared/layer_open_tip.js")
+    <script type="text/javascript">
+        $(document).ready(SetPermissionTree());
+    </script>
+}

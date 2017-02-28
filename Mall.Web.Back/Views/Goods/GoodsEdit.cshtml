@@ -1,157 +1,174 @@
-﻿@model List<Mall.Data.DataBase.GoodsInfo>
+﻿@model List<Mall.Web.Back.ViewModel.GoodsInfoViewModel>
 
 @{
     ViewBag.Title = "GoodsEdit";
     Layout = "~/Views/Layout/_AdminTLE.cshtml";
 }
 
-<h2>GoodsEdit</h2>
-<div class="goods-search">
-    <div class="goods-search-class">
-        <ul>
-            <li>
-                <label>
-                    <input name="recommend" type="checkbox" value="1" />类别一
-                </label>
-            </li>
-            <li>
-                <label>
-                    <input name="recommend" type="checkbox" value="2" />类别二
-                </label>
-            </li>
-            <li>
-                <label>
-                    <input name="recommend" type="checkbox" value="3" />类别三
-                </label>
-            </li>
-        </ul>
+<section class="content-header">
+    <h1><i class="fa fa-refresh"></i>GoodsEdit</h1>
+</section>
+<section class="content">
+    <div class="goods-search">
+        <div class="goods-search-class">
+            <ul>
+                <li>
+                    <label>
+                        <input name="recommend" type="checkbox" value="1" />类别一
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        <input name="recommend" type="checkbox" value="2" />类别二
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        <input name="recommend" type="checkbox" value="3" />类别三
+                    </label>
+                </li>
+            </ul>
+        </div>
+        <div class="goods-search-input">
+            <input id="search-input" type="text" />
+            <button type="button" onclick="Search()">商品搜索</button>
+        </div>
     </div>
-    <div class="goods-search-input">
-        <form action="">
-            <input />
-            <button type="submit">商品搜索</button>
-        </form>
-    </div>
-</div>
-<table>
-    <tr>
-        <td>
-            <div class="goods-menu">
-                <ul>
-                    @*@foreach (var good in Model)
-                        {
-                            <li>
-                                <a>
-                                    <img src="~/Pictures/Shared/contact.png" />
-                                </a>
-                                <table>
-                                    <tr>
-                                        <td class="goods-menu-title">
-                                            商品名:&ensp;
-                                        </td>
-                                        <td>@good.GoodsName</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="goods-menu-title">
-                                            ID:&ensp;
-                                        </td>
-                                        <td>@good.GoodsId</td>
-                                    </tr>
-                                </table>
-                            </li>
-                        }*@
-                    <li>
-                        <a>
-                            <img src="~/Pictures/Shared/contact.png" />
-                        </a>
-                        <table>
-                            <tr>
-                                <td class="goods-menu-title">
-                                    商品名:&ensp;
-                                </td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td class="goods-menu-title">
-                                    ID:&ensp;
-                                </td>
-                                <td></td>
-                            </tr>
-                        </table>
-                    </li>
-                </ul>
-            </div>
-        </td>
-        <td>
-            <div class="goods-edit">
-                <form action="">
-                    <div class="goods-edit-class">
-                        <p class="title">分类</p>
-                        <ul>
-                            <li>
-                                <label>
-                                    <input name="recommend" type="checkbox" value="1" />类别一
-                                </label>
-                            </li>
-                            <li>
-                                <label>
-                                    <input name="recommend" type="checkbox" value="2" />类别二
-                                </label>
-                            </li>
-                            <li>
-                                <label>
-                                    <input name="recommend" type="checkbox" value="3" />类别三
-                                </label>
-                            </li>
-                        </ul>
-                    </div>
-                    <div>
-                        <p class="title">商品名</p>
-                        <input class="input" type="text" />
-                    </div>
-                    <div>
-                        <p class="title">作者</p>
-                        <input class="input" type="text" />
-                    </div>
-                    <div>
-                        <p class="title">出版社</p>
-                        <input class="input" type="text" />
-                    </div>
-                    <div>
-                        <p class="title">出版日期</p>
-                        <input class="input" type="date" />
-                    </div>
-                    <div>
-                        <p class="title">数量</p>
-                        <input class="input" type="number" min="1" value="1" />
-                    </div>
-                    <div>
-                        <p class="title">价格</p>
-                        <input class="input" type="text" />
-                    </div>
-                    <div>
-                        <p class="title">运费</p>
-                        <input class="input" type="text" />
-                    </div>
-                    <div>
-                        <p class="title">详细介绍</p>
-                        <textarea name=""></textarea>
-                    </div>
-                    <div class="goods-edit-shelves">
-                        <p class="title">立即上架</p>
-                        <label>
-                            <label><input name="onshelves" type="radio" value="1" />是</label>
-                            <label><input name="onshelves" type="radio" value="0" />否</label>
-                        </label>
-                    </div>
-                    <div class="">
-                        <button type="submit">立即添加</button>
-                    </div>
-                </form>
-            </div>
-        </td>
-    </tr>
-</table>
+    <table>
+        <tr>
+            <td>
+                <div class="goods-menu" id="goods-menu">
+                    <ul>
+                        @*@foreach (var good in Model)
+                            {
+                                <li>
+                                    <a>
+                                        <img src="~/Pictures/Shared/contact.png" />
+                                    </a>
+                                    <table>
+                                        <tr>
+                                            <td class="goods-menu-title">
+                                                商品名:&ensp;
+                                            </td>
+                                            <td>@good.GoodsName</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="goods-menu-title">
+                                                ID:&ensp;
+                                            </td>
+                                            <td>@good.GoodsId</td>
+                                        </tr>
+                                    </table>
+                                </li>
+                            }*@
+                        <li class="selected" onclick="Modify(this)">
+                            <a>
+                                <img src="~/Pictures/Shared/contact.png" />
+                            </a>
+                            <input id="id" value="1"type="hidden"/>
+                            <table>
+                                <tr>
+                                    <td class="goods-menu-title">
+                                        商品名:&ensp;
+                                    </td>
+                                    <td>XXXXXXXX</td>
+                                </tr>
+                                <tr>
+                                    <td class="goods-menu-title">
+                                        ID:&ensp;
+                                    </td>
+                                    <td>XXXXX</td>
+                                </tr>
+                            </table>
+                        </li>
+                        <li>
+                            <a>
+                                <img src="~/Pictures/Shared/contact.png" />
+                            </a>
+                            <table>
+                                <tr>
+                                    <td class="goods-menu-title">
+                                        商品名:&ensp;
+                                    </td>
+                                    <td>XXXXXXXX</td>
+                                </tr>
+                                <tr>
+                                    <td class="goods-menu-title">
+                                        ID:&ensp;
+                                    </td>
+                                    <td>XXXXX</td>
+                                </tr>
+                            </table>
+                        </li>
+                    </ul>
+                </div>
+            </td>
+            <td>
+                <div class="goods-edit">
+                    <form action="">
+                        <div class="goods-edit-class">
+                            <p class="title">分类</p>
+                            <ul>
+                                <li>
+                                    <label>
+                                        <input name="recommend" type="checkbox" value="1" />类别一
+                                    </label>
+                                </li>
+                                <li>
+                                    <label>
+                                        <input name="recommend" type="checkbox" value="2" />类别二
+                                    </label>
+                                </li>
+                                <li>
+                                    <label>
+                                        <input name="recommend" type="checkbox" value="3" />类别三
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p class="title"><span class="star">*</span>商品名</p>
+                            <input name="name" id="name" class="input" type="text" placeholder="商品名" />
+                        </div>
+                        <div>
+                            <p class="title">作者</p>
+                            <input name="author" id="author" class="input" type="text" placeholder="作者" />
+                        </div>
+                        <div>
+                            <p class="title">出版社</p>
+                            <input name="press" id="press" class="input" type="text" placeholder="出版社" />
+                        </div>
+                        <div>
+                            <p class="title">出版日期</p>
+                            <input name="publicationDate" id="publicationDate" class="input" type="date" />
+                        </div>
+                        <div>
+                            <p class="title"><span class="star">*</span>价格</p>
+                            <input name="price" id="price" class="input" type="text" placeholder="+123.00" />
+                            <p class="sign"><span class="star">*</span>格式&emsp;+123.00</p>
+                        </div>
+                        <div>
+                            <p class="title">运费</p>
+                            <input name="freight" id="freight" class="input" type="text" placeholder="+123.00" />
+                            <p class="sign"><span class="star">*</span>格式&emsp;+123.00</p>
+                        </div>
+                        <div>
+                            <p class="title"><span class="star">*</span>详细介绍</p>
+                            <textarea name="detail" id="detail" rows="3" placeholder="详情"></textarea>
+                        </div>
+                        <div class="goods-edit-submit">
+                            <button type="button" onclick="ModifyGoods()">添加图片</button>
+                        </div>
+                    </form>
+                </div>
+            </td>
+        </tr>
+    </table>
+</section>
 @section css{
     <link href="~/Css/Goods/GoodsEdit.css" rel="stylesheet" />
+}
+@section scripts{
+    @Scripts.Render("~/JS/Goods/GoodsEdit.js")
+    @Scripts.Render("~/JS/Shared/layer_open_tip.js")
 }
