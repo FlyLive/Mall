@@ -1,0 +1,37 @@
+﻿
+<div class="address-already">
+    <p class="already-title">已有收货地址:</p>
+    <div class="already">
+        <ul class="already-label">
+            <li class="consignee">收货人</li>
+            <li class="address">收货详细地址</li>
+            <li class="zip">邮编</li>
+            <li class="phone">联系方式</li>
+            <li class="action">操作</li>
+            <li class="default">默认设置</li>
+        </ul>
+        <ul class="already-content">
+            <li class="content-light">
+                <ul>
+                    <li class="consignee">张三</li>
+                    <li class="address">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</li>
+                    <li class="zip">000000</li>
+                    <li class="phone">18325066357</li>
+                    <li class="action"><a onclick="ModifyAddress(1)">修改</a>/<a onclick="Delet(1)">删除</a></li>
+                    <li class="default default-selected">默认地址</li>
+                </ul>
+            </li>
+            <li class="content-dark">
+                <ul>
+                    <li class="consignee">张三</li>
+                    <li class="address">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</li>
+                    <li class="zip">000000</li>
+                    <li class="phone">18325066357</li>
+                    <li class="action"><a onclick="ModifyAddress(1)">修改</a>/<a onclick="Delet(1)">删除</a></li>
+                    <li class="default default-nonselected" onclick="SetDefault(this)">设为默认</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    @Html.Partial("Custom/_ModifyAddress")
+</div>

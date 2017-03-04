@@ -1,0 +1,78 @@
+﻿
+@model PagedList.IPagedList<Mall.Web.Back.ViewModel.OrderViewModel>
+@using PagedList.Mvc
+@using PagedList
+
+@{
+    ViewBag.Title = "ToAccept";
+    Layout = "~/Views/Layout/_AdminTLE.cshtml";
+}
+
+
+<section class="content-header">
+    <h1><i class="fa fa-reorder"></i>接受订单</h1>
+</section>
+<section class="content">
+    <div class="order-wrapper">
+        <div class="order-title">
+            @Html.Partial("_OrderTitle")
+        </div>
+        <div class="order-content">
+            <ul>
+                @{
+                    for (var i = 0; i < Model.Count; i++)
+                    {
+                        <li class="order-item @(i % 2 == 0 ? "even" : "odd")">
+                            <ul>
+                                <li class="order-list">@i</li>
+                                <li class="order-id">@Model[i].OrderId</li>
+                                <li class="order-good-name">@Model[i].GoodsName</li>
+                                <li class="order-good-id">@Model[i].GoodsId</li>
+                                <li class="order-price price">@Model[i].Price</li>
+                                <li class="order-count">@Model[i].Count</li>
+                                <li class="order-freight price">@Model[i].Freight</li>
+                                <li class="order-totla price">@Model[i].Totla</li>
+                                <li class="order-state">@Model[i].State</li>
+                                <li class="order-client-remark">@Model[i].ClientRemark</li>
+                                <li class="order-action"><a onclick=""><span class="label label-primary">接受订单</span></a><a onclick="ModifyRemark(12)"><span class="label label-info">修改备注</span></a></li>
+                                <li class="order-createtime">@DateTime.Now</li>
+                            </ul>
+                        </li>
+                    }
+                }
+                <li class="order-item odd">
+                    <ul>
+                        <li class="order-list">1</li>
+                        <li class="order-id">xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</li>
+                        <li class="order-good-name">XXXXX</li>
+                        <li class="order-good-id">XXX</li>
+                        <li class="order-price price">￥45.00</li>
+                        <li class="order-count">XXX</li>
+                        <li class="order-freight price">￥10.00</li>
+                        <li class="order-totla price">￥55.00</li>
+                        <li class="order-state">XXXX</li>
+                        <li class="order-client-remark">XXXXXXXXXXXXXXXXXXXXX</li>
+                        <li class="order-action"><a onclick=""><span class="label label-primary">接受订单</span></a><a onclick="ModifyRemark(12)"><span class="label label-info">修改备注</span></a></li>
+                        <li class="order-createtime">@DateTime.Now</li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="order-list-contorl">
+                每页 @Model.PageSize 条记录,共 @Model.Count 条记录,共 @Model.PageCount 页,当前第 @Model.PageNumber 页
+                <div class="list-contorl-button">
+                    @Html.PagedListPager(Model, page => Url.Action("AllOrders", new { page }))
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@Html.Partial("Order/_ModifyRemark")
+@Html.Partial("Admin/_ManageConfirm")
+@section css{
+    @Styles.Render("~/Css/Order/Orders.css")
+}
+@section scripts{
+    @Scripts.Render("~/JS/Order/Orders.js")
+    @Scripts.Render("~/JS/Shared/ManageConfirm.js")
+    @Scripts.Render("~/JS/Shared/layer_open_tip.js")
+}

@@ -2,7 +2,7 @@
  *
  * Microsoft grants you the right to use these script files for the sole
  * purpose of either: (i) interacting through your browser with the Microsoft
- * website or online Data, subject to the applicable licensing or use
+ * website or online service, subject to the applicable licensing or use
  * terms; or (ii) using the files as included with a Microsoft product subject
  * to that product's license terms. Microsoft reserves all other rights to the
  * files not expressly granted by Microsoft, whether by implication, estoppel
@@ -102,14 +102,14 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
   // ALERT CLASS DEFINITION
   // ======================
 
-  var dismiss = '[Data-dismiss="alert"]'
+  var dismiss = '[data-dismiss="alert"]'
   var Alert   = function (el) {
     $(el).on('click', dismiss, this.close)
   }
 
   Alert.prototype.close = function (e) {
     var $this    = $(this)
-    var selector = $this.attr('Data-target')
+    var selector = $this.attr('data-target')
 
     if (!selector) {
       selector = $this.attr('href')
@@ -150,10 +150,10 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
   $.fn.alert = function (option) {
     return this.each(function () {
       var $this = $(this)
-      var Data  = $this.Data('bs.alert')
+      var data  = $this.data('bs.alert')
 
-      if (!Data) $this.Data('bs.alert', (Data = new Alert(this)))
-      if (typeof option == 'string') Data[option].call($this)
+      if (!data) $this.data('bs.alert', (data = new Alert(this)))
+      if (typeof option == 'string') data[option].call($this)
     })
   }
 
@@ -169,10 +169,10 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
   }
 
 
-  // ALERT Data-API
+  // ALERT DATA-API
   // ==============
 
-  $(document).on('click.bs.alert.Data-api', dismiss, Alert.prototype.close)
+  $(document).on('click.bs.alert.data-api', dismiss, Alert.prototype.close)
 
 }(window.jQuery);
 
@@ -214,13 +214,13 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
     var d    = 'disabled'
     var $el  = this.$element
     var val  = $el.is('input') ? 'val' : 'html'
-    var Data = $el.Data()
+    var data = $el.data()
 
     state = state + 'Text'
 
-    if (!Data.resetText) $el.Data('resetText', $el[val]())
+    if (!data.resetText) $el.data('resetText', $el[val]())
 
-    $el[val](Data[state] || this.options[state])
+    $el[val](data[state] || this.options[state])
 
     // push to event loop to allow forms to submit
     setTimeout(function () {
@@ -231,7 +231,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
   }
 
   Button.prototype.toggle = function () {
-    var $parent = this.$element.closest('[Data-toggle="buttons"]')
+    var $parent = this.$element.closest('[data-toggle="buttons"]')
 
     if ($parent.length) {
       var $input = this.$element.find('input')
@@ -252,13 +252,13 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
   $.fn.button = function (option) {
     return this.each(function () {
       var $this   = $(this)
-      var Data    = $this.Data('bs.button')
+      var data    = $this.data('bs.button')
       var options = typeof option == 'object' && option
 
-      if (!Data) $this.Data('bs.button', (Data = new Button(this, options)))
+      if (!data) $this.data('bs.button', (data = new Button(this, options)))
 
-      if (option == 'toggle') Data.toggle()
-      else if (option) Data.setState(option)
+      if (option == 'toggle') data.toggle()
+      else if (option) data.setState(option)
     })
   }
 
@@ -274,10 +274,10 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
   }
 
 
-  // BUTTON Data-API
+  // BUTTON DATA-API
   // ===============
 
-  $(document).on('click.bs.button.Data-api', '[Data-toggle^=button]', function (e) {
+  $(document).on('click.bs.button.data-api', '[data-toggle^=button]', function (e) {
     var $btn = $(e.target)
     if (!$btn.hasClass('btn')) $btn = $btn.closest('.btn')
     $btn.button('toggle')
@@ -453,14 +453,14 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
   $.fn.carousel = function (option) {
     return this.each(function () {
       var $this   = $(this)
-      var Data    = $this.Data('bs.carousel')
-      var options = $.extend({}, Carousel.DEFAULTS, $this.Data(), typeof option == 'object' && option)
+      var data    = $this.data('bs.carousel')
+      var options = $.extend({}, Carousel.DEFAULTS, $this.data(), typeof option == 'object' && option)
       var action  = typeof option == 'string' ? option : options.slide
 
-      if (!Data) $this.Data('bs.carousel', (Data = new Carousel(this, options)))
-      if (typeof option == 'number') Data.to(option)
-      else if (action) Data[action]()
-      else if (options.interval) Data.pause().cycle()
+      if (!data) $this.data('bs.carousel', (data = new Carousel(this, options)))
+      if (typeof option == 'number') data.to(option)
+      else if (action) data[action]()
+      else if (options.interval) data.pause().cycle()
     })
   }
 
@@ -476,29 +476,29 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
   }
 
 
-  // CAROUSEL Data-API
+  // CAROUSEL DATA-API
   // =================
 
-  $(document).on('click.bs.carousel.Data-api', '[Data-slide], [Data-slide-to]', function (e) {
+  $(document).on('click.bs.carousel.data-api', '[data-slide], [data-slide-to]', function (e) {
     var $this   = $(this), href
-    var $target = $($this.attr('Data-target') || (href = $this.attr('href')) && href.replace(/.*(?=#[^\s]+$)/, '')) //strip for ie7
-    var options = $.extend({}, $target.Data(), $this.Data())
-    var slideIndex = $this.attr('Data-slide-to')
+    var $target = $($this.attr('data-target') || (href = $this.attr('href')) && href.replace(/.*(?=#[^\s]+$)/, '')) //strip for ie7
+    var options = $.extend({}, $target.data(), $this.data())
+    var slideIndex = $this.attr('data-slide-to')
     if (slideIndex) options.interval = false
 
     $target.carousel(options)
 
-    if (slideIndex = $this.attr('Data-slide-to')) {
-      $target.Data('bs.carousel').to(slideIndex)
+    if (slideIndex = $this.attr('data-slide-to')) {
+      $target.data('bs.carousel').to(slideIndex)
     }
 
     e.preventDefault()
   })
 
   $(window).on('load', function () {
-    $('[Data-ride="carousel"]').each(function () {
+    $('[data-ride="carousel"]').each(function () {
       var $carousel = $(this)
-      $carousel.carousel($carousel.Data())
+      $carousel.carousel($carousel.data())
     })
   })
 
@@ -557,10 +557,10 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
     var actives = this.$parent && this.$parent.find('> .panel > .in')
 
     if (actives && actives.length) {
-      var hasData = actives.Data('bs.collapse')
+      var hasData = actives.data('bs.collapse')
       if (hasData && hasData.transitioning) return
       actives.collapse('hide')
-      hasData || actives.Data('bs.collapse', null)
+      hasData || actives.data('bs.collapse', null)
     }
 
     var dimension = this.dimension()
@@ -640,11 +640,11 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
   $.fn.collapse = function (option) {
     return this.each(function () {
       var $this   = $(this)
-      var Data    = $this.Data('bs.collapse')
-      var options = $.extend({}, Collapse.DEFAULTS, $this.Data(), typeof option == 'object' && option)
+      var data    = $this.data('bs.collapse')
+      var options = $.extend({}, Collapse.DEFAULTS, $this.data(), typeof option == 'object' && option)
 
-      if (!Data) $this.Data('bs.collapse', (Data = new Collapse(this, options)))
-      if (typeof option == 'string') Data[option]()
+      if (!data) $this.data('bs.collapse', (data = new Collapse(this, options)))
+      if (typeof option == 'string') data[option]()
     })
   }
 
@@ -660,22 +660,22 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
   }
 
 
-  // COLLAPSE Data-API
+  // COLLAPSE DATA-API
   // =================
 
-  $(document).on('click.bs.collapse.Data-api', '[Data-toggle=collapse]', function (e) {
+  $(document).on('click.bs.collapse.data-api', '[data-toggle=collapse]', function (e) {
     var $this   = $(this), href
-    var target  = $this.attr('Data-target')
+    var target  = $this.attr('data-target')
         || e.preventDefault()
         || (href = $this.attr('href')) && href.replace(/.*(?=#[^\s]+$)/, '') //strip for ie7
     var $target = $(target)
-    var Data    = $target.Data('bs.collapse')
-    var option  = Data ? 'toggle' : $this.Data()
-    var parent  = $this.attr('Data-parent')
+    var data    = $target.data('bs.collapse')
+    var option  = data ? 'toggle' : $this.data()
+    var parent  = $this.attr('data-parent')
     var $parent = parent && $(parent)
 
-    if (!Data || !Data.transitioning) {
-      if ($parent) $parent.find('[Data-toggle=collapse][Data-parent="' + parent + '"]').not($this).addClass('collapsed')
+    if (!data || !data.transitioning) {
+      if ($parent) $parent.find('[data-toggle=collapse][data-parent="' + parent + '"]').not($this).addClass('collapsed')
       $this[$target.hasClass('in') ? 'addClass' : 'removeClass']('collapsed')
     }
 
@@ -710,7 +710,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
   // =========================
 
   var backdrop = '.dropdown-backdrop'
-  var toggle   = '[Data-toggle=dropdown]'
+  var toggle   = '[data-toggle=dropdown]'
   var Dropdown = function (element) {
     var $el = $(element).on('click.bs.dropdown', this.toggle)
   }
@@ -788,7 +788,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
   }
 
   function getParent($this) {
-    var selector = $this.attr('Data-target')
+    var selector = $this.attr('data-target')
 
     if (!selector) {
       selector = $this.attr('href')
@@ -809,10 +809,10 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
   $.fn.dropdown = function (option) {
     return this.each(function () {
       var $this = $(this)
-      var Data  = $this.Data('dropdown')
+      var data  = $this.data('dropdown')
 
-      if (!Data) $this.Data('dropdown', (Data = new Dropdown(this)))
-      if (typeof option == 'string') Data[option].call($this)
+      if (!data) $this.data('dropdown', (data = new Dropdown(this)))
+      if (typeof option == 'string') data[option].call($this)
     })
   }
 
@@ -832,10 +832,10 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
   // ===================================
 
   $(document)
-    .on('click.bs.dropdown.Data-api', clearMenus)
-    .on('click.bs.dropdown.Data-api', '.dropdown form', function (e) { e.stopPropagation() })
-    .on('click.bs.dropdown.Data-api'  , toggle, Dropdown.prototype.toggle)
-    .on('keydown.bs.dropdown.Data-api', toggle + ', [role=menu]' , Dropdown.prototype.keydown)
+    .on('click.bs.dropdown.data-api', clearMenus)
+    .on('click.bs.dropdown.data-api', '.dropdown form', function (e) { e.stopPropagation() })
+    .on('click.bs.dropdown.data-api'  , toggle, Dropdown.prototype.toggle)
+    .on('keydown.bs.dropdown.data-api', toggle + ', [role=menu]' , Dropdown.prototype.keydown)
 
 }(window.jQuery);
 
@@ -895,7 +895,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
 
     this.escape()
 
-    this.$element.on('click.dismiss.modal', '[Data-dismiss="modal"]', $.proxy(this.hide, this))
+    this.$element.on('click.dismiss.modal', '[data-dismiss="modal"]', $.proxy(this.hide, this))
 
     this.backdrop(function () {
       var transition = $.support.transition && that.$element.hasClass('fade')
@@ -1041,12 +1041,12 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
   $.fn.modal = function (option, _relatedTarget) {
     return this.each(function () {
       var $this   = $(this)
-      var Data    = $this.Data('bs.modal')
-      var options = $.extend({}, Modal.DEFAULTS, $this.Data(), typeof option == 'object' && option)
+      var data    = $this.data('bs.modal')
+      var options = $.extend({}, Modal.DEFAULTS, $this.data(), typeof option == 'object' && option)
 
-      if (!Data) $this.Data('bs.modal', (Data = new Modal(this, options)))
-      if (typeof option == 'string') Data[option](_relatedTarget)
-      else if (options.show) Data.show(_relatedTarget)
+      if (!data) $this.data('bs.modal', (data = new Modal(this, options)))
+      if (typeof option == 'string') data[option](_relatedTarget)
+      else if (options.show) data.show(_relatedTarget)
     })
   }
 
@@ -1062,14 +1062,14 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
   }
 
 
-  // MODAL Data-API
+  // MODAL DATA-API
   // ==============
 
-  $(document).on('click.bs.modal.Data-api', '[Data-toggle="modal"]', function (e) {
+  $(document).on('click.bs.modal.data-api', '[data-toggle="modal"]', function (e) {
     var $this   = $(this)
     var href    = $this.attr('href')
-    var $target = $($this.attr('Data-target') || (href && href.replace(/.*(?=#[^\s]+$)/, ''))) //strip for ie7
-    var option  = $target.Data('modal') ? 'toggle' : $.extend({ remote: !/#/.test(href) && href }, $target.Data(), $this.Data())
+    var $target = $($this.attr('data-target') || (href && href.replace(/.*(?=#[^\s]+$)/, ''))) //strip for ie7
+    var option  = $target.data('modal') ? 'toggle' : $.extend({ remote: !/#/.test(href) && href }, $target.data(), $this.data())
 
     e.preventDefault()
 
@@ -1167,7 +1167,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
   }
 
   Tooltip.prototype.getOptions = function (options) {
-    options = $.extend({}, this.getDefaults(), this.$element.Data(), options)
+    options = $.extend({}, this.getDefaults(), this.$element.data(), options)
 
     if (options.delay && typeof options.delay == 'number') {
       options.delay = {
@@ -1192,7 +1192,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
 
   Tooltip.prototype.enter = function (obj) {
     var self = obj instanceof this.constructor ?
-      obj : $(obj.currentTarget)[this.type](this.getDelegateOptions()).Data('bs.' + this.type)
+      obj : $(obj.currentTarget)[this.type](this.getDelegateOptions()).data('bs.' + this.type)
 
     clearTimeout(self.timeout)
 
@@ -1207,7 +1207,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
 
   Tooltip.prototype.leave = function (obj) {
     var self = obj instanceof this.constructor ?
-      obj : $(obj.currentTarget)[this.type](this.getDelegateOptions()).Data('bs.' + this.type)
+      obj : $(obj.currentTarget)[this.type](this.getDelegateOptions()).data('bs.' + this.type)
 
     clearTimeout(self.timeout)
 
@@ -1371,8 +1371,8 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
 
   Tooltip.prototype.fixTitle = function () {
     var $e = this.$element
-    if ($e.attr('title') || typeof($e.attr('Data-original-title')) != 'string') {
-      $e.attr('Data-original-title', $e.attr('title') || '').attr('title', '')
+    if ($e.attr('title') || typeof($e.attr('data-original-title')) != 'string') {
+      $e.attr('data-original-title', $e.attr('title') || '').attr('title', '')
     }
   }
 
@@ -1400,7 +1400,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
     var $e = this.$element
     var o  = this.options
 
-    title = $e.attr('Data-original-title')
+    title = $e.attr('data-original-title')
       || (typeof o.title == 'function' ? o.title.call($e[0]) :  o.title)
 
     return title
@@ -1435,7 +1435,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
   }
 
   Tooltip.prototype.toggle = function (e) {
-    var self = e ? $(e.currentTarget)[this.type](this.getDelegateOptions()).Data('bs.' + this.type) : this
+    var self = e ? $(e.currentTarget)[this.type](this.getDelegateOptions()).data('bs.' + this.type) : this
     self.tip().hasClass('in') ? self.leave(self) : self.enter(self)
   }
 
@@ -1452,11 +1452,11 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
   $.fn.tooltip = function (option) {
     return this.each(function () {
       var $this   = $(this)
-      var Data    = $this.Data('bs.tooltip')
+      var data    = $this.data('bs.tooltip')
       var options = typeof option == 'object' && option
 
-      if (!Data) $this.Data('bs.tooltip', (Data = new Tooltip(this, options)))
-      if (typeof option == 'string') Data[option]()
+      if (!data) $this.data('bs.tooltip', (data = new Tooltip(this, options)))
+      if (typeof option == 'string') data[option]()
     })
   }
 
@@ -1546,7 +1546,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
     var $e = this.$element
     var o  = this.options
 
-    return $e.attr('Data-content')
+    return $e.attr('data-content')
       || (typeof o.content == 'function' ?
             o.content.call($e[0]) :
             o.content)
@@ -1570,11 +1570,11 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
   $.fn.popover = function (option) {
     return this.each(function () {
       var $this   = $(this)
-      var Data    = $this.Data('bs.popover')
+      var data    = $this.data('bs.popover')
       var options = typeof option == 'object' && option
 
-      if (!Data) $this.Data('bs.popover', (Data = new Popover(this, options)))
-      if (typeof option == 'string') Data[option]()
+      if (!data) $this.data('bs.popover', (data = new Popover(this, options)))
+      if (typeof option == 'string') data[option]()
     })
   }
 
@@ -1622,7 +1622,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
 
     this.$element       = $(element).is('body') ? $(window) : $(element)
     this.$body          = $('body')
-    this.$scrollElement = this.$element.on('scroll.bs.scroll-spy.Data-api', process)
+    this.$scrollElement = this.$element.on('scroll.bs.scroll-spy.data-api', process)
     this.options        = $.extend({}, ScrollSpy.DEFAULTS, options)
     this.selector       = (this.options.target
       || ((href = $(element).attr('href')) && href.replace(/.*(?=#[^\s]+$)/, '')) //strip for ie7
@@ -1650,7 +1650,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
       .find(this.selector)
       .map(function () {
         var $el   = $(this)
-        var href  = $el.Data('target') || $el.attr('href')
+        var href  = $el.data('target') || $el.attr('href')
         var $href = /^#\w/.test(href) && $(href)
 
         return ($href
@@ -1693,7 +1693,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
       .removeClass('active')
 
     var selector = this.selector
-      + '[Data-target="' + target + '"],'
+      + '[data-target="' + target + '"],'
       + this.selector + '[href="' + target + '"]'
 
     var active = $(selector)
@@ -1718,11 +1718,11 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
   $.fn.scrollspy = function (option) {
     return this.each(function () {
       var $this   = $(this)
-      var Data    = $this.Data('bs.scrollspy')
+      var data    = $this.data('bs.scrollspy')
       var options = typeof option == 'object' && option
 
-      if (!Data) $this.Data('bs.scrollspy', (Data = new ScrollSpy(this, options)))
-      if (typeof option == 'string') Data[option]()
+      if (!data) $this.data('bs.scrollspy', (data = new ScrollSpy(this, options)))
+      if (typeof option == 'string') data[option]()
     })
   }
 
@@ -1738,13 +1738,13 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
   }
 
 
-  // SCROLLSPY Data-API
+  // SCROLLSPY DATA-API
   // ==================
 
   $(window).on('load', function () {
-    $('[Data-spy="scroll"]').each(function () {
+    $('[data-spy="scroll"]').each(function () {
       var $spy = $(this)
-      $spy.scrollspy($spy.Data())
+      $spy.scrollspy($spy.data())
     })
   })
 
@@ -1782,7 +1782,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
   Tab.prototype.show = function () {
     var $this    = this.element
     var $ul      = $this.closest('ul:not(.dropdown-menu)')
-    var selector = $this.attr('Data-target')
+    var selector = $this.attr('data-target')
 
     if (!selector) {
       selector = $this.attr('href')
@@ -1857,10 +1857,10 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
   $.fn.tab = function ( option ) {
     return this.each(function () {
       var $this = $(this)
-      var Data  = $this.Data('bs.tab')
+      var data  = $this.data('bs.tab')
 
-      if (!Data) $this.Data('bs.tab', (Data = new Tab(this)))
-      if (typeof option == 'string') Data[option]()
+      if (!data) $this.data('bs.tab', (data = new Tab(this)))
+      if (typeof option == 'string') data[option]()
     })
   }
 
@@ -1876,10 +1876,10 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
   }
 
 
-  // TAB Data-API
+  // TAB DATA-API
   // ============
 
-  $(document).on('click.bs.tab.Data-api', '[Data-toggle="tab"], [Data-toggle="pill"]', function (e) {
+  $(document).on('click.bs.tab.data-api', '[data-toggle="tab"], [data-toggle="pill"]', function (e) {
     e.preventDefault()
     $(this).tab('show')
   })
@@ -1914,8 +1914,8 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
   var Affix = function (element, options) {
     this.options = $.extend({}, Affix.DEFAULTS, options)
     this.$window = $(window)
-      .on('scroll.bs.affix.Data-api', $.proxy(this.checkPosition, this))
-      .on('click.bs.affix.Data-api',  $.proxy(this.checkPositionWithEventLoop, this))
+      .on('scroll.bs.affix.data-api', $.proxy(this.checkPosition, this))
+      .on('click.bs.affix.data-api',  $.proxy(this.checkPositionWithEventLoop, this))
 
     this.$element = $(element)
     this.affixed  =
@@ -1974,11 +1974,11 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
   $.fn.affix = function (option) {
     return this.each(function () {
       var $this   = $(this)
-      var Data    = $this.Data('bs.affix')
+      var data    = $this.data('bs.affix')
       var options = typeof option == 'object' && option
 
-      if (!Data) $this.Data('bs.affix', (Data = new Affix(this, options)))
-      if (typeof option == 'string') Data[option]()
+      if (!data) $this.data('bs.affix', (data = new Affix(this, options)))
+      if (typeof option == 'string') data[option]()
     })
   }
 
@@ -1994,20 +1994,20 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
   }
 
 
-  // AFFIX Data-API
+  // AFFIX DATA-API
   // ==============
 
   $(window).on('load', function () {
-    $('[Data-spy="affix"]').each(function () {
+    $('[data-spy="affix"]').each(function () {
       var $spy = $(this)
-      var Data = $spy.Data()
+      var data = $spy.data()
 
-      Data.offset = Data.offset || {}
+      data.offset = data.offset || {}
 
-      if (Data.offsetBottom) Data.offset.bottom = Data.offsetBottom
-      if (Data.offsetTop)    Data.offset.top    = Data.offsetTop
+      if (data.offsetBottom) data.offset.bottom = data.offsetBottom
+      if (data.offsetTop)    data.offset.top    = data.offsetTop
 
-      $spy.affix(Data)
+      $spy.affix(data)
     })
   })
 

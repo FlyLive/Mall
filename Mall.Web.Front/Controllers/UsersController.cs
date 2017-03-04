@@ -4,13 +4,14 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Mall.Service.DataBase;
-using Mall.Service.Services.Client;
+using Mall.Service.Services.Custom;
+using Mall.Web.Front.ViewModel;
 
 namespace Mall.Web.Front.Controllers
 {
     public class UsersController : Controller
     {
-        public CustomService _clientService = new CustomService();
+        public CustomService _customService = new CustomService();
 
         /// <summary>
         /// 用户登录首页
@@ -36,10 +37,21 @@ namespace Mall.Web.Front.Controllers
             }
             else
             {
-                Client client = _clientService.Login(name, password);
-                if(client != null)
+                Custom custom = _customService.Login(name, password);
+                if (custom != null)
                 {
-                    Session.Add("Client", client);
+                    User user = custom.User;
+                    CustomViewModel customDTO = new CustomViewModel
+                    {
+                        CustomId = custom.CustomId,
+                        Wallet = custom.Wallet,
+                        UserId = custom.UserId,
+                        PayPassword = custom.PayPassword,
+                    };
+                    UserViewModel userDTO = CustomController.DataUserToDTO(user);
+
+                    Session.Add("Custom", customDTO);
+                    Session.Add("User", userDTO);
                     return RedirectToAction("Home","Home");
                 }
                 TempData["loginError"] = "password";
@@ -59,13 +71,13 @@ namespace Mall.Web.Front.Controllers
         }
 
         [HttpGet]
-        public bool ClientConfirm(string account,string email)
+        public bool CustomConfirm(string account,string email)
         {
-            var result = _clientService.ClientConfirm(account, email);
+            var result = _customService.CustomConfirm(account, email);
             if (result)
             {
                 TempData["Account"] = account;
-                string verifyCode = _clientService.SendEmailOfVerifyCode(email);
+                string verifyCode = _customService.SendEmailOfVerifyCode(email);
                 Session.Add("VerifyCode", verifyCode);
             }
             return result;
@@ -83,8 +95,8 @@ namespace Mall.Web.Front.Controllers
         public ActionResult RetrievePW(string newPassword)
         {
             var account = (string)TempData["Account"];
-            Client client = _clientService.GetCustomByAccount(account);
-            _clientService.ModifyPasswordByClientId(client.ClientId, newPassword);
+            Custom custom = _customService.GetCustomByAccount(account);
+            _customService.ModifyPasswordByCustomId(custom.CustomId, newPassword);
 
             TempData["RetrievePW"] = "success";
             Session["VerifyCode"] = null;
@@ -107,8 +119,8 @@ namespace Mall.Web.Front.Controllers
         [HttpPost]
         public ActionResult Registe(string name,string fPWord,string email)
         {
-            Client client = _clientService.Registe(name,fPWord,email);
-            if(client == null)
+            Custom custom = _customService.Registe(name,fPWord,email);
+            if(custom == null)
             {
                 TempData["Registe"] = "false";
                 return RedirectToAction("Registe");
@@ -120,76 +132,5 @@ namespace Mall.Web.Front.Controllers
             }
         }
         #endregion
-
-        /// <summary>
-        /// 支付
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult BuyNow(Guid orderId)
-        {
-            Client client = (Client)Session["Client"];
-            if (client == null)
-            {
-                return RedirectToAction("Index", "Users");
-            }
-            return View();
-        }
-
-        /// <summary>
-        /// 购物车
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult ShoppingCart()
-        {
-            Client client = (Client)Session["Client"];
-            if(client != null)
-            {
-                List<GoodsInfo> cartGoods = new List<GoodsInfo>();
-                return View(cartGoods);
-            }
-            return RedirectToAction("Index");
-        }
-
-        /// <summary>
-        /// 订单
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult OrderDetails()
-        {
-            Client client = (Client)Session["Client"];
-            if (client == null)
-            {
-                return RedirectToAction("Index", "Users");
-            }
-            return View();
-        }
-
-        /// <summary>
-        /// 确认收货
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult ConfirmReceipt()
-        {
-            Client client = (Client)Session["Client"];
-            if (client == null)
-            {
-                return RedirectToAction("Index", "Users");
-            }
-            return View();
-        }
-
-        /// <summary>
-        /// 评价
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult Evaluate()
-        {
-            Client client = (Client)Session["Client"];
-            if (client == null)
-            {
-                return RedirectToAction("Index", "Users");
-            }
-            return View();
-        }
     }
 }

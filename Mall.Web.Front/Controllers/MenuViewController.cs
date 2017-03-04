@@ -1,5 +1,5 @@
 ﻿using Mall.Service.Models;
-using Mall.Service.Services.Client;
+using Mall.Service.Services.Custom;
 using Mall.Web.Front.ViewModel;
 using System;
 using System.Collections.Generic;

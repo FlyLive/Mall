@@ -1,3 +1,4 @@
+C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Back\obj\Debug\Mall.Web.Back.csprojResolveAssemblyReference.cache
 C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Back\bin\roslyn\csc.exe
 C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Back\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
 C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Back\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
@@ -63,6 +64,5 @@ C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Back\bin\zh-Hans
 C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Back\bin\zh-Hans\System.Web.WebPages.resources.dll
 C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Back\bin\zh-Hans\System.Web.WebPages.Deployment.resources.dll
 C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Back\bin\zh-Hans\System.Web.WebPages.Razor.resources.dll
-C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Back\obj\Debug\Mall.Web.Back.csprojResolveAssemblyReference.cache
 C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Back\obj\Debug\Mall.Web.Back.dll
 C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Back\obj\Debug\Mall.Web.Back.pdb

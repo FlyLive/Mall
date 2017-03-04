@@ -28,6 +28,7 @@ namespace Mall.Service.DataBase
         public int UserId { get; set; }
         public double Wallet { get; set; }
         public string PayPassword { get; set; }
+        public int MaxAddressNumber { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comment { get; set; }

@@ -125,6 +125,7 @@
     <Property Name="UserId" Type="Int32" Nullable="false" />
     <Property Name="Wallet" Type="Double" Nullable="false" />
     <Property Name="PayPassword" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="MaxAddressNumber" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Comment" Relationship="MallDBModel.FK_COMMENT_REFERENCE_CLIENT" FromRole="Custom" ToRole="Comment" />
     <NavigationProperty Name="User" Relationship="MallDBModel.FK_CLIENT_REFERENCE_USER" FromRole="Custom" ToRole="User" />
     <NavigationProperty Name="DeliveryInfo" Relationship="MallDBModel.FK_DELIVERY_REFERENCE_CLIENT" FromRole="Custom" ToRole="DeliveryInfo" />
@@ -141,6 +142,7 @@
     <Property Name="Consignee" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
     <Property Name="DetailedAddress" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="true" />
+    <Property Name="IsDefault" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="Custom" Relationship="MallDBModel.FK_DELIVERY_REFERENCE_CLIENT" FromRole="DeliveryInfo" ToRole="Custom" />
   </EntityType>
   <EntityType Name="Employee">

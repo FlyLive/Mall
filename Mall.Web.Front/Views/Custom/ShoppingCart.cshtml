@@ -1,0 +1,97 @@
+﻿@model List<Mall.Web.Front.ViewModel.ShoppingCartViewModel>
+
+@{
+    ViewBag.Title = "ShoppingCart";
+    Layout = "~/Views/Layout/_Layout.cshtml";
+}
+
+<div class="SC-head">
+    <div ><h2 class="title">购物车</h2></div>
+    <div class="head-search">
+        <input class="search-input" id="search-cart" placeholder="搜索商品"/>
+        <button class="search-button" type="button" onclick="SearchGoods()">搜索</button>
+    </div>
+</div>
+<div class="SC-goods">
+    <div class="shoppingCart-detail-head">
+        <ul>
+            <li class="check"><input type="checkbox"/>全选</li>
+            <li class="detail">商品简介</li>
+            <li>单价</li>
+            <li>数量</li>
+            <li>运费</li>
+            <li>总价</li>
+            <li>操作</li>
+        </ul>
+    </div>
+    <div id="shoppingCart-detail-goods" class="shoppingCart-detail-goods">
+        <ul>
+            @foreach (var cart in Model)
+            {
+                <li class="shoppingCart-item" id="@cart.GoodsId">
+                    <ul>
+                        <li class="check"><input type="checkbox" /></li>
+                        <li class="detail">
+                            <a href="">
+                                <img src="@cart.Goods" />
+                            </a>
+                            <p>@cart.Goods.GoodsName</p>
+                        </li>
+                        <li class="money">@cart.Goods.Price</li>
+                        <li><span class="reset-count" onclick="ReduceCount(this)">-</span><input id="count" value="@cart.Number" class="count" min="1" disabled="disabled" /><span class="reset-count" onclick="IncreaseCount(this)">+</span></li>
+                        <li class="money">@cart.Goods.freight</li>
+                        <li class="money">@(cart.Goods.Price * cart.Number + cart.Goods.freight)</li>
+                        <li class="action"><a onclick="BuyGood(this)"><span class="buy">立即下单</span></a><a onclick="DeletGoods(this)"><span class="delet">删除</span></a></li>
+                    </ul>
+                </li>
+            }
+            <li class="shoppingCart-item" id="123">
+                <ul>
+                    <li class="check"><input type="checkbox" /></li>
+                    <li class="detail">
+                        <a href="">
+                            <img src="~/Pictures/Shared/contact.png" />
+                        </a>
+                        <p>《从你的全世界路过》</p>
+                    </li>
+                    <li class="money">￥123.00</li>
+                    <li><span class="reset-count" onclick="ReduceCount(this)">-</span><input id="count" value="1" class="count" min="1" disabled="disabled" /><span class="reset-count" onclick="IncreaseCount(this)">+</span></li>
+                    <li class="money">￥0.00</li>
+                    <li class="money">￥123.00</li>
+                    <li class="action"><a onclick="BuyGood(this)"><span class="buy">立即下单</span></a><a onclick="DeletGoods(this)"><span class="delet">删除</span></a></li>
+                </ul>
+            </li>
+            <li class="shoppingCart-item" id="321">
+                <ul>
+                    <li class="check"><input type="checkbox" /></li>
+                    <li class="detail">
+                        <a href="">
+                            <img src="~/Pictures/Shared/contact.png" />
+                        </a>
+                        <p>《从你的全世界路过》</p>
+                    </li>
+                    <li class="money">￥123.00</li>
+                    <li><span class="reset-count" onclick="ReduceCount(this)">-</span><input id="count" value="1" class="count" min="1" disabled="disabled" /><span class="reset-count" onclick="IncreaseCount(this)">+</span></li>
+                    <li class="money">￥0.00</li>
+                    <li class="money">￥123.00</li>
+                    <li class="action"><a onclick="BuyGood(this)"><span class="buy">立即下单</span></a><a onclick="DeletGoods(this)"><span class="delet">删除</span></a></li>
+                </ul>
+            </li>
+            <li class="no-goods"><h2>未查询到相关商品!请验证后重试</h2></li>
+        </ul>
+    </div>
+</div>
+<div class="SC-total">
+    <p>
+        已选商品：<span class="number">0</span>
+        合计：<span class="number">￥0.00</span>
+    </p>
+    <button onclick="BuyBySelected()" type="button">立即下单</button>
+</div>
+@section css{
+    @Styles.Render("~/Css/Custom/ShoppingCart.css")
+}
+@section scripts{
+    @Scripts.Render("~/JS/Custom/ShoppingCart.js")
+    @Scripts.Render("~/JS/Shared/layer_open_tip.js")
+}

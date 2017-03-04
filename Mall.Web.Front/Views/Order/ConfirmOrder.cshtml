@@ -1,0 +1,98 @@
+﻿
+@model List<Mall.Web.Front.ViewModel.ShoppingCartViewModel>
+
+@{
+    ViewBag.Title = "确认订单";
+    Layout = "~/Views/Layout/_Layout.cshtml";
+}
+
+<div class="confirm-order-wap">
+    <h2 class="title">确认订单</h2>
+    <div class="confirm-order-address">
+        <div class="confirm-order-titel">确认收货地址</div>
+        <div class="confirm-order-address-infor">
+            @Html.Action("GetAddress","Custom")
+        </div>
+    </div>
+    <div class="confirm-order-infor">
+        <div class="confirm-order-titel">确认订单信息</div>
+        <div class="confirm-order-detail">
+            <div>
+                <div class="confirm-order-detail-head">
+                    <ul>
+                        <li class="detail">商品简介</li>
+                        <li>作者</li>
+                        <li>单价</li>
+                        <li>数量</li>
+                        <li>总价</li>
+                        <li>运费</li>
+                    </ul>
+                </div>
+                <div class="confirm-order-detail-goods">
+                    <ul>
+                        <li name="goods" class="goods-item" id="GoodsId1">
+                            <ul>
+                                <li class="detail">
+                                    <a href="">
+                                        <img src="~/Pictures/Shared/contact.png" />
+                                    </a>
+                                    <p>和我靓女成本会计被我日hi都是快乐男生都i走</p>
+                                </li>
+                                <li>author</li>
+                                <li class="money">￥123.00</li>
+                                <li><span class="reset-count" onclick="ReduceCount(this)">-</span><input name="count" value="1" class="count" min="1" disabled="disabled" /><span class="reset-count" onclick="IncreaseCount(this)">+</span></li>
+                                <li class="money">￥123.00</li>
+                                <li class="money">￥0.00</li>
+                            </ul>
+                            <textarea name="remark" class="custom-remark" placeholder="备注"></textarea>
+                        </li>
+                        <li name="goods" class="goods-item" id="GoodsId2">
+                            <ul>
+                                <li class="detail">
+                                    <a href="">
+                                        <img src="~/Pictures/Shared/contact.png" />
+                                    </a>
+                                    <p>和我靓女成本会计被我日hi都是快乐男生都i走</p>
+                                </li>
+                                <li>author</li>
+                                <li class="money">￥123.00</li>
+                                <li><span class="reset-count" onclick="ReduceCount(this)">-</span><input name="count" value="1" class="count" min="1" disabled="disabled" /><span class="reset-count" onclick="IncreaseCount(this)">+</span></li>
+                                <li class="money">￥123.00</li>
+                                <li class="money">￥0.00</li>
+                            </ul>
+                            <textarea name="remark" class="custom-remark" placeholder="备注"></textarea>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <p class="buy-now-infor-total">小计：<span>￥123.00</span></p>
+        </div>
+    </div>
+    <div class="confirm-order-sign">
+        <i class="fa fa-exclamation-circle"></i>
+        此结果由云翳网站提供
+    </div>
+    <hr />
+    <div class="confirm-order-confirm">
+        <p>
+            应付款：<span class="confirm-order-confirm-money">￥123.00</span>
+        </p>
+        <p>
+            收货地址：<span>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</span>
+        </p>
+        <p>
+            收货人姓名：<span>XXXX</span>
+        </p>
+        <p>
+            联系方式：<span>XXXXXXXXXXX</span>
+        </p>
+        <button class="confirm-button" onclick="ConfirmOrder()" type="button">提交订单</button>
+    </div>
+</div>
+@section css{
+    @Styles.Render("~/Css/Order/ConfirmOrder.css")
+}
+@section scripts{
+    @Scripts.Render("~/JS/Order/ConfirmOrder.js")
+    @Scripts.Render("~/JS/Shared/layer_open_tip.js")
+}

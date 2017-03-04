@@ -111,8 +111,8 @@
     <Compile Include="DataBase\User.cs">
       <DependentUpon>MallDBModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Interface\Client\IOrderClientApplicationService.cs" />
-    <Compile Include="Interface\Client\IUserClientApplicationService.cs" />
+    <Compile Include="Interface\Custom\IOrderClientApplicationService.cs" />
+    <Compile Include="Interface\Custom\IUserCustomApplicationService.cs" />
     <Compile Include="Interface\Enterprise\IOrderEntepriseApplicationService.cs" />
     <Compile Include="Interface\Enterprise\IUserEnterpriseApplicationService.cs" />
     <Compile Include="Models\CustomMenu.cs" />
@@ -121,12 +121,12 @@
     <Compile Include="Models\StateOfOrder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Interface\Enterprise\IGoodsApplicationService.cs" />
-    <Compile Include="Services\Client\MenuViewService.cs" />
-    <Compile Include="Services\Client\OrderService.cs" />
+    <Compile Include="Services\Custom\MenuViewService.cs" />
+    <Compile Include="Services\Custom\OrderService.cs" />
     <Compile Include="Services\Enterprise\GoodsService.cs" />
     <Compile Include="Services\Enterprise\MenuViewService.cs" />
     <Compile Include="Services\Enterprise\EnterpriseService.cs" />
-    <Compile Include="Services\Client\CustomService.cs" />
+    <Compile Include="Services\Custom\CustomService.cs" />
     <Compile Include="Services\Enterprise\OrderService.cs" />
   </ItemGroup>
   <ItemGroup>

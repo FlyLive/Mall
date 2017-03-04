@@ -10,6 +10,7 @@ namespace Mall.Web.Front.ViewModel
     {
         public int CustomId { get; set; }
         public int UserId { get; set; }
+        public int MaxAddressNumber { get; set; }
         public double Wallet { get; set; }
         public string PayPassword { get; set; }
     }

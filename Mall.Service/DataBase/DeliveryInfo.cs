@@ -19,6 +19,7 @@ namespace Mall.Service.DataBase
         public string Consignee { get; set; }
         public string DetailedAddress { get; set; }
         public string PhoneNumber { get; set; }
+        public bool IsDefault { get; set; }
     
         public virtual Custom Custom { get; set; }
     }

@@ -45,7 +45,7 @@
                 getBlob: function()
                 {
                     var imageData = this.getDataURL();
-                    var b64 = imageData.replace('Data:image/png;base64,','');
+                    var b64 = imageData.replace('data:image/png;base64,','');
                     var binary = atob(b64);
                     var array = [];
                     for (var i = 0; i < binary.length; i++) {

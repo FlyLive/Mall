@@ -12,18 +12,18 @@ namespace Mall.Interface.Enterprise
         /// 接受订单
         /// </summary>
         /// <param name="orderId">订单Id</param>
-        void AcceptOrderByOrderId(Guid orderId);
+        bool AcceptOrderByOrderId(Guid orderId);
         /// <summary>
         /// 修改备注
         /// </summary>
         /// <param name="orderId">订单Id</param>
         /// <param name="remark">备注</param>
-        void ModifyRemarksByOrderId(Guid orderId, string remark);
+        bool ModifyRemarksByOrderId(Guid orderId, string remark);
         /// <summary>
         /// 同意退款
         /// </summary>
         /// <param name="orderId">订单Id</param>
-        void AgreeRefundByOrderId(Guid orderId);
+        bool AgreeRefundByOrderId(Guid orderId);
         /// <summary>
         /// 拒绝退款
         /// </summary>
@@ -33,7 +33,7 @@ namespace Mall.Interface.Enterprise
         /// 确认发货
         /// </summary>
         /// <param name="orderId">订单Id</param>
-        void ConfirmDeliverByOrderId(Guid orderId);
+        bool ConfirmDeliverByOrderId(Guid orderId);
         /// <summary>
         /// 同意退货
         /// </summary>

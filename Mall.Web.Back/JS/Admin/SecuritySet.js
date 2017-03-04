@@ -71,13 +71,31 @@ function ModifyLP() {
     return false;
 }
 
-//修改支付密码
-function ModifyPP() {
+//修改管理密码
+function ModifyMP() {
     var firstPP = $("#modify_manage_password").val();
     var secondePP = $("#re_manage_password").val();
 
     if (Confirm(firstPP, secondePP)) {
-        document.forms["modifyMP"].submit();
+        $.ajax({
+            type: "Get",
+            url: "ModifyMP",
+            Data: { "manage_password": managePassword },
+            Datatype: Boolean,
+            success: function (result) {
+                if (result == "True") {
+                    $(function () {
+                        $('#modifyMPModal').modal('hide');
+                    });
+                }
+                else {
+                    OpenTip("修改失败!");
+                }
+            },
+            error: function () {
+                OpenTip("出错啦!");
+            }
+        });
     }
     return false;
 }

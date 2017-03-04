@@ -40,6 +40,7 @@
     <EntitySetMapping Name="Custom">
       <EntityTypeMapping TypeName="MallDBModel.Custom">
         <MappingFragment StoreEntitySet="Custom">
+          <ScalarProperty Name="MaxAddressNumber" ColumnName="MaxAddressNumber" />
           <ScalarProperty Name="PayPassword" ColumnName="PayPassword" />
           <ScalarProperty Name="Wallet" ColumnName="Wallet" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -50,6 +51,7 @@
     <EntitySetMapping Name="DeliveryInfo">
       <EntityTypeMapping TypeName="MallDBModel.DeliveryInfo">
         <MappingFragment StoreEntitySet="DeliveryInfo">
+          <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
           <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
           <ScalarProperty Name="DetailedAddress" ColumnName="DetailedAddress" />
           <ScalarProperty Name="Consignee" ColumnName="Consignee" />

@@ -20,13 +20,13 @@
         <div class="menu">
             <ul>
                 <li>
-                    <a href="/Account/Index" title="个人中心">
+                    <a href="/Custom/Index" title="个人中心">
                         <i class="fa fa-male"></i>
                         个人中心
                     </a>
                 </li>
                 <li>
-                    <a href="/Users/ShoppingCart" title="购物车">
+                    <a href="/Custom/ShoppingCart" title="购物车">
                         <i class="fa fa-shopping-cart"></i>
                         购物车
                     </a>
@@ -47,14 +47,14 @@
         </div>
         <div class="client">
             <div id="no_account" class="client-no-account">
-                <a href="/Account/Index" title="个人中心">
+                <a href="/Custom/Index" title="个人中心">
                     <img src="~/Pictures/Users/Avatar/avatar.png" />
                 </a>
                 <span>亲,请</span>
                 <a href="/Users/Index">[登录]</a>
             </div>
             <div id="has_account" class="client-has-account">
-                <a href="/Account/Index">
+                <a href="/Custom/Index">
                     <img src="" />
                 </a>
                 <span>欢迎您,</span>
@@ -76,14 +76,14 @@
         </div>
         <div class="client">
             <div id="navbar_no_account" class="client-no-account">
-                <a href="/Account/Index" title="个人中心">
+                <a href="/Custom/Index" title="个人中心">
                     <img src="~/Pictures/Users/Avatar/avatar.png" />
                 </a>
                 <span>亲,请</span>
                 <a href="/Users/Index">[登录]</a>
             </div>
             <div id="navbar_has_account" class="client-has-account">
-                <a href="/Account/Index">
+                <a href="/Custom/Index" title="个人中心">
                     <img src="" />
                 </a>
                 <span>欢迎您,</span>
@@ -96,20 +96,20 @@
     @Styles.Render("~/Css/Shared/Head.css");
 }
 @{
-    var client = Session["Client"];
-    if (client != null)
+    var user = Session["User"];
+    if (user != null)
     {
-        Mall.Service.DataBase.Client c = (Mall.Service.DataBase.Client)Session["Client"];
+        Mall.Web.Front.ViewModel.UserViewModel u = (Mall.Web.Front.ViewModel.UserViewModel)Session["User"];
         <script>
             $("#has_account").show();
             $("#no_account").hide();
-            $("#account_name").text("@c.User.NickName");
-            $("#has_account img").attr("src", "@c.User.Photo");
+            $("#account_name").text("@u.NickName");
+            $("#has_account img").attr("src", "@u.Photo");
 
             $("#navbar_has_account").show();
             $("#navbar_no_account").hide();
-            $("#navbar_account_name").text("@c.User.NickName");
-            $("#navbar_has_account img").attr("src", "@c.User.Photo");
+            $("#navbar_account_name").text("@u.NickName");
+            $("#navbar_has_account img").attr("src", "@u.Photo");
         </script>
     }
     else

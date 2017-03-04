@@ -8,7 +8,7 @@ namespace Mall.Web.Front.ViewModel
 {
     public class OrderViewModel
     {
-        public System.Guid OrderId { get; set; }
+        public Guid OrderId { get; set; }
         public int GoodsId { get; set; }
         public int CustomId { get; set; }
         public string GoodsName { get; set; }
@@ -20,9 +20,9 @@ namespace Mall.Web.Front.ViewModel
         public string PhoneNumber { get; set; }
         public string DeliveryAddress { get; set; }
         public int State { get; set; }
-        public DateTime CreateTime { get; set; }
-        public DateTime PaymentTime { get; set; }
-        public DateTime DeliveryTime { get; set; }
+        public string CreateTime { get; set; }
+        public string PaymentTime { get; set; }
+        public string DeliveryTime { get; set; }
         public bool IsDelete { get; set; }
         public string ClientRemark { get; set; }
         public string OrderRemark { get; set; }

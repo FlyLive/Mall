@@ -21,25 +21,7 @@ namespace Mall.Web.Front.Controllers
         public ActionResult Goods(/*int goodsId*/)
         {
             GoodsInfo goods = new GoodsInfo();
-            GoodsInfoViewModel goodsDTO = new GoodsInfoViewModel
-            {
-                GoodsId = goods.GoodsId,
-                GoodsName = goods.GoodsName,
-                Price = goods.Price,
-                Stock = goods.Stock,
-                Details = goods.Details,
-                Category = goods.Category,
-                CommentNumber = goods.CommentNumber,
-                State = goods.State,
-                CreateTime = goods.CreateTime,
-                ShelfTime = (DateTime)goods.ShelfTime,
-                UnderShelfTime = (DateTime)goods.UnderShelfTime,
-                IsDelete = goods.IsDelete,
-                Author = goods.Author,
-                Press = goods.Press,
-                PublicationDate = (DateTime)goods.PublicationDate,
-                freight = goods.freight,
-            };
+            GoodsInfoViewModel goodsDTO = DataGoodToDTO(goods);
             return View(goodsDTO);
         }
 
@@ -51,25 +33,7 @@ namespace Mall.Web.Front.Controllers
         public ActionResult GoodsSaleInfo(int goodsId)
         {
             GoodsInfo goods = new GoodsInfo();
-            GoodsInfoViewModel goodsDTO = new GoodsInfoViewModel
-            {
-                GoodsId = goods.GoodsId,
-                GoodsName = goods.GoodsName,
-                Price = goods.Price,
-                Stock = goods.Stock,
-                Details = goods.Details,
-                Category = goods.Category,
-                CommentNumber = goods.CommentNumber,
-                State = goods.State,
-                CreateTime = goods.CreateTime,
-                ShelfTime = (DateTime)goods.ShelfTime,
-                UnderShelfTime = (DateTime)goods.UnderShelfTime,
-                IsDelete = goods.IsDelete,
-                Author = goods.Author,
-                Press = goods.Press,
-                PublicationDate = (DateTime)goods.PublicationDate,
-                freight = goods.freight,
-            };
+            GoodsInfoViewModel goodsDTO = DataGoodToDTO(goods);
             return PartialView(goodsDTO);
         }
 
@@ -109,6 +73,30 @@ namespace Mall.Web.Front.Controllers
             }
             IPagedList<int> num = nums.ToPagedList(page,pageSize);
             return View(num);
+        }
+
+        public static GoodsInfoViewModel DataGoodToDTO(GoodsInfo g)
+        {
+            GoodsInfoViewModel goodDTO = new GoodsInfoViewModel
+            {
+                GoodsId = g.GoodsId,
+                GoodsName = g.GoodsName,
+                Price = g.Price,
+                Stock = g.Stock,
+                Details = g.Details,
+                Category = g.Category,
+                CommentNumber = g.CommentNumber,
+                State = g.State,
+                CreateTime = g.CreateTime.ToString("yyyy-MM-dd HH-mm-ss"),
+                ShelfTime = g.ShelfTime == null ? g.ShelfTime.ToString() : "0000-00-00 00-00-00",
+                UnderShelfTime = g.UnderShelfTime == null ? g.UnderShelfTime.ToString() : "0000-00-00 00-00-00",
+                IsDelete = g.IsDelete,
+                Author = g.Author,
+                Press = g.Press,
+                PublicationDate = g.PublicationDate == null ? g.PublicationDate.ToString() : "0000-00-00 00-00-00",
+                freight = g.freight,
+            };
+            return goodDTO;
         }
     }
 }

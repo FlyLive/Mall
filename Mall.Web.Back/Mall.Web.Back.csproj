@@ -191,7 +191,7 @@
     <Content Include="Css\MenuView\AdminLTE.css" />
     <Content Include="Css\MenuView\blue.css" />
     <Content Include="Content\boot.css" />
-    <Content Include="Css\Order\AllOrders.css" />
+    <Content Include="Css\Order\Orders.css" />
     <Content Include="JS\Shared\jquery.ztree.all.min.js" />
     <Content Include="Css\Shared\MenuViewHead.css" />
     <Content Include="Css\MenuView\morris.css" />
@@ -215,7 +215,7 @@
     <Content Include="JS\Goods\CreateGoods.js" />
     <Content Include="JS\Goods\GoodsEdit.js" />
     <Content Include="JS\MenuView\app.js" />
-    <Content Include="JS\Order\AllOrders.js" />
+    <Content Include="JS\Order\Orders.js" />
     <Content Include="JS\Shared\cropbox.js" />
     <Content Include="JS\Shared\jquery-2.2.3.min.js" />
     <Content Include="JS\Shared\layer_open_tip.js" />
@@ -301,13 +301,20 @@
     <Content Include="Views\Admin\GetEmployeeInfo.cshtml" />
     <Content Include="Views\Admin\GetEmployeePermissions.cshtml" />
     <Content Include="Views\Shared\Admin\_ManageConfirm.cshtml" />
+    <Content Include="Views\Order\FinishedOrder.cshtml" />
+    <Content Include="Views\Order\ReturnConfirm.cshtml" />
+    <Content Include="Views\Order\RefundConfirm.cshtml" />
+    <Content Include="Views\Order\ToReply.cshtml" />
+    <Content Include="Views\Order\ToDelivery.cshtml" />
+    <Content Include="Views\Order\ToAccept.cshtml" />
+    <Content Include="Views\Shared\Order\_OrderTitle.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\layer\" />
     <Folder Include="Css\Goods\images\" />
     <Folder Include="Css\Shared\img\" />
     <Folder Include="JS\Home\" />
-    <Folder Include="layer\" />
     <Folder Include="Pictures\Goods\" />
     <Folder Include="Pictures\Home\" />
   </ItemGroup>

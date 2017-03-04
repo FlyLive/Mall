@@ -4,8 +4,8 @@ function SearchOrderByState(event) {
     $.ajax({
         type: 'GET',
         url: 'SearchOrderByState',
-        Data: { "orderState": state },
-        Datatype: 'html',
+        data: { "orderState": state },
+        datatype: 'html',
         success: function (Data) {
             $("#order-list").html(Data);
         },
@@ -17,15 +17,15 @@ function SearchOrderByState(event) {
 
 function SearchOrderId() {
     var orderId = $("#orderId").val();
-    if (!/^\w{8}-(\w{4}-){3}\w{12}$/.test(orderId)) {
+    if (!/^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$/.test(orderId)) {
         Tip("请输入正确的订单号","orderId");
         return false;
     }
     $.ajax({
         type: 'GET',
         url: 'SearchOrderId',
-        Data: { "orderId": orderId },
-        Datatype: 'html',
+        data: { "orderId": orderId },
+        datatype: 'html',
         success: function (Data) {
             $("#order-list").html(Data);
         },

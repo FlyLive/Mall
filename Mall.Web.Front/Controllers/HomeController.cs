@@ -52,62 +52,32 @@ namespace Mall.Web.Front.Controllers
         /// <summary>
         /// 商城推荐
         /// </summary>
-        /// <param name="id"></param>
         /// <returns></returns>
         public ActionResult Suggest()
         {
-            List<GoodsInfoViewModel> suggests = _goodService
-                .GetRandomGoodsTop5().Select(g => new GoodsInfoViewModel
-                {
-                    GoodsId = g.GoodsId,
-                    GoodsName = g.GoodsName,
-                    Price = g.Price,
-                    Stock = g.Stock,
-                    Details = g.Details,
-                    Category = g.Category,
-                    CommentNumber = g.CommentNumber,
-                    State = g.State,
-                    CreateTime = g.CreateTime,
-                    ShelfTime = (DateTime)g.ShelfTime,
-                    UnderShelfTime = (DateTime)g.UnderShelfTime,
-                    IsDelete = g.IsDelete,
-                    Author = g.Author,
-                    Press = g.Press,
-                    PublicationDate = (DateTime)g.PublicationDate,
-                    freight = g.freight,
-                }).ToList();
-            return PartialView(suggests);
+            List<GoodsInfo> suggests = _goodService.GetRandomGoodsTop5();
+            List < GoodsInfoViewModel > suggestsDTO = DataGoodsToDTO(suggests);
+            return PartialView(suggestsDTO);
         }
 
         public ActionResult NewGoods()
         {
-            List<GoodsInfoViewModel> newGoods = _goodService
-                .GetNewGoodsTop5().Select(g => new GoodsInfoViewModel
-                {
-                    GoodsId = g.GoodsId,
-                    GoodsName = g.GoodsName,
-                    Price = g.Price,
-                    Stock = g.Stock,
-                    Details = g.Details,
-                    Category = g.Category,
-                    CommentNumber = g.CommentNumber,
-                    State = g.State,
-                    CreateTime = g.CreateTime,
-                    ShelfTime = (DateTime)g.ShelfTime,
-                    UnderShelfTime = (DateTime)g.UnderShelfTime,
-                    IsDelete = g.IsDelete,
-                    Author = g.Author,
-                    Press = g.Press,
-                    PublicationDate = (DateTime)g.PublicationDate,
-                    freight = g.freight,
-                }).ToList();
-            return PartialView(newGoods);
+            List<GoodsInfo> goods = _goodService.GetNewGoodsTop5();
+            List < GoodsInfoViewModel > goodsDTO = DataGoodsToDTO(goods);
+            return PartialView(goodsDTO);
         }
 
         public ActionResult HotSale()
         {
-            List<GoodsInfoViewModel> newGoods = _goodService
-                .GetHotSaleGoodsTop5().Select(g => new GoodsInfoViewModel
+            List<GoodsInfo> goods = _goodService.GetHotSaleGoodsTop5();
+            List<GoodsInfoViewModel> goodsDTO = DataGoodsToDTO(goods);
+            return PartialView(goodsDTO);
+        }
+
+        public static List<GoodsInfoViewModel> DataGoodsToDTO(List<GoodsInfo> goods)
+        {
+            List<GoodsInfoViewModel> goodsDTO = goods
+                .Select(g => new GoodsInfoViewModel
                 {
                     GoodsId = g.GoodsId,
                     GoodsName = g.GoodsName,
@@ -117,16 +87,16 @@ namespace Mall.Web.Front.Controllers
                     Category = g.Category,
                     CommentNumber = g.CommentNumber,
                     State = g.State,
-                    CreateTime = g.CreateTime,
-                    ShelfTime = (DateTime)g.ShelfTime,
-                    UnderShelfTime = (DateTime)g.UnderShelfTime,
+                    CreateTime = g.CreateTime.ToString("yyyy-MM-dd HH-mm-ss"),
+                    ShelfTime = g.ShelfTime == null ? g.ShelfTime.ToString() : "0000-00-00 00-00-00",
+                    UnderShelfTime = g.UnderShelfTime == null ? g.UnderShelfTime.ToString() : "0000-00-00 00-00-00",
                     IsDelete = g.IsDelete,
                     Author = g.Author,
                     Press = g.Press,
-                    PublicationDate = (DateTime)g.PublicationDate,
+                    PublicationDate = g.PublicationDate == null ? g.PublicationDate.ToString() : "0000-00-00 00-00-00",
                     freight = g.freight,
                 }).ToList();
-            return PartialView(newGoods);
+            return goodsDTO;
         }
     }
 }

@@ -9,9 +9,10 @@ namespace Mall.Web.Front.ViewModel
     public class ShoppingCartViewModel
     {
         public int ShoppingCartId { get; set; }
-        public int ClientId { get; set; }
+        public int CustomId { get; set; }
         public DateTime CreateTime { get; set; }
         public int Number { get; set; }
         public int GoodsId { get; set; }
+        public GoodsInfoViewModel Goods { get; set; }
     }
 }

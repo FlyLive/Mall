@@ -1,3 +1,4 @@
+C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\obj\Debug\Mall.Web.Front.csprojResolveAssemblyReference.cache
 C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\roslyn\csc.exe
 C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
 C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
@@ -14,9 +15,12 @@ C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\Mall.W
 C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\Mall.Web.Front.dll
 C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\Mall.Web.Front.pdb
 C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\Antlr3.Runtime.dll
+C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\Mall.Service.dll
 C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\Microsoft.Web.Infrastructure.dll
 C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\Newtonsoft.Json.dll
+C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\PagedList.dll
+C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\PagedList.Mvc.dll
 C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\System.Web.Helpers.dll
 C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\System.Web.Mvc.dll
 C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\System.Web.Optimization.dll
@@ -25,7 +29,11 @@ C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\System
 C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\System.Web.WebPages.dll
 C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\System.Web.WebPages.Razor.dll
 C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\WebGrease.dll
+C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\EntityFramework.dll
+C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\Mall.Service.pdb
 C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\PagedList.xml
+C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\PagedList.Mvc.xml
 C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\System.Web.Helpers.xml
 C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\System.Web.Mvc.xml
 C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\System.Web.Optimization.xml
@@ -35,6 +43,7 @@ C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\System
 C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\System.Web.WebPages.Razor.xml
 C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\Antlr3.Runtime.pdb
 C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\Newtonsoft.Json.xml
+C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\EntityFramework.xml
 C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\zh-Hans\System.Web.Helpers.resources.dll
 C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\zh-Hans\System.Web.Mvc.resources.dll
 C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\zh-Hans\System.Web.Optimization.resources.dll
@@ -42,15 +51,6 @@ C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\zh-Han
 C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\zh-Hans\System.Web.WebPages.resources.dll
 C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\zh-Hans\System.Web.WebPages.Deployment.resources.dll
 C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\zh-Hans\System.Web.WebPages.Razor.resources.dll
-C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\obj\Debug\Mall.Web.Front.csprojResolveAssemblyReference.cache
+C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\zh-Hans\EntityFramework.resources.dll
 C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\obj\Debug\Mall.Web.Front.dll
 C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\obj\Debug\Mall.Web.Front.pdb
-C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\EntityFramework.dll
-C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\EntityFramework.xml
-C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\zh-Hans\EntityFramework.resources.dll
-C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\PagedList.dll
-C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\PagedList.Mvc.dll
-C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\PagedList.xml
-C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\PagedList.Mvc.xml
-C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\Mall.Service.dll
-C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\Mall.Service.pdb
