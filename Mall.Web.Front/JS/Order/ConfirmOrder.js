@@ -4,37 +4,28 @@ $(".address-item").click(function () {
     $(this).addClass("selected");
 });
 
-function ConfirmOrder() {
+function ConfirmOrderFromCart() {
     var addressId = $(".confirm-order-address-infor .selected").attr("id");
 
     var goods = $("li[name='goods']");
     var goodsIds = new Array();
-
-    var countsValue = new Array();
 
     var remarksValue = new Array();
     for (var i = 0; i < goods.length; i++) {
         //获取商品Id
         goodsIds.push(goods[i].id);
         //获取备注
-        remarksValue.push($("#" + goodsIds[i] + " .custom-remark").val());
-        //获取数量
-        countsValue.push($("#" + goodsIds[i] + " .count").val());
-    }
-    for (var i = 0; i < goodsIds.length; i++) {
-        alert(goodsIds[i]);
-        alert(remarksValue[i]);
-        alert(countsValue[i]);
+        remarksValue.push($(".goods-list #" + goodsIds[i] + " .custom-remark").val());
     }
     $.ajax({
         type: 'POST',
-        url: '/Order/CreateOrder',
-        data: {"goodsId":goodsIds, "count":countsValue,"deliveryAddressId":addressId,"clientRemark":remarksValue},
-        datatype: Boolean,
-        async:false,
-        success: function (result) {
-            if (result == "True") {
-
+        url: '/Order/CreateOrderFromCart',
+        data: { "goodsId": goodsIds,"deliveryAddressId": addressId, "customRemark": remarksValue },
+        async: false,
+        dataType: "json",
+        success: function (orderId) {
+            if (orderId != null) {
+                ConfirmPPOfPay(orderId);
             }
         },
         error: function () {
@@ -43,20 +34,58 @@ function ConfirmOrder() {
     });
 }
 
-
-function ReduceCount(event) {
-    var count = $(event).parent().find(".count").val();
-    if (count > 1) {
-        count--;
-        $(event).parent().find(".count").val(count);
-    }
-    else {
-        OpenTip("数量不能少于一哦！", 1);
-    }
+function ConfirmPPOfPay(orderId) {
+    var newOrderId = orderId;
+    layer.prompt({
+        title: '输入支付密码，并确认',
+        formType: 1,
+        closeBtn: 2,
+        cancel: function () {
+            window.location.href = "/Order/AllOrders";
+        },
+        btn2: function () {
+            window.location.href = "/Order/AllOrders";
+        }
+    }, function (pass, index) {
+        layer.close(index);
+        $.ajax({
+            type: 'GET',
+            url: '/Custom/ConfirmPP',
+            data: { "pay_password": pass },
+            success: function (result) {
+                if (result == "True") {
+                    PayNow(newOrderId);
+                }
+                else {
+                    layer.confirm('密码错误！', {
+                        btn: ['重试', '取消'] //按钮
+                    }, function (index) {
+                        layer.close(index);
+                        ConfirmPPOfPay(newOrderId);
+                    }, function () {
+                        window.location.href = "/Order/AllOrders";
+                    });
+                }
+            },
+            error: function () {
+                OpenTip("出错啦!", 3);
+            }
+        });
+    });
 }
 
-function IncreaseCount(event) {
-    var count = $(event).parent().find(".count").val();
-    count++;
-    $(event).parent().find(".count").val(count);
+function PayNow(orderId) {
+    $.ajax({
+        type: 'POST',
+        url: '/Order/PayOrder',
+        data: { "orderId": orderId },
+        success: function (payResult) {
+            if (payResult == "True") {
+                window.location.href = "/Order/AllOrders";
+            }
+        },
+        error: function () {
+            OpenTip("出错啦!", 3);
+        }
+    });
 }

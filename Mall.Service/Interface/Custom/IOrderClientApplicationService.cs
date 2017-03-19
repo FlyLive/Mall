@@ -25,7 +25,7 @@ namespace Mall.Interface.Custom
         /// </summary>
         /// <param name="orderId"></param>
         /// <returns></returns>
-        bool PayByOrderId(Guid orderId);
+        bool PayByOrderId(int customId,Guid[] orderId);
         /// <summary>
         /// 根据订单Id申请退款
         /// </summary>
@@ -43,7 +43,7 @@ namespace Mall.Interface.Custom
         /// </summary>
         /// <param name="orderId"></param>
         /// <returns></returns>
-        void EvaluateOrder(Comment comment);
+        void EvaluateOrder(int customId,Guid orderId,string evaluateContent);
         /// <summary>
         /// 根据订单Id申请退货
         /// </summary>

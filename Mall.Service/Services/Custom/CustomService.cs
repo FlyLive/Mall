@@ -53,7 +53,7 @@ namespace Mall.Service.Services.Custom
                     NickName = "小白",
                     Password = password,
                     Email = email,
-                    Photo = "../Pictures/Users/Avatar/avatar.png",
+                    Photo = "localhost:9826/Mall.Web.Front/Users/Avatar/avatar.png",
                     CreateTime = DateTime.Now,
                 };
 
@@ -73,6 +73,11 @@ namespace Mall.Service.Services.Custom
             return null;
         }
 
+        /// <summary>
+        /// 发送验证码
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
         public string SendEmailOfVerifyCode(string email)
         {
             int customerID = 1;
@@ -236,8 +241,8 @@ namespace Mall.Service.Services.Custom
                 var img = imgBase.Split(',');
                 byte[] bt = Convert.FromBase64String(img[1]);
                 string now = DateTime.Now.ToString("yyyy-MM-ddHHmmss");
-                string path = "C:/Users/LL/Documents/Visual Studio 2015/Projects/Mall/Mall.Web.Front/Pictures/Users/Avatar/avatar" + now + ".png";
-                string DataPath = "../Pictures/Users/Avatar/avatar" + now + ".png";
+                string path = "localhost:9826/Mall.Web.Front/Pictures/Users/Avatar/avatar" + now + ".png";
+                string DataPath = "localhost:9826/Mall.Web.Front/Users/Avatar/avatar" + now + ".png";
                 File.WriteAllBytes(path, bt);
                 custom.User.Photo = DataPath;
                 _db.SaveChanges();
@@ -254,31 +259,77 @@ namespace Mall.Service.Services.Custom
         /// 新建收货信息
         /// </summary>
         /// <param name="deliverInfo"></param>
-        public void CreatDeliverInfo(int customId, string address, string contact, string phone, string zip = " ")
+        public bool CreatDeliverInfo(int customId, string address, string contact, string phone, string zip = " ")
         {
             DataBase.Custom custom = GetCustomByCustomId(customId);
-            DeliveryInfo deliveryInfo = new DeliveryInfo
+            if(custom.DeliveryInfo.Count < custom.MaxAddressNumber)
             {
-                CustomId = custom.CustomId,
-                DetailedAddress = address,
-                PhoneNumber = phone,
-                Consignee = contact,
-            };
-            _db.DeliveryInfo.Add(deliveryInfo);
-            _db.SaveChanges();
+                DeliveryInfo deliveryInfo = new DeliveryInfo
+                {
+                    CustomId = custom.CustomId,
+                    DetailedAddress = address,
+                    PhoneNumber = phone,
+                    Consignee = contact,
+                    Zip = zip,
+                    IsDefault = false,
+                };
+                _db.DeliveryInfo.Add(deliveryInfo);
+                _db.SaveChanges();
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// 收货地址是否达到上限
+        /// </summary>
+        /// <param name="customId"></param>
+        /// <returns></returns>
+        public bool IsDeliveryFull(int customId)
+        {
+            DataBase.Custom custom = GetCustomByCustomId(customId);
+            var result = custom.DeliveryInfo.Count == custom.MaxAddressNumber;
+            return result;
         }
 
         /// <summary>
         /// 修改收货地址
         /// </summary>
         /// <param name="newDeliverInfo"></param>
-        public void ModifyDeliverInfo(int deliveryInfoId, string address, string contact, string phone, string zip = " ")
+        public void ModifyDeliverInfo(int deliveryInfoId, string address, string contact, string phone, string zip)
         {
             DeliveryInfo deliveryInfo = GetDeliveryInfoById(deliveryInfoId);
 
-            deliveryInfo.DetailedAddress = address;
-            deliveryInfo.Consignee = contact;
-            deliveryInfo.PhoneNumber = phone;
+            deliveryInfo.DetailedAddress = address == "" ? deliveryInfo.DetailedAddress : address;
+            deliveryInfo.Consignee = contact == "" ? deliveryInfo.Consignee : contact;
+            deliveryInfo.PhoneNumber = phone == "" ? deliveryInfo.PhoneNumber : phone;
+            deliveryInfo.Zip = zip == "" ? deliveryInfo.Zip : zip;
+
+            _db.SaveChanges();
+        }
+
+        /// <summary>
+        /// 删除收货地址
+        /// </summary>
+        /// <param name="customId"></param>
+        /// <param name="deliveryId"></param>
+        public void DeletDeliveryByDeliveryId(int customId,int deliveryId)
+        {
+            DeliveryInfo delivery = GetAllDeliveryInfoByCustomId(customId).SingleOrDefault(d => d.CustomId == customId && d.Id == deliveryId);
+            _db.DeliveryInfo.Remove(delivery);
+
+            _db.SaveChanges();
+        }
+
+        /// <summary>
+        /// 修改默认地址
+        /// </summary>
+        /// <param name="customId"></param>
+        /// <param name="deliveryId"></param>
+        public void SetDefaultAddressOfCustomByDeliveryId(int customId,int deliveryId)
+        {
+            GetCustomByCustomId(customId).DeliveryInfo.SingleOrDefault(d => d.IsDefault == true).IsDefault = false;
+            _db.DeliveryInfo.SingleOrDefault(d => d.Id == deliveryId).IsDefault = true;
 
             _db.SaveChanges();
         }
@@ -310,6 +361,18 @@ namespace Mall.Service.Services.Custom
         }
         
         /// <summary>
+        /// 返回客户的购物车
+        /// </summary>
+        /// <param name="customId"></param>
+        /// <returns></returns>
+        public List<ShoppingCart> GetCartByCustomId(int customId)
+        {
+            DataBase.Custom custom = GetCustomByCustomId(customId);
+            List<ShoppingCart> cart = custom.ShoppingCart.ToList();
+            return cart;
+        }
+
+        /// <summary>
         /// 向购物车添加商品
         /// </summary>
         /// <param name="customId">客户ID</param>
@@ -318,13 +381,23 @@ namespace Mall.Service.Services.Custom
         public void AddGoodsToShoppingCart(int customId, int goodsId, int count = 1)
         {
             DataBase.Custom custom = _db.Custom.Include("ShoppingCart").SingleOrDefault(c => c.CustomId == customId);
-            custom.ShoppingCart.Add(new ShoppingCart
+            List<ShoppingCart> carts = custom.ShoppingCart.ToList();
+            ShoppingCart newCart = carts.SingleOrDefault(c => c.GoodsId == goodsId);
+
+            if(newCart != null)
             {
-                GoodsId = goodsId,
-                CreateTime = DateTime.Now,
-                Number = count,
-            });
-            _db.SaveChanges();
+                ModifyGoodsCountFromShoppingCart(customId, goodsId, count + newCart.Number);
+            }
+            else
+            {
+                custom.ShoppingCart.Add(new ShoppingCart
+                {
+                    GoodsId = goodsId,
+                    CreateTime = DateTime.Now,
+                    Number = count,
+                });
+                _db.SaveChanges();
+            }
         }
 
         /// <summary>
@@ -361,10 +434,14 @@ namespace Mall.Service.Services.Custom
         /// <param name="customId"></param>
         /// <param name="goodsId"></param>
         /// <returns></returns>
-        public ShoppingCart GetCartByCustomIdAndGoodsId(int customId,int goodsId)
+        public List<ShoppingCart> GetCartByCustomIdAndGoodsId(int customId,int[] goodsId)
         {
-            ShoppingCart cart = _db.ShoppingCart.Include("GoodsInfo").SingleOrDefault(c => c.CustomId == customId && c.GoodsId == goodsId);
-            return cart;
+            List<ShoppingCart> carts = _db.ShoppingCart
+                .Include("GoodsInfo")
+                .Where(s => s.CustomId == customId)
+                .Where(s => goodsId.Any(g => g == s.GoodsId))
+                .ToList();
+            return carts;
         }
 
         public void Dispose()

@@ -13,15 +13,20 @@
     margin-bottom:50px;
 }
 .OD-state-course > ul >li{
-    width:290px;
+    background-color: green;
+    vertical-align: middle;
+    border-radius: 5px 50% 50% 5px;
+    color: white;
+
+    width:275px;
     height:50px;
     text-align:center;
-    float:left;
+    display:inline-block;
     font-size:20px;
     list-style:none;
 }
-.OD-state-course > ul > li > span{
-    vertical-align:middle;
+.OD-state-course > ul > li > p{
+    margin:10px 0px;
 }
 .OD-state-detail{
     border:1px solid #009966;
@@ -83,7 +88,7 @@
 }
 .OD-detail-order-info > table > tbody > tr > td{
     padding-bottom:20px;
-    width:400px;
+    /*width:400px;*/
 }
 .OD-detail-seller-info{
     padding-left: 200px;
@@ -96,13 +101,14 @@
     height: 40px;
     margin: 40px auto 0px auto;
     padding:0px;
+    border-radius:5px 5px 0px 0px;
 }
 .OD-detail-head > ul > .detail,.OD-detail-goods-info > ul > .detail{
     width:450px;
 }
 .OD-detail-head > ul > li,.OD-detail-goods-info > ul > li{
     text-align:center;
-    float:left;
+    display:inline-block;
     list-style:none;
     padding: 10px 0px;
     width:140px;
@@ -111,24 +117,24 @@
 .OD-detail-goods-info > ul > .detail{
 
 }
-.OD-detail-goods-info > ul > .detail > img{
+.OD-detail-goods-info > ul > .detail img{
     height:100px;
-    width:100px;
+    width:80px;
 }
 .OD-detail-goods-info > ul > .detail > span{
     width:200px;
 }
 .OD-detail-goods-info > ul{
-    height: 150px;
+    height: 125px;
     width: 1320px;
-    border-radius:5px;
+    border-radius:0px 0px 5px 5px;
     border:1px solid #b1b1b1;
     margin: 0 auto 20px auto;
     padding:0px;
     background-color:#ECF0F1;
 }
 .OD-detail-goods-info > ul > li{
-    padding:65px 0px;
+    padding:10px 0px;
 }
 .money{
     color:red;

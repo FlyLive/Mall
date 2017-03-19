@@ -34,6 +34,17 @@ namespace Mall.Service.Services.Enterprise
         }
 
         /// <summary>
+        /// 根据商品Id获取商品评价
+        /// </summary>
+        /// <param name="goodsId">商品Id</param>
+        /// <returns></returns>
+        public List<Comment> GetGoodsCommentsByGoodsId(int goodsId)
+        {
+            List<Comment> comments = _db.Comment.Where(c => c.GoodsId == goodsId).ToList();
+            return comments;
+        }
+
+        /// <summary>
         /// 热销商品
         /// </summary>
         /// <returns></returns>
@@ -93,7 +104,7 @@ namespace Mall.Service.Services.Enterprise
         /// <param name="author"></param>
         /// <param name="press"></param>
         /// <returns></returns>
-        public bool CreateGoods(string name, int count,
+        public int CreateGoods(string name, int count,
             double price, string detail, int onshelves,
             double? freight, DateTime? publicationDate,
             string author = null, string press = null)
@@ -118,13 +129,22 @@ namespace Mall.Service.Services.Enterprise
                 };
                 _db.GoodsInfo.Add(good);
                 _db.SaveChanges();
-
+                return good.GoodsId;
             }
             catch (Exception e)
             {
-                return false;
+                return -1;
             }
-            return true;
+        }
+
+        public void AddGoodsImage(int goodsId,string path)
+        {
+            _db.Image.Add(new Image
+            {
+                GoodsId = goodsId,
+                ImageSrc = "http://" + path,
+            });
+            _db.SaveChanges();
         }
 
         /// <summary>

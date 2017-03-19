@@ -47,7 +47,7 @@
 }
 .CR-detail-order-info > table > tbody > tr > td{
     padding-bottom:20px;
-    width:400px;
+    /*width:400px;*/
 }
 .CR-detail-head > ul{
     border: 1px solid #b1b1b1;
@@ -61,7 +61,7 @@
 }
 .CR-detail-head > ul > li,.CR-detail-goods-info > ul > li{
     text-align:center;
-    float:left;
+    display: inline-block;
     list-style:none;
     padding: 10px 0px;
     width:140px;
@@ -70,24 +70,24 @@
 .CR-detail-goods-info > ul > .detail{
 
 }
-.CR-detail-goods-info > ul > .detail > img{
+.CR-detail-goods-info > ul > .detail img{
     height:100px;
-    width:100px;
+    width:80px;
 }
 .CR-detail-goods-info > ul > .detail > span{
     width:200px;
 }
 .CR-detail-goods-info > ul{
-    height: 150px;
+    height: 125px;
     width: 1320px;
-    border-radius:5px;
+    border-radius:0px 0px 5px 5px;
     border:1px solid #b1b1b1;
     margin: 0 auto 20px auto;
     padding:0px;
     background-color:#ECF0F1;
 }
 .CR-detail-goods-info > ul > li{
-    padding:65px 0px;
+    padding:10px 0px;
 }
 .money{
     color:red;
@@ -123,26 +123,31 @@
 }
 .confirm .confirm-input{
     width:500px;
-    padding-left:700px;
+    margin-left:700px;
     margin-bottom:50px;
 }
 .confirm .confirm-input input {
     width:300px;
     height:30px;
-    font-size:20px;
-    margin-bottom:50px;
+    font-size:25px;
+    margin-bottom:30px;
     text-indent:5px;
+    border-radius:3px;
+    border:1px solid #cccccc;
 }
 .confirm .confirm-input button {
-    height:50px;
-    width:150px;
+    height:30px;
+    width:100px;
     text-align:center;
-    font-size:22px;
-    margin-left:200px;
+    margin-left:270px;
+    border:none;
+    background-color:red;
+    border-radius:3px;
+    color:white;
 }
 .confirm-input button:hover{
-
+    background-color:#ff3434;
 }
 .confirm-input button:active{
-
+    background-color:red;
 }

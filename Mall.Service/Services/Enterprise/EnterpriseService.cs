@@ -52,7 +52,7 @@ namespace Mall.Service.Services.Enterprise
         public bool CreateEmployee(string account, string logPassword, string email,
                 DateTime? birthday, bool gender = true, string nick = null,
                 string managePassword = null, string phoneNumber = null
-                , int[] permissionIds = null)
+                , int[] menuIds = null)
         {
             if (!ReName(account))
             {
@@ -61,7 +61,7 @@ namespace Mall.Service.Services.Enterprise
                     Account = account,
                     Password = logPassword,
                     Email = email,
-                    Photo = "../Pictures/Users/Avatar/avatar.png",
+                    Photo = "http://localhost:9826/Mall.Web.Back/Users/Avatar/avatar.png",
                     CreateTime = DateTime.Now,
 
                     NickName = nick == "" ? account : nick,
@@ -80,10 +80,12 @@ namespace Mall.Service.Services.Enterprise
 
                 _db.SaveChanges();
 
-                if(permissionIds != null)
+                if (menuIds != null)
                 {
+                    var permissionIds = SwitchMenuIdsToPermissionIds(menuIds);
+
                     SetPermissionsToEmployee(employee.EmployeeId, permissionIds);
-                
+
                     _db.SaveChanges();
                 }
 
@@ -175,8 +177,8 @@ namespace Mall.Service.Services.Enterprise
                 var img = imgBase.Split(',');
                 byte[] bt = Convert.FromBase64String(img[1]);
                 string now = DateTime.Now.ToString("yyyy-MM-ddHHmmss");
-                string path = "C:/Users/LL/Documents/Visual Studio 2015/Projects/Mall/Mall.Web.Back/Pictures/Users/Avatar/avatar" + now + ".png";
-                string DataPath = "../Pictures/Users/Avatar/avatar" + now + ".png";
+                string path = "D:/网站部署/MallImg/Mall.Web.Back/Users/Avatar/avatar" + now + ".png";
+                string DataPath = "http://localhost:9826/Mall.Web.Back/Users/Avatar/avatar" + now + ".png";
                 File.WriteAllBytes(path, bt);
                 employee.User.Photo = DataPath;
                 _db.SaveChanges();
@@ -193,7 +195,7 @@ namespace Mall.Service.Services.Enterprise
         /// </summary>
         /// <param name="employeeId"></param>
         /// <param name="newLogPassword"></param>
-        public void ModifyLogPassword(int employeeId,string newLogPassword)
+        public void ModifyLogPassword(int employeeId, string newLogPassword)
         {
             Employee employee = GetEmployeeByEmployeeId(employeeId);
             employee.User.Password = newLogPassword;
@@ -205,7 +207,7 @@ namespace Mall.Service.Services.Enterprise
         /// </summary>
         /// <param name="employeeId"></param>
         /// <param name="newManagePassword"></param>
-        public void ModifyManagePassword(int employeeId,string newManagePassword)
+        public void ModifyManagePassword(int employeeId, string newManagePassword)
         {
             Employee employee = GetEmployeeByEmployeeId(employeeId);
             employee.ManagePassword = newManagePassword;
@@ -258,6 +260,48 @@ namespace Mall.Service.Services.Enterprise
             _db.SaveChanges();
         }
 
+        public int[] SwitchMenuIdsToPermissionIds(int[] menuIds)
+        {
+            List<Permissions> permissions = _db.Permissions.ToList();
+            var permissionCodes = _db.Permissions.Select(p => p.Code).ToList();
+
+            List<Menus> menus = _db.Menus.ToList();
+            List<Menus> permissionsMenu = new List<Menus>();
+
+            permissionsMenu.AddRange(
+                menus.Where(m => permissionCodes.Any(p => p == m.MenuPath) && menuIds.Any(mi => mi == m.MenuId)));
+            permissionsMenu.AddRange(menus.Where(m => permissions.Any(p => p.IsDefault == true && p.Code == m.MenuPath)));
+
+            int[] permissionIds = new int[permissionsMenu.Count];
+
+            for(int i = 0;i < permissionIds.Length; i++)
+            {
+                permissionIds[i] = permissions.SingleOrDefault(p => p.Code == permissionsMenu[i].MenuPath).PermissionId;
+            }
+            return permissionIds;
+        }
+
+        /// <summary>
+        /// 根据用户Id设置权限
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="menuIds"></param>
+        /// <returns></returns>
+        public bool ModifyPermissions(int userId, int[] menuIds)
+        {
+            Employee employee = GetEmployeeByUserId(userId);
+            if (employee == null)
+            {
+                return false;
+            }
+            else
+            {
+                var permissionIds = SwitchMenuIdsToPermissionIds(menuIds);
+                SetPermissionsToEmployee(employee.EmployeeId, permissionIds);
+                return true;
+            }
+        }
+
         /// <summary>
         /// 给员工添加权限
         /// </summary>
@@ -265,14 +309,15 @@ namespace Mall.Service.Services.Enterprise
         /// <param name="permissionIds">权限Ids</param>
         public void SetPermissionsToEmployee(int employeeId, int[] permissionIds)
         {
-            var permissions = _db.Permissions.Where(p => permissionIds
-                                     .Contains(p.PermissionId)).ToList();
+            var permissions = _db.Permissions.Where(p => permissionIds.ToList()
+                                     .Any(pi => pi == p.PermissionId)).ToList();
 
             Employee employee = GetEmployeeByEmployeeId(employeeId);
+            employee.Permissions.Any(p => employee.Permissions.Remove(p));
 
-            permissions.ForEach(permission =>
+            permissions.ForEach(p =>
             {
-                employee.Permissions.Add(permission);
+                employee.Permissions.Add(p);
             });
 
             _db.SaveChanges();

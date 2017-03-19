@@ -1,4 +1,6 @@
 ﻿
+@model Mall.Web.Front.ViewModel.OrderViewModel
+
 @{
     ViewBag.Title = "ConfirmReceipt";
     Layout = "~/Views/Layout/_Layout.cshtml";
@@ -16,18 +18,18 @@
                 <table>
                     <tr>
                         <td>
-                            <span class="mark">收货人姓名:</span>&emsp;<span>XXX</span>
+                            <span class="mark">收货人姓名:</span>&emsp;<span>@Model.Consignee</span>
                         </td>
                         <td>
-                            <span class="mark">收货地址:</span>&emsp;<span>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</span>
+                            <span class="mark">收货地址:</span>&emsp;<span>@Model.DeliveryAddress</span>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <span class="mark">派送方式:</span>&emsp;<span>XX</span>
+                            <span class="mark">派送方式:</span>&emsp;<span>快递</span>
                         </td>
                         <td>
-                            <span class="mark">联系电话:</span>&emsp;<span>15XXXXXXX23</span>
+                            <span class="mark">联系电话:</span>&emsp;<span>@Model.PhoneNumber</span>
                         </td>
                     </tr>
                 </table>
@@ -40,18 +42,20 @@
                     <tbody>
                         <tr>
                             <td>
-                                <span class="mark">订单编号:</span>&emsp;<span>XXXXXXXXXXXXXXXXXXXX</span>
-                            </td>
-                            <td>
-                                <span class="mark">下单时间:</span>&emsp;<span>XXXX-XX-XX XX:XX:XX</span>
+                                <span class="mark">订单编号:</span>&emsp;<span>@Model.OrderId</span>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <span class="mark">发货时间:</span>&emsp;<span>XXXX-XX-XX XX:XX:XX</span>
+                                <span class="mark">下单时间:</span>&emsp;<span>@Model.CreateTime</span>
                             </td>
                             <td>
-                                <span class="mark">收货时间:</span>&emsp;<span>XXXX-XX-XX XX:XX:XX</span>
+                                <span class="mark">发货时间:</span>&emsp;<span>XXXX-XX-XX XX:XX:XX</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="mark">收货时间:</span>&emsp;<span>@Model.ReceiptTime</span>
                             </td>
                             <td>
                                 <span class="mark">成交时间:</span>&emsp;<span>XXXX-XX-XX XX:XX:XX</span>
@@ -94,7 +98,7 @@
     </div>
 </div>
 <div class="CR-sign">
-    <span></span>
+    <span><i class="fa fa-exclamation-circle"></i></span>
     此结果由云翳网站提供
 </div>
 <div class="CR-confirm">
@@ -102,18 +106,20 @@
     <div class="CR-confirm-detail">
         <div class="confirm">
             <div class="confirm-sign">
-                <span></span><p class="confirm-sign-confirm">请收到货后，确认商品是否满意，再确认收货！</p>
-                <span></span><p>如有疑问请联系客服！</p>
+                <p class="confirm-sign-confirm"><span><i class="fa fa-exclamation-circle"></i></span>请收到货后，确认商品是否满意，再确认收货！</p>
+                <p><span><i class="fa fa-exclamation-circle"></i></span>如有疑问请联系客服！</p>
             </div>
             <div class="confirm-input">
-                <form action="">
-                    支付密码:&emsp;<input type="password" />
-                    <button class="confirm-button" type="submit">确认收货</button>
-                </form>
+                    支付密码:&emsp;<input id="input_pay_password" type="password" />
+                    <button class="confirm-button" type="button" onclick="ConfirmReceipt('@Model.OrderId')">确认收货</button>
             </div>
         </div>
     </div>
 </div>
 @section css{
-    <link href="~/Css/Users/ConfirmReceipt.css" rel="stylesheet" />
+    @Styles.Render("~/Css/Custom/ConfirmReceipt.css")
+}
+@section scripts{
+    @Scripts.Render("~/JS/Custom/ConfirmReceipt.js")
+    @Scripts.Render("~/JS/Custom/SecuritySet.js")
 }

@@ -31,7 +31,8 @@
     <Property Name="GoodsId" Type="int" />
     <Property Name="CommentDetail" Type="nvarchar" MaxLength="150" Nullable="false" />
     <Property Name="CommentTime" Type="datetime" Nullable="false" />
-    <Property Name="ParentId" Type="int" Nullable="false" />
+    <Property Name="Reply" Type="nvarchar" MaxLength="150" />
+    <Property Name="OrderId" Type="uniqueidentifier" Nullable="false" />
   </EntityType>
   <EntityType Name="Custom">
     <Key>
@@ -53,6 +54,7 @@
     <Property Name="DetailedAddress" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="PhoneNumber" Type="nvarchar" MaxLength="11" Nullable="false" />
     <Property Name="IsDefault" Type="bit" Nullable="false" />
+    <Property Name="Zip" Type="nvarchar" MaxLength="10" />
   </EntityType>
   <EntityType Name="Employee">
     <Key>
@@ -117,6 +119,7 @@
     <Property Name="MenuPath" Type="varchar" MaxLength="500" Nullable="false" />
     <Property Name="URL" Type="varchar" MaxLength="200" />
     <Property Name="Icon" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsDefault" Type="bit" />
   </EntityType>
   <EntityType Name="Order">
     <Key>
@@ -137,8 +140,9 @@
     <Property Name="CreateTime" Type="datetime" Nullable="false" />
     <Property Name="PaymentTime" Type="datetime" />
     <Property Name="DeliveryTime" Type="datetime" />
+    <Property Name="ReceiptTime" Type="datetime" />
     <Property Name="IsDelete" Type="bit" Nullable="false" />
-    <Property Name="ClientRemark" Type="nvarchar" MaxLength="50" />
+    <Property Name="CustomRemark" Type="nvarchar" MaxLength="50" />
     <Property Name="OrderRemark" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="Permissions">
@@ -149,6 +153,7 @@
     <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Code" Type="varchar" MaxLength="500" Nullable="false" />
     <Property Name="CreationTime" Type="datetime" Nullable="false" />
+    <Property Name="IsDefault" Type="bit" />
   </EntityType>
   <EntityType Name="Refund">
     <Key>
@@ -226,6 +231,18 @@
       </Principal>
       <Dependent Role="Custom">
         <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Comment_Order">
+    <End Role="Order" Type="Self.Order" Multiplicity="1" />
+    <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="OrderId" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="OrderId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -459,6 +476,10 @@
     <AssociationSet Name="FK_CLIENT_REFERENCE_USER" Association="Self.FK_CLIENT_REFERENCE_USER">
       <End Role="User" EntitySet="User" />
       <End Role="Custom" EntitySet="Custom" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Comment_Order" Association="Self.FK_Comment_Order">
+      <End Role="Order" EntitySet="Order" />
+      <End Role="Comment" EntitySet="Comment" />
     </AssociationSet>
     <AssociationSet Name="FK_COMMENT_REFERENCE_CLIENT" Association="Self.FK_COMMENT_REFERENCE_CLIENT">
       <End Role="Custom" EntitySet="Custom" />

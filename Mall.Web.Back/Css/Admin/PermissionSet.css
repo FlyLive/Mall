@@ -89,12 +89,11 @@
     font-size:20px;
     border-radius:5px;
     margin:30px;
+    color:white;
 }
 .permission-submit button:hover{
     background-color:#0095d9;
-    color:white;
 }
 .permission-submit button:active{
     background-color:#2ca9e1;
-    color:black;
 }

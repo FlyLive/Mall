@@ -9,11 +9,11 @@ namespace Mall.Web.Back.ViewModel
     public partial class CommentViewModel
     {
         public int CommentId { get; set; }
-        public int ClientId { get; set; }
+        public int CustomId { get; set; }
         public int GoodsId { get; set; }
         public string CommentDetail { get; set; }
         public DateTime CommentTime { get; set; }
-        public int Rank { get; set; }
-        public int ParentId { get; set; }
+        public string Reply { get; set; }
+        public Guid OrderId { get; set; }
     }
 }

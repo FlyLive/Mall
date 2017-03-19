@@ -173,6 +173,7 @@
     <Content Include="Css\Shared\MenuViewHeader.css" />
     <Content Include="JS\Custom\AddressAlready.js" />
     <Content Include="JS\Custom\AddressSet.js" />
+    <Content Include="JS\Custom\ConfirmReceipt.js" />
     <Content Include="JS\Custom\PersonalInfo.js" />
     <Content Include="JS\Custom\SecuritySet.js" />
     <Content Include="JS\Custom\ShoppingCart.js" />
@@ -183,10 +184,10 @@
     <Content Include="Css\Shared\Foot.css" />
     <Content Include="Css\Shared\Head.css" />
     <Content Include="Css\Order\ConfirmOrder.css" />
-    <Content Include="Css\Users\Evaluate.css" />
+    <Content Include="Css\Custom\Evaluate.css" />
     <Content Include="Css\Users\Index.css" />
-    <Content Include="Css\Users\ConfirmReceipt.css" />
-    <Content Include="Css\Users\OrderDetails.css" />
+    <Content Include="Css\Custom\ConfirmReceipt.css" />
+    <Content Include="Css\Order\OrderDetails.css" />
     <Content Include="Css\Users\Registe.css" />
     <Content Include="Css\Users\RetrievePW.css" />
     <Content Include="Css\Custom\ShoppingCart.css" />
@@ -295,6 +296,7 @@
     <Content Include="Views\Shared\Users\_ConfirmVerifyCode.cshtml" />
     <Content Include="Views\Custom\SearchGoodFromCart.cshtml" />
     <Content Include="Views\Custom\GetAddress.cshtml" />
+    <Content Include="Views\Shared\Custom\_ConfirmPP.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

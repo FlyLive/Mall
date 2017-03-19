@@ -19,8 +19,10 @@ namespace Mall.Service.DataBase
         public Nullable<int> GoodsId { get; set; }
         public string CommentDetail { get; set; }
         public System.DateTime CommentTime { get; set; }
-        public int ParentId { get; set; }
+        public string Reply { get; set; }
+        public System.Guid OrderId { get; set; }
     
+        public virtual Order Order { get; set; }
         public virtual Custom Custom { get; set; }
         public virtual GoodsInfo GoodsInfo { get; set; }
     }

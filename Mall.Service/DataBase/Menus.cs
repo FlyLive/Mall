@@ -20,5 +20,6 @@ namespace Mall.Service.DataBase
         public string MenuPath { get; set; }
         public string URL { get; set; }
         public string Icon { get; set; }
+        public Nullable<bool> IsDefault { get; set; }
     }
 }

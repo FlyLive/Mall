@@ -16,13 +16,13 @@ namespace Mall.Web.Back.ViewModel
         public string Category { get; set; }
         public int CommentNumber { get; set; }
         public int State { get; set; }
-        public DateTime CreateTime { get; set; }
-        public DateTime ShelfTime { get; set; }
-        public DateTime UnderShelfTime { get; set; }
+        public string CreateTime { get; set; }
+        public string ShelfTime { get; set; }
+        public string UnderShelfTime { get; set; }
         public bool IsDelete { get; set; }
         public string Author { get; set; }
         public string Press { get; set; }
-        public DateTime PublicationDate { get; set; }
+        public string PublicationDate { get; set; }
         public double freight { get; set; }
     }
 }

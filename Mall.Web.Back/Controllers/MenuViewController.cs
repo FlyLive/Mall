@@ -17,8 +17,8 @@ namespace Mall.Web.Back.Controllers
         [HttpGet]
         public ActionResult SideBarMenuByPermissions()
         {
-            Employee employee = (Employee)Session["Employee"];
-            List<MenuViewModel> trees = GetTreeByEmployeeId(employee.UserId);
+            EmployeeViewModel employee = (EmployeeViewModel)Session["Employee"];
+            List<MenuViewModel> trees = GetTreeByEmployeeId(employee.EmployeeId);
             return PartialView(trees);
         }
         /// <summary>

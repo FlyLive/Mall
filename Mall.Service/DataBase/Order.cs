@@ -17,6 +17,7 @@ namespace Mall.Service.DataBase
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Order()
         {
+            this.Comment = new HashSet<Comment>();
             this.Refund = new HashSet<Refund>();
         }
     
@@ -35,10 +36,13 @@ namespace Mall.Service.DataBase
         public System.DateTime CreateTime { get; set; }
         public Nullable<System.DateTime> PaymentTime { get; set; }
         public Nullable<System.DateTime> DeliveryTime { get; set; }
+        public Nullable<System.DateTime> ReceiptTime { get; set; }
         public bool IsDelete { get; set; }
-        public string ClientRemark { get; set; }
+        public string CustomRemark { get; set; }
         public string OrderRemark { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Comment> Comment { get; set; }
         public virtual Custom Custom { get; set; }
         public virtual GoodsInfo GoodsInfo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

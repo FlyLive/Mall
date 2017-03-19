@@ -23,7 +23,6 @@ function SearchGoods() {
 
 function BuyGood(event) {
     var goodsId = $(event).parent().parent().parent().attr("id");
-    alert(goodsId);
     document.location.href = "/Order/ConfirmOrder/?goodsId=" + goodsId;
 }
 
@@ -33,7 +32,7 @@ function DeletGoods(event) {
     $.ajax({
         type: 'POST',
         url: '/Custom/DeletGoodsFromCart',
-        data: { "goodsId": goodsId},
+        data: { "goodsId": goodsId },
         datatype: Boolean,
         success: function (result) {
             if (result == "True") {
@@ -47,38 +46,35 @@ function DeletGoods(event) {
 }
 
 function BuyBySelected(event) {
-    
+
 }
 
 function ReduceCount(event) {
     var count = $(event).parent().find("#count").val();
     var goodsId = $(event).parent().parent().parent().attr("id");
     if (count > 1) {
-        $.ajax({
-            type: 'GET',
-            url: '/Custom/ModifyShoppingCart',
-            data: { "goodsId": goodsId, "count": count },
-            datatype: Boolean,
-            success: function (result) {
-                if (result == "True") {
-                    count--;
-                    $(event).parent().find("#count").val(count);
-                }
-            },
-            error: function () {
-                OpenTip("出错啦!", 2);
-            },
-        });
-        return false;
+        count--;
+        var result = ModifyCartNumber(goodsId, count);
+        if (result) {
+            $(event).parent().find("#count").val(count);
+            return true;
+        }
     }
     OpenTip("数量不能少于一哦！", 1);
 }
 
 function IncreaseCount(event) {
     var count = $(event).parent().find("#count").val();
-    var goodsId = $(event).parent().parent().val();
+    var goodsId = $(event).parent().parent().parent().attr("id");
     count++;
-    $.ajax({
+    var result = ModifyCartNumber(goodsId, count);
+    if (result) {
+        $(event).parent().find("#count").val(count);
+    }
+}
+
+function ModifyCartNumber(goodsId, count) {
+    var result = $.ajax({
         type: 'GET',
         url: '/Custom/ModifyShoppingCart',
         data: { "goodsId": goodsId, "count": count },
@@ -86,10 +82,15 @@ function IncreaseCount(event) {
         success: function (result) {
             if (result == "True") {
                 $(event).parent().find("#count").val(count);
+                return true;
             }
+            return false;
         },
         error: function () {
             OpenTip("出错啦!", 2);
+            return false;
         },
     });
+
+    return result;
 }

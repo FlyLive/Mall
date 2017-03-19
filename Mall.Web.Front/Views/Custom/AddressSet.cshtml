@@ -5,7 +5,7 @@
 }
 
 <section class="content-header">
-    <h1>Address</h1>
+    <h1>地址管理</h1>
 </section>
 <section class="content">
     <div class="address-set">
@@ -36,16 +36,17 @@
                 </div>
             </form>
         </div>
-        @Html.Partial("AddressAlready")
+        @Html.Action("AddressAlready")
     </div>
 </section>
 @section css{
-    @Styles.Render("~/Css/Account/AddressSet.css")
-    @Styles.Render("~/Css/Account/AddressAlready.css")
+    @Styles.Render("~/Css/Custom/AddressSet.css")
+    @Styles.Render("~/Css/Custom/AddressAlready.css")
 }
 @section scripts{
-    @Scripts.Render("~/JS/Account/AddressSet.js")
-    @Scripts.Render("~/JS/Account/AddressAlready.js")
+    @Scripts.Render("~/JS/Custom/AddressSet.js")
+    @Scripts.Render("~/JS/Custom/AddressAlready.js")
+    @Scripts.Render("~/JS/Shared/layer_open_tip.js")
 }
 @{
     var create = TempData["Create"];
@@ -57,6 +58,7 @@
                 layer.open({
                     title: '提示',
                     content: '新建收货地址成功',
+                    icon:6,
                 });
             </script>
             TempData["Create"] = null;

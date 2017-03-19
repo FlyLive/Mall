@@ -33,6 +33,8 @@
     width:350px;
     height:30px;
     text-indent:5px;
+    border-radius:3px;
+    border:1px solid #b9b9b9;
 }
 .create-employee-left .title,.create-employee-right .title{
     display:inline-block;
@@ -52,6 +54,7 @@
     border:none;
     border-radius:5px;
     background-color:#2ca9e1;
+    color:white;
 }
 .create-employee-left-submit > button:hover{
     background-color:#0095d9;

@@ -1,4 +1,6 @@
 ﻿
+@model List<Mall.Web.Front.ViewModel.DeliveryInfoViewModel>
+
 <div class="address-already">
     <p class="already-title">已有收货地址:</p>
     <div class="already">
@@ -11,26 +13,26 @@
             <li class="default">默认设置</li>
         </ul>
         <ul class="already-content">
-            <li class="content-light">
-                <ul>
-                    <li class="consignee">张三</li>
-                    <li class="address">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</li>
-                    <li class="zip">000000</li>
-                    <li class="phone">18325066357</li>
-                    <li class="action"><a onclick="ModifyAddress(1)">修改</a>/<a onclick="Delet(1)">删除</a></li>
-                    <li class="default default-selected">默认地址</li>
-                </ul>
-            </li>
-            <li class="content-dark">
-                <ul>
-                    <li class="consignee">张三</li>
-                    <li class="address">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</li>
-                    <li class="zip">000000</li>
-                    <li class="phone">18325066357</li>
-                    <li class="action"><a onclick="ModifyAddress(1)">修改</a>/<a onclick="Delet(1)">删除</a></li>
-                    <li class="default default-nonselected" onclick="SetDefault(this)">设为默认</li>
-                </ul>
-            </li>
+            @for (var i = 0; i < Model.Count; i++)
+            {
+                <li class="@(i % 2 == 0 ? "content-light" : "content-dark")">
+                    <ul>
+                        <li class="consignee">@Model[i].Consignee</li>
+                        <li class="address">@Model[i].DetailedAddress</li>
+                        <li class="zip">@Model[i].Zip</li>
+                        <li class="phone">@Model[i].PhoneNumber</li>
+                        <li class="action"><a onclick="ModifyAddress(@Model[i].Id)">修改</a>/<a onclick="Delet(@Model[i].Id)">删除</a></li>
+                        @if (Model[i].IsDefault)
+                        {
+                            <li class="default default-selected">默认地址</li>
+                        }
+                        else
+                        {
+                            <li class="default default-nonselected" onclick="SetDefault(@Model[i].Id)">设为默认</li>
+                        }
+                    </ul>
+                </li>
+            }
         </ul>
     </div>
     @Html.Partial("Custom/_ModifyAddress")

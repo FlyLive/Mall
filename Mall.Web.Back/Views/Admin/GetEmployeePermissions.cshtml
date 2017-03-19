@@ -9,15 +9,22 @@
 </div>
 <div class="permission-content">
     <ul>
-        @for (var i = 0; i < Model.Count; i++)
+        @if (Model.Count != 0)
         {
-            <li class="permission-item @(i % 2 == 0 ? "even" : "odd")">
-                <ul>
-                    <li class="permission-name">@Model[i].Name</li>
-                    <li class="permission-detail">@Model[i]</li>
-                    <li class="permission-time">@Model[i].CreationTime</li>
-                </ul>
-            </li>
+            for (var i = 0; i < Model.Count; i++)
+            {
+                <li class="permission-item @(i % 2 == 0 ? "even" : "odd")">
+                    <ul>
+                        <li class="permission-name">@Model[i].Name</li>
+                        <li class="permission-detail">@Model[i]</li>
+                        <li class="permission-time">@DateTime.Now</li>
+                    </ul>
+                </li>
+            }
+        }
+        else
+        {
+            <li class="permission-item even">该员工暂无权限</li>
         }
     </ul>
 </div>

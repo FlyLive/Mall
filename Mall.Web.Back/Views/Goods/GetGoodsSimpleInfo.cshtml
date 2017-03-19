@@ -1,0 +1,25 @@
+﻿
+@model Mall.Web.Back.ViewModel.GoodsInfoViewModel
+
+<div>
+    <h4 class="replyevaluate-title">商品信息</h4>
+</div>
+<div class="replyevaluate-info">
+    <a class="replyevaluate-goods-info-link">
+        <img src="~/Pictures/Shared/contact.png" />
+    </a>
+    <table>
+        <tr>
+            <td>商品名:&emsp;<span>@Model.GoodsName</span></td>
+            <td>作者:&emsp;<span>@Model.Author</span></td>
+            <td>出版社:&emsp;<span>@Model.Press</span></td>
+            <td>出版时间:&emsp;<span>@Model.PublicationDate</span></td>
+        </tr>
+        <tr>
+            <td>单价:&emsp;<span>@Model.Price</span></td>
+            <td>商品ID:&emsp;<span>@Model.GoodsId</span></td>
+            <td>是否在售:&emsp;<span>@(Model.State == (int)Mall.Service.Models.StateOfGoods.State.OnShelves)</span></td>
+            <td>剩余量:&emsp;<span>@Model.Stock</span></td>
+        </tr>
+    </table>
+</div>

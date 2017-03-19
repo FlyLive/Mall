@@ -14,31 +14,35 @@ namespace Mall.Web.Back.Controllers
 {
     public class OrderController : Controller
     {
+        private EnterpriseService _enterpriseService = new EnterpriseService();
+        private MenuViewService _menuViewService = new MenuViewService();
         private OrderService _orderService = new OrderService();
 
         #region 订单管理
         [HttpGet]
         public ActionResult AllOrders(int page = 1, int pageSize = 10)
         {
+            LoginTest();
             List<Order> orders = _orderService.GetAllOrders();
             IPagedList<OrderViewModel> orderDTO = DataToDTO(orders).ToPagedList(page, pageSize);
-            return View(orders);
+            return View(orderDTO);
         }
 
         #region 接受订单
         [HttpGet]
         [PermissionAuthorize("Accept")]
-        public ActionResult ToAccept()
+        public ActionResult ToAccept(int page = 1,int pageSize = 10)
         {
             List<Order> orders = _orderService
                 .GetOrdersByState((int)StateOfOrder.State.ToAccept);
-            List<OrderViewModel> orderDTO = DataToDTO(orders);
+            IPagedList<OrderViewModel> orderDTO = DataToDTO(orders).ToPagedList(page, pageSize);
             return View(orderDTO);
         }
 
         public bool AcceptOrder(Guid orderId)
         {
-            var result = _orderService.AcceptOrderByOrderId(orderId);
+            EmployeeViewModel employee = (EmployeeViewModel)Session["Employee"];
+            var result = _orderService.AcceptOrderByOrderId(employee.EmployeeId,orderId);
             return result;
         }
 
@@ -48,9 +52,11 @@ namespace Mall.Web.Back.Controllers
         /// <param name="orderId"></param>
         /// <param name="marks"></param>
         /// <returns></returns>
-        public bool ModifyRemark(Guid orderId, string marks)
+        public bool ModifyRemark(Guid orderId, string mark)
         {
-            _orderService.ModifyRemarksByOrderId(orderId, marks);
+            EmployeeViewModel employee = (EmployeeViewModel)Session["Employee"];
+
+            _orderService.ModifyRemarksByOrderId(employee.EmployeeId,orderId, mark);
             return true;
         }
         #endregion
@@ -67,35 +73,12 @@ namespace Mall.Web.Back.Controllers
         }
 
         [HttpPost]
+        [PermissionAuthorize("Delivery")]
         public bool DeliveryOrder(Guid orderId)
         {
-            _orderService.ConfirmDeliverByOrderId(orderId);
-            return true;
-        }
-        #endregion
-
-        #region 回复评价
-        [HttpGet]
-        [PermissionAuthorize("Reply")]
-        public ActionResult ToReply()
-        {
-            List<Order> orders = _orderService
-                .GetOrdersByState((int)StateOfOrder.State.ToRefund);
-            List<OrderViewModel> orderDTO = DataToDTO(orders);
-            return View(orderDTO);
-        }
-
-        [HttpGet]
-        [PermissionAuthorize("Reply")]
-        public ActionResult ReplyEvaluate()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult ReplyEvaluate(Guid orderId,string refund)
-        {
-            return View();
+            EmployeeViewModel employee = (EmployeeViewModel)Session["Employee"];
+            var result = _orderService.ConfirmDeliverByOrderId(employee.EmployeeId,orderId);
+            return result;
         }
         #endregion
 
@@ -110,11 +93,75 @@ namespace Mall.Web.Back.Controllers
             return View(orderDTO);
         }
 
+        [PermissionAuthorize("Refund")]
         public bool AcceptRefund(Guid orderId)
         {
-            var result = _orderService.AgreeRefundByOrderId(orderId);
+            EmployeeViewModel employee = (EmployeeViewModel)Session["Employee"];
+            var result = _orderService.AgreeRefundByOrderId(employee.EmployeeId,orderId);
             
             return true;
+        }
+        #endregion
+
+        #region 回复评价
+        [HttpGet]
+        [PermissionAuthorize("Reply")]
+        public ActionResult ToReply(int page = 1,int pageSize = 10)
+        {
+            List<Order> orders = _orderService
+                .GetOrdersByState((int)StateOfOrder.State.ToRefund);
+            IPagedList<OrderViewModel> orderDTO = DataToDTO(orders).ToPagedList(page,pageSize);
+            return View(orderDTO);
+        }
+
+        [HttpGet]
+        [PermissionAuthorize("Reply")]
+        public ActionResult ReplyEvaluate(Guid orderId)
+        {
+            Order order = _orderService.GetOrderByOrderId(orderId);
+            Comment comment = order.Comment.ElementAt(0);
+            CommentViewModel commentDTO = new CommentViewModel
+            {
+                CommentId = comment.CommentId,
+                CustomId = (int)comment.CustomId,
+                CommentDetail = comment.CommentDetail,
+                CommentTime = comment.CommentTime,
+                GoodsId = (int)comment.GoodsId,
+                OrderId = comment.OrderId,
+                Reply = comment.Reply
+            };
+            return View(commentDTO);
+        }
+
+        [HttpPost]
+        [PermissionAuthorize("Reply")]
+        public ActionResult ReplyEvaluate(Guid orderId,int commentId,string replyContent)
+        {
+            EmployeeViewModel employee = (EmployeeViewModel)Session["Employee"];
+            if(employee == null)
+            {
+                return RedirectToAction("Index","Admin");
+            }
+            _orderService.ReplyByOrderId(employee.EmployeeId, orderId, replyContent,commentId);
+            return RedirectToAction("AllOrders", "Order");
+        }
+
+        [HttpGet]
+        public ActionResult GetBuyerInfo(Guid orderId)
+        {
+            Order order = _orderService.GetOrderByOrderId(orderId);
+            User user = order.Custom.User;
+            UserViewModel userDTO = AdminController.DataUserToDTO(user);
+            return PartialView(userDTO);
+        }
+
+        [HttpGet]
+        public ActionResult GetOrderInfo(Guid orderId)
+        {
+            Order order = _orderService.GetOrderByOrderId(orderId);
+            OrderViewModel orderDTO = DataToDTO(new List<Order> { order }).ElementAt(0);
+
+            return PartialView(orderDTO);
         }
         #endregion
 
@@ -129,15 +176,19 @@ namespace Mall.Web.Back.Controllers
             return View(orderDTO);
         }
 
+        [PermissionAuthorize("Return")]
         public bool AcceptReturn(Guid orderId)
         {
-            _orderService.AgreeReturnByOrderId(orderId);
+            EmployeeViewModel employee = (EmployeeViewModel)Session["Employee"];
+            _orderService.AgreeReturnByOrderId(employee.EmployeeId,orderId);
             return true;
         }
 
+        [PermissionAuthorize("Return")]
         public bool RefuseReturn(Guid orderId)
         {
-            _orderService.RefuseReturnByOrderId(orderId);
+            EmployeeViewModel employee = (EmployeeViewModel)Session["Employee"];
+            _orderService.RefuseReturnByOrderId(employee.EmployeeId,orderId);
             return true;
         }
         #endregion
@@ -152,6 +203,29 @@ namespace Mall.Web.Back.Controllers
             return View(orderDTO);
         }
         #endregion
+
+        public void LoginTest()
+        {
+            Employee employee = _enterpriseService.Login("001", "123456");
+            List<Permissions> permissions = _menuViewService.GetAllPermissionsByEmployeeId(employee.EmployeeId);
+            EmployeeViewModel employeeDTO = new EmployeeViewModel
+            {
+                EmployeeId = employee.EmployeeId,
+                UserId = employee.UserId,
+                ManagePassword = employee.ManagePassword,
+            };
+            UserViewModel userDTO = AdminController.DataUserToDTO(employee.User);
+            List<PermissionsViewModel> permissionsDTO = permissions.Select(p => new PermissionsViewModel
+            {
+                Id = p.PermissionId,
+                Name = p.Name,
+                Code = p.Code
+            }).ToList();
+
+            Session.Add("Employee", employeeDTO);
+            Session.Add("User", userDTO);
+            Session.Add("Permissions", permissionsDTO);
+        }
 
         public List<OrderViewModel> DataToDTO(List<Order> orders)
         {
@@ -169,11 +243,12 @@ namespace Mall.Web.Back.Controllers
                 PhoneNumber = o.PhoneNumber,
                 DeliveryAddress = o.DeliveryAddress,
                 State = o.State,
-                CreateTime = o.CreateTime,
-                PaymentTime = (DateTime)o.PaymentTime,
-                DeliveryTime = (DateTime)o.DeliveryTime,
+                CreateTime = o.CreateTime == null ? "0000-00-00 00-00-00" : o.CreateTime.ToString(),
+                PaymentTime = o.PaymentTime == null ? "0000-00-00 00-00-00" : o.PaymentTime.ToString(),
+                DeliveryTime = o.DeliveryTime == null ? "0000-00-00 00-00-00" : o.DeliveryTime.ToString(),
+                ReceiptTime = o.ReceiptTime == null ? "0000-00-00 00-00-00" : o.ReceiptTime.ToString(),
                 IsDelete = o.IsDelete,
-                ClientRemark = o.ClientRemark,
+                ClientRemark = o.CustomRemark,
                 OrderRemark = o.OrderRemark,
             }).ToList();
             return orderDTO;

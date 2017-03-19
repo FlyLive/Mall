@@ -6,21 +6,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Mall.Service.Services.Enterprise;
 
 namespace Mall.Web.Front.Controllers
 {
     public class GoodsController : Controller
     {
-
+        GoodsService _goodsService = new GoodsService();
 
         /// <summary>
         /// 商品详情页
         /// </summary>
         /// <param name="goodsId"></param>
         /// <returns></returns>
-        public ActionResult Goods(/*int goodsId*/)
+        [HttpGet]
+        public ActionResult Goods(int goodsId)
         {
-            GoodsInfo goods = new GoodsInfo();
+            GoodsInfo goods = _goodsService.GetGoodsByGoodsId(goodsId);
             GoodsInfoViewModel goodsDTO = DataGoodToDTO(goods);
             return View(goodsDTO);
         }
@@ -32,7 +34,7 @@ namespace Mall.Web.Front.Controllers
         /// <returns></returns>
         public ActionResult GoodsSaleInfo(int goodsId)
         {
-            GoodsInfo goods = new GoodsInfo();
+            GoodsInfo goods = _goodsService.GetGoodsByGoodsId(goodsId);
             GoodsInfoViewModel goodsDTO = DataGoodToDTO(goods);
             return PartialView(goodsDTO);
         }
@@ -44,7 +46,9 @@ namespace Mall.Web.Front.Controllers
         /// <returns></returns>
         public ActionResult GoodsDetails(int goodsId)
         {
-            return PartialView();
+            GoodsInfo goods = _goodsService.GetGoodsByGoodsId(goodsId);
+            GoodsInfoViewModel goodsDTO = DataGoodToDTO(goods);
+            return PartialView(goodsDTO);
         }
 
         /// <summary>
@@ -54,7 +58,18 @@ namespace Mall.Web.Front.Controllers
         /// <returns></returns>
         public ActionResult GoodsEvaluates(int goodsId)
         {
-            return PartialView();
+            List<Comment> comments = _goodsService.GetGoodsCommentsByGoodsId(goodsId);
+            List<CommentViewModel> commentsDTO = comments.Select(c => new CommentViewModel
+            {
+                CommentId = c.CommentId,
+                CustomId = (int)c.CustomId,
+                GoodsId = (int)c.GoodsId,
+                CommentDetail = c.CommentDetail,
+                CommentTime = c.CommentTime,
+                PhotoUrl = c.Custom.User.Photo,
+                CustomNick = c.Custom.User.NickName
+            }).ToList();
+            return PartialView(commentsDTO);
         }
 
         /// <summary>

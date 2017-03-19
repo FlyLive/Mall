@@ -20,29 +20,45 @@ namespace Mall.Web.Back.Controllers
         }
 
         [HttpPost]
-        public bool CreateGoods(string name, string count, string price,
+        public int CreateGoods(string name, string count, string price,
             string detail, DateTime? publicationDate, string freight = "+0",
             string author = null, string press = null)
         {
             int countNumber = Convert.ToInt16(count.Substring(1));
             double newPrice = Convert.ToDouble(price.Substring(1));
             double newFreight = Convert.ToDouble(freight.Substring(1));
-            //string name = System.Web.HttpContext.Current.Request.Form["name"];
-            HttpFileCollection files = System.Web.HttpContext.Current.Request.Files;
 
-            foreach(var key in files.AllKeys)
+            int result = _goodsService.CreateGoods(name, countNumber, newPrice, detail,
+                0, newFreight, publicationDate, author, press);
+            return result;
+        }
+
+        [HttpPost]
+        public bool CreateGoodsImg(int goodsId)
+        {
+            HttpFileCollection filess = System.Web.HttpContext.Current.Request.Files;
+
+            foreach (var key in filess.AllKeys)
             {
-                HttpPostedFile file = files[key];
-                if(string.IsNullOrEmpty(file.FileName) == false)
+                HttpPostedFile file = filess[key];
+                if (string.IsNullOrEmpty(file.FileName) == false)
                 {
                     string now = DateTime.Now.ToString("yyyy-MM-ddHHmmss");
-                    file.SaveAs(HttpContext.Server.MapPath("~/Pictures/Goods/") + now + file.FileName);
+                    string path = "localhost:9826/Mall.Web.Goods/Goods/" + now + file.FileName;
+                    file.SaveAs(HttpContext.Server.MapPath(path));
+                    _goodsService.AddGoodsImage(goodsId,path);
                 }
             }
-
-            var result = _goodsService.CreateGoods(name, countNumber, newPrice, detail,
-                0, newFreight, publicationDate, author, press);
+            
             return true;
+        }
+
+        [HttpGet]
+        public ActionResult GetGoodsSimpleInfo(int goodsId)
+        {
+            GoodsInfo goods = _goodsService.GetGoodsByGoodsId(goodsId);
+            GoodsInfoViewModel goodsDTO = DataGoodToDTO(new List<GoodsInfo> { goods }).ElementAt(0);
+            return PartialView(goodsDTO);
         }
 
         [HttpGet]
@@ -59,13 +75,13 @@ namespace Mall.Web.Back.Controllers
                 Category = goods.Category,
                 CommentNumber = goods.CommentNumber,
                 State = goods.State,
-                CreateTime = goods.CreateTime,
-                ShelfTime = (DateTime)goods.ShelfTime,
-                UnderShelfTime = (DateTime)goods.UnderShelfTime,
+                CreateTime = goods.CreateTime.ToString("yyyy-MM-dd HH-mm-ss"),
+                ShelfTime = goods.ShelfTime == null ? "0000-00-00 00-00-00" : goods.ShelfTime.ToString(),
+                UnderShelfTime = goods.UnderShelfTime == null ? "0000-00-00 00-00-00" : goods.UnderShelfTime.ToString(),
                 IsDelete = goods.IsDelete,
                 Author = goods.Author,
                 Press = goods.Press,
-                PublicationDate = (DateTime)goods.PublicationDate,
+                PublicationDate = goods.PublicationDate == null ? "0000-00-00 00-00-00" : goods.PublicationDate.ToString(),
                 freight = goods.freight,
             };
             return PartialView(goodsDTO);
@@ -75,25 +91,7 @@ namespace Mall.Web.Back.Controllers
         public ActionResult GoodsEdit()
         {
             List<GoodsInfo> goods = _goodsService.GetAllGoods();
-            List<GoodsInfoViewModel> goodsDTO = goods
-                .Select(good => new GoodsInfoViewModel {
-                    GoodsId = good.GoodsId,
-                    GoodsName = good.GoodsName,
-                    Price = good.Price,
-                    Stock = good.Stock,
-                    Details = good.Details,
-                    Category = good.Category,
-                    CommentNumber = good.CommentNumber,
-                    State = good.State,
-                    CreateTime = good.CreateTime,
-                    ShelfTime = (DateTime)good.ShelfTime,
-                    UnderShelfTime = (DateTime)good.UnderShelfTime,
-                    IsDelete = good.IsDelete,
-                    Author = good.Author,
-                    Press = good.Press,
-                    PublicationDate = (DateTime)good.PublicationDate,
-                    freight = good.freight,
-                }).ToList();
+            List<GoodsInfoViewModel> goodsDTO = DataGoodToDTO(goods);
             return View(goodsDTO);
         }
 
@@ -107,28 +105,33 @@ namespace Mall.Web.Back.Controllers
         public ActionResult GoodsStock()
         {
             List<GoodsInfo> goods = _goodsService.GetAllGoods();
-            List<GoodsInfoViewModel> goodsDTO = goods
-                .Select(good => new GoodsInfoViewModel{
-                    GoodsId = good.GoodsId,
-                    GoodsName = good.GoodsName,
-                    Price = good.Price,
-                    Stock = good.Stock,
-                    Details = good.Details,
-                    Category = good.Category,
-                    CommentNumber = good.CommentNumber,
-                    State = good.State,
-                    CreateTime = good.CreateTime,
-                    ShelfTime = (DateTime)good.ShelfTime,
-                    UnderShelfTime = (DateTime)good.UnderShelfTime,
-                    IsDelete = good.IsDelete,
-                    Author = good.Author,
-                    Press = good.Press,
-                    PublicationDate = (DateTime)good.PublicationDate,
-                    freight = good.freight,
-                }).ToList();
+            List<GoodsInfoViewModel> goodsDTO = DataGoodToDTO(goods);
             return View(goodsDTO);
         }
-        
         #endregion
+
+        public static List<GoodsInfoViewModel> DataGoodToDTO(List<GoodsInfo> goods)
+        {
+            List<GoodsInfoViewModel> goodDTO = goods.Select(g => new GoodsInfoViewModel
+            {
+                GoodsId = g.GoodsId,
+                GoodsName = g.GoodsName,
+                Price = g.Price,
+                Stock = g.Stock,
+                Details = g.Details,
+                Category = g.Category,
+                CommentNumber = g.CommentNumber,
+                State = g.State,
+                CreateTime = g.CreateTime.ToString("yyyy-MM-dd HH-mm-ss"),
+                ShelfTime = g.ShelfTime == null ? g.ShelfTime.ToString() : "0000-00-00 00-00-00",
+                UnderShelfTime = g.UnderShelfTime == null ? g.UnderShelfTime.ToString() : "0000-00-00 00-00-00",
+                IsDelete = g.IsDelete,
+                Author = g.Author,
+                Press = g.Press,
+                PublicationDate = g.PublicationDate == null ? g.PublicationDate.ToString() : "0000-00-00 00-00-00",
+                freight = g.freight,
+            }).ToList();
+            return goodDTO;
+        }
     }
 }

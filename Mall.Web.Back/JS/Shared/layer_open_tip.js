@@ -16,3 +16,13 @@ function Tip(content, tag) {
         time: 1500,
     });
 }
+
+function OpenTipSuccess(content,anim) {
+    layer.open({
+        title: "提示",
+        content: content,
+        skin: "layui-layer-molv",
+        time: 2000,
+        anim: anim,
+    });
+}

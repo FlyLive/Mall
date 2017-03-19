@@ -12,8 +12,8 @@ namespace Mall.Web.Front.Controllers
 {
     public class OrderController : Controller
     {
-        public OrderService _orderService = new OrderService();
-        public CustomService _customService = new CustomService();
+        private OrderService _orderService = new OrderService();
+        private CustomService _customService = new CustomService();
 
         public ActionResult AllOrders()
         {
@@ -33,7 +33,7 @@ namespace Mall.Web.Front.Controllers
         {
             CustomViewModel customDTO = (CustomViewModel)Session["Custom"];
             Order order = _orderService.GetOrderById(customDTO.CustomId, new Guid(orderId));
-            OrderViewModel orderDTO = new OrderViewModel
+            OrderViewModel orderDTO = order == null ? null : new OrderViewModel
             {
                 OrderId = order.OrderId,
                 GoodsId = order.GoodsId,
@@ -51,7 +51,7 @@ namespace Mall.Web.Front.Controllers
                 PaymentTime = order.PaymentTime == null ? order.PaymentTime.ToString() : "0000-00-00 00-00-00",
                 DeliveryTime = order.DeliveryTime == null ? order.DeliveryTime.ToString() : "0000-00-00 00-00-00",
                 IsDelete = order.IsDelete,
-                ClientRemark = order.ClientRemark,
+                ClientRemark = order.CustomRemark,
                 OrderRemark = order.OrderRemark,
             };
             return PartialView(orderDTO);
@@ -79,18 +79,22 @@ namespace Mall.Web.Front.Controllers
         /// <param name="deliveryAddressId"></param>
         /// <param name="clientRemark"></param>
         /// <returns></returns>
-        public ActionResult CreateOrder(int deliveryAddressId, int[] goodsId, int[] count,string[] clientRemark)
+        [HttpPost]
+        public ActionResult CreateOrderFromCart(int deliveryAddressId, int[] goodsId,string[] customRemark = null)
         {
             CustomViewModel custom = (CustomViewModel)Session["Custom"];
-            if (custom == null)
+            Guid[] orderId = new Guid[goodsId.Length];
+            for (int i = 0; i < goodsId.Length; i++)
             {
-                return RedirectToAction("Index", "Users");
+                customRemark[i] = customRemark[i] == null ? " " : customRemark[i];
+                //orderId[i] = new Guid("00000000-0000-0000-0000-000000000000");
+                orderId[i] = _orderService.CreateOrderFromCart(goodsId[i], custom.CustomId, deliveryAddressId,customRemark[i]);
             }
-            else
-            {
-                var orderId = _orderService.CreateOrder(goodsId, custom.CustomId, deliveryAddressId, count, clientRemark);
-                return RedirectToAction("BuyNow", orderId);
-            }
+
+            JsonResult jsonOrderId = new JsonResult();
+            jsonOrderId.Data = orderId;
+
+            return jsonOrderId;
         }
 
         /// <summary>
@@ -98,7 +102,7 @@ namespace Mall.Web.Front.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public ActionResult ConfirmOrder(int goodsId)
+        public ActionResult ConfirmOrder(int[] goodsId,int count = 1)
         {
             LoginTest();
             CustomViewModel custom = (CustomViewModel)Session["Custom"];
@@ -106,8 +110,8 @@ namespace Mall.Web.Front.Controllers
             {
                 return RedirectToAction("Index", "Users");
             }
-            ShoppingCart cart = _customService.GetCartByCustomIdAndGoodsId(custom.CustomId, goodsId);
-            List<ShoppingCartViewModel> cartDTO = new List<ShoppingCartViewModel>();
+            List<ShoppingCart> cart = _customService.GetCartByCustomIdAndGoodsId(custom.CustomId, goodsId);
+            List<ShoppingCartViewModel> cartDTO = CustomController.DataCartToDTO(cart);
             return View(cartDTO);
         }
 
@@ -116,15 +120,15 @@ namespace Mall.Web.Front.Controllers
         /// </summary>
         /// <param name="orderId"></param>
         /// <returns></returns>
-        [HttpGet]
-        public bool PayOrder(Guid orderId)
+        [HttpPost]
+        public bool PayOrder(Guid[] orderId)
         {
             CustomViewModel custom = (CustomViewModel)Session["Custom"];
             if (custom == null)
             {
                 return false;
             }
-            bool result = _orderService.PayByOrderId(orderId);
+            bool result = _orderService.PayByOrderId(custom.CustomId,orderId);
             return result;
         }
 
@@ -132,14 +136,37 @@ namespace Mall.Web.Front.Controllers
         /// 订单详情
         /// </summary>
         /// <returns></returns>
-        public ActionResult OrderDetails()
+        [HttpGet]
+        public ActionResult OrderDetails(Guid orderId)
         {
             CustomViewModel custom = (CustomViewModel)Session["Custom"];
             if (custom == null)
             {
                 return RedirectToAction("Index", "Users");
             }
-            return View();
+            Order order = _orderService.GetOrderById(custom.CustomId,orderId);
+            OrderViewModel orderDTO = new OrderViewModel
+            {
+                OrderId = order.OrderId,
+                GoodsId = order.GoodsId,
+                CustomId = order.CustomId,
+                GoodsName = order.GoodsName,
+                Price = order.Price,
+                Freight = order.Freight,
+                Count = order.Count,
+                Totla = order.Totla,
+                Consignee = order.Consignee,
+                PhoneNumber = order.PhoneNumber,
+                DeliveryAddress = order.DeliveryAddress,
+                State = order.State,
+                CreateTime = order.CreateTime.ToString("yyyy-MM-dd HH-mm-ss"),
+                PaymentTime = order.PaymentTime == null ? order.PaymentTime.ToString() : "0000-00-00 00-00-00",
+                DeliveryTime = order.DeliveryTime == null ? order.DeliveryTime.ToString() : "0000-00-00 00-00-00",
+                IsDelete = order.IsDelete,
+                ClientRemark = order.CustomRemark,
+                OrderRemark = order.OrderRemark,
+            };
+            return View(orderDTO);
         }
 
         public void LoginTest()
@@ -177,8 +204,9 @@ namespace Mall.Web.Front.Controllers
                 CreateTime = order.CreateTime.ToString("yyyy-MM-dd HH-mm-ss"),
                 PaymentTime = order.PaymentTime == null ? order.PaymentTime.ToString() : "0000-00-00 00-00-00",
                 DeliveryTime = order.DeliveryTime == null ? order.DeliveryTime.ToString() : "0000-00-00 00-00-00",
+                ReceiptTime = order.ReceiptTime == null ? order.ReceiptTime.ToString() : "0000-00-00 00-00-00",
                 IsDelete = order.IsDelete,
-                ClientRemark = order.ClientRemark,
+                ClientRemark = order.CustomRemark,
                 OrderRemark = order.OrderRemark,
             }).ToList();
             return orderDTO;

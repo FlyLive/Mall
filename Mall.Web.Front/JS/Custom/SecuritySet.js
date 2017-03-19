@@ -36,10 +36,11 @@ function ConfirmPP() {
         return false;
     }
     else {
-        $.ajax({
+        var result = $.ajax({
             type: "Get",
-            url: "/Custom/ConfirmMP",
+            url: "/Custom/ConfirmPP",
             data: { "pay_password": payPassword },
+            async:false,
             datatype: Boolean,
             success: function (result) {
                 if (result == "True") {
@@ -57,6 +58,7 @@ function ConfirmPP() {
                 OpenTip("出错啦!");
             }
         });
+        return result.responseText;
     }
 }
 

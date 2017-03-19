@@ -1,4 +1,6 @@
-﻿<!-- 评价列表 -->
+﻿
+@model List<Mall.Web.Front.ViewModel.CommentViewModel>
+<!-- 评价列表 -->
 <div class="title">
     <h4><span>商品评价</span></h4>
 </div>
@@ -14,6 +16,19 @@
             <div class="evaluate-content">
                 <p class="evaluate">和身边的朋友同事安利了海豹，现在我们的微信头像相当和谐哈哈哈哈哈哈，明天带去学校给班里 的小朋友们，再在家长群里安利一下，XX要不要给我广告费啊。 </p>
                 <p class="evaluate-time">@DateTime.Now</p>
+            </div>
+        </div>
+    }
+    @foreach (var item in Model)
+    {
+        <div class="evaluate">
+            <div class="evaluate-buyer">
+                <img src="@item.PhotoUrl" />
+                <p>@item.CustomNick</p>
+            </div>
+            <div class="evaluate-content">
+                <p class="evaluate">@item.CommentDetail</p>
+                <p class="evaluate-time">@item.CommentTime</p>
             </div>
         </div>
     }

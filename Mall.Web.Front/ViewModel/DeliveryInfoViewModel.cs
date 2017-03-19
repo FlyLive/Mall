@@ -13,6 +13,7 @@ namespace Mall.Web.Front.ViewModel
         public string Consignee { get; set; }
         public string DetailedAddress { get; set; }
         public string PhoneNumber { get; set; }
+        public string Zip { get; set; }
         public bool IsDefault { get; set; }
     }
 }

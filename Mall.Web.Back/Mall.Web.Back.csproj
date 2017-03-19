@@ -192,7 +192,6 @@
     <Content Include="Css\MenuView\blue.css" />
     <Content Include="Content\boot.css" />
     <Content Include="Css\Order\Orders.css" />
-    <Content Include="JS\Shared\jquery.ztree.all.min.js" />
     <Content Include="Css\Shared\MenuViewHead.css" />
     <Content Include="Css\MenuView\morris.css" />
     <Content Include="Css\MenuView\_all-skins.css" />
@@ -218,6 +217,7 @@
     <Content Include="JS\Order\Orders.js" />
     <Content Include="JS\Shared\cropbox.js" />
     <Content Include="JS\Shared\jquery-2.2.3.min.js" />
+    <Content Include="JS\Shared\jquery.ztree.all.js" />
     <Content Include="JS\Shared\layer_open_tip.js" />
     <Content Include="JS\Shared\ManageConfirm.js" />
     <Content Include="JS\Shared\ssi-uploader.js" />
@@ -308,6 +308,10 @@
     <Content Include="Views\Order\ToDelivery.cshtml" />
     <Content Include="Views\Order\ToAccept.cshtml" />
     <Content Include="Views\Shared\Order\_OrderTitle.cshtml" />
+    <Content Include="Views\Shared\Admin\_ModifyPermissions.cshtml" />
+    <Content Include="Views\Goods\GetGoodsSimpleInfo.cshtml" />
+    <Content Include="Views\Order\GetBuyerInfo.cshtml" />
+    <Content Include="Views\Order\GetOrderInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

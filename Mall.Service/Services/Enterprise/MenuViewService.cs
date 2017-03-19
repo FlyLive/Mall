@@ -101,6 +101,16 @@ namespace Mall.Service.Services.Enterprise
             _db.SaveChanges();
         }
         /// <summary>
+        /// 通过权限列表
+        /// </summary>
+        /// <param name="employeeId"></param>
+        /// <returns></returns>
+        public List<Menus> GetMenus()
+        {
+            List<Menus> menus = _db.Menus.ToList();
+            return menus;
+        }
+        /// <summary>
         /// 通过员工权限返回相应权限列表
         /// </summary>
         /// <param name="employeeId"></param>
@@ -110,7 +120,7 @@ namespace Mall.Service.Services.Enterprise
             List<Permissions> employeePermissions = GetAllPermissionsByEmployeeId(employeeId);
             List<Menus> menus = _db.Menus.ToList();
             var employeeMenus = menus.Where(m => employeePermissions.Any(p => p.Code.StartsWith(m.MenuPath))).ToList();
-            
+
             return employeeMenus;
         }
         /// <summary>
@@ -166,17 +176,16 @@ namespace Mall.Service.Services.Enterprise
                 .SingleOrDefault(u => u.EmployeeId == employeeId);
 
             var roles = employee.Roles.ToList();
+            List<Permissions> permissions = employee.Permissions.ToList();
+
             var roleIds = roles.Select(r => r.RoleId);
-            
             List<Permissions> rolePermissions = _db.Permissions
                 .Where(p => p.Roles
                         .Any(r => roleIds
                         .Contains(r.RoleId))
                 ).ToList();
 
-            List<Permissions> permissions = employee.Permissions.ToList();
             List<Permissions> employeePermissions = rolePermissions.Union(permissions).ToList();
-
             return employeePermissions;
         }
         /// <summary>

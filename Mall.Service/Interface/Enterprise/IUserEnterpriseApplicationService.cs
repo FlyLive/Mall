@@ -31,12 +31,12 @@ namespace Mall.Interface.Enterprise
         /// <param name="nick"></param>
         /// <param name="managePassword"></param>
         /// <param name="email"></param>
-        /// <param name="permissionIds"></param>
+        /// <param name="menuIds"></param>
         /// <returns></returns>
         bool CreateEmployee(string account, string logPassword, string email,
                 DateTime? birthday, bool gender = true, string nick = null,
                 string managePassword = null, string phoneNumber = null
-                , int[] permissionIds = null);
+                , int[] menuIds = null);
         /// <summary>
         /// 删除员工
         /// </summary>

@@ -99,9 +99,6 @@
 .item-info .good-info{
     vertical-align:middle;
 }
-.item-info .no-action{
-    cursor:no-drop;
-}
 .item-info li > a:hover{
     text-decoration:none;
 }
@@ -124,6 +121,12 @@
 .order-action{
     width:200px;
     text-align: center;
+}
+.order-action a{
+    cursor:pointer;
+}
+.order-action .no-action{
+    cursor:no-drop;
 }
 .no-result{
     width: 100%;

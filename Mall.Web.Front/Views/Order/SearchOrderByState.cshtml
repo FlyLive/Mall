@@ -15,13 +15,35 @@
             <li class="order-item">
                 <div class="item-head">&emsp;<strong>下单时间:&emsp;@order.CreateTime</strong>&emsp;&emsp;&emsp;订单编号:&emsp;@order.OrderId</div>
                 <ul class="item-info">
-                    <li class="good-info"><div><a href=""><img src="~/Pictures/人类简史.jpg" /></a><div><p class="good-detail">Morbi sed mi luctus, tempor arcu nec, hendrerit purus.</p><p class="good-author">作者:&emsp;<span>张嘉佳</span></p></div></div></li>
-                    <li class="good-price">@order.Price</li>
+                    <li class="good-info"><div><a href="/Goods/Goods/@order.GoodsId" target="_blank"><img src="~/Pictures/人类简史.jpg" /></a><div><p class="good-detail">@order.GoodsName</p><p class="good-author">作者:&emsp;<span>@order.GoodsName</span></p></div></div></li>
+                    <li class="good-price">￥@order.Price</li>
                     <li class="good-count">@order.Count</li>
-                    <li class="good-freight">@order.Freight</li>
-                    <li class="good-total">@order.Totla</li>
-                    <li class="order-state"><span class="label label-warning">@order.State</span></li>
-                    <li class="order-action"><a onclick=""><span class="label label-danger">支付</span></a></li>
+                    <li class="good-freight">￥@order.Freight</li>
+                    <li class="good-total">￥@order.Totla</li>
+                    <li class="order-state">
+                        @switch (order.State)
+                        {
+                            case (int)Mall.Service.Models.StateOfOrder.State.ToPay:<span class="label label-warning">未付款</span>; break;
+                            case (int)Mall.Service.Models.StateOfOrder.State.ToAccept:
+                            case (int)Mall.Service.Models.StateOfOrder.State.ToDelivery:<span class="label label-warning">待发货</span>; break;
+                            case (int)Mall.Service.Models.StateOfOrder.State.ToReceipt:<span class="label label-warning">待收货</span>; break;
+                            case (int)Mall.Service.Models.StateOfOrder.State.ToEvaluate:<span class="label label-warning">待评价</span>; break;
+                            case (int)Mall.Service.Models.StateOfOrder.State.ToRefund:
+                            case (int)Mall.Service.Models.StateOfOrder.State.Finish:<span class="label label-success">交易完成</span>; break;
+                        }
+                    </li>
+                    <li class="order-action">
+                        @switch (order.State)
+                        {
+                            case (int)Mall.Service.Models.StateOfOrder.State.ToPay:<a onclick="PayOrder(@order.OrderId)" title="付款"><span class="label label-warning">支付</span></a> break;
+                            case (int)Mall.Service.Models.StateOfOrder.State.ToReceipt:<a href="/Custom/ConfirmReceipt/?orderId=@order.OrderId" target="_blank" title="确认收货"><span class="label label-info">确认收货</span></a> break;
+                            case (int)Mall.Service.Models.StateOfOrder.State.ToEvaluate:<a href="/Custom/Evaluate/?orderId=@order.OrderId" target="_blank" title="评价该商品"><span class="label label-success">立即评价</span></a> break;
+                            case (int)Mall.Service.Models.StateOfOrder.State.ToAccept:
+                            case (int)Mall.Service.Models.StateOfOrder.State.ToDelivery:
+                            case (int)Mall.Service.Models.StateOfOrder.State.ToRefund:
+                            case (int)Mall.Service.Models.StateOfOrder.State.Finish:<a title="该订单当前状态无可执行操作" class="no-action"><span class="label label-default">无操作</span></a> break;
+                        }
+                    </li>
                 </ul>
             </li>
         }

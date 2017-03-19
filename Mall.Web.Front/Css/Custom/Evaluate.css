@@ -41,7 +41,7 @@
 }
 .evaluate-detail-order-info > table > tbody > tr > td{
     padding-bottom:20px;
-    width:400px;
+    /*width:400px;*/
 }
 .evaluate-evaluate-input{
     margin-left:200px;
@@ -58,10 +58,22 @@
     border-radius:5px;
     font-size:14px;
     margin:50px 60px;
+    border:none;
+    background-color:#2fa4cf;
+    color:white;
+    -webkit-box-shadow: rgba(13, 98, 129, 1) 0px 3px;
+    -moz-box-shadow: rgba(13, 98, 129,1) 0px 3px;  
+    box-shadow: rgba(13, 98, 129,1) 0px 3px;
 }
 .submit-evaluate:hover{
-
+    background-color:#298cb1;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;  
+    box-shadow: none;
 }
 .submit-evaluate:active{
-
+    background-color:#2fa4cf;
+    -webkit-box-shadow: rgba(13, 98, 129, 1) 0px 3px;
+    -moz-box-shadow: rgba(13, 98, 129,1) 0px 3px;  
+    box-shadow: rgba(13, 98, 129,1) 0px 3px;
 }

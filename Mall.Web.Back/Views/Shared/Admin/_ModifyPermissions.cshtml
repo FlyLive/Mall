@@ -1,0 +1,34 @@
+﻿
+<div class="modal fade" id="modifyPermissionsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" Data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">修改权限</h4>
+            </div>
+            <div class="modal-body">
+                <ul id="myTab" class="nav nav-tabs">
+                    <li class="active"><a href="#permissions" data-toggle="tab">权限管理</a></li>
+                    <li><a href="#roles" data-toggle="tab">角色管理</a></li>
+                </ul>
+                <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane fade in active" id="permissions">
+                        <div class="zTreeDemoBackground left">
+                            <ul id="employeePermissions" class="ztree"></ul>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="roles">
+                        <p>
+                            iOS 是一个由苹果公司开发和发布的手机操作系统。最初是于 2007 年首次发布 iPhone、iPod Touch 和 Apple
+                            TV。iOS 派生自 OS X，它们共享 Darwin 基础。OS X 操作系统是用在苹果电脑上，iOS 是苹果的移动版本。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="ModifyPermission()">确认修改</button>
+                <button type="button" class="btn btn-default" Data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>

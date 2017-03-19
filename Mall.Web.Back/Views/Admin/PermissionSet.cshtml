@@ -27,14 +27,14 @@
                                     <ul>
                                         @foreach (var item in Model)
                                         {
-                                        <li class="admin-item" id="@item.UserId" onclick="Refresh(this)">
-                                            <div class="item-img"><img src="@item.Photo" /></div>
-                                            <div class="item-info">
-                                                <p>姓名:<span class="info">@item.RealName</span></p>
-                                                <p>账户:<span class="info">@item.Account</span></p>
-                                                <p>Id:<span class="info">@item.UserId</span></p>
-                                            </div>
-                                        </li>
+                                            <li class="admin-item" id="@item.UserId" onclick="Refresh(this)">
+                                                <div class="item-img"><img src="@item.Photo" /></div>
+                                                <div class="item-info">
+                                                    <p>姓名:<span class="info">@item.RealName</span></p>
+                                                    <p>账户:<span class="info">@item.Account</span></p>
+                                                    <p>Id:<span class="info">@item.UserId</span></p>
+                                                </div>
+                                            </li>
                                         }
                                     </ul>
                                 </div>
@@ -48,28 +48,28 @@
                                 <div class="admin-detail-info">
                                     <div class="info-img">
                                         <p class="title">头像</p>
-                                        <label><img src="@Model[0].Photo" /></label>
+                                        <label><img src="" alt="员工头像"/></label>
                                     </div>
                                     <div class="info-id">
                                         <p class="title">员工ID</p>
-                                        <label>@Model[0].UserId</label>
-                                        <input id="employeeId" value="@Model[0].UserId" type="hidden" />
+                                        <label></label>
+                                        <input id="userId" value="@Model[0].UserId" type="hidden" />
                                     </div>
                                     <div class="info-name">
                                         <p class="title">真实姓名</p>
-                                        <label>@Model[0].RealName</label>
+                                        <label></label>
                                     </div>
                                     <div class="info-gender">
                                         <p class="title">性别</p>
-                                        <label>@(Model[0].Gender == true ? "男" : "女")</label>
+                                        <label></label>
                                     </div>
                                     <div class="info-phone">
                                         <p class="title">联系电话</p>
-                                        <label>@Model[0].PhoneNumber</label>
+                                        <label></label>
                                     </div>
                                     <div class="info-email">
                                         <p class="title">E-mail</p>
-                                        <label>@Model[0].Email</label>
+                                        <label></label>
                                     </div>
                                 </div>
                                 <div class="admin-detail-permission">
@@ -103,11 +103,8 @@
             </table>
         </div>
     </div>
-    <div class="zTreeDemoBackground left">
-        <ul id="treeDemo" class="ztree"></ul>
-    </div>
-    <button type="button" onclick="ModifyPermission()"></button>
 </section>
+@Html.Partial("Admin/_ModifyPermissions")
 @section css{
     @Styles.Render("~/Css/Admin/PermissionSet.css")
     @Styles.Render("~/Css/Shared/zTreeStyle.css")
@@ -115,9 +112,6 @@
 }
 @section scripts{
     @Scripts.Render("~/JS/Admin/PermissionSet.js")
-    @Scripts.Render("~/JS/Shared/jquery.ztree.all.min.js")
+    @Scripts.Render("~/JS/Shared/jquery.ztree.all.js")
     @Scripts.Render("~/JS/Shared/layer_open_tip.js")
-    <script type="text/javascript">
-        $(document).ready(SetPermissionTree());
-    </script>
 }

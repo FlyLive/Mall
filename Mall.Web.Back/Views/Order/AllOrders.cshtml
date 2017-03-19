@@ -36,24 +36,44 @@
                     {
                         <li class="order-item @(i % 2 == 0 ? "even" : "odd")">
                             <ul>
-                                <li class="order-list">@i</li>
+                                <li class="order-list">@(i + 1)</li>
                                 <li class="order-id">@Model[i].OrderId</li>
                                 <li class="order-good-name">@Model[i].GoodsName</li>
                                 <li class="order-good-id">@Model[i].GoodsId</li>
-                                <li class="order-price price">@Model[i].Price</li>
+                                <li class="order-price price">￥@Model[i].Price</li>
                                 <li class="order-count">@Model[i].Count</li>
-                                <li class="order-freight price">@Model[i].Freight</li>
-                                <li class="order-totla price">@Model[i].Totla</li>
-                                <li class="order-state">@Model[i].State</li>
+                                <li class="order-freight price">￥@Model[i].Freight</li>
+                                <li class="order-totla price">￥@Model[i].Totla</li>
+                                <li class="order-state">
+                                    @switch (Model[i].State)
+                                    {
+                                        case (int)Mall.Service.Models.StateOfOrder.State.Cancle:<span class="label label-danger">交易取消</span>; break;
+                                        case (int)Mall.Service.Models.StateOfOrder.State.ApplyRefund:<span class="label label-primary">申请退款</span>; break;
+                                        case (int)Mall.Service.Models.StateOfOrder.State.ToPay:<span class="label label-danger">未付款</span>; break;
+                                        case (int)Mall.Service.Models.StateOfOrder.State.ToAccept:<span class="label label-warning">待处理</span>; break;
+                                        case (int)Mall.Service.Models.StateOfOrder.State.ToDelivery:<span class="label label-warning">待发货</span>; break;
+                                        case (int)Mall.Service.Models.StateOfOrder.State.ToReceipt:<span class="label label-info">待收货</span>; break;
+                                        case (int)Mall.Service.Models.StateOfOrder.State.ToEvaluate:<span class="label label-info">待评价</span>; break;
+                                        case (int)Mall.Service.Models.StateOfOrder.State.ToRefund:<span class="label label-warning">待回复</span>; break;
+                                        case (int)Mall.Service.Models.StateOfOrder.State.ApplyReturn:<span class="label label-primary">申请退货</span>; break;
+                                        case (int)Mall.Service.Models.StateOfOrder.State.Finish:<span class="label label-success">交易完成</span>; break;
+                                    }
+                                </li>
                                 <li class="order-client-remark">@Model[i].ClientRemark</li>
                                 <li class="order-action">
-                                    @if (Model[i].State == 2)
-                                    {<a onclick="ConfirmDelivery(@Model[i].OrderId)"><span class="label label-primary">确认发货</span></a><a onclick="ModifyRemark(12)"><span class="label label-info">修改备注</span></a>}
-                                    else if (Model[i].State == 5)
-                                    {<a href="/Order/RePlyEvaluate/@Model[i].OrderId"><span class="label label-warning">回复评价</span></a>}
-                                    else if (Model[i].State == 9)
-                                    {<a class="default" title="该订单已完成交易"><span class="label label-success">交易完成</span></a>}
-                                    {<a class="default" title="该订单当前状态无可执行操作"><span class="label label-default">无操作</span></a>}
+                                    @switch (Model[i].State)
+                                    {
+                                        case (int)Mall.Service.Models.StateOfOrder.State.Cancle:
+                                        case (int)Mall.Service.Models.StateOfOrder.State.ToPay:
+                                        case (int)Mall.Service.Models.StateOfOrder.State.ToReceipt:
+                                        case (int)Mall.Service.Models.StateOfOrder.State.ToEvaluate:<a class="default" title="该订单当前状态无可执行操作"><span class="label label-default">无操作</span></a>; break;
+                                        case (int)Mall.Service.Models.StateOfOrder.State.ApplyRefund:<a onclick="" title="同意退款"><span class="label label-warning">申请退款</span></a>; break;
+                                        case (int)Mall.Service.Models.StateOfOrder.State.ToAccept:<a onclick="AcceptOrder('@Model[i].OrderId')" title="接受订单"><span class="label label-primary">确认订单</span></a><a onclick="ModifyRemark('@Model[i].OrderId')" title="修改备注"><span class="label label-info">修改备注</span></a>; break;
+                                        case (int)Mall.Service.Models.StateOfOrder.State.ToDelivery:<a onclick="ConfirmDelivery('@Model[i].OrderId')" title="确认发货"><span class="label label-warning">确认发货</span></a>; break;
+                                        case (int)Mall.Service.Models.StateOfOrder.State.ToRefund:<a href="/Order/RePlyEvaluate/?orderId=@Model[i].OrderId" title="回复评价"><span class="label label-warning">回复评价</span></a>; break;
+                                        case (int)Mall.Service.Models.StateOfOrder.State.ApplyReturn:<a onclick="" title="同意退货"><span class="label label-primary">同意退货</span></a><a onclick="" title="拒绝退货"><span class="label label-danger">拒绝退货</span></a>; break;
+                                        case (int)Mall.Service.Models.StateOfOrder.State.Finish:<a class="default" title="该订单当前状态无可执行操作"><span class="label label-success">交易完成</span></a>; break;
+                                    }
                                 </li>
                                 <li class="order-createtime">@Model[i].CreateTime</li>
                             </ul>
@@ -71,9 +91,9 @@
                         <li class="order-count">XXX</li>
                         <li class="order-freight price">￥10.00</li>
                         <li class="order-totla price">￥55.00</li>
-                        <li class="order-state">XXXX</li>
+                        <li class="order-state"><span class="label label-danger">交易取消</span></li>
                         <li class="order-client-remark">XXXXXXXXXXXXXXXXXXXXX</li>
-                        <li class="order-action"><a onclick="ConfirmDelivery(12)"><span class="label label-primary">确认发货</span></a><a onclick="ModifyRemark(12)"><span class="label label-info">修改备注</span></a></li>
+                        <li class="order-action"><a class="default" title="该订单当前状态无可执行操作"><span class="label label-default">无操作</span></a></li>
                         <li class="order-createtime">@DateTime.Now</li>
                     </ul>
                 </li>
@@ -87,9 +107,9 @@
                         <li class="order-count">XXX</li>
                         <li class="order-freight price">￥10.00</li>
                         <li class="order-totla price">￥75.00</li>
-                        <li class="order-state">XXXX</li>
+                        <li class="order-state"><span class="label label-primary">申请退款</span></li>
                         <li class="order-client-remark">XXXXXXXXXXXXXXXXXXXXX</li>
-                        <li class="order-action"><a href="/Order/RePlyEvaluate/1"><span class="label label-warning">回复评价</span></a></li>
+                        <li class="order-action"><a onclick="" title="同意退款"><span class="label label-warning">申请退款</span></a></li>
                         <li class="order-createtime">@DateTime.Now</li>
                     </ul>
                 </li>
@@ -103,7 +123,7 @@
                         <li class="order-count">XXX</li>
                         <li class="order-freight price">￥0.00</li>
                         <li class="order-totla price">￥45.00</li>
-                        <li class="order-state">XXXX</li>
+                        <li class="order-state"><span class="label label-danger">未付款</span></li>
                         <li class="order-client-remark">XXXXXXXXXXXXXXXXXXXXX</li>
                         <li class="order-action"><a class="default" title="该订单当前状态无可执行操作"><span class="label label-default">无操作</span></a></li>
                         <li class="order-createtime">@DateTime.Now</li>
@@ -119,9 +139,105 @@
                         <li class="order-count">XXX</li>
                         <li class="order-freight price">￥0.00</li>
                         <li class="order-totla price">￥35.00</li>
-                        <li class="order-state">XXXX</li>
+                        <li class="order-state"><span class="label label-warning">待处理</span></li>
                         <li class="order-client-remark">XXXXXXXXXXXXXXXXXXXXX</li>
-                        <li class="order-action"><a class="default" title="该订单已完成交易"><span class="label label-success">交易完成</span></a></li>
+                        <li class="order-action"><a onclick="" title="接受订单"><span class="label label-primary">确认订单</span></a><a onclick="ModifyRemark(12)" title="修改备注"><span class="label label-info">修改备注</span></a></li>
+                        <li class="order-createtime">@DateTime.Now</li>
+                    </ul>
+                </li>
+                <li class="order-item odd">
+                    <ul>
+                        <li class="order-list">1</li>
+                        <li class="order-id">xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</li>
+                        <li class="order-good-name">XXXXX</li>
+                        <li class="order-good-id">XXX</li>
+                        <li class="order-price price">￥45.00</li>
+                        <li class="order-count">XXX</li>
+                        <li class="order-freight price">￥10.00</li>
+                        <li class="order-totla price">￥55.00</li>
+                        <li class="order-state"><span class="label label-warning">待发货</span></li>
+                        <li class="order-client-remark">XXXXXXXXXXXXXXXXXXXXX</li>
+                        <li class="order-action"><a onclick="ConfirmDelivery(12)" title="确认发货"><span class="label label-warning">确认发货</span></a></li>
+                        <li class="order-createtime">@DateTime.Now</li>
+                    </ul>
+                </li>
+                <li class="order-item even">
+                    <ul>
+                        <li class="order-list">2</li>
+                        <li class="order-id">xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</li>
+                        <li class="order-good-name">XXXXX</li>
+                        <li class="order-good-id">XXX</li>
+                        <li class="order-price price">￥65.00</li>
+                        <li class="order-count">XXX</li>
+                        <li class="order-freight price">￥10.00</li>
+                        <li class="order-totla price">￥75.00</li>
+                        <li class="order-state"><span class="label label-info">待收货</span></li>
+                        <li class="order-client-remark">XXXXXXXXXXXXXXXXXXXXX</li>
+                        <li class="order-action"><a class="default" title="该订单当前状态无可执行操作"><span class="label label-default">无操作</span></a></li>
+                        <li class="order-createtime">@DateTime.Now</li>
+                    </ul>
+                </li>
+                <li class="order-item odd">
+                    <ul>
+                        <li class="order-list">3</li>
+                        <li class="order-id">xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</li>
+                        <li class="order-good-name">XXXXX</li>
+                        <li class="order-good-id">XXX</li>
+                        <li class="order-price price">￥45.00</li>
+                        <li class="order-count">XXX</li>
+                        <li class="order-freight price">￥0.00</li>
+                        <li class="order-totla price">￥45.00</li>
+                        <li class="order-state"><span class="label label-info">待评价</span></li>
+                        <li class="order-client-remark">XXXXXXXXXXXXXXXXXXXXX</li>
+                        <li class="order-action"><a class="default" title="该订单当前状态无可执行操作"><span class="label label-default">无操作</span></a></li>
+                        <li class="order-createtime">@DateTime.Now</li>
+                    </ul>
+                </li>
+                <li class="order-item even">
+                    <ul>
+                        <li class="order-list">4</li>
+                        <li class="order-id">xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</li>
+                        <li class="order-good-name">XXXXX</li>
+                        <li class="order-good-id">XXX</li>
+                        <li class="order-price price">￥35.00</li>
+                        <li class="order-count">XXX</li>
+                        <li class="order-freight price">￥0.00</li>
+                        <li class="order-totla price">￥35.00</li>
+                        <li class="order-state"><span class="label label-warning">待回复</span></li>
+                        <li class="order-client-remark">XXXXXXXXXXXXXXXXXXXXX</li>
+                        <li class="order-action"><a href="/Order/RePlyEvaluate/12" title="回复评价"><span class="label label-warning">回复评价</span></a></li>
+                        <li class="order-createtime">@DateTime.Now</li>
+                    </ul>
+                </li>
+                <li class="order-item odd">
+                    <ul>
+                        <li class="order-list">1</li>
+                        <li class="order-id">xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</li>
+                        <li class="order-good-name">XXXXX</li>
+                        <li class="order-good-id">XXX</li>
+                        <li class="order-price price">￥45.00</li>
+                        <li class="order-count">XXX</li>
+                        <li class="order-freight price">￥10.00</li>
+                        <li class="order-totla price">￥55.00</li>
+                        <li class="order-state"><span class="label label-primary">申请退货</span></li>
+                        <li class="order-client-remark">XXXXXXXXXXXXXXXXXXXXX</li>
+                        <li class="order-action"><a onclick="" title="同意退货"><span class="label label-primary">同意退货</span></a><a onclick="" title="拒绝退货"><span class="label label-danger">拒绝退货</span></a></li>
+                        <li class="order-createtime">@DateTime.Now</li>
+                    </ul>
+                </li>
+                <li class="order-item even">
+                    <ul>
+                        <li class="order-list">4</li>
+                        <li class="order-id">xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</li>
+                        <li class="order-good-name">XXXXX</li>
+                        <li class="order-good-id">XXX</li>
+                        <li class="order-price price">￥35.00</li>
+                        <li class="order-count">XXX</li>
+                        <li class="order-freight price">￥0.00</li>
+                        <li class="order-totla price">￥35.00</li>
+                        <li class="order-state"><span class="label label-success">交易完成</span></li>
+                        <li class="order-client-remark">XXXXXXXXXXXXXXXXXXXXX</li>
+                        <li class="order-action"><a class="default" title="该订单当前状态无可执行操作"><span class="label label-success">交易完成</span></a></li>
                         <li class="order-createtime">@DateTime.Now</li>
                     </ul>
                 </li>

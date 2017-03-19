@@ -10,9 +10,10 @@ namespace Mall.Web.Back.ViewModel
         public int UserId { get; set; }
         public string Account { get; set; }
         public string NickName { get; set; }
+        public string Password { get; set; }
         public bool Gender { get; set; }
-        public DateTime Birthday { get; set; }
-        public DateTime CreateTime { get; set; }
+        public string Birthday { get; set; }
+        public string CreateTime { get; set; }
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
         public string Photo { get; set; }

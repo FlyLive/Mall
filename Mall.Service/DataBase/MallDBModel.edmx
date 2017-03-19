@@ -36,7 +36,8 @@
           <Property Name="GoodsId" Type="int" />
           <Property Name="CommentDetail" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="CommentTime" Type="datetime" Nullable="false" />
-          <Property Name="ParentId" Type="int" Nullable="false" />
+          <Property Name="Reply" Type="nvarchar" MaxLength="150" />
+          <Property Name="OrderId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <EntityType Name="Custom">
           <Key>
@@ -58,6 +59,7 @@
           <Property Name="DetailedAddress" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="PhoneNumber" Type="nvarchar" MaxLength="11" Nullable="false" />
           <Property Name="IsDefault" Type="bit" Nullable="false" />
+          <Property Name="Zip" Type="nvarchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -122,6 +124,7 @@
           <Property Name="MenuPath" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="URL" Type="varchar" MaxLength="200" />
           <Property Name="Icon" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsDefault" Type="bit" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -142,8 +145,9 @@
           <Property Name="CreateTime" Type="datetime" Nullable="false" />
           <Property Name="PaymentTime" Type="datetime" />
           <Property Name="DeliveryTime" Type="datetime" />
+          <Property Name="ReceiptTime" Type="datetime" />
           <Property Name="IsDelete" Type="bit" Nullable="false" />
-          <Property Name="ClientRemark" Type="nvarchar" MaxLength="50" />
+          <Property Name="CustomRemark" Type="nvarchar" MaxLength="50" />
           <Property Name="OrderRemark" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Permissions">
@@ -154,6 +158,7 @@
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Code" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="CreationTime" Type="datetime" Nullable="false" />
+          <Property Name="IsDefault" Type="bit" />
         </EntityType>
         <EntityType Name="Refund">
           <Key>
@@ -231,6 +236,18 @@
             </Principal>
             <Dependent Role="Custom">
               <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment_Order">
+          <End Role="Order" Type="Self.Order" Multiplicity="1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="OrderId" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="OrderId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -465,6 +482,10 @@
             <End Role="User" EntitySet="User" />
             <End Role="Custom" EntitySet="Custom" />
           </AssociationSet>
+          <AssociationSet Name="FK_Comment_Order" Association="Self.FK_Comment_Order">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
           <AssociationSet Name="FK_COMMENT_REFERENCE_CLIENT" Association="Self.FK_COMMENT_REFERENCE_CLIENT">
             <End Role="Custom" EntitySet="Custom" />
             <End Role="Comment" EntitySet="Comment" />
@@ -557,6 +578,10 @@
           <AssociationSet Name="FK_AdminLog_Employee" Association="MallDBModel.FK_AdminLog_Employee">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="AdminLog" EntitySet="AdminLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_Order" Association="MallDBModel.FK_Comment_Order">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="Comment" EntitySet="Comment" />
           </AssociationSet>
           <AssociationSet Name="FK_COMMENT_REFERENCE_CLIENT" Association="MallDBModel.FK_COMMENT_REFERENCE_CLIENT">
             <End Role="Custom" EntitySet="Custom" />
@@ -651,7 +676,9 @@
           <Property Name="GoodsId" Type="Int32" />
           <Property Name="CommentDetail" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="CommentTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ParentId" Type="Int32" Nullable="false" />
+          <Property Name="Reply" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="OrderId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Order" Relationship="MallDBModel.FK_Comment_Order" FromRole="Comment" ToRole="Order" />
           <NavigationProperty Name="Custom" Relationship="MallDBModel.FK_COMMENT_REFERENCE_CLIENT" FromRole="Comment" ToRole="Custom" />
           <NavigationProperty Name="GoodsInfo" Relationship="MallDBModel.FK_COMMENT_REFERENCE_GOODSINF" FromRole="Comment" ToRole="GoodsInfo" />
         </EntityType>
@@ -681,6 +708,7 @@
           <Property Name="DetailedAddress" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="true" />
           <Property Name="IsDefault" Type="Boolean" Nullable="false" />
+          <Property Name="Zip" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Custom" Relationship="MallDBModel.FK_DELIVERY_REFERENCE_CLIENT" FromRole="DeliveryInfo" ToRole="Custom" />
         </EntityType>
         <EntityType Name="Employee">
@@ -739,6 +767,7 @@
           <Property Name="MenuPath" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="URL" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="Icon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsDefault" Type="Boolean" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -759,9 +788,11 @@
           <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="PaymentTime" Type="DateTime" Precision="3" />
           <Property Name="DeliveryTime" Type="DateTime" Precision="3" />
+          <Property Name="ReceiptTime" Type="DateTime" Precision="3" />
           <Property Name="IsDelete" Type="Boolean" Nullable="false" />
-          <Property Name="ClientRemark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CustomRemark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="OrderRemark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Comment" Relationship="MallDBModel.FK_Comment_Order" FromRole="Order" ToRole="Comment" />
           <NavigationProperty Name="Custom" Relationship="MallDBModel.FK_ORDER_REFERENCE_CLIENT" FromRole="Order" ToRole="Custom" />
           <NavigationProperty Name="GoodsInfo" Relationship="MallDBModel.FK_Order_GoodsInfo" FromRole="Order" ToRole="GoodsInfo" />
           <NavigationProperty Name="Refund" Relationship="MallDBModel.FK_REFUND_REFERENCE_ORDER" FromRole="Order" ToRole="Refund" />
@@ -774,6 +805,7 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Code" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="CreationTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsDefault" Type="Boolean" />
           <NavigationProperty Name="Employee" Relationship="MallDBModel.EmployeePermissions" FromRole="Permissions" ToRole="Employee" />
           <NavigationProperty Name="Roles" Relationship="MallDBModel.RolePermissions" FromRole="Permissions" ToRole="Roles" />
         </EntityType>
@@ -841,6 +873,18 @@
             </Principal>
             <Dependent Role="AdminLog">
               <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment_Order">
+          <End Type="MallDBModel.Order" Role="Order" Multiplicity="1" />
+          <End Type="MallDBModel.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="OrderId" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="OrderId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1033,7 +1077,8 @@
           <EntitySetMapping Name="Comment">
             <EntityTypeMapping TypeName="MallDBModel.Comment">
               <MappingFragment StoreEntitySet="Comment">
-                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="Reply" ColumnName="Reply" />
                 <ScalarProperty Name="CommentTime" ColumnName="CommentTime" />
                 <ScalarProperty Name="CommentDetail" ColumnName="CommentDetail" />
                 <ScalarProperty Name="GoodsId" ColumnName="GoodsId" />
@@ -1056,6 +1101,7 @@
           <EntitySetMapping Name="DeliveryInfo">
             <EntityTypeMapping TypeName="MallDBModel.DeliveryInfo">
               <MappingFragment StoreEntitySet="DeliveryInfo">
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
                 <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
                 <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
                 <ScalarProperty Name="DetailedAddress" ColumnName="DetailedAddress" />
@@ -1108,6 +1154,7 @@
           <EntitySetMapping Name="Menus">
             <EntityTypeMapping TypeName="MallDBModel.Menus">
               <MappingFragment StoreEntitySet="Menus">
+                <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
                 <ScalarProperty Name="Icon" ColumnName="Icon" />
                 <ScalarProperty Name="URL" ColumnName="URL" />
                 <ScalarProperty Name="MenuPath" ColumnName="MenuPath" />
@@ -1121,8 +1168,9 @@
             <EntityTypeMapping TypeName="MallDBModel.Order">
               <MappingFragment StoreEntitySet="Order">
                 <ScalarProperty Name="OrderRemark" ColumnName="OrderRemark" />
-                <ScalarProperty Name="ClientRemark" ColumnName="ClientRemark" />
+                <ScalarProperty Name="CustomRemark" ColumnName="CustomRemark" />
                 <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="ReceiptTime" ColumnName="ReceiptTime" />
                 <ScalarProperty Name="DeliveryTime" ColumnName="DeliveryTime" />
                 <ScalarProperty Name="PaymentTime" ColumnName="PaymentTime" />
                 <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
@@ -1144,6 +1192,7 @@
           <EntitySetMapping Name="Permissions">
             <EntityTypeMapping TypeName="MallDBModel.Permissions">
               <MappingFragment StoreEntitySet="Permissions">
+                <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
                 <ScalarProperty Name="CreationTime" ColumnName="CreationTime" />
                 <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="Name" ColumnName="Name" />

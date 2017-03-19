@@ -35,8 +35,8 @@
          '<button class="ssi-button success">' + this.language.chooseFiles + '</button>' +
          '</span>').append(element);
         var $uploadBtn = $('<button id="ssi-uploadBtn" class="ssi-button success ssi-hidden" >' +
-         '<span class="ssi-btnIn">' + this.language.upload + '&nbsp;</span>' + ''
-         /*'<div id="ssi-up_loading" class="ssi-btnIn"></div></button>'*/);
+         '<span class="ssi-btnIn">' + this.language.upload + '&nbsp;</span>' +
+         '<div id="ssi-up_loading" class="ssi-btnIn"></div></button>');
         var $clearBtn = $('<button id="ssi-clearBtn" class="ssi-hidden ssi-button info" >' + this.language.clear +
          '</button>');
         var $abortBtn = $('<button id="ssi-abortBtn" class="ssi-button error ssi-cancelAll ssi-hidden" ><span class="inBtn">' + this.language.abort + ' </span></button>');
@@ -71,7 +71,7 @@
             $uploadBox.on("drop", function (e) {
                 e.preventDefault();
                 $uploadBox.removeClass("ssi-dragOver");
-                var files = e.originalEvent.DataTransfer.files;
+                var files = e.originalEvent.dataTransfer.files;
                 thisS.toUploadFiles(files);
             });
             $uploadBox.on("dragover", function (e) {
@@ -101,7 +101,7 @@
 
         $uploadBox.on('mouseenter', '.ssi-statusLabel', function (e) { //the tooltip
             var $eventTarget = $(e.currentTarget);
-            var title = $eventTarget.attr('Data-status');
+            var title = $eventTarget.attr('data-status');
             if (!title || title === '') {
                 return;
             }
@@ -125,7 +125,7 @@
 
         $uploadBox.on('click', '.ssi-removeBtn', function (e) { //remove the file from list
             var $currentTarget = $(e.currentTarget);
-            var index = $currentTarget.Data('delete'); //get file's index
+            var index = $currentTarget.data('delete'); //get file's index
             thisS.pending--; //reduce pending number by 1
             thisS.currentListLength--; //reduce current list length by 1
             if (thisS.pending === 0) {
@@ -155,7 +155,7 @@
         });
         $uploadBox.on('click', '.ssi-abortUpload', function (e) {//abort one element
             var $eventTarget = $(e.currentTarget);
-            var index = $eventTarget.Data('delete');// get the element id
+            var index = $eventTarget.data('delete');// get the element id
             thisS.abort(index); // abort request
         });
 //----------------------------UPLOADFILES------------------------------------
@@ -263,7 +263,7 @@
                     return '<table class="ssi-imgToUploadTable ssi-pending">' +
                      '<tr><td class="ssi-upImgTd">' + content + '</td></tr>' +
                      '<tr><td><div id="ssi-uploadProgress' + index + '" class="ssi-hidden ssi-uploadProgress"></div></td></tr>' +
-                     '<tr><td><button Data-delete="' + index + '" class=" ssi-button error ssi-removeBtn"><span class="trash10 trash"></span></button></td></tr>' +
+                     '<tr><td><button data-delete="' + index + '" class=" ssi-button error ssi-removeBtn"><span class="trash10 trash"></span></button></td></tr>' +
                      '<tr><td>' + cutFileName(filename, ext, 15) + '</td></tr></table>'
                 };
                 var fileType = file.type.split('/');
@@ -298,7 +298,7 @@
                 $fileList.append('<tr class="ssi-space"><td></td></tr>' +//append files element to dom
                  '<tr class="ssi-toUploadTr ssi-pending"><td><div id="ssi-uploadProgress' + index + '" class="ssi-hidden ssi-uploadProgress ssi-uploadProgressNoPre"></div>' +
                  '<span>' + cutFileName(filename, ext, 20) + '</span></td>' +
-                 '<td><a Data-delete="' + index + '" class="ssi-button ssi-removeBtn  ssi-removeBtnNP"><span class="trash7 trash"></span></a></td></tr>');
+                 '<td><a data-delete="' + index + '" class="ssi-button ssi-removeBtn  ssi-removeBtnNP"><span class="trash7 trash"></span></a></td></tr>');
             }
 
             var setImg = function () {//load the images
@@ -397,7 +397,7 @@
              $clearBtn = this.$element.find('#ssi-clearBtn');
             $uploadBtn.prop("disabled", true);
             var thisS = this,
-             formData = new FormData(),//set the form Data
+             formData = new FormData(),//set the form data
              i = this.totalFilesLength;
             if (this.totalFilesLength !== 0 && !this.options.preview) {
                 setNamePreview(this);
@@ -411,8 +411,8 @@
             while (this.toUpload[i] === null) { // do it until you find a file
                 i++;
             }
-            formData.append('files[]', thisS.toUpload[i]);//append the first file to the form Data
-            $.each(this.options.Data, function (key, value) {// append all extra Data
+            formData.append('files[]', thisS.toUpload[i]);//append the first file to the form data
+            $.each(this.options.data, function (key, value) {// append all extra data
                 formData.append(key, value);
             });
             if (typeof this.options.beforeUpload === 'function') {
@@ -495,7 +495,7 @@
                     }
                 },
                 type: 'POST',
-                Data: formData,
+                data: formData,
                 cache: false,
                 contentType: false,
                 processData: false,
@@ -535,37 +535,37 @@
                 }
             }, thisS.options.ajaxOptions);
             $.ajax(ajaxOptions).done(function (responseData, textStatus, jqXHR) {
-                var msg, title = '', DataType = 'error', spanClass = 'exclamation', Data;
+                var msg, title = '', dataType = 'error', spanClass = 'exclamation', data;
                 try {
-                    Data = $.parseJSON(responseData);
+                    data = $.parseJSON(responseData);
                 } catch (err) {
-                    Data = responseData;
+                    data = responseData;
                 }
                 if (thisS.options.responseValidation) {
                     var valData = thisS.options.responseValidation;
                     if (typeof valData.validationKey === 'object' && valData.resultKey == 'validationKey') {
-                        if (Data.hasOwnProperty(valData.validationKey.success)) {
+                        if (data.hasOwnProperty(valData.validationKey.success)) {
                             cb(true);
                         } else {
-                            cb(false, Data[valData.validationKey.error]);
+                            cb(false, data[valData.validationKey.error]);
                         }
                     } else {
-                        if (Data[valData.validationKey] == valData.success) {
+                        if (data[valData.validationKey] == valData.success) {
                             cb(true);
                         } else {
-                            cb(false, Data[valData.resultKey]);
+                            cb(false, data[valData.resultKey]);
                         }
                     }
                 } else {
                     if (jqXHR.status == 200) {
                         cb(true);
                     } else {
-                        cb(false, Data);
+                        cb(false, data);
                     }
                 }
-                function cb(result, Data) {
+                function cb(result, data) {
                     if (result) {//if response type is success
-                        DataType = 'success';
+                        dataType = 'success';
                         msg = thisS.language.success;
                         spanClass = 'check';
                         thisS.successfulUpload++;// one more successful upload
@@ -574,7 +574,7 @@
                         if (thisS.options.preview) {
                             msg = thisS.language.error;
                         }
-                        title = Data;
+                        title = data;
                         thisS.abortedWithError++;
                     }
                 }
@@ -582,12 +582,12 @@
                 if (!thisS.options.preview) {
                     msg = '<span class="' + spanClass + '7"></span>';
                 }
-                setElementMessage(thisS, ii, DataType, msg, title);
+                setElementMessage(thisS, ii, dataType, msg, title);
 
                 if (typeof thisS.options.onEachUpload === 'function') {//execute the onEachUpload callback
                     try {
                         thisS.options.onEachUpload({//and return some info
-                            uploadStatus: DataType,
+                            uploadStatus: dataType,
                             name: thisS.toUpload[ii].name,
                             size: (thisS.toUpload[ii].size / 1024).toFixed(2),
                             type: thisS.toUpload[ii].type
@@ -617,7 +617,7 @@
             }
             if (i < thisS.toUpload.length) {// if more files exist start the next request
                 formData = new FormData();
-                $.each(thisS.options.Data, function (key, value) {
+                $.each(thisS.options.data, function (key, value) {
                     formData.append(key, value);
                 });
                 formData.append('files[]', thisS.toUpload[i]);
@@ -635,7 +635,7 @@
             }
         }
 
-        element = thisS.$element.find(".ssi-abortUpload[Data-delete='" + index + "']");
+        element = thisS.$element.find(".ssi-abortUpload[data-delete='" + index + "']");
         element.parents(elementSelector).addClass('ssi-completed');
         element.after(getResultMessage(msgType, msg, title, className))
          .remove();
@@ -646,7 +646,7 @@
     };
 
     var getResultMessage = function (type, msg, title, classes) {//return a message label
-        return '<span class="ssi-statusLabel ' + classes + ' ' + type + '" Data-status="' + title + '">' + msg + '</span>';
+        return '<span class="ssi-statusLabel ' + classes + ' ' + type + '" data-status="' + title + '">' + msg + '</span>';
     };
 
     var getCurrentListLength = function (thisS) { //get the list length
@@ -742,7 +742,7 @@
     $.fn.ssi_uploader = function (opts) {
         var defaults = {
             url: '',
-            Data: {},
+            data: {},
             locale: 'en',
             preview: true,
             dropZone: true,
@@ -771,9 +771,9 @@
         return this.each(function () {
             var $element = $(this);
             if ($element.is('input[type="file"]')) {
-                if ($element.Data('ssi_upload')) return;
+                if ($element.data('ssi_upload')) return;
                 var ssi_upload = new Ssi_upload(this, options);
-                $element.Data('ssi_upload', ssi_upload);
+                $element.data('ssi_upload', ssi_upload);
             } else {
                 console.log('The targeted element is not file input.')
             }

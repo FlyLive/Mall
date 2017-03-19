@@ -34,7 +34,7 @@ namespace Mall.Web.Back.Filter
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {
             UrlHelper url = new UrlHelper(filterContext.RequestContext);
-            filterContext.Result = new RedirectResult("/Index");
+            filterContext.Result = new RedirectResult("/Error");
         }
     }
 }

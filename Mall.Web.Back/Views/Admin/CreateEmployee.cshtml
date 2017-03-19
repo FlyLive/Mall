@@ -1,5 +1,4 @@
-﻿@model List<Mall.Web.Back.ViewModel.PermissionsViewModel>
-
+﻿
 @{
     ViewBag.Title = "CreateEmployee";
     Layout = "~/Views/Layout/_AdminTLE.cshtml";
@@ -32,8 +31,8 @@
                                 </div>
                                 <div class="create-employee-left-gender info">
                                     <p class="title">性别</p>
-                                    <label><input name="gender" type="radio" />男</label>
-                                    <label><input name="gender" type="radio" />女</label>
+                                    <label><input name="gender" type="radio" value="1"/>男</label>
+                                    <label><input name="gender" type="radio" value="0"/>女</label>
                                 </div>
                                 <div class="create-employee-left-log-password info">
                                     <p class="title"><span class="star">*</span>登录密码</p>
@@ -62,26 +61,7 @@
                                     <p class="title">权限设置</p>
                                 </div>
                                 <div class="create-employee-right-permissions">
-                                    <table>
-                                        <tbody>
-                                            <tr>
-                                                @{var number = 0;}
-                                                @foreach (var permission in Model)
-                                                {
-                                                    if (number % 4 == 0)
-                                                    {
-                                                        @Html.Raw("</tr><tr>");
-                                                    }
-                                                    number++;
-                                                    <td>
-                                                        <label>
-                                                            <input name="permissionIds" type="checkbox" value="@permission.PermissionId" />@permission.Name
-                                                        </label>
-                                                    </td>
-                                                }
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                    <ul id="permissionsTree" class="ztree"></ul>
                                 </div>
                             </div>
                         </td>
@@ -92,11 +72,10 @@
     </div>
 </section>
 @section css{
-    <link rel="stylesheet" href="~/Css/Admin/CreateEmployee.css" />
+    @Styles.Render("~/Css/Admin/CreateEmployee.css")
+    @Styles.Render("~/Css/Shared/zTreeStyle.css")
 }
 @section scripts{
-    @Scripts.Render("~/JS/Admin/CreateEmployee.js");
-}
-@{
-
+    @Scripts.Render("~/JS/Admin/CreateEmployee.js")
+    @Scripts.Render("~/JS/Shared/jquery.ztree.all.js")
 }

@@ -5,7 +5,7 @@
         type: 'GET',
         url: '/Admin/ConfirmMP',
         async: false,
-        Data: {"manage_password": password },
+        data: { "manage_password": password },
         success: function (result) {
             if (result == "True") {
                 return true;

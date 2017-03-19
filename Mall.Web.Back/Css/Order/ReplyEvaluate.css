@@ -24,10 +24,16 @@
 }
 .replyevaluate-goods-info > .replyevaluate-info > table > tbody > tr > td{
     padding-bottom:20px;
-    width:200px;
+    min-width:200px;
 }
 .replyevaluate-buyer-message > div > p{
-    width:200px;
+    max-width:800px;
+    color: coral;
+}
+.replyevaluate-buyer-info > div > img{
+    height:100px;
+    width:100px;
+    border-radius:50%;
 }
 .replyevaluate-buyer-info > div,.replyevaluate-buyer-message > div{
     margin:0px 0px 20px 200px;
@@ -57,6 +63,16 @@
     width:100px;
     height:40px;
     margin:20px 0px;
+    background-color:#0094ff;
+    color:white;
+    border:none;
+    border-radius:5px;
+}
+.replyevaluate-reply > button:hover{
+    background-color:#1C86EE;
+}
+.replyevaluate-reply > button:active{
+    background-color:#0094ff;
 }
 .replyevaluate-reply > textarea,.replyevaluate-reply > button{
     margin-left:200px;

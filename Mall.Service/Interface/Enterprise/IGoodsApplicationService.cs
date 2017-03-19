@@ -14,7 +14,7 @@ namespace Mall.Interface.Enterprise
         /// </summary>
         /// <param name="goods"></param>
         /// <returns></returns>
-        bool CreateGoods(string name, int count,
+        int CreateGoods(string name, int count,
             double price, string detail, int onshelves,
             double? freight, DateTime? publicationDate,
             string author = null, string press = null);

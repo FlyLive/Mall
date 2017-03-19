@@ -13,7 +13,7 @@
             <tr>
                 <td>
                     <div class="createGoods-left">
-                        <div class="createGoods-left-class">
+                        @*<div class="createGoods-left-class">
                             <p class="title">分类</p>
                             <ul>
                                 <li>
@@ -32,7 +32,7 @@
                                     </label>
                                 </li>
                             </ul>
-                        </div>
+                        </div>*@
                         <div>
                             <p class="title"><span class="star">*</span>商品名</p>
                             <input name="name" id="name" class="input" type="text" placeholder="商品名" />
@@ -56,12 +56,12 @@
                         </div>
                         <div>
                             <p class="title"><span class="star">*</span>价格</p>
-                            <input name="price" id="price" class="input" type="text" placeholder="+123.00" />
+                            <input name="price" id="price" class="input" type="text" value="+0" placeholder="+123.00" />
                             <p class="sign"><span class="star">*</span>格式&emsp;+123.00</p>
                         </div>
                         <div>
                             <p class="title">运费</p>
-                            <input name="freight" id="freight" class="input" type="text" placeholder="+123.00" />
+                            <input name="freight" id="freight" class="input" type="text" value="+0" placeholder="+123.00" />
                             <p class="sign"><span class="star">*</span>格式&emsp;+123.00</p>
                         </div>
                         <div>
@@ -84,7 +84,7 @@
                             </div>
                         </div>
                         <div class="createGoods-right-submit">
-                            <button type="button" onclick="CreateGoods()">立即添加</button>
+                            <button type="button">立即添加</button>
                         </div>
                     </div>
                 </td>

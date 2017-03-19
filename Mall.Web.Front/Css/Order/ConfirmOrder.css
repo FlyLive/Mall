@@ -32,11 +32,12 @@
     border:1px solid #0066ff;
 }
 .confirm-order-address-infor i{
-    display:none;
+    visibility:hidden;
     text-align:right;
+    display:block;
 }
 .selected i{
-    display:block;
+    visibility:visible;
     font-size:20px;
     color:#009de4;
 }
@@ -58,6 +59,9 @@
     height: 40px;
     margin: 40px auto 0px auto;
     padding:0px;
+    background-color: #2288ff;
+    color: white;
+    border-radius:5px 5px 0px 0px;
 }
 .confirm-order-detail-goods > ul{
     padding:0;
@@ -78,7 +82,7 @@
     font-size:16px;
 }
 .goods-item > ul > .detail{
-    padding: 20px 0px !important;
+    padding: 15px 0px !important;
 }
 .goods-item > ul > .detail > a > img{
     height:60px;
@@ -103,7 +107,7 @@
     background-color:#ECF0F1;
 }
 .goods-item > ul > li{
-    padding:35px 0px;
+    padding:30px 0px;
     vertical-align:middle;
 }
 .goods-item .custom-remark{

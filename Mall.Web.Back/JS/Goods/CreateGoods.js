@@ -1,7 +1,4 @@
 ﻿
-function CreateGoods() {
-}
-
 function CreateGoodsImg() {
     var name = $("#name").val();
     var count = $("#count").val();
@@ -34,16 +31,27 @@ function CreateGoodsImg() {
     }
 
     if (!(freight == "" || /\s+/g.test(freight))) {
-        if(/^\d+(\.\d+)?$/.test(freight)){
+        if (/^\d+(\.\d+)?$/.test(freight)) {
             Tip("运费格式错误,请重试", "freight");
             return false;
         }
     }
 
-    $('#ssi-upload').ssi_uploader({
-        url: "CreateGoods",
-        Data: {name, count, price, detail, freight,author, press, publicationDate},
-        maxFileSize: 6,
-        allowed: ['jpg', 'gif', 'txt', 'png', 'pdf']
-    });
+    $.ajax({
+        type: 'POST',
+        url: '/Goods/CreateGoods',
+        data: { "name": name, "count": count, "price": price, "detail": detail, "freight": freight, "author": author, "press": press, "publicationDate": publicationDate },
+        datatype: 'json',
+        success: function (goodsId) {
+            $('#ssi-upload').ssi_uploader({
+                url: "/Goods/CreateGoodsImg",
+                data: { "goodsId": goodsId },
+                maxFileSize: 6,
+                allowed: ['jpg', 'gif', 'txt', 'png', 'pdf']
+            });
+        },
+        error: function () {
+            OpenTip("出错啦!", 1);
+        }
+    })
 }

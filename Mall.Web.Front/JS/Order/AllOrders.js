@@ -12,7 +12,7 @@ function SearchOrderByState(event) {
         error: function () {
             OpenTip("出错啦!", 2);
         }
-    })
+    });
 }
 
 function SearchOrderId() {
@@ -32,5 +32,35 @@ function SearchOrderId() {
         error: function () {
             OpenTip("出错啦!", 2);
         }
-    })
+    });
+}
+
+function PayOrder(orderId) {
+    $.ajax({
+        type: 'GET',
+        url: 'SearchOrderId',
+        data: { "orderId": orderId },
+        datatype: 'html',
+        success: function (Data) {
+            $("#order-list").html(Data);
+        },
+        error: function () {
+            OpenTip("出错啦!", 2);
+        }
+    });
+}
+
+function ConfirmReceipt(orderId) {
+    $.ajax({
+        type: 'POST',
+        url: '/Custom/ConfirmReceipt',
+        data: { "orderId": orderId },
+        datatype: 'html',
+        success: function (Data) {
+            $("#order-list").html(Data);
+        },
+        error: function () {
+            OpenTip("出错啦!", 2);
+        }
+    });
 }

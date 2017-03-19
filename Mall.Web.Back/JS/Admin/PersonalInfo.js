@@ -59,9 +59,9 @@ $(window).load(function () {
         var imgBase = cropper.getDataURL();
         $.ajax({
             type: "post",
-            url: "ModifyPhoto",
-            Data: { "imgBase": imgBase },
-            Datatype: Text,
+            url: "/Admin/ModifyPhoto",
+            data: { "imgBase": imgBase },
+            datatype: Text,
             success: function (src) {
                 if (src != null) {
                     layer.msg("修改成功!");

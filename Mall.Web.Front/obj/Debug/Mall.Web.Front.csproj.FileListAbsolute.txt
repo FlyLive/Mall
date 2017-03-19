@@ -1,4 +1,3 @@
-C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\obj\Debug\Mall.Web.Front.csprojResolveAssemblyReference.cache
 C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\roslyn\csc.exe
 C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
 C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
@@ -52,5 +51,6 @@ C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\zh-Han
 C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\zh-Hans\System.Web.WebPages.Deployment.resources.dll
 C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\zh-Hans\System.Web.WebPages.Razor.resources.dll
 C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\bin\zh-Hans\EntityFramework.resources.dll
+C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\obj\Debug\Mall.Web.Front.csprojResolveAssemblyReference.cache
 C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\obj\Debug\Mall.Web.Front.dll
 C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Web.Front\obj\Debug\Mall.Web.Front.pdb

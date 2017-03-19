@@ -8,7 +8,7 @@
     <div class="info-id">
         <p class="title">员工ID</p>
         <label>@Model.UserId</label>
-        <input id="employeeId" value="@Model.UserId" type="hidden" />
+        <input id="currentUserId" value="@Model.UserId" type="hidden" />
     </div>
     <div class="info-name">
         <p class="title">真实姓名</p>
@@ -32,11 +32,11 @@
         <div class="permission-list">
             <p class="title">权限</p>
             <div class="permission">
-                @Html.Action("GetEmployeePermissions", "Admin", new { employeeId = Model.UserId })
+                @Html.Action("GetEmployeePermissions", "Admin", new { userId = Model.UserId })
             </div>
         </div>
     </div>
     <div class="permission-submit">
-        <button type="button" onclick="ModifyPermissions()">修改权限</button>
+        <button type="button" onclick="GetPermissionMenus()">修改权限</button>
     </div>
 </div>

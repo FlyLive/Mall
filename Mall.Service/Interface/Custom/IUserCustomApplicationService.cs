@@ -22,7 +22,7 @@ namespace Mall.Interface.Custom
         /// <param name="contact"></param>
         /// <param name="phone"></param>
         /// <param name="zip"></param>
-        void CreatDeliverInfo(int customId, string address, string contact, string phone, string zip = " ");
+        bool CreatDeliverInfo(int customId, string address, string contact, string phone, string zip = " ");
         /// <summary>
         /// 修改收货信息
         /// </summary>
