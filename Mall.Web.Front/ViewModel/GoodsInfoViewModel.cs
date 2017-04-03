@@ -10,6 +10,7 @@ namespace Mall.Web.Front.ViewModel
     {
         public int GoodsId { get; set; }
         public string GoodsName { get; set; }
+        public string GoodsPhotoUrl { get; set; }
         public double Price { get; set; }
         public int Stock { get; set; }
         public string Details { get; set; }

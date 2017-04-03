@@ -100,15 +100,19 @@ namespace Mall.Web.Front.Controllers
         }
 
         [HttpPost]
-        public bool CreateShoppingCart(int goodsId,int count)
+        public bool CreateShoppingCart(int goodsId, int count)
         {
             CustomViewModel custom = (CustomViewModel)Session["Custom"];
+            if (custom == null)
+            {
+                return false;
+            }
             _customService.AddGoodsToShoppingCart(custom.CustomId, goodsId, count);
             return true;
         }
 
         [HttpGet]
-        public bool ModifyShoppingCart(int goodsId,int count)
+        public bool ModifyShoppingCart(int goodsId, int count)
         {
             CustomViewModel custom = (CustomViewModel)Session["Custom"];
             _customService.ModifyGoodsCountFromShoppingCart(custom.CustomId, goodsId, count);
@@ -257,6 +261,24 @@ namespace Mall.Web.Front.Controllers
             return PartialView(delivertInfosDTO);
         }
 
+        [HttpGet]
+        public ActionResult GetSelectedAddress(int? addressId)
+        {
+            CustomViewModel custom = (CustomViewModel)Session["Custom"];
+            DeliveryInfo delivery = _customService.GetDeliveryInfoById(custom.CustomId, addressId);
+            DeliveryInfoViewModel delivertInfosDTO = new DeliveryInfoViewModel
+            {
+                CustomId = delivery.CustomId,
+                Id = delivery.Id,
+                IsDefault = delivery.IsDefault,
+                Consignee = delivery.Consignee,
+                DetailedAddress = delivery.DetailedAddress,
+                PhoneNumber = delivery.PhoneNumber,
+                Zip = delivery.Zip == null ? "未设置" : delivery.Zip,
+            };
+            return PartialView(delivertInfosDTO);
+        }
+
         [HttpPost]
         public ActionResult CreateAddress(string address, string phone, string name, string zip = " ")
         {
@@ -289,7 +311,7 @@ namespace Mall.Web.Front.Controllers
             {
                 return RedirectToAction("Index", "Users");
             }
-            _customService.ModifyDeliverInfo(modify_id, modify_address, modify_name, modify_phone, modify_zip);
+            _customService.ModifyDeliverInfo(custom.CustomId, modify_id, modify_address, modify_name, modify_phone, modify_zip);
             return RedirectToAction("AddressSet");
         }
 
@@ -297,7 +319,7 @@ namespace Mall.Web.Front.Controllers
         public bool DeletAddress(int addressId)
         {
             CustomViewModel custom = (CustomViewModel)Session["Custom"];
-            _customService.DeletDeliveryByDeliveryId(custom.CustomId,addressId);
+            _customService.DeletDeliveryByDeliveryId(custom.CustomId, addressId);
             return true;
         }
 
@@ -305,7 +327,7 @@ namespace Mall.Web.Front.Controllers
         public bool SetDefaultAddress(int addressId)
         {
             CustomViewModel custom = (CustomViewModel)Session["Custom"];
-            _customService.SetDefaultAddressOfCustomByDeliveryId(custom.CustomId,addressId);
+            _customService.SetDefaultAddressOfCustomByDeliveryId(custom.CustomId, addressId);
             return true;
         }
 
@@ -325,8 +347,8 @@ namespace Mall.Web.Front.Controllers
             {
                 return RedirectToAction("Index", "Users");
             }
-            Order order = _orderService.GetOrderById(custom.CustomId,orderId);
-            OrderViewModel orderDTO = OrderController.DataOrdersToDTO(new List<Order>{order}).ElementAt(0);
+            Order order = _orderService.GetOrderById(custom.CustomId, orderId);
+            OrderViewModel orderDTO = OrderController.DataOrdersToDTO(new List<Order> { order }).ElementAt(0);
             return View(orderDTO);
         }
 
@@ -337,6 +359,12 @@ namespace Mall.Web.Front.Controllers
             return result;
         }
 
+        [HttpPost]
+        public bool ApplyRefund(Guid orderId)
+        {
+            var result = _orderService.ApplyRefundByOrderId(orderId);
+            return result;
+        }
         /// <summary>
         /// 评价
         /// </summary>
@@ -349,21 +377,21 @@ namespace Mall.Web.Front.Controllers
             {
                 return RedirectToAction("Index", "Users");
             }
-            Order order = _orderService.GetOrderById(custom.CustomId,orderId);
+            Order order = _orderService.GetOrderById(custom.CustomId, orderId);
             OrderViewModel orderDTO = OrderController.DataOrdersToDTO(new List<Order> { order }).ElementAt(0);
             return View(orderDTO);
         }
 
         [HttpPost]
-        public ActionResult Evaluate(Guid orderId,string evaluateContent)
+        public ActionResult Evaluate(Guid orderId, string evaluateContent)
         {
             CustomViewModel custom = (CustomViewModel)Session["Custom"];
             if (custom == null)
             {
                 return RedirectToAction("Index", "Users");
             }
-            _orderService.EvaluateOrder(custom.CustomId,orderId,evaluateContent);
-            return RedirectToAction("AllOrders","Order");
+            _orderService.EvaluateOrder(custom.CustomId, orderId, evaluateContent);
+            return RedirectToAction("AllOrders", "Order");
         }
         #endregion
 
@@ -405,10 +433,10 @@ namespace Mall.Web.Front.Controllers
                 Account = user.Account,
                 NickName = user.NickName,
                 Password = user.Password,
-                Gender = (bool)user.Gender,
-                Birthday = (DateTime)user.Birthday,
-                CreateTime = user.CreateTime,
-                PhoneNumber = user.PhoneNumber,
+                Gender = user.Gender == null ? true : (bool)user.Gender,
+                Birthday = user.Birthday == null ? "0000-00-00" : user.Birthday.ToString(),
+                CreateTime = user.CreateTime == null ? "0000-00-00" : user.Birthday.ToString(),
+                PhoneNumber = user.PhoneNumber == null ? "未设置" : user.PhoneNumber,
                 Email = user.Email,
                 Photo = user.Photo,
                 RealName = user.RealName

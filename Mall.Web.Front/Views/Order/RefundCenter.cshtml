@@ -1,0 +1,36 @@
+﻿
+@using Mall.Service.Models
+
+@{
+    ViewBag.Title = "RefundCenter";
+    Layout = "~/Views/Layout/_ClientLayout.cshtml";
+}
+
+<section class="content-header">
+    <h1><i class="fa fa-reorder"></i><span>退款中心</span></h1>
+</section>
+<section class="content">
+    <div class="order">
+        <div class="search">
+            <div class="search-orderId">
+                <input id="orderId" type="text" maxlength="36" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" />
+                <button class="search-submit" type="button" title="查询订单" onclick="SearchOrderId()">搜索</button>
+            </div>
+        </div>
+        <div class="order-wrapper">
+            <div class="order-title">
+                @Html.Partial("Order/_OrderTitle")
+            </div>
+            <div class="order-list" id="order-list">
+                @Html.Action("SearchOrderByState", new { orderState = StateOfOrder.State.ApplyRefund })
+            </div>
+        </div>
+    </div>
+</section>
+@section css{
+    @Styles.Render("~/Css/Order/AllOrders.css")
+}
+@section scripts{
+    @Scripts.Render("~/JS/Order/AllOrders.js")
+    @Scripts.Render("~/JS/Order/ConfirmOrder.js")
+}

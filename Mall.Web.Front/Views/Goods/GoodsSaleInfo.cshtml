@@ -1,8 +1,8 @@
 ﻿@model Mall.Web.Front.ViewModel.GoodsInfoViewModel
 
 <!-- 销售详情 -->
-<div class="goods-sale-img">
-    <img src="~/Pictures/goods-test.jpg" />
+<div class="goods-sale-img htmleaf-content bgcolor-3">
+    @Html.Action("GoodsCarousel",new { goodsId = Model.GoodsId })
 </div>
 <div class="goods-sale-detail">
     <div class="goods-sale-detail-info">
@@ -10,7 +10,7 @@
             <h2>@Model.GoodsName</h2>
         </div>
         <div class="info-publish">
-            <p><span>作者:&ensp;@Model.Author</span>&emsp;<span>出版社:&ensp;@Model.PublicationDate</span>&emsp;<span>出版时间:&ensp;@Model.CreateTime</span></p>
+            <p><span>作者:&ensp;@Model.Author</span>&emsp;<span>出版社:&ensp;@Model.Press</span>&emsp;<span>出版时间:&ensp;@Model.PublicationDate</span></p>
         </div>
         <div class="money">
             <div class="info-shop-price">
@@ -27,15 +27,15 @@
             </div>
         </div>
         <div class="info-sale">
-            已售&ensp;<span>235</span>&emsp;评价&ensp;<span>@Model.CommentNumber</span>
+            已售&ensp;<span>@Model.CommentNumber</span>&emsp;评价&ensp;<span>@Model.CommentNumber</span>
         </div>
     </div>
     <div class="goods-sale-submit">
         <form action="/Order/ConfirmOrder" method="get">
             <div class="info-count">
                 <p class="title">数量</p>
-                <input id="goodsId" name="goodsId"value="@Model.GoodsId" type="hidden"/>
-                <input id="count" name="count" min="1" value="1" />
+                <input id="goodsId" name="goodsId" value="@Model.GoodsId" type="hidden"/>
+                <span class="count-contorl" onclick="ReduceCount()">-</span><input id="count" name="count" min="1" value="1" /><span class="count-contorl" onclick="IncreaseCount()">+</span>
             </div>
             <button class="buy-button" type="submit">立即购买</button>
             <button class="cart-button" type="button" onclick="AddGoodsToCart()">加入购物车</button>

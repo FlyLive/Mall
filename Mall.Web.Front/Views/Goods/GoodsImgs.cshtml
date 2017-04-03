@@ -1,0 +1,12 @@
+﻿
+@model List<Mall.Web.Front.ViewModel.ImageViewModel>
+
+<div class="title">
+    <h4><span>图文详情</span></h4>
+</div>
+<div class="img-content">
+    @foreach (var item in Model)
+    {
+        <img src="@item.ImageSrc" />
+    }
+</div>

@@ -43,10 +43,15 @@ function CreateGoodsImg() {
         data: { "name": name, "count": count, "price": price, "detail": detail, "freight": freight, "author": author, "press": press, "publicationDate": publicationDate },
         datatype: 'json',
         success: function (goodsId) {
+            $(function () {
+                $('#createGoodsImgModal').modal({
+                    keyboard: true
+                });
+            });
             $('#ssi-upload').ssi_uploader({
                 url: "/Goods/CreateGoodsImg",
                 data: { "goodsId": goodsId },
-                maxFileSize: 6,
+                maxFileSize: 5,
                 allowed: ['jpg', 'gif', 'txt', 'png', 'pdf']
             });
         },

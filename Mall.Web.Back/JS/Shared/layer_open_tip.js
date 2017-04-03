@@ -23,6 +23,7 @@ function OpenTipSuccess(content,anim) {
         content: content,
         skin: "layui-layer-molv",
         time: 2000,
+        icon:6,
         anim: anim,
     });
 }

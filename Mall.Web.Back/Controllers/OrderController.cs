@@ -64,11 +64,11 @@ namespace Mall.Web.Back.Controllers
         #region 确认发货
         [HttpGet]
         [PermissionAuthorize("Delivery")]
-        public ActionResult ToDelivery()
+        public ActionResult ToDelivery(int page = 1, int pageSize = 10)
         {
             List<Order> orders = _orderService
                 .GetOrdersByState((int)StateOfOrder.State.ToDelivery);
-            List<OrderViewModel> orderDTO = DataToDTO(orders);
+            IPagedList<OrderViewModel> orderDTO = DataToDTO(orders).ToPagedList(page, pageSize);
             return View(orderDTO);
         }
 
@@ -85,11 +85,11 @@ namespace Mall.Web.Back.Controllers
         #region 确认退款
         [HttpGet]
         [PermissionAuthorize("Refund")]
-        public ActionResult RefundConfirm()
+        public ActionResult RefundConfirm(int page = 1,int pageSize = 10)
         {
             List<Order> orders = _orderService
                 .GetOrdersByState((int)StateOfOrder.State.ApplyRefund);
-            List<OrderViewModel> orderDTO = DataToDTO(orders);
+            IPagedList<OrderViewModel> orderDTO = DataToDTO(orders).ToPagedList(page,pageSize);
             return View(orderDTO);
         }
 
@@ -109,7 +109,7 @@ namespace Mall.Web.Back.Controllers
         public ActionResult ToReply(int page = 1,int pageSize = 10)
         {
             List<Order> orders = _orderService
-                .GetOrdersByState((int)StateOfOrder.State.ToRefund);
+                .GetOrdersByState((int)StateOfOrder.State.ToReply);
             IPagedList<OrderViewModel> orderDTO = DataToDTO(orders).ToPagedList(page,pageSize);
             return View(orderDTO);
         }
@@ -168,11 +168,11 @@ namespace Mall.Web.Back.Controllers
         #region 退货
         [HttpGet]
         [PermissionAuthorize("Return")]
-        public ActionResult ReturnConfirm()
+        public ActionResult ReturnConfirm(int page = 1,int pageSize = 10)
         {
             List<Order> orders = _orderService
                 .GetOrdersByState((int)StateOfOrder.State.ApplyReturn);
-            List<OrderViewModel> orderDTO = DataToDTO(orders);
+            IPagedList<OrderViewModel> orderDTO = DataToDTO(orders).ToPagedList(page,pageSize);
             return View(orderDTO);
         }
 
@@ -195,11 +195,11 @@ namespace Mall.Web.Back.Controllers
 
         #region 交易完成
         [HttpGet]
-        public ActionResult FinishedOrder()
+        public ActionResult FinishedOrder(int page = 1, int pageSize = 10)
         {
             List<Order> orders = _orderService
                 .GetOrdersByState((int)StateOfOrder.State.Finish);
-            List<OrderViewModel> orderDTO = DataToDTO(orders);
+            IPagedList<OrderViewModel> orderDTO = DataToDTO(orders).ToPagedList(page, pageSize);
             return View(orderDTO);
         }
         #endregion
@@ -229,6 +229,10 @@ namespace Mall.Web.Back.Controllers
 
         public List<OrderViewModel> DataToDTO(List<Order> orders)
         {
+            if(orders == null)
+            {
+                return new List<OrderViewModel>();
+            }
             List<OrderViewModel> orderDTO = orders.Select(o => new OrderViewModel
             {
                 OrderId = o.OrderId,
@@ -243,13 +247,13 @@ namespace Mall.Web.Back.Controllers
                 PhoneNumber = o.PhoneNumber,
                 DeliveryAddress = o.DeliveryAddress,
                 State = o.State,
-                CreateTime = o.CreateTime == null ? "0000-00-00 00-00-00" : o.CreateTime.ToString(),
-                PaymentTime = o.PaymentTime == null ? "0000-00-00 00-00-00" : o.PaymentTime.ToString(),
-                DeliveryTime = o.DeliveryTime == null ? "0000-00-00 00-00-00" : o.DeliveryTime.ToString(),
-                ReceiptTime = o.ReceiptTime == null ? "0000-00-00 00-00-00" : o.ReceiptTime.ToString(),
+                CreateTime = o.CreateTime.ToString("yyyy-MM-dd HH:mm:ss"),
+                PaymentTime = o.PaymentTime == null ? "0000-00-00 00:00:00" : o.PaymentTime.Value.ToString("yyyy-MM-dd HH:mm:ss"),
+                DeliveryTime = o.DeliveryTime == null ? "0000-00-00 00:00:00" : o.DeliveryTime.Value.ToString("yyyy-MM-dd HH:mm:ss"),
+                ReceiptTime = o.ReceiptTime == null ? "0000-00-00 00:00:00" : o.ReceiptTime.Value.ToString("yyyy-MM-dd HH:mm:ss"),
                 IsDelete = o.IsDelete,
-                ClientRemark = o.CustomRemark,
-                OrderRemark = o.OrderRemark,
+                ClientRemark = o.CustomRemark == null ? "":o.CustomRemark,
+                OrderRemark = o.OrderRemark == null ? "":o.OrderRemark,
             }).ToList();
             return orderDTO;
         }

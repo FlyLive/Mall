@@ -53,8 +53,9 @@ namespace Mall.Service.Services.Custom
                     NickName = "小白",
                     Password = password,
                     Email = email,
-                    Photo = "localhost:9826/Mall.Web.Front/Users/Avatar/avatar.png",
+                    Photo = "http://localhost:9826/Mall.Web.Front/Users/Avatar/avatar.png",
                     CreateTime = DateTime.Now,
+                    RealName = name,
                 };
 
                 DataBase.Custom custom = new DataBase.Custom
@@ -192,9 +193,17 @@ namespace Mall.Service.Services.Custom
         /// </summary>
         /// <param name="id">地址Id</param>
         /// <returns></returns>
-        public DeliveryInfo GetDeliveryInfoById(int id)
+        public DeliveryInfo GetDeliveryInfoById(int customId,int ? id)
         {
-            DeliveryInfo deliveryInfo = _db.DeliveryInfo.SingleOrDefault(d => d.Id == id);
+            DeliveryInfo deliveryInfo = null;
+            if(id == null)
+            {
+                deliveryInfo = GetAllDeliveryInfoByCustomId(customId).SingleOrDefault(d => d.IsDefault == true);
+            }
+            else
+            {
+                deliveryInfo = _db.DeliveryInfo.SingleOrDefault(d => d.Id == id);
+            }
             return deliveryInfo;
         }
 
@@ -241,8 +250,8 @@ namespace Mall.Service.Services.Custom
                 var img = imgBase.Split(',');
                 byte[] bt = Convert.FromBase64String(img[1]);
                 string now = DateTime.Now.ToString("yyyy-MM-ddHHmmss");
-                string path = "localhost:9826/Mall.Web.Front/Pictures/Users/Avatar/avatar" + now + ".png";
-                string DataPath = "localhost:9826/Mall.Web.Front/Users/Avatar/avatar" + now + ".png";
+                string path = "D:/网站部署/MallImg/Mall.Web.Front/Pictures/Users/Avatar/avatar" + now + ".png";
+                string DataPath = "http://localhost:9826/Mall.Web.Front/Users/Avatar/avatar" + now + ".png";
                 File.WriteAllBytes(path, bt);
                 custom.User.Photo = DataPath;
                 _db.SaveChanges();
@@ -296,9 +305,9 @@ namespace Mall.Service.Services.Custom
         /// 修改收货地址
         /// </summary>
         /// <param name="newDeliverInfo"></param>
-        public void ModifyDeliverInfo(int deliveryInfoId, string address, string contact, string phone, string zip)
+        public void ModifyDeliverInfo(int customId,int deliveryInfoId, string address, string contact, string phone, string zip)
         {
-            DeliveryInfo deliveryInfo = GetDeliveryInfoById(deliveryInfoId);
+            DeliveryInfo deliveryInfo = GetDeliveryInfoById(customId,deliveryInfoId);
 
             deliveryInfo.DetailedAddress = address == "" ? deliveryInfo.DetailedAddress : address;
             deliveryInfo.Consignee = contact == "" ? deliveryInfo.Consignee : contact;
@@ -421,7 +430,7 @@ namespace Mall.Service.Services.Custom
         public void DeleteGoodsFromShoppingCart(int customId, int goodsId)
         {
             DataBase.Custom custom = _db.Custom.Include("ShoppingCart").SingleOrDefault(c => c.CustomId == customId);
-            custom.ShoppingCart.Remove(
+            _db.ShoppingCart.Remove(
                 custom.ShoppingCart.
                     SingleOrDefault(s => s.GoodsId == goodsId)
             );

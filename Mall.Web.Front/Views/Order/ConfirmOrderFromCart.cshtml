@@ -1,0 +1,74 @@
+﻿
+@model List<Mall.Web.Front.ViewModel.ShoppingCartViewModel>
+
+@{
+    ViewBag.Title = "确认订单";
+    Layout = "~/Views/Layout/_Layout.cshtml";
+}
+
+<div class="confirm-order-wap">
+    <h2 class="title">确认订单</h2>
+    <div class="confirm-order-address">
+        <div class="confirm-order-titel">确认收货地址</div>
+        <div class="confirm-order-address-infor">
+            @Html.Action("GetAddress","Custom")
+        </div>
+    </div>
+    <div class="confirm-order-infor">
+        <div class="confirm-order-titel">确认订单信息</div>
+        <div class="confirm-order-detail">
+            <div>
+                <div class="confirm-order-detail-head">
+                    <ul>
+                        <li class="detail">商品简介</li>
+                        <li>作者</li>
+                        <li>单价</li>
+                        <li>数量</li>
+                        <li>运费</li>
+                        <li>总价</li>
+                    </ul>
+                </div>
+                <div class="confirm-order-detail-goods">
+                    <ul class="goods-list">
+                        @foreach (var item in Model)
+                        {
+                            <li name="goods" class="goods-item" id="@item.GoodsId">
+                                <ul>
+                                    <li class="detail">
+                                        <a href="">
+                                            <img src="@item.Goods.GoodsPhotoUrl" />
+                                        </a>
+                                        <p>@item.Goods.GoodsName</p>
+                                    </li>
+                                    <li>@item.Goods.Author</li>
+                                    <li class="money">￥@item.Goods.Price</li>
+                                    <li><input name="count" value="@item.Number" class="count" /></li>
+                                    <li class="money">￥@item.Goods.freight</li>
+                                    <li class="money">￥@(item.Goods.Price * item.Number + item.Goods.freight)</li>
+                                </ul>
+                                <textarea name="remark" class="custom-remark" placeholder="备注"></textarea>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            <p class="buy-now-infor-total">小计：<span id="total-money">￥@(item.Goods.Price * item.Number + item.Goods.freight)</span></p>
+        </div>
+    </div>
+    @Html.Partial("Users/_MallSign")
+    <div class="confirm-order-confirm">
+        <p>
+            应付款：<span class="confirm-order-confirm-money" id="total-money">￥@(item.Goods.Price * item.Number + item.Goods.freight)</span>
+        </p>
+        <div id="confirm-address">
+            @Html.Action("GetSelectedAddress", "Custom")
+        </div>
+        <button class="confirm-button" onclick="ConfirmOrderFromCart()" type="button">提交订单</button>
+    </div>
+</div>
+@section css{
+    @Styles.Render("~/Css/Order/ConfirmOrder.css")
+}
+@section scripts{
+    @Scripts.Render("~/JS/Order/ConfirmOrder.js")
+}

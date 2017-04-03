@@ -2,23 +2,54 @@
     display:inline-block;
     margin-left:30px;
 }
-.goods-edit,.goods-menu{
+.goods-search #search-input{
+    font-size:20px;
+    text-indent:5px;
+    border-radius:3px;
+    border:1px solid #ccc;
+    vertical-align:middle;
+    width:350px;
+}
+.goods-search button{
+    font-size:20px;
+    border-radius:3px;
+    border:1px solid #ccc;
+    color:white;
+    background-color:#3ae798;
+    vertical-align:middle;
+}
+.goods-search button:hover{
+    background-color:#20d683;
+}
+.goods-search button:active{
+    background-color:#3ae798;
+}
+.tab-content,.goods-menu{
     border:1px solid #666666;
     border-radius:10px;
     font-size:20px;
     display:inline-block;
     width:700px;
     height:1102px;
-    margin-left:50px;
+    margin-left:0px;
+}
+.goods-menu-td{
+    vertical-align: top;
+    padding-top: 42px;
+}
+.goods-info-td{
+    vertical-align: top;
 }
 .goods-menu{
     width:300px;
     font-size:16px;
+    margin-left:50px;
 }
 .goods-menu > ul{
     list-style:none;
     margin:0;
     padding:0;
+    overflow-y:auto;
 }
 .goods-menu > ul > li{
     border:2px solid rgba(172, 165, 165, 0.00);
@@ -26,7 +57,7 @@
     cursor:pointer;
 }
 .goods-menu > ul > li:hover{
-    border:2px solid rgba(255, 0, 0, 0.75);
+    border:2px solid rgba(44, 169, 225, 0.84);
     border-radius:5px;
     background-color:#f8f4e6;
 }
@@ -35,8 +66,9 @@
 }
 .goods-menu > ul > .selected{
     background-color:#e5e5e5;
-    border-radius:5px;
-    border:2px solid rgba(255, 0, 0,0.75);
+    border-radius:10px;
+    border:2px solid rgba(44, 169, 225, 0.84);
+    opacity: 1;
 }
 .goods-menu > ul > li > a{
     position:relative;
@@ -55,7 +87,10 @@
     padding:10px;
     width:100px;
 }
-.goods-edit .title{
+#myTab,#myTabContent{
+    margin-left:50px;
+}
+.goods-edit .title,.tab-content .title{
     width:100px;
     text-align:right;
     display:inline-block;
@@ -89,15 +124,7 @@
     max-height:100px;
     vertical-align:middle;
 }
-.goods-edit-class > ul,.goods-edit-class > ul li,
-.goods-search-class > ul,.goods-search-class > ul li{
-    list-style:none;
-    display:inline-block;
-}
-.goods-edit-class > ul li{
-    margin-left:20px;
-}
-.goods-edit-submit > button{
+.goods-edit-submit > button,.img-list button{
     width: 140px;
     height: 40px;
     margin-left: 135px;
@@ -105,10 +132,44 @@
     border-radius:5px;
     background-color:#2ca9e1;
     margin-left: 135px;
+    color:white;
 }
-.goods-edit-submit > button:hover,.goods-edit-submit > button:hover{
+.goods-edit-submit > button:hover,.img-list button > button:hover{
     background-color:#0095d9;
 }
-.goods-edit-submit > button:active,.goods-edit-submit > button:active{
+.goods-edit-submit > button:active,.img-list button > button:active{
     background-color:#2ca9e1;
+}
+.img-list{
+
+}
+.img-list ul{
+    padding:0;
+    margin:0;
+}
+.img-list ul li{
+    list-style:none;
+    display:inline-block;
+    margin:10px 20px;
+    border: 2px solid rgba(0, 0, 0, 0.00);
+    cursor:pointer;
+}
+.img-list ul li img{
+    width:100px;
+    height:160px;
+}
+.img-list ul .selected{
+    border: 2px solid red;
+    border-radius: 3px;
+}
+.img-item i{
+    display:none;
+    float:right;
+    color:#2ca9e1;
+}
+.img-list ul .selected i{
+    margin-right: -20px;
+    display: block;
+    position: relative;
+    right: 20px;
 }

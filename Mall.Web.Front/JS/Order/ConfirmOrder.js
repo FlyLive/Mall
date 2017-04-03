@@ -1,9 +1,25 @@
 ﻿
 $(".address-item").click(function () {
+    var addressId = $(this).attr("id");
+    var result = $.ajax({
+        type: 'get',
+        url: '/Custom/GetSelectedAddress',
+        async: false,
+        data: { "addressId": addressId },
+        datatype: 'html',
+        success: function (html) {
+        },
+        error: function () {
+            OpenTip("出错啦!");
+            return false;
+        }
+    });
     $(".address-item").removeClass("selected");
     $(this).addClass("selected");
+    $("#confirm-address").html(result.responseText);
 });
 
+//购物车
 function ConfirmOrderFromCart() {
     var addressId = $(".confirm-order-address-infor .selected").attr("id");
 
@@ -20,7 +36,31 @@ function ConfirmOrderFromCart() {
     $.ajax({
         type: 'POST',
         url: '/Order/CreateOrderFromCart',
-        data: { "goodsId": goodsIds,"deliveryAddressId": addressId, "customRemark": remarksValue },
+        data: { "goodsId": goodsIds, "deliveryAddressId": addressId, "customRemark": remarksValue },
+        async: false,
+        dataType: "json",
+        success: function (orderId) {
+            if (orderId != null) {
+                ConfirmPPOfPay(orderId);
+            }
+        },
+        error: function () {
+            OpenTip("出错啦!", 2);
+        }
+    });
+}
+
+//立即购买
+function ConfirmOrder() {
+    var addressId = $(".confirm-order-address-infor .selected").attr("id");
+    var goodsId = $(".goods-item").attr("id");
+    var count = $("#count").val();
+    var remark = $("#remark").val();
+
+    $.ajax({
+        type: 'POST',
+        url: '/Order/CreateOrder',
+        data: { "goodsId": goodsId, "deliveryAddressId": addressId, "customRemark": remark, "count": count },
         async: false,
         dataType: "json",
         success: function (orderId) {

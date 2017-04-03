@@ -163,6 +163,7 @@
     <Content Include="Css\Goods\GoodsEvaluates.css" />
     <Content Include="Css\Goods\GoodsSaleInfo.css" />
     <Content Include="Css\Goods\SearchResult.css" />
+    <Content Include="Css\Goods\style.css" />
     <Content Include="Css\Home\Home.css" />
     <Content Include="Css\Home\Suggest.css" />
     <Content Include="Css\MenuView\AdminLTE.css" />
@@ -177,6 +178,7 @@
     <Content Include="JS\Custom\PersonalInfo.js" />
     <Content Include="JS\Custom\SecuritySet.js" />
     <Content Include="JS\Custom\ShoppingCart.js" />
+    <Content Include="JS\Goods\jqzoom.js" />
     <Content Include="JS\Order\AllOrders.js" />
     <Content Include="JS\Goods\Goods.js" />
     <Content Include="JS\Layout\_Layout.js" />
@@ -249,7 +251,7 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\Layout\_Layout.cshtml" />
-    <Content Include="Views\Order\ConfirmOrder.cshtml" />
+    <Content Include="Views\Order\ConfirmOrderFromCart.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Users\Registe.cshtml" />
     <Content Include="Views\Shared\_Head.cshtml" />
@@ -297,10 +299,21 @@
     <Content Include="Views\Custom\SearchGoodFromCart.cshtml" />
     <Content Include="Views\Custom\GetAddress.cshtml" />
     <Content Include="Views\Shared\Custom\_ConfirmPP.cshtml" />
+    <Content Include="Views\Goods\GoodsImgs.cshtml" />
+    <Content Include="Views\Goods\GoodsCarousel.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Order\ConfirmOrder.cshtml" />
+    <Content Include="Views\Shared\Users\_MallSign.cshtml" />
+    <Content Include="Views\Custom\GetSelectedAddress.cshtml" />
+    <Content Include="Views\Order\RefundCenter.cshtml" />
+    <Content Include="Views\Order\ReturnCenter.cshtml" />
+    <Content Include="Views\Shared\Order\_OrderTitle.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\layer\" />
+    <Folder Include="Css\fonts\" />
     <Folder Include="NewFolder1\img\" />
   </ItemGroup>
   <ItemGroup>

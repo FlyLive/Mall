@@ -1,4 +1,6 @@
 ﻿
+@using Mall.Service.Models
+
 @model Mall.Web.Front.ViewModel.OrderViewModel
 
 <ul>
@@ -14,13 +16,42 @@
             <li class="order-item">
                 <div class="item-head">&emsp;<strong>下单时间:&emsp;@Model.CreateTime</strong>&emsp;&emsp;&emsp;订单编号:&emsp;@Model.OrderId</div>
                 <ul class="item-info">
-                    <li class="good-info"><div><a href=""><img src="~/Pictures/人类简史.jpg" /></a><div><p class="good-detail">Morbi sed mi luctus, tempor arcu nec, hendrerit purus.</p><p class="good-author">作者:&emsp;<span>张嘉佳</span></p></div></div></li>
+                    <li class="good-info"><div><a href="/Goods/Goods/@Model.GoodsId" target="_blank"><img src="~/Pictures/人类简史.jpg" /></a><div><p class="good-detail">@Model.GoodsName</p><p class="good-author">作者:&emsp;<span>@Model.GoodsName</span></p></div></div></li>
                     <li class="good-price">￥@Model.Price</li>
-                    <li class="good-count">￥@Model.Count</li>
-                    <li class="good-freight">@Model.Freight</li>
+                    <li class="good-count">@Model.Count</li>
+                    <li class="good-freight">￥@Model.Freight</li>
                     <li class="good-total">￥@Model.Totla</li>
-                    <li class="order-state"><span class="label label-warning">@Model.State</span></li>
-                    <li class="order-action"><a onclick=""><span class="label label-danger">支付</span></a></li>
+                    <li class="order-state">
+                        @switch (Model.State)
+                        {
+                            case (int)StateOfOrder.State.Cancle:<span class="label label-warning">已取消</span>; break;
+                            case (int)StateOfOrder.State.ToPay:<span class="label label-warning">未付款</span>; break;
+                            case (int)StateOfOrder.State.ToAccept:
+                            case (int)StateOfOrder.State.ToDelivery:<span class="label label-warning">待发货</span>; break;
+                            case (int)StateOfOrder.State.ApplyRefund:<span class="label label-danger">申请退款中</span>; break;
+                            case (int)StateOfOrder.State.Refunded:<span class="label label-danger">已退款</span>; break;
+
+                            case (int)StateOfOrder.State.ToReceipt:<span class="label label-warning">待收货</span>; break;
+                            case (int)StateOfOrder.State.ToEvaluate:<span class="label label-warning">待评价</span>; break;
+                            case (int)StateOfOrder.State.ToReply:
+                            case (int)StateOfOrder.State.Finish:<span class="label label-success">交易完成</span>; break;
+                        }
+                    </li>
+                    <li class="order-action">
+                        @switch (Model.State)
+                        {
+                            case (int)StateOfOrder.State.ToPay:<a onclick="ConfirmPPOfPay('@Model.OrderId')" title="付款"><span class="label label-warning">支付</span></a>; break;
+                            case (int)StateOfOrder.State.ToReceipt:<a href="/Custom/ConfirmReceipt/?orderId=@Model.OrderId" target="_blank" title="确认收货"><span class="label label-info">确认收货</span></a>; break;
+                            case (int)StateOfOrder.State.ToEvaluate:<a href="/Custom/Evaluate/?orderId=@Model.OrderId" target="_blank" title="评价该商品"><span class="label label-success">立即评价</span></a>; break;
+                            case (int)StateOfOrder.State.ToAccept:
+                            case (int)StateOfOrder.State.ToDelivery:<a onclick="ApplyRefund('@Model.OrderId')" title="申请退款"><span class="label label-warning">申请退款</span></a>; break;
+                            case (int)StateOfOrder.State.Cancle:
+                            case (int)StateOfOrder.State.ApplyRefund:
+                            case (int)StateOfOrder.State.Refunded:
+                            case (int)StateOfOrder.State.ToReply:
+                            case (int)StateOfOrder.State.Finish:<a title="该订单当前状态无可执行操作" class="no-action"><span class="label label-default">无操作</span></a>; break;
+                        }
+                    </li>
                 </ul>
             </li>
         }

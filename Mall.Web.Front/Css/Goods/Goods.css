@@ -1,6 +1,6 @@
 ﻿.goods-sale-info > div {
     display: inline-block;
-    vertical-align: middle;
+    vertical-align: top;
 }
 
 .goods-detail > .active {
@@ -38,6 +38,7 @@
 
             .goods-detail-select > ul > li:hover {
                 border: 2px solid rgb(255, 0, 0);
+                border-bottom:none;
                 color: #ff6a00;
             }
 

@@ -12,7 +12,7 @@ namespace Mall.Web.Front.Controllers
 {
     public class GoodsController : Controller
     {
-        GoodsService _goodsService = new GoodsService();
+        private GoodsService _goodsService = new GoodsService();
 
         /// <summary>
         /// 商品详情页
@@ -49,6 +49,30 @@ namespace Mall.Web.Front.Controllers
             GoodsInfo goods = _goodsService.GetGoodsByGoodsId(goodsId);
             GoodsInfoViewModel goodsDTO = DataGoodToDTO(goods);
             return PartialView(goodsDTO);
+        }
+
+        public ActionResult GoodsImgs(int goodsId)
+        {
+            List<Image> images = _goodsService.GetImgsByGoodsId(goodsId);
+            List<ImageViewModel> imagesDTO = images.Select(i => new ImageViewModel
+            {
+                ImageId = i.ImageId,
+                ImageSrc = i.ImageSrc,
+                GoodsId = i.GoodsId,
+            }).ToList();
+            return PartialView(imagesDTO);
+        }
+
+        public ActionResult GoodsCarousel(int goodsId)
+        {
+            List<Image> images = _goodsService.GetImgsByGoodsId(goodsId);
+            List<ImageViewModel> imagesDTO = images.Select(i => new ImageViewModel
+            {
+                ImageId = i.ImageId,
+                ImageSrc = i.ImageSrc,
+                GoodsId = i.GoodsId,
+            }).ToList();
+            return PartialView(imagesDTO);
         }
 
         /// <summary>
@@ -96,6 +120,7 @@ namespace Mall.Web.Front.Controllers
             {
                 GoodsId = g.GoodsId,
                 GoodsName = g.GoodsName,
+                GoodsPhotoUrl = g.Image.ElementAt(0).ImageSrc,
                 Price = g.Price,
                 Stock = g.Stock,
                 Details = g.Details,
@@ -103,12 +128,12 @@ namespace Mall.Web.Front.Controllers
                 CommentNumber = g.CommentNumber,
                 State = g.State,
                 CreateTime = g.CreateTime.ToString("yyyy-MM-dd HH-mm-ss"),
-                ShelfTime = g.ShelfTime == null ? g.ShelfTime.ToString() : "0000-00-00 00-00-00",
-                UnderShelfTime = g.UnderShelfTime == null ? g.UnderShelfTime.ToString() : "0000-00-00 00-00-00",
+                ShelfTime = g.ShelfTime == null ? "0000-00-00 00-00-00" : g.ShelfTime.ToString(),
+                UnderShelfTime = g.UnderShelfTime == null ? "0000-00-00 00-00-00" : g.UnderShelfTime.ToString(),
                 IsDelete = g.IsDelete,
                 Author = g.Author,
                 Press = g.Press,
-                PublicationDate = g.PublicationDate == null ? g.PublicationDate.ToString() : "0000-00-00 00-00-00",
+                PublicationDate = g.PublicationDate == null ? "0000-00-00" : g.PublicationDate.Value.ToString("yyyy-MM-dd"),
                 freight = g.freight,
             };
             return goodDTO;

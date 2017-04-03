@@ -35,32 +35,23 @@ function SearchOrderId() {
     });
 }
 
-function PayOrder(orderId) {
+function ApplyRefund(orderId) {
     $.ajax({
-        type: 'GET',
-        url: 'SearchOrderId',
+        type: 'Post',
+        url: '/Custom/ApplyRefund',
         data: { "orderId": orderId },
         datatype: 'html',
-        success: function (Data) {
-            $("#order-list").html(Data);
+        success: function (result) {
+            if (result == "True") {
+                OpenTipSuccess("申请成功，等待处理!", 1);
+                location.reload();
+            }
+            else {
+                OpenTip("申请失败!", 1);
+            }
         },
         error: function () {
             OpenTip("出错啦!", 2);
         }
-    });
-}
-
-function ConfirmReceipt(orderId) {
-    $.ajax({
-        type: 'POST',
-        url: '/Custom/ConfirmReceipt',
-        data: { "orderId": orderId },
-        datatype: 'html',
-        success: function (Data) {
-            $("#order-list").html(Data);
-        },
-        error: function () {
-            OpenTip("出错啦!", 2);
-        }
-    });
+    })
 }

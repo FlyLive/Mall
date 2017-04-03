@@ -71,14 +71,29 @@ namespace Mall.Service.Services.Custom
             {
                 return orders;
             }
+            else if(orderState == (int)StateOfOrder.State.ToDelivery)
+            {
+                searchResult = orders.Where(o => o.State == (int)StateOfOrder.State.ToAccept ||
+                    o.State == (int)StateOfOrder.State.ToDelivery).ToList();
+            }
             else if(orderState == (int)StateOfOrder.State.Finish)
             {
                 searchResult = orders.Where(o => o.State == (int)StateOfOrder.State.Finish ||
-                o.State == (int)StateOfOrder.State.ReturnFailed ||
-                o.State == (int)StateOfOrder.State.ToRefund).ToList();
-
+                    o.State == (int)StateOfOrder.State.ReturnFailed ||
+                    o.State == (int)StateOfOrder.State.ToReply).ToList();
             }
-            searchResult = orders.Where(o => o.State == orderState).ToList();
+            else if(orderState == (int)StateOfOrder.State.ApplyRefund)
+            {
+                searchResult = orders.Where(o => o.State == (int)StateOfOrder.State.ApplyRefund ||
+                    o.State == (int)StateOfOrder.State.Refunded).ToList();
+            }
+            else if(orderState == (int)StateOfOrder.State.ApplyReturn)
+            {
+                searchResult = orders.Where(o => o.State == (int)StateOfOrder.State.ApplyReturn ||
+                    o.State == (int)StateOfOrder.State.Returning ||
+                    o.State == (int)StateOfOrder.State.ReturnSucceed ||
+                    o.State == (int)StateOfOrder.State.ReturnFailed).ToList();
+            }
             return searchResult;
         }
 
@@ -90,7 +105,8 @@ namespace Mall.Service.Services.Custom
         public bool ApplyRefundByOrderId(Guid orderId)
         {
             Order order = GetOrderByOrderId(orderId);
-            if(order.State == (int)StateOfOrder.State.ToDelivery)
+            int orderState = order.State;
+            if(orderState == (int)StateOfOrder.State.ToDelivery || orderState == (int)StateOfOrder.State.ToAccept)
             {
                 order.State = (int)StateOfOrder.State.ApplyRefund;
                 _db.SaveChanges();
@@ -113,7 +129,7 @@ namespace Mall.Service.Services.Custom
                 _db.SaveChanges();
                 return true;
             }
-            throw new NotImplementedException();
+            return false;
         }
 
         /// <summary>
@@ -138,22 +154,9 @@ namespace Mall.Service.Services.Custom
             _db.SaveChanges();
         }
 
-        public Guid CreateOrder(int goodsId, int customId, int deliveryAddressId, int count, string clientRemark)
+        public Guid CreateOrder(int goodsId, int customId, int deliveryAddressId, int count, string customRemark)
         {
-            return new Guid();
-        }
-
-        /// <summary>
-        /// 从购物车创建订单
-        /// </summary>
-        /// <param name="order"></param>
-        /// <returns></returns>
-        public Guid CreateOrderFromCart(int goodsId, int customId, int deliveryAddressId,string customRemark)
-        {
-            ShoppingCart cart = _db.ShoppingCart.Include("GoodsInfo")
-                .SingleOrDefault(c => c.GoodsId == goodsId);
-
-            GoodsInfo good = cart.GoodsInfo;
+            GoodsInfo good = _db.GoodsInfo.SingleOrDefault(g => g.GoodsId == goodsId);
 
             DataBase.Custom custom = _db.Custom.Include("User")
                 .SingleOrDefault(c => c.CustomId == customId);
@@ -169,10 +172,10 @@ namespace Mall.Service.Services.Custom
                 CustomId = customId,
                 Price = good.Price,
                 Freight = good.freight,
-                Count = cart.Number,
-                Totla = good.Price * cart.Number + good.freight,
+                Count = count,
+                Totla = good.Price * count + good.freight,
                 Consignee = delivery.Consignee,
-                PhoneNumber = custom.User.PhoneNumber,
+                PhoneNumber = delivery.PhoneNumber,
                 DeliveryAddress = delivery.DetailedAddress,
                 State = (int)StateOfOrder.State.ToPay,
                 CreateTime = DateTime.Now,
@@ -180,14 +183,29 @@ namespace Mall.Service.Services.Custom
                 CustomRemark = customRemark,
             };
             
-            custom.ShoppingCart.Remove(cart);
             custom.Order.Add(order);
             good.Order.Add(order);
 
             _db.Order.Add(order);
+            _db.SaveChanges();
+
+            return order.OrderId;
+        }
+
+        /// <summary>
+        /// 从购物车创建订单
+        /// </summary>
+        /// <param name="order"></param>
+        /// <returns></returns>
+        public Guid CreateOrderFromCart(int goodsId, int customId, int deliveryAddressId,string customRemark)
+        {
+            ShoppingCart cart = _db.ShoppingCart.Include("GoodsInfo")
+                .SingleOrDefault(c => c.GoodsId == goodsId);
+            Guid orderId = CreateOrder(goodsId,customId,deliveryAddressId,cart.Number,customRemark);
+            
             _db.ShoppingCart.Remove(cart);
             _db.SaveChanges();
-            return order.OrderId;
+            return orderId;
         }
 
         /// <summary>
@@ -243,7 +261,7 @@ namespace Mall.Service.Services.Custom
         {
             DataBase.Custom custom = _db.Custom.SingleOrDefault(c => c.CustomId == customId);
             Order order = GetOrderByOrderId(orderId);
-            order.State = (int)StateOfOrder.State.ToRefund;
+            order.State = (int)StateOfOrder.State.ToReply;
             _db.Comment.Add(
                 new Comment
                 {

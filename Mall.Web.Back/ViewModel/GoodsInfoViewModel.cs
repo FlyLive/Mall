@@ -24,5 +24,6 @@ namespace Mall.Web.Back.ViewModel
         public string Press { get; set; }
         public string PublicationDate { get; set; }
         public double freight { get; set; }
+        public string ImageUrl { get; set; }
     }
 }

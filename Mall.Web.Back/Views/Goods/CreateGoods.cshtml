@@ -13,26 +13,6 @@
             <tr>
                 <td>
                     <div class="createGoods-left">
-                        @*<div class="createGoods-left-class">
-                            <p class="title">分类</p>
-                            <ul>
-                                <li>
-                                    <label>
-                                        <input name="recommend" type="checkbox" value="1" />类别一
-                                    </label>
-                                </li>
-                                <li>
-                                    <label>
-                                        <input name="recommend" type="checkbox" value="2" />类别二
-                                    </label>
-                                </li>
-                                <li>
-                                    <label>
-                                        <input name="recommend" type="checkbox" value="3" />类别三
-                                    </label>
-                                </li>
-                            </ul>
-                        </div>*@
                         <div>
                             <p class="title"><span class="star">*</span>商品名</p>
                             <input name="name" id="name" class="input" type="text" placeholder="商品名" />
@@ -75,17 +55,7 @@
                 </td>
                 <td>
                     <div class="createGoods-right">
-                        <div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <h3>销售图片</h3>
-                                    <input type="file" multiple id="ssi-upload" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="createGoods-right-submit">
-                            <button type="button">立即添加</button>
-                        </div>
+                        
                     </div>
                 </td>
             </tr>
@@ -98,6 +68,5 @@
 }
 @section scripts{
     @Scripts.Render("~/JS/Goods/CreateGoods.js")
-    @Scripts.Render("~/JS/Shared/layer_open_tip.js")
     @Scripts.Render("~/JS/Shared/ssi-uploader.js")
 }

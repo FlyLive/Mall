@@ -33,7 +33,7 @@
                         <li class="check"><input type="checkbox" /></li>
                         <li class="detail">
                             <a href="">
-                                <img src="@cart.Goods" />
+                                <img src="@cart.Goods.GoodsPhotoUrl" />
                             </a>
                             <p>@cart.Goods.GoodsName</p>
                         </li>
@@ -45,38 +45,6 @@
                     </ul>
                 </li>
             }
-            <li class="shoppingCart-item" id="123">
-                <ul>
-                    <li class="check"><input type="checkbox" /></li>
-                    <li class="detail">
-                        <a href="">
-                            <img src="~/Pictures/Shared/contact.png" />
-                        </a>
-                        <p>《从你的全世界路过》</p>
-                    </li>
-                    <li class="money">￥123.00</li>
-                    <li><span class="reset-count" onclick="ReduceCount(this)">-</span><input id="count" value="1" class="count" min="1" disabled="disabled" /><span class="reset-count" onclick="IncreaseCount(this)">+</span></li>
-                    <li class="money">￥0.00</li>
-                    <li class="money">￥123.00</li>
-                    <li class="action"><a onclick="BuyGood(this)"><span class="buy">立即下单</span></a><a onclick="DeletGoods(this)"><span class="delet">删除</span></a></li>
-                </ul>
-            </li>
-            <li class="shoppingCart-item" id="321">
-                <ul>
-                    <li class="check"><input type="checkbox" /></li>
-                    <li class="detail">
-                        <a href="">
-                            <img src="~/Pictures/Shared/contact.png" />
-                        </a>
-                        <p>《从你的全世界路过》</p>
-                    </li>
-                    <li class="money">￥123.00</li>
-                    <li><span class="reset-count" onclick="ReduceCount(this)">-</span><input id="count" value="1" class="count" min="1" disabled="disabled" /><span class="reset-count" onclick="IncreaseCount(this)">+</span></li>
-                    <li class="money">￥0.00</li>
-                    <li class="money">￥123.00</li>
-                    <li class="action"><a onclick="BuyGood(this)"><span class="buy">立即下单</span></a><a onclick="DeletGoods(this)"><span class="delet">删除</span></a></li>
-                </ul>
-            </li>
             <li class="no-goods"><h2>未查询到相关商品!请验证后重试</h2></li>
         </ul>
     </div>

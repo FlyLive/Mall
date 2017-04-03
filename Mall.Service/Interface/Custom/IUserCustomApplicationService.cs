@@ -31,7 +31,7 @@ namespace Mall.Interface.Custom
         /// <param name="contact"></param>
         /// <param name="phone"></param>
         /// <param name="zip"></param>
-        void ModifyDeliverInfo(int deliveryInfoId, string address, string contact, string phone, string zip = " ");
+        void ModifyDeliverInfo(int customId,int deliveryInfoId, string address, string contact, string phone, string zip = " ");
         /// <summary>
         /// 修改密码
         /// </summary>

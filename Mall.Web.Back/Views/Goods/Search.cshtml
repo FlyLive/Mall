@@ -1,0 +1,27 @@
+﻿
+@model List<Mall.Web.Back.ViewModel.GoodsInfoViewModel>
+
+<ul>
+    @for (var i = 0;i < Model.Count;i++)
+    {
+        <li class="goods-menu-item @(i == 0 ? "selected" : "")" id="@Model[i].GoodsId"onclick="InitGood(this)">
+            <a>
+                <img src="@Model[i].ImageUrl" />
+            </a>
+            <table>
+                <tr>
+                    <td class="goods-menu-title">
+                        商品名:&ensp;
+                    </td>
+                    <td title="@Model[i].GoodsName">@(Model[i].GoodsName.Length >= 5 ? Model[i].GoodsName.Substring(0, 4) + "…" : Model[i].GoodsName)</td>
+                </tr>
+                <tr>
+                    <td class="goods-menu-title">
+                        ID:&ensp;
+                    </td>
+                    <td>@Model[i].GoodsId</td>
+                </tr>
+            </table>
+        </li>
+    }
+</ul>

@@ -15,6 +15,9 @@
     -moz-box-shadow: rgba(60, 141, 188,1) 3px 3px;  
     box-shadow: rgba(60, 141, 188,1) 3px 3px;
 }
+.order-content > ul > li > h3{
+    text-align:center;
+}
 .order-title{
     border-radius:10px 10px 0px 0px;
     background-color: #85c2ff;

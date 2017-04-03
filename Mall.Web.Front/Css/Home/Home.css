@@ -53,6 +53,10 @@
 .mall-head-center > div{
     width:965px;
 }
+.mall-head-center .banner > .tb-list > ul > li > a > img{
+    width: 935px;
+    height: 500px;
+}
 
 .advertisement {
     display: flex;
@@ -96,6 +100,7 @@
         width: 50px;
         text-align: center;
         border-radius: 10px;
+        background-color:rgba(220, 220, 220,0.3);
     }
 
         .tb-arrow > a:hover {
@@ -105,7 +110,7 @@
 
 @-webkit-keyframes fade {
     from {
-        background-color: rgba(128, 128, 128, 0.00);
+        background-color: rgba(220, 220, 220,0.2);
     }
 
     to {

@@ -10,6 +10,7 @@
     text-decoration: none;
     font-size: 14px;
     font-weight: 700;
+    margin-right:30px;
 }
 
 .goods-sale-detail-info .money {
@@ -23,7 +24,21 @@
 .info-shop-price {
     text-decoration: line-through;
 }
-
+.info-count #count{
+    text-align:center;
+    width:6%;
+    font-size:20px;
+}
+.info-count .count-contorl{
+    padding:8px 10px 6px 10px;
+    background-color:red;
+    font-size:18px;
+    color:white;
+    cursor:pointer;
+}
+.info-count .count-contorl:hover{
+    background-color:#ce0000;
+}
 .info-money {
     font-size: 30px;
     font-weight: 900;

@@ -6,15 +6,6 @@ $(function () {
 
 $(function () {
     // 动画
-    $('.animation .select').on({
-        'mouseenter': function () {
-            $(this).addClass('active');
-        },
-        'mouseleave': function () {
-            $(this).removeClass('active');
-        }
-    });
-
     var animationDOM = $('#animation')[0].outerHTML;
     $('#animation').terseBanner({
         arrow: true,

@@ -5,16 +5,10 @@
     <div class="container animation" id="anchor-3">
         <div class="banner" id="animation">
             <ul>
-                @foreach (var goods in Model)
+                @foreach (var item in Model)
                 {
-                    <li><a href="/Goods/Goods/@goods.GoodsId" title="@goods.GoodsName" target="_blank"><img src="~/NewFolder1/img/banner-1.jpg"></a></li>
+                    <li><a href="/Goods/Goods/?goodsId=@item.GoodsId" title="@item.GoodsName" target="_blank"><img src="@item.GoodsPhotoUrl"></a></li>
                 }
-                <li><a href="#" title="name"><img src="~/NewFolder1/img/banner-1.jpg"></a></li>
-                <li><a href="#" title="name"><img src="~/NewFolder1/img/banner-2.jpg"></a></li>
-                <li><a href="#" title="name"><img src="~/NewFolder1/img/banner-3.jpg"></a></li>
-                <li><a href="#" title="name"><img src="~/NewFolder1/img/banner-4.jpg"></a></li>
-                <li><a href="#" title="name"><img src="~/NewFolder1/img/banner-5.jpg"></a></li>
-                <li><a href="#" title="name"><img src="~/NewFolder1/img/banner-6.jpg"></a></li>
             </ul>
         </div>
     </div>

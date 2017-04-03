@@ -1,6 +1,6 @@
 ﻿.registe_wap {
     height:800px;
-    background-image: url('../../Pictures/Users/图书.jpg');
+    background-image: url('http://localhost:9826/Mall.Web.Front/Users/图书.jpg');
     background-repeat: no-repeat;
     background-size:cover;
 }

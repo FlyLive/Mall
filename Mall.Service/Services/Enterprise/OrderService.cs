@@ -32,7 +32,21 @@ namespace Mall.Service.Services.Enterprise
         /// <returns></returns>
         public List<Order> GetOrdersByState(int state)
         {
-            List<Order> orders = _db.Order.Where(o => o.State == state).ToList();
+            List<Order> orders = null;
+            orders = _db.Order.Where(o => o.State == state).ToList();
+            if(state == (int)StateOfOrder.State.ApplyRefund)
+            {
+                orders = _db.Order.Where(o => o.State == state
+                    || o.State == (int)StateOfOrder.State.ApplyRefund
+                    || o.State == (int)StateOfOrder.State.Refunded).ToList();
+            }
+            else if (state == (int)StateOfOrder.State.ApplyRefund)
+            {
+                orders = _db.Order.Where(o => o.State == state
+                    || o.State == (int)StateOfOrder.State.ApplyRefund
+                    || o.State == (int)StateOfOrder.State.Refunded).ToList();
+            }
+            
             return orders;
         }
 
@@ -87,7 +101,7 @@ namespace Mall.Service.Services.Enterprise
 
             if (order.State == (int)StateOfOrder.State.ApplyRefund)
             {
-                order.State = (int)StateOfOrder.State.Returning;
+                order.State = (int)StateOfOrder.State.Refunded;
                 _db.AdminLog.Add(new AdminLog
                 {
                     EmployeeId = employee.EmployeeId,
@@ -158,7 +172,6 @@ namespace Mall.Service.Services.Enterprise
             return false;
         }
 
-
         /// <summary>
         /// 修改备注
         /// </summary>
@@ -168,7 +181,7 @@ namespace Mall.Service.Services.Enterprise
         {
             Order order = GetOrderByOrderId(orderId);
             var state = order.State;
-            if (state == (int)StateOfOrder.State.ToDelivery)
+            if (state == (int)StateOfOrder.State.ToAccept)
             {
                 Employee employee = _db.Employee.Include("AdminLog").Include("User").SingleOrDefault(e => e.EmployeeId == employeeId);
                 order.OrderRemark = remark;

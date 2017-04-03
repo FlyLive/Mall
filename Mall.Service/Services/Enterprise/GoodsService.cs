@@ -1,8 +1,10 @@
 ﻿using Mall.Interface.Enterprise;
 using Mall.Service.DataBase;
+using Mall.Service.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,6 +24,12 @@ namespace Mall.Service.Services.Enterprise
             return _db.GoodsInfo.ToList();
         }
 
+        public List<GoodsInfo> GetCarousels()
+        {
+            List<GoodsInfo> goods = _db.GoodsInfo.Take(5).ToList();
+            return goods;
+        }
+
         /// <summary>
         /// 根据商品Id获取商品
         /// </summary>
@@ -31,6 +39,17 @@ namespace Mall.Service.Services.Enterprise
         {
             GoodsInfo goods = _db.GoodsInfo.SingleOrDefault(g => g.GoodsId == goodsId);
             return goods;
+        }
+
+        /// <summary>
+        /// 根据商品Id获取商品图片
+        /// </summary>
+        /// <param name="goodsId"></param>
+        /// <returns></returns>
+        public List<Image> GetImgsByGoodsId(int goodsId)
+        {
+            List<Image> imgs = _db.Image.Where(i => i.GoodsId == goodsId).ToList();
+            return imgs;
         }
 
         /// <summary>
@@ -55,7 +74,7 @@ namespace Mall.Service.Services.Enterprise
                                      orderby g.CommentNumber
                                      descending
                                      select g)
-                                     .Take(5).ToList();
+                                     .Take(5).Where(g => g.State == (int)StateOfGoods.State.OnShelves).ToList();
             return goods;
         }
 
@@ -70,7 +89,7 @@ namespace Mall.Service.Services.Enterprise
                                      orderby g.CreateTime
                                      descending
                                      select g)
-                                     .Take(5).ToList();
+                                     .Take(5).Where(g => g.State == (int)StateOfGoods.State.OnShelves).ToList();
             return goods;
         }
 
@@ -80,7 +99,7 @@ namespace Mall.Service.Services.Enterprise
         /// <returns></returns>
         public List<GoodsInfo> GetRandomGoodsTop5()
         {
-            var dbGoods = _db.GoodsInfo;
+            var dbGoods = _db.GoodsInfo.Where(g => g.State == (int)StateOfGoods.State.OnShelves);
             Random random = new Random();
             List<GoodsInfo> newList = new List<GoodsInfo>();
             foreach (GoodsInfo item in dbGoods)
@@ -105,7 +124,7 @@ namespace Mall.Service.Services.Enterprise
         /// <param name="press"></param>
         /// <returns></returns>
         public int CreateGoods(string name, int count,
-            double price, string detail, int onshelves,
+            double price, string detail,
             double? freight, DateTime? publicationDate,
             string author = null, string press = null)
         {
@@ -117,7 +136,7 @@ namespace Mall.Service.Services.Enterprise
                     Stock = count,
                     Price = price,
                     Details = detail,
-                    State = onshelves,
+                    State = (int)StateOfGoods.State.OffShelves,
                     IsDelete = false,
                     CommentNumber = 0,
                     CreateTime = DateTime.Now,
@@ -137,13 +156,39 @@ namespace Mall.Service.Services.Enterprise
             }
         }
 
+        public bool IsImageFull(int goodsId)
+        {
+            var imgs = GetImgsByGoodsId(goodsId);
+            if(imgs.Count >= 5)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// 添加商品图片
+        /// </summary>
+        /// <param name="goodsId"></param>
+        /// <param name="path"></param>
         public void AddGoodsImage(int goodsId,string path)
         {
             _db.Image.Add(new Image
             {
                 GoodsId = goodsId,
-                ImageSrc = "http://" + path,
+                ImageSrc = "http://localhost:9826/" + path,
             });
+            _db.SaveChanges();
+        }
+
+        /// <summary>
+        /// 删除商品图片
+        /// </summary>
+        /// <param name="imageId"></param>
+        public void DeletGoodsImage(int[] imageId)
+        {
+            List<Image> imgs = _db.Image.Where(i => imageId.Any(ii => ii == i.ImageId)).ToList();
+            _db.Image.RemoveRange(imgs);
             _db.SaveChanges();
         }
 
@@ -168,9 +213,19 @@ namespace Mall.Service.Services.Enterprise
         /// 修改商品信息
         /// </summary>
         /// <param name="good"></param>
-        public void ModifyGoodsInfo(GoodsInfo good)
+        public void ModifyGoodsInfo(int goodsId, string name, double price,
+            string detail, DateTime? publicationDate, double ? freight,
+            string author = null, string press = null)
         {
-            throw new NotImplementedException();
+            GoodsInfo good = GetGoodsByGoodsId(goodsId);
+            good.GoodsName = name;
+            good.Price = price;
+            good.Details = detail;
+            good.PublicationDate = publicationDate;
+            good.freight = freight == null ? 0.00 : (double)freight;
+            good.Author = author;
+            good.Press = press;
+            _db.SaveChanges();
         }
 
         /// <summary>

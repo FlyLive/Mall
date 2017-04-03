@@ -15,7 +15,7 @@ namespace Mall.Interface.Enterprise
         /// <param name="goods"></param>
         /// <returns></returns>
         int CreateGoods(string name, int count,
-            double price, string detail, int onshelves,
+            double price, string detail,
             double? freight, DateTime? publicationDate,
             string author = null, string press = null);
         /// <summary>
@@ -28,7 +28,9 @@ namespace Mall.Interface.Enterprise
         /// </summary>
         /// <param name="good"></param>
         /// <returns></returns>
-        void ModifyGoodsInfo(GoodsInfo good);
+        void ModifyGoodsInfo(int goodsId, string name, double price,
+            string detail, DateTime? publicationDate, double ? freight,
+            string author = null, string press = null);
         /// <summary>
         /// 根据商品Id和修改后的库存修改
         /// </summary>

@@ -1,4 +1,7 @@
-﻿<!-- 商品详情 -->
+﻿
+@model Mall.Web.Front.ViewModel.GoodsInfoViewModel
+
+<!-- 商品详情 -->
 <div class="goods-detail-parameter">
     <div class="title">
         <h4><span>参数详情</span></h4>
@@ -11,8 +14,8 @@
                 <td>字 数:123000</td>
             </tr>
             <tr>
-                <td>出版社:重庆人民出版社</td>
-                <td>出版时间:</td>
+                <td>出版社:@Model.Press</td>
+                <td>出版时间:@Model.PublicationDate</td>
             </tr>
             <tr>
                 <td>包 装:</td>
@@ -22,15 +25,14 @@
         </tbody>
     </table>
 </div>
-<div class="goods-detail-img">
+<div class="goods-detail-details">
     <div class="title">
-        <h4><span>图文详情</span></h4>
+        <h4><span>内容简介</span></h4>
     </div>
-    <div class="img-content">
-        @{List<int> i = new List<int>(); i.Add(1); i.Add(2); }
-        @foreach (var item in i)
-        {
-            <img src="~/Pictures/goods-test.jpg" />
-        }
+    <div>
+        <h4>&emsp;@Model.Details</h4>
     </div>
+</div>
+<div class="goods-detail-img">
+    @Html.Action("GoodsImgs", new { goodsId = Model.GoodsId })
 </div>

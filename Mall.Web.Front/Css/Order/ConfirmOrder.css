@@ -139,6 +139,16 @@
     font-size: 20px;
     text-align:center;
 }
+.goods-item .count-control{
+    padding: 3px 5px;
+    font-size: 18px;
+    background-color: red;
+    color: white;
+    cursor:pointer;
+}
+.goods-item .count-control:hover{
+    background-color:#FF3300;
+}
 .money{
     color:red;
 }

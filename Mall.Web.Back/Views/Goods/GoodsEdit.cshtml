@@ -10,165 +10,50 @@
 </section>
 <section class="content">
     <div class="goods-search">
-        <div class="goods-search-class">
-            <ul>
-                <li>
-                    <label>
-                        <input name="recommend" type="checkbox" value="1" />类别一
-                    </label>
-                </li>
-                <li>
-                    <label>
-                        <input name="recommend" type="checkbox" value="2" />类别二
-                    </label>
-                </li>
-                <li>
-                    <label>
-                        <input name="recommend" type="checkbox" value="3" />类别三
-                    </label>
-                </li>
-            </ul>
-        </div>
         <div class="goods-search-input">
             <input id="search-input" type="text" />
             <button type="button" onclick="Search()">商品搜索</button>
         </div>
     </div>
-    <table>
+    <table style="margin:0 auto">
         <tr>
-            <td>
+            <td class="goods-menu-td">
                 <div class="goods-menu" id="goods-menu">
-                    <ul>
-                        @*@foreach (var good in Model)
-                            {
-                                <li>
-                                    <a>
-                                        <img src="~/Pictures/Shared/contact.png" />
-                                    </a>
-                                    <table>
-                                        <tr>
-                                            <td class="goods-menu-title">
-                                                商品名:&ensp;
-                                            </td>
-                                            <td>@good.GoodsName</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="goods-menu-title">
-                                                ID:&ensp;
-                                            </td>
-                                            <td>@good.GoodsId</td>
-                                        </tr>
-                                    </table>
-                                </li>
-                            }*@
-                        <li class="selected" onclick="Modify(this)">
-                            <a>
-                                <img src="~/Pictures/Shared/contact.png" />
-                            </a>
-                            <input id="id" value="1"type="hidden"/>
-                            <table>
-                                <tr>
-                                    <td class="goods-menu-title">
-                                        商品名:&ensp;
-                                    </td>
-                                    <td>XXXXXXXX</td>
-                                </tr>
-                                <tr>
-                                    <td class="goods-menu-title">
-                                        ID:&ensp;
-                                    </td>
-                                    <td>XXXXX</td>
-                                </tr>
-                            </table>
-                        </li>
-                        <li>
-                            <a>
-                                <img src="~/Pictures/Shared/contact.png" />
-                            </a>
-                            <table>
-                                <tr>
-                                    <td class="goods-menu-title">
-                                        商品名:&ensp;
-                                    </td>
-                                    <td>XXXXXXXX</td>
-                                </tr>
-                                <tr>
-                                    <td class="goods-menu-title">
-                                        ID:&ensp;
-                                    </td>
-                                    <td>XXXXX</td>
-                                </tr>
-                            </table>
-                        </li>
-                    </ul>
+                    @Html.Action("Search", "Goods", new { search = string.Empty })
                 </div>
             </td>
-            <td>
-                <div class="goods-edit">
-                    <form action="">
-                        <div class="goods-edit-class">
-                            <p class="title">分类</p>
-                            <ul>
-                                <li>
-                                    <label>
-                                        <input name="recommend" type="checkbox" value="1" />类别一
-                                    </label>
-                                </li>
-                                <li>
-                                    <label>
-                                        <input name="recommend" type="checkbox" value="2" />类别二
-                                    </label>
-                                </li>
-                                <li>
-                                    <label>
-                                        <input name="recommend" type="checkbox" value="3" />类别三
-                                    </label>
-                                </li>
-                            </ul>
+            <td class="goods-info-td">
+                <ul id="myTab" class="nav nav-tabs">
+                    <li class="active"><a href="#info" data-toggle="tab">基本信息</a></li>
+                    <li><a href="#img" data-toggle="tab">图片</a></li>
+                </ul>
+                <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane fade in active" id="info">
+                        <div id="goods-edit-info" class="goods-edit">
+                            @Html.Partial("GoodsInfoDetails", Model[0])
                         </div>
-                        <div>
-                            <p class="title"><span class="star">*</span>商品名</p>
-                            <input name="name" id="name" class="input" type="text" placeholder="商品名" />
-                        </div>
-                        <div>
-                            <p class="title">作者</p>
-                            <input name="author" id="author" class="input" type="text" placeholder="作者" />
-                        </div>
-                        <div>
-                            <p class="title">出版社</p>
-                            <input name="press" id="press" class="input" type="text" placeholder="出版社" />
-                        </div>
-                        <div>
-                            <p class="title">出版日期</p>
-                            <input name="publicationDate" id="publicationDate" class="input" type="date" />
-                        </div>
-                        <div>
-                            <p class="title"><span class="star">*</span>价格</p>
-                            <input name="price" id="price" class="input" type="text" placeholder="+123.00" />
-                            <p class="sign"><span class="star">*</span>格式&emsp;+123.00</p>
-                        </div>
-                        <div>
-                            <p class="title">运费</p>
-                            <input name="freight" id="freight" class="input" type="text" placeholder="+123.00" />
-                            <p class="sign"><span class="star">*</span>格式&emsp;+123.00</p>
-                        </div>
-                        <div>
-                            <p class="title"><span class="star">*</span>详细介绍</p>
-                            <textarea name="detail" id="detail" rows="3" placeholder="详情"></textarea>
-                        </div>
-                        <div class="goods-edit-submit">
-                            <button type="button" onclick="ModifyGoods()">添加图片</button>
-                        </div>
-                    </form>
+                    </div>
+                    <div class="tab-pane fade" id="img">
+                        @Html.Action("GoodsImgList", "Goods", new { goodsId = Model[0].GoodsId })
+                    </div>
                 </div>
             </td>
         </tr>
     </table>
 </section>
 @section css{
-    <link href="~/Css/Goods/GoodsEdit.css" rel="stylesheet" />
+    @Styles.Render("~/Css/Goods/GoodsEdit.css")
+    @Styles.Render("~/Css/Goods/ssi-uploader.css")
 }
 @section scripts{
     @Scripts.Render("~/JS/Goods/GoodsEdit.js")
-    @Scripts.Render("~/JS/Shared/layer_open_tip.js")
+    @Scripts.Render("~/JS/Shared/ssi-uploader.js")
+    <script>
+        $('#ssi-upload').ssi_uploader({
+            url: "/Goods/CreateGoodsImg",
+            data: { "goodsId": @Model[0].GoodsId },
+            maxFileSize: 6,
+            allowed: ['jpg', 'gif', 'txt', 'png', 'pdf'],
+        });
+    </script>
 }

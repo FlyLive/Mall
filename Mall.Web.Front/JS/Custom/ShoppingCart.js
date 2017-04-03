@@ -23,7 +23,7 @@ function SearchGoods() {
 
 function BuyGood(event) {
     var goodsId = $(event).parent().parent().parent().attr("id");
-    document.location.href = "/Order/ConfirmOrder/?goodsId=" + goodsId;
+    document.location.href = "/Order/ConfirmOrderFromCart/?goodsId=" + goodsId;
 }
 
 function DeletGoods(event) {

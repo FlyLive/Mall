@@ -1,0 +1,25 @@
+﻿
+@model PagedList.IPagedList<Mall.Web.Back.ViewModel.OrderViewModel>
+@using PagedList.Mvc
+@using PagedList
+
+<ul>
+    @if (Model.Count == 0)
+    {
+        <li class="no-result">
+            <h3>暂无该状态下的订单记录！</h3>
+        </li>
+    }
+    else
+    {
+        for (var i = 0; i < Model.Count; i++)
+        {
+            <li class="order-item @(i % 2 == 0 ? "even" : "odd")">
+                <ul>
+                    <li class="order-list">@(i+1)</li>
+                    @Html.Partial("Order/_OrderItem", Model[i])
+                </ul>
+            </li>
+        }
+    }
+</ul>
