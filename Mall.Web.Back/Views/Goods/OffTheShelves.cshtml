@@ -1,0 +1,36 @@
+﻿
+@model IPagedList<Mall.Web.Back.ViewModel.GoodsInfoViewModel>
+@using PagedList.Mvc
+@using PagedList
+
+@{
+    ViewBag.Title = "下架商品";
+    Layout = "~/Views/Layout/_AdminTLE.cshtml";
+}
+
+<section class="content-header">
+    <h1><i class="fa fa-download"></i>下架</h1>
+</section>
+<section class="content">
+    <div class="order-wrapper good-wrapper">
+        <div class="order-title">
+            @Html.Partial("Goods/_GoodsTitle")
+        </div>
+        <div class="order-content good-content">
+            @Html.Partial("Goods/_GoodsList", Model)
+            <div class="order-list-contorl">
+                每页 @Model.PageSize 条记录,共 @Model.Count 条记录,共 @Model.PageCount 页,当前第 @Model.PageNumber 页
+                <div class="list-contorl-button">
+                    @Html.PagedListPager(Model, page => Url.Action("OffTheShelves", new { page }))
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@section css{
+    @Styles.Render("~/Css/Order/Orders.css")
+}
+@section scripts{
+    @Scripts.Render("~/JS/Goods/OffTheShelves.js")
+    @Scripts.Render("~/JS/Goods/OnTheShelves.js")
+}

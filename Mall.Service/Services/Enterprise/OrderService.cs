@@ -98,6 +98,7 @@ namespace Mall.Service.Services.Enterprise
         {
             Order order = GetOrderByOrderId(orderId);
             Employee employee = _db.Employee.Include("AdminLog").Include("User").SingleOrDefault(e => e.EmployeeId == employeeId);
+            DataBase.Custom custom = _db.Custom.SingleOrDefault(c => c.CustomId == order.CustomId);
 
             if (order.State == (int)StateOfOrder.State.ApplyRefund)
             {
@@ -105,13 +106,14 @@ namespace Mall.Service.Services.Enterprise
                 _db.AdminLog.Add(new AdminLog
                 {
                     EmployeeId = employee.EmployeeId,
-                    Permission = "同意退款(Refund)",
+                    Permission = "退款处理(Refund)",
                     OperationTime = DateTime.Now,
                     OperatDetail = "员工" + employee.User.RealName + "于" + DateTime.Now + "同意订单:" + orderId + "申请的退款处理,并返还用户所支付金额！",
                     Operater = employee.User.RealName,
                     Object = "订单状态",
                     Style = "修改",
                 });
+                custom.Wallet += order.Totla;
                 _db.SaveChanges();
                 return true;
             }
@@ -127,18 +129,20 @@ namespace Mall.Service.Services.Enterprise
         {
             Order order = GetOrderByOrderId(orderId);
             Employee employee = _db.Employee.Include("AdminLog").Include("User").SingleOrDefault(e => e.EmployeeId == employeeId);
+            DataBase.Custom custom = _db.Custom.SingleOrDefault(c => c.CustomId == order.CustomId);
 
             order.State = (int)StateOfOrder.State.Returning;
             _db.AdminLog.Add(new AdminLog
             {
                 EmployeeId = employee.EmployeeId,
-                Permission = "同意退货(Return)",
+                Permission = "退货处理(Return)",
                 OperationTime = DateTime.Now,
                 OperatDetail = "员工" + employee.User.RealName + "于" + DateTime.Now + "同意订单:" + orderId + "的申请退货处理！",
                 Operater = employee.User.RealName,
                 Object = "订单状态",
                 Style = "修改",
             });
+            custom.Wallet += order.Totla;
             _db.SaveChanges();
         }
 
@@ -166,6 +170,7 @@ namespace Mall.Service.Services.Enterprise
                     Object = "订单状态",
                     Style = "修改",
                 });
+                order.DeliveryTime = DateTime.Now;
                 _db.SaveChanges();
                 return true;
             }
@@ -184,17 +189,17 @@ namespace Mall.Service.Services.Enterprise
             if (state == (int)StateOfOrder.State.ToAccept)
             {
                 Employee employee = _db.Employee.Include("AdminLog").Include("User").SingleOrDefault(e => e.EmployeeId == employeeId);
-                order.OrderRemark = remark;
                 _db.AdminLog.Add(new AdminLog
                 {
                     EmployeeId = employee.EmployeeId,
                     Permission = "确认订单(Accept)",
                     OperationTime = DateTime.Now,
-                    OperatDetail = "员工" + employee.User.RealName + "于" + DateTime.Now + "对用户的备注进行了修改，修改前内容为:" + order.CustomRemark + "修改后为" + remark,
+                    OperatDetail = "员工" + employee.User.RealName + "于" + DateTime.Now + "对用户的备注进行了修改，修改前内容为:" + order.CustomRemark + "修改后为:" + remark,
                     Operater = employee.User.RealName,
                     Object = "订单备注",
                     Style = "修改",
                 });
+                order.CustomRemark = remark;
                 _db.SaveChanges();
                 return true;
             }
@@ -216,7 +221,7 @@ namespace Mall.Service.Services.Enterprise
                 _db.AdminLog.Add(new AdminLog
                 {
                     EmployeeId = employee.EmployeeId,
-                    Permission = "同意退货(Return)",
+                    Permission = "退货管理(Return)",
                     OperationTime = DateTime.Now,
                     OperatDetail = "员工" + employee.User.RealName + "于" + DateTime.Now + "拒绝订单:" + orderId + "的退货申请！",
                     Operater = employee.User.RealName,

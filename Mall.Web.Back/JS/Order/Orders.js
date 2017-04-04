@@ -217,6 +217,7 @@ function ModifyRemark(id) {
 
 //提交修改评价
 function SubmitRemark() {
+    $('#modifyRemarkModal').modal('hide');
     var text = $("#modify_remark").val();
     var orderId = $("#orderId").val();
     Init(orderId);

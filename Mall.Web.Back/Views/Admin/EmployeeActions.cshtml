@@ -8,7 +8,6 @@
         <li class="action-permission">使用权限</li>
         <li class="action-object">操作对象</li>
         <li class="action-detail">详情</li>
-        <li class="action-edit">编辑</li>
     </ul>
 </div>
 <div class="employee-action-content">
@@ -17,28 +16,6 @@
             if (Model.Count == 0)
             {
                 <li class="action-item even no-action">该员工暂未进行任何操作…………</li>
-                <li class="action-item odd">
-                    <ul>
-                        <li class="action-handle">Mick</li>
-                        <li class="action-time">@DateTime.Now</li>
-                        <li class="action-style">XXXXXX</li>
-                        <li class="action-permission">XXXX</li>
-                        <li class="action-object">XXX</li>
-                        <li class="action-detail">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</li>
-                        <li class="action-edit action-delet" onclick="DeletAdminLogItem()">删除</li>
-                    </ul>
-                </li>
-                <li class="action-item even">
-                    <ul>
-                        <li class="action-handle">Mick</li>
-                        <li class="action-time">@DateTime.Now</li>
-                        <li class="action-style">XXXXXX</li>
-                        <li class="action-permission">XXXX</li>
-                        <li class="action-object">XXX</li>
-                        <li class="action-detail"><span>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</span></li>
-                        <li class="action-edit action-delet" onclick="DeletAdminLogItem()">删除</li>
-                    </ul>
-                </li>
             }
             else
             {
@@ -46,13 +23,12 @@
                 {
                     <li class="action-item @(i % 2 == 0 ? "even" : "odd") ">
                         <ul>
-                            <li class="action-handle">@Model[i].Operater</li>
-                            <li class="action-time">@Model[i].OperationTime</li>
-                            <li class="action-style">@Model[i].Style</li>
-                            <li class="action-permission">@Model[i].Permission</li>
-                            <li class="action-object">@Model[i].Object</li>
-                            <li class="action-detail">@Model[i].OperatDetail</li>
-                            <li class="action-edit action-delet" onclick="DeletAdminLogItem()">删除</li>
+                            <li class="action-handle" title="@Model[i].Operater">@(Model[i].Operater.Length >= 8 ? Model[i].Operater.Substring(0, 7) + "…" : Model[i].Operater)</li>
+                            <li class="action-time" title="@Model[i].OperationTime">@Model[i].OperationTime.ToString().Substring(0, 9) …</li>
+                            <li class="action-style" title="@Model[i].Style">@(Model[i].Style.Length >= 5 ? Model[i].Style.Substring(0, 4) + "…" : Model[i].Style)</li>
+                            <li class="action-permission" title="@Model[i].Permission">@(Model[i].Permission.Length >= 5 ? Model[i].Permission.Substring(0,4) + "…" : Model[i].Permission)</li>
+                            <li class="action-object" title="@Model[i].Object">@(Model[i].Object.Length >= 6 ? Model[i].Object.Substring(0, 5) + "…" : Model[i].Object)</li>
+                            <li class="action-detail" title="@Model[i].OperatDetail">@(Model[i].OperatDetail.Length >= 36 ? Model[i].OperatDetail.Substring(0,35) + "…" : Model[i].OperatDetail)</li>
                         </ul>
                     </li>
                 }

@@ -37,6 +37,9 @@
     border:1px solid #666666;
     margin:0 auto;
 }
+.login_button{
+    color:white;
+}
 .login_input {
     text-indent:5px;
 }

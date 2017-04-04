@@ -61,36 +61,13 @@ namespace Mall.Web.Back.Controllers
             User user = _enterpriseService.GetUserByEmployeeId(employee.EmployeeId);
             UserViewModel userDTO = DataUserToDTO(user);
             return PartialView(userDTO);
-        }
-
-        #region 商城管理
-        public ActionResult HomeSet()
-        {
-            return View();
-        }
-
-        public ActionResult AdvertisementSet()
-        {
-            return View();
-        }
-
-        public ActionResult RecommendSet()
-        {
-            return View();
-        }
-
-        public ActionResult ClassSet()
-        {
-            return View();
-        }
-        #endregion
+        }        
 
         #region 用户中心
         [HttpGet]
-        public ActionResult EmployeeDetails()
+        public ActionResult EmployeeDetails(int userId)
         {
-            int employeeId = 1;
-            User user = _enterpriseService.GetUserByEmployeeId(employeeId);
+            User user = _enterpriseService.GetEmployeeByUserId(userId).User;
             UserViewModel employeeDTO = DataUserToDTO(user);
             return View(employeeDTO);
         }
@@ -115,13 +92,12 @@ namespace Mall.Web.Back.Controllers
                     Style = adminlog.Style
                 });
             };
-            return PartialView(adminLogs);
+            return PartialView(adminLogsDTO);
         }
 
         [HttpGet]
         public ActionResult PersonalInfoSet()
         {
-            LoginTest();
             EmployeeViewModel employee = (EmployeeViewModel)Session["Employee"];
             User user = _enterpriseService.GetUserByEmployeeId(employee.UserId);
             UserViewModel userDTO = DataUserToDTO(user);
@@ -250,11 +226,12 @@ namespace Mall.Web.Back.Controllers
         /// 创建员工(Permissions)
         /// </summary>
         /// <returns></returns>
-        [HttpPost]
-        public ActionResult GetAllMenus()
+        [HttpGet]
+        public JsonResult GetAllMenus()
         {
             List<PermissionsViewModel> menus = GetAllPermissionsMenu();
             JsonResult json = new JsonResult();
+            json.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             json.Data = menus;
             return json;
         }
@@ -276,15 +253,49 @@ namespace Mall.Web.Back.Controllers
                 string managePassword = null, string email = null
                 , int[] permissionIds = null)
         {
-            var result = _enterpriseService.CreateEmployee(account, logPassword, email,
+            EmployeeViewModel employee = (EmployeeViewModel)Session["Employee"];
+            if (employee == null)
+            {
+                return false;
+            }
+            var result = _enterpriseService.CreateEmployee(employee.EmployeeId,account, logPassword, email,
                 birthday, gender, nick, managePassword, phoneNumber, permissionIds);
             return result;
         }
         #endregion
 
         #region 权限/角色 管理
+
         [HttpGet]
-        public ActionResult RoleManage()
+        public ActionResult SearchEmployee(string search)
+        {
+            EmployeeViewModel employee = (EmployeeViewModel)Session["Employee"];
+            List<UserViewModel> users = _enterpriseService.GetAllEmployee()
+                .Where(e => e.User.RealName.Contains(search) && e.EmployeeId != employee.EmployeeId)
+                .Select(e => new UserViewModel
+                {
+                    UserId = e.User.UserId,
+                    Account = e.User.Account,
+                    NickName = e.User.NickName,
+                    Gender = (bool)e.User.Gender,
+                    Birthday = e.User.Birthday == null ? "0000-00-00 00-00-00" : e.User.Birthday.ToString(),
+                    CreateTime = e.User.CreateTime == null ? "0000-00-00 00-00-00" : e.User.CreateTime.ToString(),
+                    PhoneNumber = e.User.PhoneNumber,
+                    Email = e.User.Email,
+                    Photo = e.User.Photo,
+                    RealName = e.User.RealName
+                }).ToList();
+            return View(users);
+        }
+
+        #region 权限
+        /// <summary>
+        /// 权限设置(View)
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [PermissionAuthorize("DistributionAuthority")]
+        public ActionResult PermissionSet()
         {
             EmployeeViewModel employee = (EmployeeViewModel)Session["Employee"];
             if (employee == null)
@@ -294,65 +305,25 @@ namespace Mall.Web.Back.Controllers
             return View();
         }
 
-        /// <summary>
-        /// 权限设置(View)
-        /// </summary>
-        /// <param name="page"></param>
-        /// <param name="pageSize"></param>
-        /// <returns></returns>
         [HttpGet]
-        public ActionResult PermissionSet(int page = 1, int pageSize = 5)
+        public ActionResult GetEmployeePermissionsInfo(int userId)
         {
-            EmployeeViewModel employee = (EmployeeViewModel)Session["Employee"];
-            if (employee == null)
-            {
-                return RedirectToAction("Index");
-            }
-            else
-            {
-                IPagedList<UserViewModel> users = _enterpriseService.GetAllEmployee()
-                    .Where(e => e.EmployeeId != employee.EmployeeId)
-                    .Select(e => new UserViewModel
-                    {
-                        UserId = e.User.UserId,
-                        Account = e.User.Account,
-                        NickName = e.User.NickName,
-                        Gender = (bool)e.User.Gender,
-                        Birthday = e.User.Birthday == null ? "0000-00-00 00-00-00" : e.User.Birthday.ToString(),
-                        CreateTime = e.User.CreateTime == null ? "0000-00-00 00-00-00" : e.User.CreateTime.ToString(),
-                        PhoneNumber = e.User.PhoneNumber,
-                        Email = e.User.Email,
-                        Photo = e.User.Photo,
-                        RealName = e.User.RealName
-                    }).ToPagedList(page, pageSize);
-                return View(users);
-            }
+            Employee employee = _enterpriseService.GetEmployeeByUserId(userId);
+            UserViewModel userDTO = DataUserToDTO(employee.User);
+            return PartialView(userDTO);
         }
 
-        [HttpPost]
-        public ActionResult GetPermissions(int userId)
+        [HttpGet]
+        [PermissionAuthorize("DistributionAuthority")]
+        public JsonResult GetPermissions(int userId)
         {
             Employee employee = _enterpriseService.GetEmployeeByUserId(userId);
             List<PermissionsViewModel> permissionsDTO = GetPermissionsMenuByEmployeeId(employee.EmployeeId);
             
             JsonResult json = new JsonResult();
             json.Data = permissionsDTO;
+            json.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             return json;
-        }
-
-        [HttpPost]
-        public bool ModifyEmployeePermissions(int userId,int[] menuIds)
-        {
-            bool result = _enterpriseService.ModifyPermissions(userId, menuIds);
-            return result;
-        }
-
-        [HttpGet]
-        public ActionResult GetEmployeeInfo(int userId)
-        {
-            Employee employee = _enterpriseService.GetEmployeeByUserId(userId);
-            UserViewModel userDTO = DataUserToDTO(employee.User);
-            return PartialView(userDTO);
         }
 
         [HttpGet]
@@ -369,7 +340,162 @@ namespace Mall.Web.Back.Controllers
                 }).ToList();
             return PartialView(permissionsDTO);
         }
+
+        [HttpPost]
+        [PermissionAuthorize("DistributionAuthority")]
+        public bool ModifyEmployeePermissions(int userId, int[] menuIds)
+        {
+            EmployeeViewModel employee = (EmployeeViewModel)Session["Employee"];
+            if (employee == null)
+            {
+                return false;
+            }
+            bool result = _enterpriseService.ModifyPermissions(employee.EmployeeId,userId, menuIds);
+            return result;
+        }
+
         #endregion
+
+        #region 角色
+        [HttpGet]
+        [PermissionAuthorize("RoleManage")]
+        public ActionResult RoleManage()
+        {
+            EmployeeViewModel employee = (EmployeeViewModel)Session["Employee"];
+            if (employee == null)
+            {
+                return RedirectToAction("Index");
+            }
+            List<RolesViewModel> rolesDTO = _enterpriseService.GetRoles()
+                .Select(r => new RolesViewModel
+                {
+                    Id = r.RoleId,
+                    Code = r.Code,
+                    CreationTime = r.CreationTime,
+                    Name = r.Name,
+                }).ToList();
+            return View(rolesDTO);
+        }
+
+        [HttpPost]
+        [PermissionAuthorize("RoleManage")]
+        public bool CreateRole(int[] menuIds,string roleName)
+        {
+            EmployeeViewModel employee = (EmployeeViewModel)Session["Employee"];
+            if (employee == null)
+            {
+                return false;
+            }
+            _enterpriseService.CreateRole(employee.EmployeeId,roleName, menuIds);
+            return true;
+        }
+
+        [HttpGet]
+        [PermissionAuthorize("RoleManage")]
+        public JsonResult GetAllPermissions()
+        {
+            List<Menus> menus = _menuViewService.GetMenus().Where(m => m.IsDefault == false).ToList();
+            List<PermissionsViewModel> permissionsDTO = menus.Select(m => new PermissionsViewModel
+            {
+                Id = m.MenuId,
+                ParentId = m.ParentId,
+                Name = m.MenuName,
+                Code = m.MenuPath,
+                Has = false,
+                IsDefault = false,
+            }).ToList();
+
+            JsonResult json = new JsonResult();
+            json.Data = permissionsDTO;
+            json.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            return json;
+        }
+
+        [HttpGet]
+        [PermissionAuthorize("RoleManage")]
+        public JsonResult GetRolePermissionsMenu(int roleId)
+        {
+            List<Permissions> rolePermissions = _enterpriseService.GetRolePermissionsByRoleId(roleId);
+            List<Menus> menus = _menuViewService.GetMenus().Where(m => m.IsDefault == false).ToList();
+            List<PermissionsViewModel> permissionsDTO = menus.Select(m => new PermissionsViewModel
+            {
+                Id = m.MenuId,
+                ParentId = m.ParentId,
+                Name = m.MenuName,
+                Code = m.MenuPath,
+                Has = rolePermissions.SingleOrDefault(rp => rp.Code == m.MenuPath) == null ? false : true,
+                IsDefault = false,
+            }).ToList();
+
+            JsonResult json = new JsonResult();
+            json.Data = permissionsDTO;
+            json.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            return json;
+        }
+
+        [HttpPost]
+        [PermissionAuthorize("RoleManage")]
+        public bool ModifyRolePermissions(int roleId,int[] menuIds,string name = null)
+        {
+            EmployeeViewModel employee = (EmployeeViewModel)Session["Employee"];
+            if (employee == null)
+            {
+                return false;
+            }
+            _enterpriseService.ModifyRoleByRoleId(employee.EmployeeId,roleId, name, menuIds);
+            return true;
+        }
+
+        [HttpGet]
+        [PermissionAuthorize("RoleManage")]
+        public JsonResult GetRoles(int userId)
+        {
+            Employee employee = _enterpriseService.GetEmployeeByUserId(userId);
+            List<RolesViewModel> rolesDTO = GetRolesMenuByEmployeeId(employee.EmployeeId);
+            JsonResult json = new JsonResult();
+            json.Data = rolesDTO;
+            json.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            return json;
+        }
+
+        [HttpGet]
+        public ActionResult GetEmployeeRoles(int userId)
+        {
+            Employee employee = _enterpriseService.GetEmployeeByUserId(userId);
+            List<RolesViewModel> rolesDTO = _enterpriseService
+                .GetEmployeeRolesByEmployeeId(employee.EmployeeId)
+                .Select(r => new RolesViewModel {
+                    Id = r.RoleId,
+                    Code = r.Code,
+                    CreationTime = r.CreationTime,
+                    Name = r.Name,
+                }).ToList();
+            return PartialView(rolesDTO);
+        }
+
+        [HttpPost]
+        [PermissionAuthorize("RoleManage")]
+        public bool ModifyEmployeeRoles(int userId, int[] roleIds)
+        {
+            EmployeeViewModel employee = (EmployeeViewModel)Session["Employee"];
+            if (employee == null)
+            {
+                return false;
+            }
+            bool result = _enterpriseService.ModifyRolesById(employee.EmployeeId,userId, roleIds);
+            return result;
+        }
+
+        [HttpGet]
+        public ActionResult GetEmployeeRolesInfo(int userId)
+        {
+            Employee employee = _enterpriseService.GetEmployeeByUserId(userId);
+            UserViewModel userDTO = DataUserToDTO(employee.User);
+            return PartialView(userDTO);
+        }
+        #endregion
+        #endregion
+
         private List<PermissionsViewModel> GetAllPermissionsMenu()
         {
             List<Menus> menus = _menuViewService.GetMenus();
@@ -401,34 +527,55 @@ namespace Mall.Web.Back.Controllers
                     Name = m.MenuName,
                     Code = m.MenuPath,
                     Has = employeeMenus.SingleOrDefault(em => em.MenuId == m.MenuId) == null ? false : true,
-                    IsDefault = m.IsDefault == true ? true : false,
+                    IsDefault = m.IsDefault == null ? false : (bool)m.IsDefault,
                 }
             ).ToList();
 
             return employeeMenusDTO;
         }
 
-        public void LoginTest()
+        private List<RolesViewModel> GetRolesMenuByEmployeeId(int employeeId)
         {
-            Employee employee = _enterpriseService.Login("001", "123456");
-            List<Permissions> permissions = _menuViewService.GetAllPermissionsByEmployeeId(employee.EmployeeId);
-            EmployeeViewModel employeeDTO = new EmployeeViewModel
-            {
-                EmployeeId = employee.EmployeeId,
-                UserId = employee.UserId,
-                ManagePassword = employee.ManagePassword,
-            };
-            UserViewModel userDTO = DataUserToDTO(employee.User);
-            List<PermissionsViewModel> permissionsDTO = permissions.Select(p => new PermissionsViewModel
-            {
-                Id = p.PermissionId,
-                Name = p.Name,
-                Code = p.Code
-            }).ToList();
+            List<Roles> roles = _enterpriseService.GetRoles();
+            List<Roles> employeeRoles = _enterpriseService.GetEmployeeRolesByEmployeeId(employeeId);
 
-            Session.Add("Employee", employeeDTO);
-            Session.Add("User", userDTO);
-            Session.Add("Permissions", permissionsDTO);
+            List<RolesViewModel> employeeRoleMenusDTO = roles
+                .Select(r => new RolesViewModel
+                {
+                    Id = r.RoleId,
+                    IsDefault = r.Default == null ? false : (bool)r.Default,
+                    ParentId = 0,
+                    Name = r.Name,
+                    Code = r.Code,
+                    Has = employeeRoles.SingleOrDefault(er => er.RoleId == r.RoleId) == null ? false : true,
+                }
+            ).ToList();
+
+            roles.ForEach(r => employeeRoleMenusDTO
+                .AddRange(_enterpriseService.GetRolePermissionsByRoleId(r.RoleId)
+                    .Select(rp => new RolesViewModel
+                    {
+                        Id = rp.PermissionId,
+                        IsDefault = true,
+                        ParentId = r.RoleId,
+                        Name = rp.Name,
+                        Code = rp.Code,
+                        Has = false,
+                    }).ToList()));
+
+            employeeRoles.ForEach(er => employeeRoleMenusDTO
+                .AddRange(_enterpriseService.GetRolePermissionsByRoleId(er.RoleId)
+                    .Select(rp => new RolesViewModel
+                    {
+                        Id = rp.PermissionId,
+                        IsDefault = true,
+                        ParentId = er.RoleId,
+                        Name = rp.Name,
+                        Code = rp.Code,
+                        Has = false,
+                    }).ToList()));
+
+            return employeeRoleMenusDTO;
         }
 
         public static UserViewModel DataUserToDTO(User user)

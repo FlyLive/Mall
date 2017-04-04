@@ -13,7 +13,7 @@ namespace Mall.Interface.Enterprise
         /// </summary>
         /// <param name="employeeId">用户Id</param>
         /// <param name="roleIds">角色Ids</param>
-        void SetRolesToEmployee(int employeeId, int[] roleIds);
+        bool ModifyRolesById(int employeeId, int[] roleIds);
         /// <summary>
         /// 设置权限
         /// </summary>

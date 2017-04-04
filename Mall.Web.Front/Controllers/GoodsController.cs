@@ -89,11 +89,20 @@ namespace Mall.Web.Front.Controllers
                 CustomId = (int)c.CustomId,
                 GoodsId = (int)c.GoodsId,
                 CommentDetail = c.CommentDetail,
+                Reply = c.Reply,
                 CommentTime = c.CommentTime,
                 PhotoUrl = c.Custom.User.Photo,
                 CustomNick = c.Custom.User.NickName
             }).ToList();
             return PartialView(commentsDTO);
+        }
+
+        [HttpGet]
+        public ActionResult SimpleGoodsInfo(int goodsId)
+        {
+            GoodsInfo goods = _goodsService.GetGoodsByGoodsId(goodsId);
+            GoodsInfoViewModel goodsDTO = DataGoodToDTO(goods);
+            return PartialView(goodsDTO);
         }
 
         /// <summary>
@@ -102,16 +111,16 @@ namespace Mall.Web.Front.Controllers
         /// <param name="page"></param>
         /// <param name="pageSize"></param>
         /// <returns></returns>
-        public ActionResult SearchResult(int page = 1,int pageSize = 10)
+        public ActionResult SearchResult(string searchName,int page = 1,int pageSize = 2)
         {
-            List<GoodsInfo> goods = new List<GoodsInfo>();
-            List<int> nums = new List<int>();
-            for(int i = 0;i < 1000; i++)
-            {
-                nums.Add(i);
-            }
-            IPagedList<int> num = nums.ToPagedList(page,pageSize);
-            return View(num);
+            List<GoodsInfo> goods = _goodsService.GetAllGoods()
+                .Where(g => g.GoodsName.Contains(searchName)).ToList();
+            List<GoodsInfoViewModel> goodsDTO = new List<GoodsInfoViewModel>();
+            goods.ForEach(g => goodsDTO.Add(DataGoodToDTO(g)));
+
+            IPagedList<GoodsInfoViewModel> pagedGoods = goodsDTO.ToPagedList(page, pageSize);
+
+            return View(pagedGoods);
         }
 
         public static GoodsInfoViewModel DataGoodToDTO(GoodsInfo g)

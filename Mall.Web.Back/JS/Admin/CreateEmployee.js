@@ -1,36 +1,11 @@
 ﻿
 $(document).ready(function () {
     $.ajax({
-        type: 'POST',
+        type: 'Get',
         url: '/Admin/GetAllMenus',
         datatype: 'json',
         success: function (menus) {
-            var setting = {
-                check: {
-                    enable: true,
-                    chkboxType: { "Y": "ps", "N": "ps" },
-                },
-                data: {
-                    simpleData: {
-                        enable: true
-                    }
-                },
-            };
-
-            var zNodes = new Array();
-
-            for (var i = 0; i < menus.length; i++) {
-                zNodes.push({
-                    id: menus[i].Id,
-                    pId: menus[i].ParentId,
-                    name: menus[i].Name,
-                    checked: menus[i].Has,
-                    open: true,
-                    nocheck: menus[i].IsDefault
-                });
-            }
-
-            $.fn.zTree.init($("#permissionsTree"), setting, zNodes);
+            InitZTreeMenu(menus,"permissionsTree");
         },
         error: function () {
             OpenTip("读取权限列表失败!", 1);
@@ -104,13 +79,7 @@ function SubmitCreate() {
     var nick = $("#nick").val();
     var managePassword = $("#managePassword").val();
     var email = $("#email").val();
-    var treeNodes = $.fn.zTree.getZTreeObj("permissionsTree").getCheckedNodes(true);
-    var permissionIds = new Array();
-
-    if (treeNodes.length > 0) {
-        for (var i = 0; i < treeNodes.length;i++)
-            permissionIds.push(treeNodes[i].id);
-    }
+    var permissionIds = GetZTreeCheckedId("permissionsTree");
 
     $.ajax({
         type: 'POST',

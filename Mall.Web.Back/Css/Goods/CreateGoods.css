@@ -4,7 +4,7 @@
     font-size:20px;
     display:inline-block;
     width:700px;
-    height:1102px;
+    height:600px;
     margin-left:50px;
 }
 .createGoods-left .title,.createGoods-right .title{
@@ -15,7 +15,7 @@
 .createGoods-left div,.createGoods-right div{
     margin:20px 0px;
 }
-.createGoods-left div .input{
+.createGoods-left div .input,.createGoods-right div .input{
     margin-left:30px;
     width:530px;
     height:40px;

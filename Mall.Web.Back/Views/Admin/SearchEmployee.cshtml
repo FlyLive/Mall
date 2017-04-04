@@ -1,0 +1,27 @@
+﻿
+@model List<Mall.Web.Back.ViewModel.UserViewModel>
+
+<div class="admin-list">
+    <ul>
+        @if (Model.Count == 0)
+        {
+            <li class="no-item">
+                未查询到匹配的管理员
+            </li>
+        }
+        else
+        {
+            foreach (var item in Model)
+            {
+                <li class="admin-item" id="@item.UserId" onclick="Refresh(this)">
+                    <div class="item-img"><img src="@item.Photo" /></div>
+                    <div class="item-info">
+                        <p>姓名:<span class="info" title="@item.RealName">@(item.RealName.Length >= 3 ? item.RealName.Substring(0, 1) + "…" : item.RealName)</span></p>
+                        <p>账户:<span class="info" title="@item.Account">@(item.Account.Length >= 3 ? item.Account.Substring(0, 1) + "…" : item.Account)</span></p>
+                        <p>Id:<span class="info" title="@item.UserId">@(item.UserId.ToString().Length >= 3 ? item.UserId.ToString().Substring(0, 2) : item.UserId.ToString())</span></p>
+                    </div>
+                </li>
+            }
+        }
+    </ul>
+</div>

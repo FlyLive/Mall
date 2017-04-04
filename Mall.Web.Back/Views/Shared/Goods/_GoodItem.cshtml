@@ -1,0 +1,24 @@
+﻿
+@model Mall.Web.Back.ViewModel.GoodsInfoViewModel
+@using Mall.Service.Models
+
+<li class="order-good-id" title="@Model.GoodsId">@Model.GoodsId</li>
+<li class="order-good-name" title="@Model.GoodsName">@(Model.GoodsName.Length >= 7 ? Model.GoodsName.Substring(0,5) + "…" : Model.GoodsName)</li>
+<li class="order-price price" title="￥@Model.Price">￥@Model.Price</li>
+<li class="order-state" title="@Model.Stock">@Model.Stock</li>
+<li class="order-freight price" title="￥@Model.freight">￥@Model.freight</li>
+<li class="order-state">
+    @switch (Model.State)
+    {
+        case (int)StateOfGoods.State.OnShelves:<span class="label label-success" title="在售">在售</span>; break;
+        case (int)StateOfGoods.State.OffShelves:<span class="label label-danger" title="下架，停止销售">下架，停止销售</span>; break;
+}
+</li>
+<li class="order-action">
+    @switch (Model.State)
+    {
+        case (int)StateOfGoods.State.OnShelves:<a onclick="OffShelves('@Model.GoodsId')" title="下架该商品"><span class="label label-danger">下架</span></a>; break;
+        case (int)StateOfGoods.State.OffShelves:<a onclick="OnShelves('@Model.GoodsId')" title="上架"><span class="label label-success">上架</span></a>; break;
+    }
+</li>
+<li class="order-createtime" title="@Model.CreateTime">@Model.CreateTime</li>

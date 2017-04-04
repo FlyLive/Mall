@@ -66,28 +66,28 @@ namespace Mall.Service.Services.Custom
         public List<Order> GetOrdersByState(int customId, int orderState)
         {
             var orders = GetAllOrderByClientId(customId);
-            List<Order> searchResult = new List<Order>();
+            List<Order> searchResult = orders.Where(o => o.State == orderState).ToList();
             if (orderState == 100)
             {
                 return orders;
             }
-            else if(orderState == (int)StateOfOrder.State.ToDelivery)
+            else if (orderState == (int)StateOfOrder.State.ToDelivery)
             {
                 searchResult = orders.Where(o => o.State == (int)StateOfOrder.State.ToAccept ||
                     o.State == (int)StateOfOrder.State.ToDelivery).ToList();
             }
-            else if(orderState == (int)StateOfOrder.State.Finish)
+            else if (orderState == (int)StateOfOrder.State.Finish)
             {
                 searchResult = orders.Where(o => o.State == (int)StateOfOrder.State.Finish ||
                     o.State == (int)StateOfOrder.State.ReturnFailed ||
                     o.State == (int)StateOfOrder.State.ToReply).ToList();
             }
-            else if(orderState == (int)StateOfOrder.State.ApplyRefund)
+            else if (orderState == (int)StateOfOrder.State.ApplyRefund)
             {
                 searchResult = orders.Where(o => o.State == (int)StateOfOrder.State.ApplyRefund ||
                     o.State == (int)StateOfOrder.State.Refunded).ToList();
             }
-            else if(orderState == (int)StateOfOrder.State.ApplyReturn)
+            else if (orderState == (int)StateOfOrder.State.ApplyReturn)
             {
                 searchResult = orders.Where(o => o.State == (int)StateOfOrder.State.ApplyReturn ||
                     o.State == (int)StateOfOrder.State.Returning ||
@@ -106,7 +106,7 @@ namespace Mall.Service.Services.Custom
         {
             Order order = GetOrderByOrderId(orderId);
             int orderState = order.State;
-            if(orderState == (int)StateOfOrder.State.ToDelivery || orderState == (int)StateOfOrder.State.ToAccept)
+            if (orderState == (int)StateOfOrder.State.ToDelivery || orderState == (int)StateOfOrder.State.ToAccept)
             {
                 order.State = (int)StateOfOrder.State.ApplyRefund;
                 _db.SaveChanges();
@@ -123,9 +123,12 @@ namespace Mall.Service.Services.Custom
         public bool ApplyReturnByOrderId(Guid orderId)
         {
             Order order = GetOrderByOrderId(orderId);
-            if (order.State == (int)StateOfOrder.State.Finish)
+            if ((order.State == (int)StateOfOrder.State.Finish
+                || Model.State == (int)StateOfOrder.State.ToEvaluate
+                || Model.State == (int)StateOfOrder.State.ToReply)
+                && (DateTime.Now - order.ReceiptTime.Value).TotalDays <= 7)
             {
-                order.State = (int)StateOfOrder.State.ApplyRefund;
+                order.State = (int)StateOfOrder.State.ApplyReturn;
                 _db.SaveChanges();
                 return true;
             }
@@ -182,7 +185,7 @@ namespace Mall.Service.Services.Custom
                 IsDelete = false,
                 CustomRemark = customRemark,
             };
-            
+
             custom.Order.Add(order);
             good.Order.Add(order);
 
@@ -197,12 +200,12 @@ namespace Mall.Service.Services.Custom
         /// </summary>
         /// <param name="order"></param>
         /// <returns></returns>
-        public Guid CreateOrderFromCart(int goodsId, int customId, int deliveryAddressId,string customRemark)
+        public Guid CreateOrderFromCart(int goodsId, int customId, int deliveryAddressId, string customRemark)
         {
             ShoppingCart cart = _db.ShoppingCart.Include("GoodsInfo")
                 .SingleOrDefault(c => c.GoodsId == goodsId);
-            Guid orderId = CreateOrder(goodsId,customId,deliveryAddressId,cart.Number,customRemark);
-            
+            Guid orderId = CreateOrder(goodsId, customId, deliveryAddressId, cart.Number, customRemark);
+
             _db.ShoppingCart.Remove(cart);
             _db.SaveChanges();
             return orderId;
@@ -213,14 +216,14 @@ namespace Mall.Service.Services.Custom
         /// </summary>
         /// <param name="orderId">订单Id</param>
         /// <returns></returns>
-        public bool PayByOrderId(int customId,Guid[] orderId)
+        public bool PayByOrderId(int customId, Guid[] orderId)
         {
             List<Order> orders = new List<Order>();
             double totlaPay = 0;
 
             DataBase.Custom custom = _db.Custom.SingleOrDefault(c => c.CustomId == customId);
 
-            orderId.ToList().ForEach(o => orders.Add(GetOrderById(customId,o)));
+            orderId.ToList().ForEach(o => orders.Add(GetOrderById(customId, o)));
 
             orders.ForEach(o => totlaPay = o.Totla + totlaPay);
 
@@ -243,7 +246,7 @@ namespace Mall.Service.Services.Custom
         public bool ConfirmReceipt(Guid orderId)
         {
             Order order = GetOrderByOrderId(orderId);
-            if(order != null)
+            if (order != null)
             {
                 order.State = (int)StateOfOrder.State.ToEvaluate;
                 order.ReceiptTime = DateTime.Now;
@@ -257,11 +260,12 @@ namespace Mall.Service.Services.Custom
         /// 评论
         /// </summary>
         /// <param name="comment"></param>
-        public void EvaluateOrder(int customId,Guid orderId,string evaluateContent)
+        public void EvaluateOrder(int customId, Guid orderId, string evaluateContent)
         {
             DataBase.Custom custom = _db.Custom.SingleOrDefault(c => c.CustomId == customId);
             Order order = GetOrderByOrderId(orderId);
             order.State = (int)StateOfOrder.State.ToReply;
+            order.GoodsInfo.CommentNumber++;
             _db.Comment.Add(
                 new Comment
                 {
@@ -269,6 +273,7 @@ namespace Mall.Service.Services.Custom
                     CommentDetail = evaluateContent,
                     CommentTime = DateTime.Now,
                     GoodsId = order.GoodsId,
+                    OrderId = order.OrderId
                 });
             _db.SaveChanges();
         }

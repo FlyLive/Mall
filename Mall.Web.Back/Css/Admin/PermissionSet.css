@@ -1,12 +1,36 @@
-﻿
+﻿.search-content #search-input{
+    font-size:20px;
+    text-indent:5px;
+    border-radius:3px;
+    border:1px solid #ccc;
+    vertical-align:middle;
+    width:350px;
+}
+.search-content button{
+    font-size:20px;
+    border-radius:3px;
+    border:1px solid #ccc;
+    color:white;
+    background-color:#3ae798;
+    vertical-align:middle;
+}
+.search-content button:hover{
+    background-color:#20d683;
+}
+.search-content button:active{
+    background-color:#3ae798;
+}
 .admin-content > table > tbody > tr > td{
     vertical-align:top;
 }
 .admin,.admin-detail{
     margin: 40px 50px;
 }
+#admin-list .no-item{
+    padding: 20px 30px;
+}
 .admin-list,.admin-detail{
-    min-height:600px;
+    height:500px;
     border: 2px solid #bbbbbb;
     border-radius:5px;
     background-color:white;
@@ -15,6 +39,8 @@
     margin:0;
     padding:0;
     font-size:0;
+    overflow-y:auto;
+    max-height:600px;
 }
 .admin-list ul li{
     list-style:none;
@@ -81,7 +107,7 @@
     font-size:18px;
 }
 
-.permission-submit button{
+.permission-submit button,.role-manage button{
     background-color:#2ca9e1;
     border:none;
     height:40px;
@@ -91,9 +117,9 @@
     margin:30px;
     color:white;
 }
-.permission-submit button:hover{
+.permission-submit button:hover,.role-manage button:hover{
     background-color:#0095d9;
 }
-.permission-submit button:active{
+.permission-submit button:active,.role-manage button:active{
     background-color:#2ca9e1;
 }

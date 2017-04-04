@@ -1,6 +1,8 @@
 ﻿using Mall.Service.DataBase;
+using Mall.Service.Models;
 using Mall.Service.Services.Enterprise;
 using Mall.Web.Back.ViewModel;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,11 +27,17 @@ namespace Mall.Web.Back.Controllers
             string detail, DateTime? publicationDate, string freight = "+0",
             string author = null, string press = null)
         {
+            EmployeeViewModel employee = (EmployeeViewModel)Session["Employee"];
+            if (employee == null)
+            {
+                return new int();
+            }
+
             int countNumber = Convert.ToInt16(count.Substring(1));
             double newPrice = Convert.ToDouble(price.Substring(1));
             double newFreight = Convert.ToDouble(freight.Substring(1));
 
-            int result = _goodsService.CreateGoods(name, countNumber, newPrice, detail,
+            int result = _goodsService.CreateGoods(employee.EmployeeId,name, countNumber, newPrice, detail,
                 newFreight, publicationDate, author, press);
             return result;
         }
@@ -77,6 +85,46 @@ namespace Mall.Web.Back.Controllers
             return PartialView(goodsDTO);
         }
 
+        [HttpGet]
+        public ActionResult OnTheShelves(int page = 1,int pageSize = 10)
+        {
+            List<GoodsInfo> goods = _goodsService.GetGoodsByGoodsState((int)StateOfGoods.State.OffShelves);
+            IPagedList<GoodsInfoViewModel> goodsDTO = DataGoodToDTO(goods).ToPagedList(page,pageSize);
+            return View(goodsDTO);
+        }
+
+        [HttpPost]
+        public bool OnTheShelves(int goodsId)
+        {
+            EmployeeViewModel employee = (EmployeeViewModel)Session["Employee"];
+            if (employee == null)
+            {
+                return false;
+            }
+            var result = _goodsService.OnShelvesByGoodsId(employee.EmployeeId,goodsId);
+            return result;
+        }
+
+        [HttpGet]
+        public ActionResult OffTheShelves(int page = 1, int pageSize = 10)
+        {
+            List<GoodsInfo> goods = _goodsService.GetGoodsByGoodsState((int)StateOfGoods.State.OnShelves);
+            IPagedList<GoodsInfoViewModel> goodsDTO = DataGoodToDTO(goods).ToPagedList(page, pageSize);
+            return View(goodsDTO);
+        }
+
+        [HttpPost]
+        public bool OffTheShelves(int goodsId)
+        {
+            EmployeeViewModel employee = (EmployeeViewModel)Session["Employee"];
+            if (employee == null)
+            {
+                return false;
+            }
+            var result = _goodsService.OffShelvesByGoodsId(employee.EmployeeId,goodsId);
+            return result;
+        }
+
         #region 修改商品
         [HttpGet]
         public ActionResult Search(string search)
@@ -120,10 +168,15 @@ namespace Mall.Web.Back.Controllers
             string detail, DateTime? publicationDate, string freight = "+0",
             string author = null, string press = null)
         {
+            EmployeeViewModel employee = (EmployeeViewModel)Session["Employee"];
+            if (employee == null)
+            {
+                return false;
+            }
             double newPrice = Convert.ToDouble(price.Substring(1));
             double newFreight = Convert.ToDouble(freight.Substring(1));
 
-            _goodsService.ModifyGoodsInfo(goodsId, name, newPrice, detail,
+            _goodsService.ModifyGoodsInfo(employee.EmployeeId,goodsId, name, newPrice, detail,
                 publicationDate, newFreight, author, press);
             return true;
         }
@@ -137,11 +190,24 @@ namespace Mall.Web.Back.Controllers
         #endregion
 
         [HttpGet]
-        public ActionResult GoodsStock()
+        public ActionResult GoodsStock(int page = 1, int pageSize = 10)
         {
             List<GoodsInfo> goods = _goodsService.GetAllGoods();
-            List<GoodsInfoViewModel> goodsDTO = DataGoodToDTO(goods);
+            IPagedList<GoodsInfoViewModel> goodsDTO = DataGoodToDTO(goods).ToPagedList(page, pageSize);
             return View(goodsDTO);
+        }
+
+        [HttpPost]
+        public bool ModifyGoodsStock(int goodsId,string count)
+        {
+            EmployeeViewModel employee = (EmployeeViewModel)Session["Employee"];
+            if (employee == null)
+            {
+                return false;
+            }
+            int newCount = Convert.ToInt16(count.Substring(1));
+            _goodsService.ModifyGoodsStockByGoodsId(employee.EmployeeId,goodsId,newCount);
+            return true;
         }
         #endregion
 
@@ -167,7 +233,7 @@ namespace Mall.Web.Back.Controllers
                 IsDelete = g.IsDelete,
                 Author = g.Author,
                 Press = g.Press,
-                PublicationDate = g.PublicationDate == null ? "0000-00-00 00-00-00" : g.PublicationDate.Value.ToString("yyyy-MM-dd"),
+                PublicationDate = g.PublicationDate == null ? "0000-00-00" : g.PublicationDate.Value.ToString("yyyy-MM-dd"),
                 freight = g.freight,
                 ImageUrl = g.Image == null ? "" : g.Image.ElementAt(0).ImageSrc,
             }).ToList();

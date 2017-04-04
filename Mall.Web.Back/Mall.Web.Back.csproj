@@ -181,12 +181,16 @@
     <Content Include="Css\Admin\EmployeePermissions.css" />
     <Content Include="Css\Admin\PermissionSet.css" />
     <Content Include="Css\Admin\PersonalInfo.css" />
+    <Content Include="Css\Admin\RoleManage.css" />
     <Content Include="Css\Admin\SecuritySet.css" />
     <Content Include="Css\Goods\CreateGoods.css" />
     <Content Include="Css\Admin\Index.css" />
     <Content Include="Css\Chat\Chat.css" />
     <Content Include="Css\Goods\GoodsEdit.css" />
     <Content Include="Css\Goods\htmleaf-demo.css" />
+    <Content Include="JS\Goods\GoodStock.js" />
+    <Content Include="JS\Goods\OffTheShelves.js" />
+    <Content Include="JS\Goods\OnTheShelves.js" />
     <Content Include="Css\Goods\ssi-uploader.css" />
     <Content Include="Css\MenuView\AdminLTE.css" />
     <Content Include="Css\MenuView\blue.css" />
@@ -209,6 +213,7 @@
     <Content Include="JS\Admin\Index.js" />
     <Content Include="JS\Admin\PermissionSet.js" />
     <Content Include="JS\Admin\PersonalInfo.js" />
+    <Content Include="JS\Admin\RoleManage.js" />
     <Content Include="JS\Admin\SecuritySet.js" />
     <Content Include="JS\Chat\Chat.js" />
     <Content Include="JS\Goods\CreateGoods.js" />
@@ -263,7 +268,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Web.config" />
-    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Error.cshtml" />
     <Content Include="Views\Layout\_Layout.cshtml" />
     <Content Include="Views\Chat\ReName.cshtml" />
     <Content Include="Views\Chat\Chat.cshtml" />
@@ -278,13 +283,9 @@
     <Content Include="Views\Admin\EmployeeInfor.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Layout\_AdminTLE.cshtml" />
-    <Content Include="Views\Admin\HomeSet.cshtml" />
     <Content Include="Views\Admin\PersonalInfoSet.cshtml" />
     <Content Include="Views\Admin\SecuritySet.cshtml" />
     <Content Include="Views\Order\ReplyEvaluate.cshtml" />
-    <Content Include="Views\Admin\AdvertisementSet.cshtml" />
-    <Content Include="Views\Admin\RecommendSet.cshtml" />
-    <Content Include="Views\Admin\ClassSet.cshtml" />
     <Content Include="Views\Goods\CreateGoods.cshtml" />
     <Content Include="Views\Goods\GoodsEdit.cshtml" />
     <Content Include="Views\Admin\CreateEmployee.cshtml" />
@@ -298,7 +299,7 @@
     <Content Include="Views\Shared\Order\_ModifyRemark.cshtml" />
     <Content Include="Views\Admin\RoleManage.cshtml" />
     <Content Include="Views\Admin\PermissionSet.cshtml" />
-    <Content Include="Views\Admin\GetEmployeeInfo.cshtml" />
+    <Content Include="Views\Admin\GetEmployeePermissionsInfo.cshtml" />
     <Content Include="Views\Admin\GetEmployeePermissions.cshtml" />
     <Content Include="Views\Shared\Admin\_ManageConfirm.cshtml" />
     <Content Include="Views\Order\FinishedOrder.cshtml" />
@@ -317,6 +318,20 @@
     <Content Include="Views\Shared\Goods\_CreateGoodsImg.cshtml" />
     <Content Include="Views\Goods\GoodsImgList.cshtml" />
     <Content Include="Views\Goods\Search.cshtml" />
+    <Content Include="Views\Admin\SearchEmployee.cshtml" />
+    <Content Include="Views\Shared\Admin\_ModifyEmployeeRoles.cshtml" />
+    <Content Include="Views\Admin\GetEmployeeRolesInfo.cshtml" />
+    <Content Include="Views\Shared\Admin\_GetEmployeeInfo.cshtml" />
+    <Content Include="Views\Admin\GetEmployeeRoles.cshtml" />
+    <Content Include="Views\Shared\Admin\_CreateRole.cshtml" />
+    <Content Include="Views\Shared\Admin\_ModifyRolePermissions.cshtml" />
+    <Content Include="Views\Shared\Admin\_GetAllRoles.cshtml" />
+    <Content Include="Views\Goods\GoodsStock.cshtml" />
+    <Content Include="Views\Goods\OnTheShelves.cshtml" />
+    <Content Include="Views\Goods\OffTheShelves.cshtml" />
+    <Content Include="Views\Shared\Goods\_GoodsTitle.cshtml" />
+    <Content Include="Views\Shared\Goods\_GoodsList.cshtml" />
+    <Content Include="Views\Shared\Goods\_GoodItem.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

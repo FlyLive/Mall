@@ -55,3 +55,23 @@ function ApplyRefund(orderId) {
         }
     })
 }
+
+function ApplyReturn(orderId) {
+    $.ajax({
+        type: 'Post',
+        url: '/Custom/ApplReturn',
+        data: { "orderId": orderId },
+        success: function (result) {
+            if (result == "True") {
+                OpenTipSuccess("申请成功，等待处理!", 1);
+                location.reload();
+            }
+            else {
+                OpenTip("申请失败!", 1);
+            }
+        },
+        error: function () {
+            OpenTip("出错啦!", 2);
+        }
+    })
+}

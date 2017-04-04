@@ -334,7 +334,6 @@ namespace Mall.Web.Front.Controllers
         #endregion
 
         #region 购物
-
         /// <summary>
         /// 确认收货
         /// </summary>
@@ -363,6 +362,13 @@ namespace Mall.Web.Front.Controllers
         public bool ApplyRefund(Guid orderId)
         {
             var result = _orderService.ApplyRefundByOrderId(orderId);
+            return result;
+        }
+
+        [HttpPost]
+        public bool ApplReturn(Guid orderId)
+        {
+            var result = _orderService.ApplyReturnByOrderId(orderId);
             return result;
         }
         /// <summary>

@@ -1,4 +1,11 @@
 ﻿
+.content-header h2{
+    font-family: 隶书;
+    font-size: 40px;
+    color: #FF3300;
+    padding: 10px 50px;
+    margin: 0;
+}
 .title {
     display: inline-block;
     font-size: 20px;
@@ -23,12 +30,12 @@
 }
 
     .info-basic-content .Data {
-        color: #cccccc;
+        color: #999999;
     }
 
     .info-basic-content td {
         padding: 10px;
-        text-align: center;
+        text-align: left;
         font-size: 18px;
     }
 
@@ -72,6 +79,10 @@
             vertical-align: middle;
         }
 
+.employee-action-content{
+    overflow-y: auto;
+    max-height: 220px;
+}
 .employee-action-content > ul > li {
     display: block;
 }
@@ -93,7 +104,7 @@
 }
 
 .action-detail {
-    width: 400px;
+    width: 500px;
 }
 
 .action-edit {

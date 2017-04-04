@@ -6,7 +6,7 @@
 }
 
 .item-info > div ,.caption-text > div{
-    margin: 10px;
+    margin: 10px 0px;
 }
 .caption-text .item-intro{
     color:#f1f1f1;

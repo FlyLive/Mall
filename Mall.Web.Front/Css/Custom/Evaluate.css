@@ -1,4 +1,4 @@
-﻿.evaluate-head > h2{
+﻿﻿.evaluate-head > h2{
     font-family: 隶书;
     font-size: 72px;
     color: #FF3300;
@@ -29,19 +29,6 @@
 }
 .evaluate-detail .titel{
     padding-left:50px;
-}
-.evaluate-detail-order-info table{
-    margin-left:200px;
-    font-size:18px;
-    font-family:微软雅黑;
-}
-.evaluate-detail-cilent-info > table > tbody > tr > td{
-    padding-bottom:20px;
-    width:500px;
-}
-.evaluate-detail-order-info > table > tbody > tr > td{
-    padding-bottom:20px;
-    /*width:400px;*/
 }
 .evaluate-evaluate-input{
     margin-left:200px;

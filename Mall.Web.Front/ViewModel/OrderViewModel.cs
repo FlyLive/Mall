@@ -12,6 +12,7 @@ namespace Mall.Web.Front.ViewModel
         public int GoodsId { get; set; }
         public int CustomId { get; set; }
         public string GoodsName { get; set; }
+        public string PhotoUrl { get; set; }
         public double Price { get; set; }
         public double Freight { get; set; }
         public int Count { get; set; }

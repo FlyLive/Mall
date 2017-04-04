@@ -12,7 +12,7 @@ namespace Mall.Service.Models
         {
             OnShelves = 1,
             OffShelves = 2,
-
+            Delet = 3,
         }
     }
 }

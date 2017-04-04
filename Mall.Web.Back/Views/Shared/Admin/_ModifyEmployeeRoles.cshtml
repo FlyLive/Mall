@@ -1,0 +1,25 @@
+﻿
+<div class="modal fade" id="modifyEmployeeRolesModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" Data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">修改员工角色</h4>
+            </div>
+            <div class="modal-body">
+                <label>角色设置</label>
+                <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane fade in active" id="roles">
+                        <div class="zTreeDemoBackground left">
+                            <ul id="employeeRoles" class="ztree"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="ModifyEmployeeRoles()">修改角色</button>
+                <button type="button" class="btn btn-default" Data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>

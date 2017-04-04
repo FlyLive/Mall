@@ -1,4 +1,7 @@
 ﻿
+@model Mall.Web.Front.ViewModel.OrderViewModel
+@using Mall.Service.Models
+
 @{
     ViewBag.Title = "订单详情";
     Layout = "~/Views/Layout/_Layout.cshtml";
@@ -20,7 +23,25 @@
     <div class="OD-state-detail">
         <h3>订单状态:</h3>
         <ul>
-            <li></li>
+            <li>
+                @switch (Model.State)
+                {
+                    case (int)StateOfOrder.State.Cancle:<span>已取消</span>; break;
+                    case (int)StateOfOrder.State.ToPay:<span style="color:red;">未付款</span>; break;
+                    case (int)StateOfOrder.State.ToAccept:
+                    case (int)StateOfOrder.State.ToDelivery:<span>待发货</span>; break;
+                    case (int)StateOfOrder.State.ApplyRefund:<span style="color:#0094ff;">申请退款中</span>; break;
+                    case (int)StateOfOrder.State.Refunded:<span style="color:green;">已退款</span>; break;
+                    case (int)StateOfOrder.State.ToReceipt:<span>待收货</span>; break;
+                    case (int)StateOfOrder.State.ToEvaluate:<span>待评价</span>; break;
+                    case (int)StateOfOrder.State.ToReply:
+                    case (int)StateOfOrder.State.Finish:<span style="color:green;">交易完成</span>; break;
+                    case (int)StateOfOrder.State.ApplyReturn:
+                    case (int)StateOfOrder.State.Returning:<span>申请退货中</span>; break;
+                    case (int)StateOfOrder.State.ReturnSucceed:<span style="color:green;">退货成功</span>; break;
+                    case (int)StateOfOrder.State.ReturnFailed:<span style="color:red;">退货失败</span>; break;
+                }
+            </li>
             <li>如有疑问，请联系客服</li>
         </ul>
     </div>
@@ -30,101 +51,7 @@
     此结果由云翳网站提供
 </div>
 <div class="OD-infor">
-    <div class="OD-titel">订单详情</div>
-    <div class="OD-detail">
-        <div class="OD-detail-cilent">
-            <h3 class="titel">买家信息</h3>
-            <div class="OD-detail-cilent-info">
-                <table>
-                    <tr>
-                        <td>
-                            <span class="mark">收货人姓名:</span>&emsp;<span>XXX</span>
-                        </td>
-                        <td>
-                            <span class="mark">收货地址:</span>&emsp;<span>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span class="mark">派送方式:</span>&emsp;<span>XX</span>
-                        </td>
-                        <td>
-                            <span class="mark">联系电话:</span>&emsp;<span>15XXXXXXX23</span>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-        <div class="OD-detail-seller">
-            <h3 class="titel">卖家信息</h3>
-            <div class="OD-detail-seller-info">
-                <i class=""></i>
-                <span>
-                    <i class="fa fa-exclamation-circle"></i>此商品由云翳商城提供，如有疑问请联系客服！
-                </span>
-            </div>
-        </div>
-        <div class="OD-detail-order">
-            <h3 class="titel">订单信息</h3>
-            <div class="OD-detail-order-info">
-                <table>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <span class="mark">订单编号:</span>&emsp;<span>@Model.OrderId</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <span class="mark">下单时间:</span>&emsp;<span>@Model.CreateTime</span>
-                            </td>
-                            <td>
-                                <span class="mark">发货时间:</span>&emsp;<span>XXXX-XX-XX XX:XX:XX</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <span class="mark">收货时间:</span>&emsp;<span>@Model.ReceiptTime</span>
-                            </td>
-                            <td>
-                                <span class="mark">成交时间:</span>&emsp;<span>XXXX-XX-XX XX:XX:XX</span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="OD-detail-goods">
-            <h3 class="titel">商品信息</h3>
-            <div class="OD-detail-head">
-                <ul>
-                    <li class="detail">商品简介</li>
-                    <li>作者</li>
-                    <li>单价</li>
-                    <li>数量</li>
-                    <li>总价</li>
-                    <li>运费</li>
-                    <li>操作</li>
-                </ul>
-            </div>
-            <div class="OD-detail-goods-info">
-                <ul>
-                    <li class="detail">
-                        <a href="">
-                            <img src="~/Pictures/Shared/contact.png" />
-                        </a>
-                        <span>和我靓女成本会计被我日hi都是快乐男生都i走</span>
-                    </li>
-                    <li>author</li>
-                    <li>123.00</li>
-                    <li>1</li>
-                    <li class="money">￥123.00</li>
-                    <li class="money">￥0.00</li>
-                    <li><a href="#">再次购买</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
+    @Html.Partial("Order/_OrderDetails",Model)
 </div>
 @section css{
     @Styles.Render("~/Css/Order/OrderDetails.css")

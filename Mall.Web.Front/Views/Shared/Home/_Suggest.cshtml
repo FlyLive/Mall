@@ -27,7 +27,7 @@
                         <strong>￥@item.Price</strong>
                     </p>
                     <p class="detail-author">
-                        作者:&emsp;@item.Author
+                        作者:&emsp;@(item.Author.Length >= 9 ? item.Author.Substring(0, 8) + "…" : item.Author)
                     </p>
                     <p class="detail-time">
                         出版日期:&emsp;@item.PublicationDate

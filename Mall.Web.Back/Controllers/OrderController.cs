@@ -39,6 +39,8 @@ namespace Mall.Web.Back.Controllers
             return View(orderDTO);
         }
 
+        [HttpPost]
+        [PermissionAuthorize("Accept")]
         public bool AcceptOrder(Guid orderId)
         {
             EmployeeViewModel employee = (EmployeeViewModel)Session["Employee"];

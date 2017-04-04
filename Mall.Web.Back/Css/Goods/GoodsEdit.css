@@ -25,12 +25,12 @@
     background-color:#3ae798;
 }
 .tab-content,.goods-menu{
-    border:1px solid #666666;
+    border:1px solid #ccc;
     border-radius:10px;
     font-size:20px;
     display:inline-block;
     width:700px;
-    height:1102px;
+    height:800px;
     margin-left:0px;
 }
 .goods-menu-td{
@@ -44,16 +44,33 @@
     width:300px;
     font-size:16px;
     margin-left:50px;
+    overflow-y: auto;
 }
+/* 滑轨两头的监听按钮颜色 */
+.goods-menu::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    background-color: #cccccc;
+}
+/* 滚动条 */
+.goods-menu::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: rgb(93, 191, 255);
+}
+/* 滑块颜色 */
+.goods-menu::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: rgb(193, 193, 193);
+}
+/* 滚动条的滑轨背景颜色 */
 .goods-menu > ul{
     list-style:none;
     margin:0;
     padding:0;
-    overflow-y:auto;
 }
 .goods-menu > ul > li{
     border:2px solid rgba(172, 165, 165, 0.00);
-    border-bottom:2px solid #666666;
+    border-bottom:2px solid #ccc;
     cursor:pointer;
 }
 .goods-menu > ul > li:hover{

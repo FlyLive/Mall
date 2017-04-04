@@ -7,3 +7,4 @@
         search.style.display = "none";
     }
 });
+

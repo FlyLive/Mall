@@ -3,7 +3,7 @@
 <div class="admin-detail-info">
     <div class="info-img">
         <p class="title">头像</p>
-        <label><img src="@Model.Photo" /></label>
+        <label><a href="/Admin/EmployeeDetails?userId=@Model.UserId" target="_blank"><img src="@Model.Photo" /></a></label>
     </div>
     <div class="info-id">
         <p class="title">员工ID</p>
@@ -25,18 +25,5 @@
     <div class="info-email">
         <p class="title">E-mail</p>
         <label>@Model.Email</label>
-    </div>
-</div>
-<div class="admin-detail-permission">
-    <div class="employee-info-permission">
-        <div class="permission-list">
-            <p class="title">权限</p>
-            <div class="permission">
-                @Html.Action("GetEmployeePermissions", "Admin", new { userId = Model.UserId })
-            </div>
-        </div>
-    </div>
-    <div class="permission-submit">
-        <button type="button" onclick="GetPermissionMenus()">修改权限</button>
     </div>
 </div>

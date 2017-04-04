@@ -1,0 +1,16 @@
+﻿@model Mall.Web.Back.ViewModel.UserViewModel
+
+@Html.Partial("Admin/_GetEmployeeInfo",Model)
+<div class="admin-detail-permission">
+    <div class="employee-info-permission">
+        <div class="permission-list">
+            <p class="title">角色</p>
+            <div class="permission">
+                @Html.Action("GetEmployeeRoles", "Admin", new { userId = Model.UserId })
+            </div>
+        </div>
+    </div>
+    <div class="permission-submit">
+        <button type="button" onclick="GetRoleMenus()">修改角色</button>
+    </div>
+</div>

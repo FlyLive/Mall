@@ -1,77 +1,30 @@
 ﻿
-@model IPagedList<Mall.Web.Back.ViewModel.UserViewModel>
-@using PagedList.Mvc
-@using PagedList
-
 @{
-    ViewBag.Title = "PermissionSet";
+    ViewBag.Title = "权限设置";
     Layout = "~/Views/Layout/_AdminTLE.cshtml";
 }
 
 <section class="content-header">
-    <h1><i class="fa fa-cog"></i>PermissionSet</h1>
+    <h1><i class="fa fa-cog"></i>权限设置</h1>
 </section>
 <section class="content">
     <div class="role-wrapper">
         <div class="search-content">
-            <input />
-            <button>搜索</button>
+            <input id="search-input" type="text" />
+            <button type="button" onclick="SearchEmployee()">搜索</button>
         </div>
         <div class="admin-content">
             <table>
                 <tbody>
                     <tr>
                         <td>
-                            <div class="admin">
-                                <div class="admin-list">
-                                    <ul>
-                                        @foreach (var item in Model)
-                                        {
-                                            <li class="admin-item" id="@item.UserId" onclick="Refresh(this)">
-                                                <div class="item-img"><img src="@item.Photo" /></div>
-                                                <div class="item-info">
-                                                    <p>姓名:<span class="info">@item.RealName</span></p>
-                                                    <p>账户:<span class="info">@item.Account</span></p>
-                                                    <p>Id:<span class="info">@item.UserId</span></p>
-                                                </div>
-                                            </li>
-                                        }
-                                    </ul>
-                                </div>
-                                <div class="admin-list-contorl">
-                                    <div class="list-contorl">@Html.PagedListPager(Model, page => Url.Action("RoleManage", new { page }))</div>
-                                </div>
+                            <div class="admin" id="admin-list">
+                                @Html.Action("SearchEmployee", "Admin", new { search = string.Empty })
                             </div>
                         </td>
                         <td>
                             <div class="admin-detail" id="admin-detail">
-                                <div class="admin-detail-info">
-                                    <div class="info-img">
-                                        <p class="title">头像</p>
-                                        <label><img src="" alt="员工头像"/></label>
-                                    </div>
-                                    <div class="info-id">
-                                        <p class="title">员工ID</p>
-                                        <label></label>
-                                        <input id="userId" value="@Model[0].UserId" type="hidden" />
-                                    </div>
-                                    <div class="info-name">
-                                        <p class="title">真实姓名</p>
-                                        <label></label>
-                                    </div>
-                                    <div class="info-gender">
-                                        <p class="title">性别</p>
-                                        <label></label>
-                                    </div>
-                                    <div class="info-phone">
-                                        <p class="title">联系电话</p>
-                                        <label></label>
-                                    </div>
-                                    <div class="info-email">
-                                        <p class="title">E-mail</p>
-                                        <label></label>
-                                    </div>
-                                </div>
+                                @Html.Partial("Admin/_GetEmployeeInfo", new Mall.Web.Back.ViewModel.UserViewModel())
                                 <div class="admin-detail-permission">
                                     <div class="permission-list">
                                         <div class="employee-info-permission">
@@ -107,11 +60,27 @@
 @Html.Partial("Admin/_ModifyPermissions")
 @section css{
     @Styles.Render("~/Css/Admin/PermissionSet.css")
-    @Styles.Render("~/Css/Shared/zTreeStyle.css")
     @Styles.Render("~/Css/Admin/EmployeePermissions.css")
+    @Styles.Render("~/Css/Shared/zTreeStyle.css")
 }
 @section scripts{
     @Scripts.Render("~/JS/Admin/PermissionSet.js")
     @Scripts.Render("~/JS/Shared/jquery.ztree.all.js")
-    @Scripts.Render("~/JS/Shared/layer_open_tip.js")
+    <script>
+        function Refresh(event) {
+            var id = event.id;
+            $.ajax({
+                type: 'Get',
+                url: '/Admin/GetEmployeePermissionsInfo',
+                data: { "userId": id },
+                datatype: 'html',
+                success: function (html) {
+                    $("#admin-detail").html(html);
+                },
+                error: function () {
+                    OpenTip("出错啦!", 1);
+                }
+            });
+        }
+    </script>
 }

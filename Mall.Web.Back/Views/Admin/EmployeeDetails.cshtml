@@ -1,12 +1,12 @@
 ﻿@model Mall.Web.Back.ViewModel.UserViewModel
 
 @{
-    ViewBag.Title = "EmployeeDetails";
+    ViewBag.Title = "管理员详情";
     Layout = "~/Views/Layout/_Layout.cshtml";
 }
 
 <section class="content-header">
-    <h1><i class="fa fa-file-text-o"></i>EmployeeDetails</h1>
+    <h2><i class="fa fa-file-text-o"></i>管理员详情</h2>
 </section>
 <section class="content">
     <div class="employee-info">
@@ -66,6 +66,7 @@
         </table>
     </div>
     <div class="employee-action">
+        <h3>管理员日志</h3>
         @Html.Action("EmployeeActions", "Admin", new { userId = Model.UserId })
     </div>
 </section>

@@ -14,7 +14,7 @@ namespace Mall.Interface.Enterprise
         /// </summary>
         /// <param name="goods"></param>
         /// <returns></returns>
-        int CreateGoods(string name, int count,
+        int CreateGoods(int employeeId,string name, int count,
             double price, string detail,
             double? freight, DateTime? publicationDate,
             string author = null, string press = null);
@@ -22,13 +22,13 @@ namespace Mall.Interface.Enterprise
         /// 通过商品Id删除商品
         /// </summary>
         /// <returns></returns>
-        bool DeleteByGoodsId(int goodsId);
+        bool DeleteByGoodsId(int employeeId, int goodsId);
         /// <summary>
         /// 修改商品信息
         /// </summary>
         /// <param name="good"></param>
         /// <returns></returns>
-        void ModifyGoodsInfo(int goodsId, string name, double price,
+        void ModifyGoodsInfo(int employeeId, int goodsId, string name, double price,
             string detail, DateTime? publicationDate, double ? freight,
             string author = null, string press = null);
         /// <summary>
@@ -36,18 +36,18 @@ namespace Mall.Interface.Enterprise
         /// </summary>
         /// <param name="goodsId"></param>
         /// <param name="stock"></param>
-        void ModifyGoodsStockByGoodsId(int goodsId,int stock = 0);
+        void ModifyGoodsStockByGoodsId(int employeeId, int goodsId,int stock = 0);
         /// <summary>
         /// 根据商品Id上架商品
         /// </summary>
         /// <param name="goodsId"></param>
         /// <returns></returns>
-        bool OnShelvesByGoodsId(int goodsId);
+        bool OnShelvesByGoodsId(int employeeId, int goodsId);
         /// <summary>
         /// 根据商品Id下架商品
         /// </summary>
         /// <param name="goodsId"></param>
         /// <returns></returns>
-        bool OffShelvesByGoodsId(int goodsId);
+        bool OffShelvesByGoodsId(int employeeId, int goodsId);
     }
 }

@@ -1,10 +1,10 @@
 ﻿
 @{
-    ViewBag.Title = "CreateEmployee";
+    ViewBag.Title = "新增管理员";
     Layout = "~/Views/Layout/_AdminTLE.cshtml";
 }
 <section class="content-header">
-    <h1><i class="fa fa-plus-square"></i>CreateEmployee</h1>
+    <h1><i class="fa fa-plus-square"></i>新增管理员</h1>
 </section>
 <section class="content">
     <div class="create-employee-all">
@@ -76,6 +76,7 @@
     @Styles.Render("~/Css/Shared/zTreeStyle.css")
 }
 @section scripts{
+    @Scripts.Render("~/JS/Admin/PermissionSet.js")
     @Scripts.Render("~/JS/Admin/CreateEmployee.js")
     @Scripts.Render("~/JS/Shared/jquery.ztree.all.js")
 }

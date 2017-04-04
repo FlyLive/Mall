@@ -1,11 +1,11 @@
 ﻿
 @{
-    ViewBag.Title = "CreateGoods";
+    ViewBag.Title = "添加商品";
     Layout = "~/Views/Layout/_AdminTLE.cshtml";
 }
 
 <section class="content-header">
-    <h1><i class="fa fa-plus-square-o"></i>CreateGoods</h1>
+    <h1><i class="fa fa-plus-square-o"></i>添加商品</h1>
 </section>
 <section class="content">
     <div class="createGoods-all">
@@ -16,18 +16,6 @@
                         <div>
                             <p class="title"><span class="star">*</span>商品名</p>
                             <input name="name" id="name" class="input" type="text" placeholder="商品名" />
-                        </div>
-                        <div>
-                            <p class="title">作者</p>
-                            <input name="author" id="author" class="input" type="text" placeholder="作者" />
-                        </div>
-                        <div>
-                            <p class="title">出版社</p>
-                            <input name="press" id="press" class="input" type="text" placeholder="出版社" />
-                        </div>
-                        <div>
-                            <p class="title">出版日期</p>
-                            <input name="publicationDate" id="publicationDate" class="input" type="date" />
                         </div>
                         <div>
                             <p class="title"><span class="star">*</span>数量</p>
@@ -48,14 +36,25 @@
                             <p class="title"><span class="star">*</span>详细介绍</p>
                             <textarea name="detail" id="detail" rows="3" placeholder="详情"></textarea>
                         </div>
-                        <div class="createGoods-left-submit">
-                            <button type="button" onclick="CreateGoodsImg()">添加图片</button>
-                        </div>
                     </div>
                 </td>
                 <td>
                     <div class="createGoods-right">
-                        
+                        <div>
+                            <p class="title">作者</p>
+                            <input name="author" id="author" class="input" type="text" placeholder="作者" />
+                        </div>
+                        <div>
+                            <p class="title">出版社</p>
+                            <input name="press" id="press" class="input" type="text" placeholder="出版社" />
+                        </div>
+                        <div>
+                            <p class="title">出版日期</p>
+                            <input name="publicationDate" id="publicationDate" class="input" type="date" />
+                        </div>
+                        <div class="createGoods-left-submit">
+                            <button type="button" onclick="CreateGoodsImg()">添加图片</button>
+                        </div>
                     </div>
                 </td>
             </tr>

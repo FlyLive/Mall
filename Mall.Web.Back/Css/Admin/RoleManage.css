@@ -1,0 +1,11 @@
+﻿
+.role-manage{
+    width: 640px;
+    margin-left: 100px;
+}
+.role-manage .permission-content .permission-item{
+    cursor:pointer;
+}
+.role-manage .permission-content .permission-item:active{
+    background-color:#5cbaff;
+}

@@ -1,5 +1,5 @@
 ﻿
-@model IPagedList<int>
+@model IPagedList<Mall.Web.Front.ViewModel.GoodsInfoViewModel>
 @using PagedList.Mvc
 @using PagedList
 
@@ -16,49 +16,37 @@
 
     </div>
     <div class="result-list">
-        @{
-            List<int> i = new List<int>();
-            i.Add(1); i.Add(1); i.Add(1); i.Add(1);
-            i.Add(1); i.Add(1); i.Add(1); i.Add(1);
-            i.Add(1); i.Add(1); i.Add(1); i.Add(1);
-        }
-        @foreach (var item in i)
+        @foreach (var item in Model)
         {
         <div class="result-list-item">
             <div class="item-img">
-                <a href="#">
-                    <img src="~/Pictures/人类简史.jpg" />
+                <a href="/Goods/Goods?goodsId=@item.GoodsId">
+                    <img src="@item.GoodsPhotoUrl" />
                 </a>
                 <div class="caption">
                     <div class="caption-text">
                         <div class="item-intro">
-                            作 者:Author
+                            作 者:@(item.Author.Length >= 9 ? item.Author.Substring(0, 8) + "…" : item.Author)
                         </div>
                         <div class="item-intro">
-                            出版社:重庆人民出版社
+                            出版社:@(item.Press.Length >= 9 ? item.Press.Substring(0, 8) + "…" : item.Press)
                         </div>
                     </div>
                 </div>
             </div>
             <div class="item-info">
                 <div class="title">
-                    <a href="#" title="">Title</a>
-                    <p>1235人已购买</p>
+                    <a href="/Goods/Goods?goodsId=@item.GoodsId" title="@item.GoodsName">@(item.GoodsName.Length >= 8 ? item.GoodsName.Substring(0, 7) + "…" : item.GoodsName)</a>
+                    <p>@item.CommentNumber 人已评价</p>
                 </div>
                 <div class="item-money">
-                    ￥123.00&ensp;<span>￥135.00</span>
+                    ￥@item.Price&ensp;<span>￥45.00</span>
                 </div>
                 <div class="item-intro">
-                    简 介:XXXXXX
+                    简 介:@(item.GoodsName.Length >= 12 ? item.GoodsName.Substring(0, 11) + "…" : item.GoodsName)
                 </div>
             </div>
         </div>
-        }
-    </div>
-    <div>
-        @foreach (var item in Model)
-        {
-            <p>@item</p>
         }
     </div>
     <div id="div-result">

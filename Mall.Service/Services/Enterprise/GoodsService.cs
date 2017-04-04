@@ -30,6 +30,12 @@ namespace Mall.Service.Services.Enterprise
             return goods;
         }
 
+        public List<GoodsInfo> GetGoodsByGoodsState(int state)
+        {
+            List<GoodsInfo> goods = _db.GoodsInfo.Where(g => g.State == state).ToList();
+            return goods;
+        }
+
         /// <summary>
         /// 根据商品Id获取商品
         /// </summary>
@@ -123,13 +129,14 @@ namespace Mall.Service.Services.Enterprise
         /// <param name="author"></param>
         /// <param name="press"></param>
         /// <returns></returns>
-        public int CreateGoods(string name, int count,
+        public int CreateGoods(int employeeId,string name, int count,
             double price, string detail,
             double? freight, DateTime? publicationDate,
             string author = null, string press = null)
         {
             try
             {
+                Employee employee = _db.Employee.SingleOrDefault(e => e.EmployeeId == employeeId);
                 GoodsInfo good = new GoodsInfo
                 {
                     GoodsName = name,
@@ -147,6 +154,17 @@ namespace Mall.Service.Services.Enterprise
                     Press = press,
                 };
                 _db.GoodsInfo.Add(good);
+                _db.AdminLog.Add(new AdminLog
+                {
+                    EmployeeId = employee.EmployeeId,
+                    Permission = "添加商品(AddGoods)",
+                    OperationTime = DateTime.Now,
+                    OperatDetail = "员工" + employee.User.RealName + "于" + DateTime.Now + "添加商品:" + good.GoodsName + "商品Id为:" + good.GoodsId,
+                    Operater = employee.User.RealName,
+                    Object = "商品",
+                    Style = "添加",
+                });
+
                 _db.SaveChanges();
                 return good.GoodsId;
             }
@@ -197,12 +215,24 @@ namespace Mall.Service.Services.Enterprise
         /// </summary>
         /// <param name="goodsId">商品Id</param>
         /// <returns>删除成功/失败</returns>
-        public bool DeleteByGoodsId(int goodsId)
+        public bool DeleteByGoodsId(int employeeId,int goodsId)
         {
+            Employee employee = _db.Employee.SingleOrDefault(e => e.EmployeeId == employeeId);
             GoodsInfo good = GetGoodsByGoodsId(goodsId);
             if (good.State == 2)
             {
-                _db.GoodsInfo.Remove(good);
+                good.State = (int)StateOfGoods.State.Delet;
+                _db.AdminLog.Add(new AdminLog
+                {
+                    EmployeeId = employee.EmployeeId,
+                    Permission = "商品进货(NewStorage)",
+                    OperationTime = DateTime.Now,
+                    OperatDetail = "员工" + employee.User.RealName + "于" + DateTime.Now + "删除商品:" + good.GoodsName + "商品Id为:" + good.GoodsId,
+                    Operater = employee.User.RealName,
+                    Object = "商品状态",
+                    Style = "修改",
+                });
+
                 _db.SaveChanges();
                 return true;
             }
@@ -213,10 +243,11 @@ namespace Mall.Service.Services.Enterprise
         /// 修改商品信息
         /// </summary>
         /// <param name="good"></param>
-        public void ModifyGoodsInfo(int goodsId, string name, double price,
+        public void ModifyGoodsInfo(int employeeId,int goodsId, string name, double price,
             string detail, DateTime? publicationDate, double ? freight,
             string author = null, string press = null)
         {
+            Employee employee = _db.Employee.SingleOrDefault(e => e.EmployeeId == employeeId);
             GoodsInfo good = GetGoodsByGoodsId(goodsId);
             good.GoodsName = name;
             good.Price = price;
@@ -225,6 +256,17 @@ namespace Mall.Service.Services.Enterprise
             good.freight = freight == null ? 0.00 : (double)freight;
             good.Author = author;
             good.Press = press;
+            _db.AdminLog.Add(new AdminLog
+            {
+                EmployeeId = employee.EmployeeId,
+                Permission = "商品编辑(ModifyGoods)",
+                OperationTime = DateTime.Now,
+                OperatDetail = "员工" + employee.User.RealName + "于" + DateTime.Now + "对商品:" + good.GoodsName + "修改信息" + "商品Id为:" + good.GoodsId,
+                Operater = employee.User.RealName,
+                Object = "商品信息",
+                Style = "修改",
+            });
+
             _db.SaveChanges();
         }
 
@@ -233,10 +275,21 @@ namespace Mall.Service.Services.Enterprise
         /// </summary>
         /// <param name="goodsId">商品Id</param>
         /// <param name="stock">库存</param>
-        public void ModifyGoodsStockByGoodsId(int goodsId, int stock = 0)
+        public void ModifyGoodsStockByGoodsId(int employeeId,int goodsId, int stock)
         {
+            Employee employee = _db.Employee.SingleOrDefault(e => e.EmployeeId == employeeId);
             GoodsInfo good = GetGoodsByGoodsId(goodsId);
-            good.Stock = stock;
+            good.Stock += stock;
+            _db.AdminLog.Add(new AdminLog
+            {
+                EmployeeId = employee.EmployeeId,
+                Permission = "商品上架(NewStorage)",
+                OperationTime = DateTime.Now,
+                OperatDetail = "员工" + employee.User.RealName + "于" + DateTime.Now + "对商品:" + good.GoodsName + "进货" + "商品Id为:" + good.GoodsId + "数量为:" + stock,
+                Operater = employee.User.RealName,
+                Object = "商品库存",
+                Style = "进货",
+            });
 
             _db.SaveChanges();
         }
@@ -246,10 +299,21 @@ namespace Mall.Service.Services.Enterprise
         /// </summary>
         /// <param name="goodsId">商品Id</param>
         /// <returns></returns>
-        public bool OffShelvesByGoodsId(int goodsId)
+        public bool OffShelvesByGoodsId(int employeeId,int goodsId)
         {
+            Employee employee = _db.Employee.SingleOrDefault(e => e.EmployeeId == employeeId);
             GoodsInfo good = GetGoodsByGoodsId(goodsId);
             good.State = 2;
+            _db.AdminLog.Add(new AdminLog
+            {
+                EmployeeId = employee.EmployeeId,
+                Permission = "商品下架(OffShelves)",
+                OperationTime = DateTime.Now,
+                OperatDetail = "员工" + employee.User.RealName + "于" + DateTime.Now + "将商品:" + good.GoodsName + "下架停售" + "商品Id为:" + good.GoodsId,
+                Operater = employee.User.RealName,
+                Object = "商品状态",
+                Style = "修改",
+            });
 
             _db.SaveChanges();
 
@@ -261,12 +325,23 @@ namespace Mall.Service.Services.Enterprise
         /// </summary>
         /// <param name="goodsId"></param>
         /// <returns></returns>
-        public bool OnShelvesByGoodsId(int goodsId)
+        public bool OnShelvesByGoodsId(int employeeId,int goodsId)
         {
+            Employee employee = _db.Employee.SingleOrDefault(e => e.EmployeeId == employeeId);
             GoodsInfo good = GetGoodsByGoodsId(goodsId);
             if (good.Stock != 0)
             {
                 good.State = 1;
+                _db.AdminLog.Add(new AdminLog
+                {
+                    EmployeeId = employee.EmployeeId,
+                    Permission = "商品上架(OnShelves)",
+                    OperationTime = DateTime.Now,
+                    OperatDetail = "员工" + employee.User.RealName + "于" + DateTime.Now + "将商品:" + good.GoodsName + "上架销售" + "商品Id为:" + good.GoodsId,
+                    Operater = employee.User.RealName,
+                    Object = "商品状态",
+                    Style = "修改",
+                });
 
                 _db.SaveChanges();
                 return true;

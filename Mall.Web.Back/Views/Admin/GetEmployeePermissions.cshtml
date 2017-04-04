@@ -16,7 +16,7 @@
                 <li class="permission-item @(i % 2 == 0 ? "even" : "odd")">
                     <ul>
                         <li class="permission-name">@Model[i].Name</li>
-                        <li class="permission-detail">@Model[i]</li>
+                        <li class="permission-detail" title="">@(Model[i].ToString().Length >= 30 ? Model[i].ToString().Substring(0,29) + "…" : Model[i].Name)</li>
                         <li class="permission-time">@DateTime.Now</li>
                     </ul>
                 </li>
