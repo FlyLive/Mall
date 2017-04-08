@@ -14,29 +14,23 @@ function Modify() {
     var email = $("#email").val();
 
     if (nick == null || /\s+/g.test(nick)) {
-        Tips("昵称不能为空!", "nick")
+        Tip("昵称不能为空!", "nick")
         return false;
     }
     if (name == null || /\s+/g.test(name)) {
-        Tips("真实姓名不能为空!", "name")
+        Tip("真实姓名不能为空!", "name")
         return false;
     }
     if (!(/^1(3|4|5|7|8)\d{9}$/.test(phone)) && !(/^0[\d]{2,3}-[\d]{7,8}$/.test(phone))) {
-        Tips("电话号码格式错误,请重试!", "phone")
+        Tip("电话号码格式错误,请重试!", "phone")
         return false;
     }
     if (!/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(email)) {
-        Tips('邮箱格式错误,请重试!', "email");
+        Tip('邮箱格式错误,请重试!', "email");
         return false;
     }
 
     document.forms["modifyInfo"].submit();
-}
-function Tips(content,name){
-    layer.tips(content,"#" + name,{
-        tips:[2,"#2277ff"],
-        time:1500,
-    });
 }
 $(window).load(function () {
     var options =

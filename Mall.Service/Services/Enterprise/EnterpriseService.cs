@@ -35,17 +35,6 @@ namespace Mall.Service.Services.Enterprise
         }
 
         /// <summary>
-        /// 是否重名
-        /// </summary>
-        /// <param name="account">账户</param>
-        /// <returns></returns>
-        public bool ReName(string account)
-        {
-            var ul = _db.User.SingleOrDefault(u => u.Account == account);
-            return ul == null ? false : true;
-        }
-
-        /// <summary>
         /// 创建员工
         /// </summary>
         /// <param name="account">员工账户</param>
@@ -57,7 +46,8 @@ namespace Mall.Service.Services.Enterprise
             try
             {
                 Employee actionEmployee = GetEmployeeByEmployeeId(employeeId);
-                if (!ReName(account))
+                var reName = _db.User.SingleOrDefault(u => u.Account == account) == null ? false : true;
+                if (!reName)
                 {
                     User user = new User
                     {
@@ -148,91 +138,7 @@ namespace Mall.Service.Services.Enterprise
             List<AdminLog> adminLogs = employee.AdminLog.ToList();
             return adminLogs;
         }
-
-        /// <summary>
-        /// 修改个人信息
-        /// </summary>
-        /// <param name="employeeId"></param>
-        /// <param name="realName"></param>
-        /// <param name="phone"></param>
-        /// <param name="email"></param>
-        /// <param name="nick"></param>
-        /// <param name="gender"></param>
-        /// <param name="birthday"></param>
-        public bool ModifyInfo(int employeeId, string realName, string phone, string email, DateTime? birthday, string nick, int gender)
-        {
-            try
-            {
-                Employee employee = GetEmployeeByEmployeeId(employeeId);
-                User user = employee.User;
-
-                user.RealName = realName;
-                user.PhoneNumber = phone;
-                user.Email = email;
-                user.NickName = nick;
-                user.Gender = gender == 1 ? true : false;
-                user.Birthday = birthday;
-
-                _db.SaveChanges();
-                return true;
-            }
-            catch (Exception e)
-            {
-                Console.Out.Write(e);
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// 修改头像
-        /// </summary>
-        /// <param name="employeeId"></param>
-        /// <param name="imgBase"></param>
-        public string ModifyPhoto(int employeeId, string imgBase)
-        {
-            try
-            {
-                Employee employee = GetEmployeeByEmployeeId(employeeId);
-
-                var img = imgBase.Split(',');
-                byte[] bt = Convert.FromBase64String(img[1]);
-                string now = DateTime.Now.ToString("yyyy-MM-ddHHmmss");
-                string path = "D:/网站部署/MallImg/Mall.Web.Back/Users/Avatar/avatar" + now + ".png";
-                string DataPath = "http://localhost:9826/Mall.Web.Back/Users/Avatar/avatar" + now + ".png";
-                File.WriteAllBytes(path, bt);
-                employee.User.Photo = DataPath;
-                _db.SaveChanges();
-                return DataPath;
-            }
-            catch (Exception e)
-            {
-                Console.Out.Write(e);
-                return null;
-            }
-        }
-
-        /// <summary>
-        /// 修改员工登录密码
-        /// </summary>
-        /// <param name="employeeId"></param>
-        /// <param name="newLogPassword"></param>
-        public bool ModifyLogPassword(int employeeId, string newLogPassword)
-        {
-            try
-            {
-                Employee employee = GetEmployeeByEmployeeId(employeeId);
-                employee.User.Password = newLogPassword;
-
-                _db.SaveChanges();
-                return true;
-            }
-            catch (Exception e)
-            {
-                Console.Out.Write(e);
-                return false;
-            }
-        }
-
+        
         /// <summary>
         /// 修改员工管理密码
         /// </summary>

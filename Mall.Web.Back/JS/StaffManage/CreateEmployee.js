@@ -2,7 +2,7 @@
 $(document).ready(function () {
     $.ajax({
         type: 'Get',
-        url: '/Admin/GetAllMenus',
+        url: '/StaffManage/GetAllMenus',
         datatype: 'json',
         success: function (menus) {
             InitZTreeMenu(menus,"permissionsTree");
@@ -25,22 +25,22 @@ function CreateEmployee() {
         }
     }
 
-    if (account == null || account.substring(0, account.length) == 0) {
-        Tips('账户不能为空,请重试!', "account");
+    if (account == null || /\s+/g.test(account)) {
+        Tip('账户不能为空,请重试!', "account");
         return false;
     }
 
-    if (logPassword == null || logPassword.substring(0, logPassword.length) == 0) {
-        Tips('密码不能为空!', "logPassword");
+    if (logPassword == null || /\s+/g.test(logPassword)) {
+        Tip('密码不能为空!', "logPassword");
         return false;
     }
     else if (logPassword.length < 6 || logPassword.length > 12) {
-        Tips('密码长度为6-12位,请重试!', "logPassword");
+        Tip('密码长度为6-12位,请重试!', "logPassword");
         return false;
     }
 
-    if (email == null || email.substring(0, email.length) == 0) {
-        Tips('邮箱不能为空!', "email");
+    if (!/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(email)) {
+        Tip('邮箱格式错误!', "email");
         return false;
     }
 
@@ -63,7 +63,7 @@ function CreateEmployee() {
 function ReCount(account) {
     var result = $.ajax({
         type: "Get",
-        url: "ReAccount",
+        url: "/StaffManage/ReAccount",
         data: { "account": account },
         async:false,
         success: function () {
@@ -88,7 +88,7 @@ function SubmitCreate() {
 
     $.ajax({
         type: 'POST',
-        url: '/Admin/CreateEmployee',
+        url: '/StaffManage/CreateEmployee',
         data: { "account":account, "logPassword":logPassword,
             "phoneNumber":phoneNumber,"birthday":birthday,"gender":gender,"nick":nick,
              "managePassword":managePassword, "email":email, "permissionIds":permissionIds },

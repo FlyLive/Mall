@@ -40,13 +40,12 @@
                             </li>
                             <li class="money" id="price">￥@cart.Goods.Price</li>
                             <li><span class="reset-count" onclick="ReduceCount(this)">-</span><input id="count" value="@cart.Number" class="count" min="1" disabled="disabled" /><span class="reset-count" onclick="IncreaseCount(this)">+</span></li>
-                            <li class="money" id="count">￥@cart.Goods.freight</li>
-                            <li class="money" id="totla">￥@(cart.Goods.Price * cart.Number + cart.Goods.freight)</li>
+                            <li class="money" id="count">￥@cart.Goods.Freight</li>
+                            <li class="money" id="totla">￥@(cart.Goods.Price * cart.Number + cart.Goods.Freight)</li>
                             <li class="action"><a onclick="BuyGood(this)"><span class="buy">立即下单</span></a><a onclick="DeletGoods(this)"><span class="delet">删除</span></a></li>
                         </ul>
                     </li>
                 }
-                <li class="no-goods"><h2>未查询到相关商品!请验证后重试</h2></li>
             </ul>
         </form>
     </div>

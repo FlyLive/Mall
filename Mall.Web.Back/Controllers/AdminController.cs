@@ -1,4 +1,5 @@
 ﻿using Mall.Service.DataBase;
+using Mall.Service.Services;
 using Mall.Service.Services.Enterprise;
 using Mall.Web.Back.Filter;
 using Mall.Web.Back.ViewModel;
@@ -15,6 +16,7 @@ namespace Mall.Web.Back.Controllers
     {
         private EnterpriseService _enterpriseService = new EnterpriseService();
         private MenuViewService _menuViewService = new MenuViewService();
+        private UserService _userService = new UserService();
 
         [HttpGet]
         public ActionResult Index()
@@ -56,9 +58,9 @@ namespace Mall.Web.Back.Controllers
         [HttpPost]
         public ActionResult Logout()
         {
-            Session["Employee"] = null;
-            Session["User"] = null;
-            Session["Permissions"] = null;
+            Session.Remove("Employee");
+            Session.Remove("User");
+            Session.Remove("Permissions");
 
             return RedirectToAction("Index", "Admin");
         }
@@ -66,6 +68,11 @@ namespace Mall.Web.Back.Controllers
         [HttpGet]
         public ActionResult ManageCenter()
         {
+            EmployeeViewModel employee = (EmployeeViewModel)Session["Employee"];
+            if (employee == null)
+            {
+                return RedirectToAction("Index");
+            }
             return View();
         }
 
@@ -86,6 +93,10 @@ namespace Mall.Web.Back.Controllers
         public ActionResult PersonalInfoSet()
         {
             EmployeeViewModel employee = (EmployeeViewModel)Session["Employee"];
+            if (employee == null)
+            {
+                return RedirectToAction("Index");
+            }
             User user = _enterpriseService.GetUserByEmployeeId(employee.UserId);
             UserViewModel userDTO = DataUserToDTO(user);
             return View(userDTO);
@@ -98,7 +109,7 @@ namespace Mall.Web.Back.Controllers
             string nick = null, int gender = 1)
         {
             EmployeeViewModel employee = (EmployeeViewModel)Session["Employee"];
-            var result = _enterpriseService.ModifyInfo(employee.EmployeeId, realName, phone, email, birthday, nick, gender);
+            var result = _userService.ModifyInfo(employee.UserId, realName, phone, email, birthday, nick, gender);
             if (result)
             {
                 TempData["ModifyInfo"] = "success";
@@ -111,7 +122,7 @@ namespace Mall.Web.Back.Controllers
         public bool ModifyPhoto(string imgBase)
         {
             EmployeeViewModel employee = (EmployeeViewModel)Session["Employee"];
-            var result = _enterpriseService.ModifyPhoto(employee.EmployeeId, imgBase);
+            var result = _userService.ModifyPhoto(employee.UserId, imgBase);
             if (result != null)
             {
                 ((UserViewModel)Session["User"]).Photo = result;
@@ -146,7 +157,7 @@ namespace Mall.Web.Back.Controllers
             {
                 return RedirectToAction("Index");
             }
-            _enterpriseService.ModifyLogPassword(employee.EmployeeId, log_password);
+            var reuslt = _userService.ModifyPasswordByUserId(employee.UserId, log_password);
             return RedirectToAction("Logout","Admin");
         }
 

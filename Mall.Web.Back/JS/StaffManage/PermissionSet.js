@@ -44,7 +44,7 @@ function GetPermissionMenus() {
     var id = $("#currentUserId").val();
     $.ajax({
         type: "Get",
-        url: "/Admin/GetPermissions",
+        url: "/StaffManage/GetPermissions",
         data: { "userId": id },
         datatype: "json",
         success: function (menus) {
@@ -67,7 +67,7 @@ function ModifyPermission() {
 
     $.ajax({
         type: 'POST',
-        url: '/Admin/ModifyEmployeePermissions',
+        url: '/StaffManage/ModifyEmployeePermissions',
         data: { "userId": userId ,"menuIds": menuIds},
         success: function (result) {
             if (result == "True") {
@@ -88,7 +88,7 @@ function SearchEmployee() {
     var search = $("#search-input").val();
     $.ajax({
         type: 'Get',
-        url: '/Admin/SearchEmployee',
+        url: '/StaffManage/SearchEmployee',
         data: { "search": search },
         datatype: 'html',
         success: function (html) {

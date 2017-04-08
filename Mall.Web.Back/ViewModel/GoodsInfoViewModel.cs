@@ -14,6 +14,7 @@ namespace Mall.Web.Back.ViewModel
         public int Stock { get; set; }
         public string Details { get; set; }
         public string Category { get; set; }
+        public int SalesNumber { get; set; }
         public int CommentNumber { get; set; }
         public int State { get; set; }
         public string CreateTime { get; set; }
@@ -23,7 +24,7 @@ namespace Mall.Web.Back.ViewModel
         public string Author { get; set; }
         public string Press { get; set; }
         public string PublicationDate { get; set; }
-        public double freight { get; set; }
+        public double Freight { get; set; }
         public string ImageUrl { get; set; }
     }
 }

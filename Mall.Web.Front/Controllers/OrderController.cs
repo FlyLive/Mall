@@ -1,5 +1,6 @@
 ﻿using Mall.Service.DataBase;
 using Mall.Service.Services.Custom;
+using Mall.Service.Services;
 using Mall.Web.Front.ViewModel;
 using PagedList;
 using System;
@@ -14,7 +15,7 @@ namespace Mall.Web.Front.Controllers
     {
         private OrderService _orderService = new OrderService();
         private CustomService _customService = new CustomService();
-        private Service.Services.Enterprise.GoodsService _goodsService = new Service.Services.Enterprise.GoodsService();
+        private GoodsService _goodsService = new GoodsService();
 
         public ActionResult AllOrders()
         {

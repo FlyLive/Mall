@@ -1,4 +1,5 @@
 ﻿using Mall.Service.DataBase;
+using Mall.Service.Services;
 using Mall.Service.Services.Custom;
 using Mall.Web.Front.ViewModel;
 using System;
@@ -13,6 +14,7 @@ namespace Mall.Web.Front.Controllers
     {
         private CustomService _customService = new CustomService();
         private OrderService _orderService = new OrderService();
+        private UserService _userService = new UserService();
 
         /// <summary>
         /// 个人中心首页
@@ -26,6 +28,18 @@ namespace Mall.Web.Front.Controllers
                 return RedirectToAction("Index", "Users");
             }
             return View(user);
+        }
+
+        [HttpGet]
+        public double Wallet()
+        {
+            CustomViewModel custom = (CustomViewModel)Session["Custom"];
+            if (custom == null)
+            {
+                return new int();
+            }
+            var wallet = _customService.GetWallet(custom.CustomId);
+            return wallet;
         }
 
         /// <summary>
@@ -65,7 +79,7 @@ namespace Mall.Web.Front.Controllers
             {
                 return RedirectToAction("Index", "Users");
             }
-            var result = _customService.ModifyUserInfo(custom.CustomId, email, birthday, nick, name, phone, gender);
+            var result = _userService.ModifyInfo(custom.UserId, name, phone, email, birthday, nick, gender);
             if (result)
             {
                 TempData["ModifyInfo"] = "success";
@@ -77,7 +91,7 @@ namespace Mall.Web.Front.Controllers
         public bool ModifyPhoto(string imgBase)
         {
             CustomViewModel custom = (CustomViewModel)Session["Custom"];
-            var path = _customService.ModifyPhoto(custom.CustomId, imgBase);
+            var path = _userService.ModifyPhoto(custom.UserId, imgBase);
             if (path != null)
             {
                 ((UserViewModel)Session["User"]).Photo = path;
@@ -212,13 +226,16 @@ namespace Mall.Web.Front.Controllers
             {
                 return RedirectToAction("Index", "Users");
             }
-            _customService.ModifyPasswordByCustomId(custom.CustomId, log_password);
+            var result = _userService.ModifyPasswordByUserId(custom.UserId, log_password);
 
-            Session["Custom"] = null;
-            Session["User"] = null;
-            TempData["ChangeLP"] = "success";
-
-            return RedirectToAction("Index", "Users");
+            if (result)
+            {
+                Session["Custom"] = null;
+                Session["User"] = null;
+                TempData["ChangeLP"] = "success";
+                return RedirectToAction("Index", "Users");
+            }
+            return new EmptyResult();
         }
 
         [HttpPost]

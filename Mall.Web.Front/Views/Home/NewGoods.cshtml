@@ -6,10 +6,10 @@
         <p class="suggest-title-strong">新<span>书上架</span></p>
         <div class="suggest-left-translate"></div>
         <div class="suggest-content">
-            @Html.Partial("Home/_Suggest", Model.Take(4).ToList())
+            @Html.Partial("ViewComponents/_Suggest", Model.Take(4).ToList())
         </div>
     </div>
     <div class="suggest-advertisement">
-        @Html.Partial("Home/_SuggestAdvertisement", Model[4])
+        @Html.Partial("ViewComponents/_SuggestAdvertisement", Model[4])
     </div>
 </div>

@@ -28,7 +28,7 @@
         </div>
         <div class="order-wrapper">
             <div class="order-title">
-                @Html.Partial("Order/_OrderTitle")
+                @Html.Partial("ViewComponents/_OrderTitle")
             </div>
             <div class="order-list" id="order-list">
                 @Html.Action("SearchOrderByState", new { orderState = 100})

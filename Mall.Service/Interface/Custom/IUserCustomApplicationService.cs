@@ -10,11 +10,6 @@ namespace Mall.Interface.Custom
     public interface IUserCustomApplicationService
     {
         /// <summary>
-        /// 修改个人信息
-        /// </summary>
-        /// <param name="custom"></param>
-        bool ModifyUserInfo(int customId, string email, DateTime? birthday, string nick, string name, string phone, int gender = 1);
-        /// <summary>
         /// 新建收货信息
         /// </summary>
         /// <param name="customId"></param>

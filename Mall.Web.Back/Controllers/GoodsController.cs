@@ -1,5 +1,6 @@
 ﻿using Mall.Service.DataBase;
 using Mall.Service.Models;
+using Mall.Service.Services;
 using Mall.Service.Services.Enterprise;
 using Mall.Web.Back.Filter;
 using Mall.Web.Back.ViewModel;
@@ -14,7 +15,8 @@ namespace Mall.Web.Back.Controllers
 {
     public class GoodsController : Controller
     {
-        public GoodsService _goodsService = new GoodsService();
+        private GoodsManageService _goodsManageService = new GoodsManageService();
+        private GoodsService _goodsService = new GoodsService();
         #region 商品管理
         [HttpGet]
         [PermissionAuthorize("AddGoods")]
@@ -48,7 +50,7 @@ namespace Mall.Web.Back.Controllers
             double newPrice = Convert.ToDouble(price.Substring(1));
             double newFreight = Convert.ToDouble(freight.Substring(1));
 
-            int result = _goodsService.CreateGoods(employee.EmployeeId,name, countNumber, newPrice, detail,
+            int result = _goodsManageService.CreateGoods(employee.EmployeeId,name, countNumber, newPrice, detail,
                 newFreight, publicationDate, author, press);
             return result;
         }
@@ -77,12 +79,12 @@ namespace Mall.Web.Back.Controllers
 
         private bool SaveImage(HttpPostedFile file,int goodsId)
         {
-            if (!_goodsService.IsImageFull(goodsId))
+            if (!_goodsManageService.IsImageFull(goodsId))
             {
                 string now = DateTime.Now.ToString("yyyy-MM-ddHHmmss");
                 string path = "Mall.Web.Goods/Goods/" + now + file.FileName;
                 file.SaveAs("D:/网站部署/MallImg/" + path);
-                _goodsService.AddGoodsImage(goodsId, path);
+                _goodsManageService.AddGoodsImage(goodsId, path);
                 return true;
             }
             return false;
@@ -108,7 +110,7 @@ namespace Mall.Web.Back.Controllers
             {
                 return false;
             }
-            var result = _goodsService.OnShelvesByGoodsId(employee.EmployeeId,goodsId);
+            var result = _goodsManageService.OnShelvesByGoodsId(employee.EmployeeId,goodsId);
             return result;
         }
 
@@ -130,7 +132,7 @@ namespace Mall.Web.Back.Controllers
             {
                 return false;
             }
-            var result = _goodsService.OffShelvesByGoodsId(employee.EmployeeId,goodsId);
+            var result = _goodsManageService.OffShelvesByGoodsId(employee.EmployeeId,goodsId);
             return result;
         }
         #endregion
@@ -188,7 +190,7 @@ namespace Mall.Web.Back.Controllers
             double newPrice = Convert.ToDouble(price.Substring(1));
             double newFreight = Convert.ToDouble(freight.Substring(1));
 
-            _goodsService.ModifyGoodsInfo(employee.EmployeeId,goodsId, name, newPrice, detail,
+            var result = _goodsManageService.ModifyGoodsInfo(employee.EmployeeId,goodsId, name, newPrice, detail,
                 publicationDate, newFreight, author, press);
             return true;
         }
@@ -214,16 +216,16 @@ namespace Mall.Web.Back.Controllers
                 return false;
             }
             int newCount = Convert.ToInt16(count.Substring(1));
-            _goodsService.ModifyGoodsStockByGoodsId(employee.EmployeeId,goodsId,newCount);
-            return true;
+            var result = _goodsManageService.ModifyGoodsStockByGoodsId(employee.EmployeeId,goodsId,newCount);
+            return result;
         }
 
         [HttpPost]
         [PermissionAuthorize("NewStorage")]
         public bool DeletGoodsImgs(int[] imageIds)
         {
-            _goodsService.DeletGoodsImage(imageIds);
-            return true;
+            var result =  _goodsManageService.DeletGoodsImage(imageIds);
+            return result;
         }
         #endregion
         #endregion
@@ -241,7 +243,7 @@ namespace Mall.Web.Back.Controllers
                 Price = g.Price,
                 Stock = g.Stock,
                 Details = g.Details,
-                Category = g.Category,
+                SalesNumber = g.SalesNumber,
                 CommentNumber = g.CommentNumber,
                 State = g.State,
                 CreateTime = g.CreateTime.ToString("yyyy-MM-dd HH-mm-ss"),
@@ -251,7 +253,7 @@ namespace Mall.Web.Back.Controllers
                 Author = g.Author,
                 Press = g.Press,
                 PublicationDate = g.PublicationDate == null ? "0000-00-00" : g.PublicationDate.Value.ToString("yyyy-MM-dd"),
-                freight = g.Freight,
+                Freight = g.Freight,
                 ImageUrl = g.Image == null ? "" : g.Image.ElementAt(0).ImageSrc,
             }).ToList();
             return goodDTO;

@@ -3,7 +3,7 @@ function GetRoleMenus() {
     var id = $("#currentUserId").val();
     $.ajax({
         type: "Get",
-        url: "/Admin/GetRoles",
+        url: "/StaffManage/GetRoles",
         data: { "userId": id },
         datatype: "json",
         success: function (roleMenus) {
@@ -30,7 +30,7 @@ function ModifyEmployeeRoles() {
 
     $.ajax({
         type: 'POST',
-        url: '/Admin/ModifyEmployeeRoles',
+        url: '/StaffManage/ModifyEmployeeRoles',
         data: { "userId": userId, "roleIds": roleIds },
         success: function (result) {
             if (result == "True") {
@@ -70,7 +70,7 @@ function SubmitCreate() {
 
     $.ajax({
         type: "Post",
-        url: "/Admin/CreateRole",
+        url: "/StaffManage/CreateRole",
         data: { "menuIds": menuIds, "roleName": name, "roleDetails": details },
         success: function (result) {
             if (result == "True") {
@@ -87,7 +87,7 @@ function SubmitCreate() {
 function CreateRole() {
     $.ajax({
         type: "Get",
-        url: "/Admin/GetAllPermissions",
+        url: "/StaffManage/GetAllPermissions",
         datatype: "json",
         success: function (roleMenus) {
             InitZTreeMenu(roleMenus, "createRole");
@@ -118,8 +118,8 @@ function ModifyRolePermissions() {
     $('#modifyRolePermissionsModal').modal('hide');
 
     $.ajax({
-        type: "Get",
-        url: "/Admin/ModifyRolePermissions",
+        type: "Post",
+        url: "/StaffManage/ModifyRolePermissions",
         data: { "roleId": id, "menuIds": menuIds, "modifyName": name, "modifyDetails": details },
         success: function (result) {
             if (result == "True") {
@@ -158,7 +158,7 @@ function DeletRole() {
     }
     $.ajax({
         type: "Post",
-        url: "/Admin/DeletRoleByRoleId",
+        url: "/StaffManage/DeletRoleByRoleId",
         data: { "roleId": roleId },
         success: function (result) {
             if (result == "True") {
@@ -187,7 +187,7 @@ function ModifyRole() {
     $("#modify-role-id").val(roleId);
     $.ajax({
         type: "Get",
-        url: "/Admin/GetRolePermissionsMenu",
+        url: "/StaffManage/GetRolePermissionsMenu",
         data: { "roleId": roleId },
         datatype: "json",
         success: function (roleMenus) {

@@ -92,7 +92,7 @@ namespace Mall.Service.Services.Custom
         /// <returns></returns>
         public List<Order> GetAllOrderByCustomId(int customId)
         {
-            List<Order> orders = _db.Order
+            List<Order> orders = _db.Order.Include("GoodsInfo")
                 .Where(o => o.CustomId == customId).ToList();
             return orders;
         }
@@ -255,23 +255,40 @@ namespace Mall.Service.Services.Custom
         /// <returns></returns>
         public bool PayByOrderId(int customId, Guid[] orderId)
         {
-            List<Order> orders = new List<Order>();
-            double totlaPay = 0;
-
-            DataBase.Custom custom = _db.Custom.SingleOrDefault(c => c.CustomId == customId);
-
-            orderId.ToList().ForEach(o => orders.Add(GetOrderById(customId, o)));
-
-            orders.ForEach(o => totlaPay = o.Totla + totlaPay);
-
-            if (custom.Wallet >= totlaPay)
+            try
             {
-                custom.Wallet -= totlaPay;
-                orders.ForEach(o => o.State = (int)StateOfOrder.State.ToAccept);
-                _db.SaveChanges();
-                return true;
+                List<Order> orders = new List<Order>();
+                double totlaPay = 0;
+
+                DataBase.Custom custom = _db.Custom.SingleOrDefault(c => c.CustomId == customId);
+
+                orderId.ToList().ForEach(o => orders.Add(GetOrderById(customId, o)));
+
+                orders.ForEach(o => totlaPay = o.Totla + totlaPay);
+
+                foreach(var o in orders)
+                {
+                    var goodState = o.GoodsInfo.State;
+                    if(goodState == (int)StateOfGoods.State.Delet || goodState == (int)StateOfGoods.State.OffShelves)
+                    {
+                        return false;
+                    }
+                }
+
+                if (custom.Wallet >= totlaPay)
+                {
+                    custom.Wallet -= totlaPay;
+                    orders.ForEach(o => o.State = (int)StateOfOrder.State.ToAccept);
+                    _db.SaveChanges();
+                    return true;
+                }
+                return false;
             }
-            return false;
+            catch (Exception e)
+            {
+                Console.Out.Write(e);
+                return false;
+            }
         }
 
         /// <summary>

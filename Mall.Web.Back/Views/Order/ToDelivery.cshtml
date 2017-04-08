@@ -15,10 +15,10 @@
 <section class="content">
     <div class="order-wrapper">
         <div class="order-title">
-            @Html.Partial("Order/_OrderTitle")
+            @Html.Partial("ViewComponents/_OrderTitle")
         </div>
         <div class="order-content">
-            @Html.Partial("Order/_OrderList", Model)
+            @Html.Partial("ViewComponents/_OrderList", Model)
             <div class="order-list-contorl">
                 每页 @Model.PageSize 条记录,共 @Model.Count 条记录,共 @Model.PageCount 页,当前第 @Model.PageNumber 页
                 <div class="list-contorl-button">
@@ -28,7 +28,7 @@
         </div>
     </div>
 </section>
-@Html.Partial("Order/_ModifyRemark")
+@Html.Partial("ViewComponents/_ModifyRemark")
 @Html.Partial("Admin/_ManageConfirm")
 @section css{
     @Styles.Render("~/Css/Order/Orders.css")

@@ -41,21 +41,21 @@
                                 <li>@Model.Goods.Author</li>
                                 <li class="money">￥@Model.Goods.Price</li>
                                 <li><span class="count-control" onclick="ReduceCount()">-</span><input name="count" id="count" value="@Model.Number" class="count" disabled="disabled" /><span class="count-control" onclick="IncreaseCount()">+</span></li>
-                                <li class="money">￥@Model.Goods.freight</li>
-                                <li class="money total-money">￥@(Model.Goods.Price * Model.Number + Model.Goods.freight)</li>
+                                <li class="money">￥@Model.Goods.Freight</li>
+                                <li class="money total-money">￥@(Model.Goods.Price * Model.Number + Model.Goods.Freight)</li>
                             </ul>
                             <textarea id="remark" name="remark" class="custom-remark" placeholder="备注"></textarea>
                         </li>
                     </ul>
                 </div>
             </div>
-            <p class="buy-now-infor-total">小计：<span class="total-money">￥@(Model.Goods.Price * Model.Number + Model.Goods.freight)</span></p>
+            <p class="buy-now-infor-total">小计：<span class="total-money">￥@(Model.Goods.Price * Model.Number + Model.Goods.Freight)</span></p>
         </div>
     </div>
-    @Html.Partial("Users/_MallSign")
+    @Html.Partial("_MallSign")
     <div class="confirm-order-confirm">
         <p>
-            应付款：<span class="confirm-order-confirm-money total-money">￥@(Model.Goods.Price * Model.Number + Model.Goods.freight)</span>
+            应付款：<span class="confirm-order-confirm-money total-money">￥@(Model.Goods.Price * Model.Number + Model.Goods.Freight)</span>
         </p>
         <div id="confirm-address">
             @Html.Action("GetSelectedAddress","Custom")

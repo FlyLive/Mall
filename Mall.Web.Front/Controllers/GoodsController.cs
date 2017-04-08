@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Mall.Service.Services.Enterprise;
+using Mall.Service.Services;
 
 namespace Mall.Web.Front.Controllers
 {
@@ -112,7 +112,7 @@ namespace Mall.Web.Front.Controllers
         /// <param name="pageSize"></param>
         /// <returns></returns>
         [HttpGet]
-        public ActionResult Search(string searchName)
+        public ActionResult Search(string searchName = "")
         {
             List<GoodsInfo> goods = _goodsService.GetAllGoods()
                 .Where(g => g.GoodsName.Contains(searchName)).ToList();
@@ -132,7 +132,7 @@ namespace Mall.Web.Front.Controllers
                 Price = g.Price,
                 Stock = g.Stock,
                 Details = g.Details,
-                Category = g.Category,
+                SalesNumber = g.SalesNumber,
                 CommentNumber = g.CommentNumber,
                 State = g.State,
                 CreateTime = g.CreateTime.ToString("yyyy-MM-dd HH-mm-ss"),
@@ -142,7 +142,7 @@ namespace Mall.Web.Front.Controllers
                 Author = g.Author,
                 Press = g.Press,
                 PublicationDate = g.PublicationDate == null ? "0000-00-00" : g.PublicationDate.Value.ToString("yyyy-MM-dd"),
-                freight = g.Freight,
+                Freight = g.Freight,
             };
             return goodDTO;
         }

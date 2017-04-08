@@ -1,8 +1,10 @@
-﻿.registe_wap {
-    height:800px;
+﻿body{
     background-image: url('http://localhost:9826/Mall.Web.Front/Users/图书.jpg');
     background-repeat: no-repeat;
     background-size:cover;
+}
+.registe_wap {
+    height:800px;
 }
 .registe_body{
     width: 450px;
@@ -46,6 +48,7 @@
     background-color:#0066ff;
     cursor:pointer;
     border:none;
+    color:white;
 }
 .registe_registe:hover{
     background-color:#2277ff;
@@ -76,6 +79,7 @@
     margin:0 auto;
     font-size:12px;
     width:auto;
+    border-bottom:0;
 }
 .has-account legend > a{
     font-size:14px;

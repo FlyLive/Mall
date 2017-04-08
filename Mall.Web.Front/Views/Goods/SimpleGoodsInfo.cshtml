@@ -9,5 +9,5 @@
     </li>
     <li><span title="@Model.Author">@(Model.Author.Length >= 7 ? Model.Author.Substring(0, 6) + "…" : Model.Author)</span></li>
     <li class="money">￥@Model.Price</li>
-    <li class="money">￥@Model.freight</li>
+    <li class="money">￥@Model.Freight</li>
     <li><a href="/Goods/Goods?goodsId=@Model.GoodsId">再次购买</a></li>

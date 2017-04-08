@@ -1,14 +1,49 @@
 ﻿
+@model Mall.Web.Front.ViewModel.UserViewModel
+
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "个人中心";
     Layout = "~/Views/Layout/_ClientLayout.cshtml";
 }
 
 <section class="content-header">
-    <h1><i class="fa fa-male"></i>Index</h1>
+    <h1><i class="fa fa-male"></i>个人中心</h1>
 </section>
 <section class="content">
-    <div>
-
+    <div class="personal-center">
+        <div class="info-item detail">
+            <div>
+                <h3>@Model.RealName (@(Model.Gender == true ? "男" : "女"))</h3>
+                <p>个人信息<a href="/Custom/PersonalInfo" title="修改资料"><i class="fa fa-hand-o-right"></i></a></p>
+            </div>
+            <i class="fa fa-male"></i>
+        </div>
+        <div class="info-item wallet">
+            <div>
+                <h3>￥0</h3>
+                <p>钱包<a href="#" title="暂无"><i class="fa fa-hand-o-right"></i></a></p>
+            </div>
+            <i class="fa fa-rmb"></i>
+        </div>
+        <div class="info-item cart">
+            <div>
+                <h3>0</h3>
+                <p>购物车<a href="/Custom/ShoppingCart" title="前往购物车"><i class="fa fa-hand-o-right"></i></a></p>
+            </div>
+            <i class="fa fa-shopping-cart"></i>
+        </div>
+        <div class="info-item unfinish">
+            <div>
+                <h3>0</h3>
+                <p>未完成订单<a href="/Order/AllOrders" title="订单中心"><i class="fa fa-hand-o-right"></i></a></p>
+            </div>
+            <i class="fa fa-file-text-o"></i>
+        </div>
     </div>
 </section>
+@section css{
+    @Styles.Render("~/Css/Custom/Index.css")
+}
+@section scripts{
+    @Scripts.Render("~/JS/Custom/Index.js")
+}

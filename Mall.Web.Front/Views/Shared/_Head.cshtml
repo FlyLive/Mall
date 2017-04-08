@@ -100,7 +100,7 @@
     if (user != null)
     {
         Mall.Web.Front.ViewModel.UserViewModel u = (Mall.Web.Front.ViewModel.UserViewModel)Session["User"];
-        <script>
+        <script type="text/javascript">
             $("#has_account").show();
             $("#no_account").hide();
             $("#account_name").text("@u.NickName");
@@ -114,7 +114,7 @@
     }
     else
     {
-        <script>
+        <script type = "text/javascript">
             $("#has_account").hide();
             $("#no_account").show();
 

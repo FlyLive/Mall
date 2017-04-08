@@ -87,8 +87,7 @@
           <Property Name="Details" Type="nvarchar" MaxLength="400" Nullable="false" />
           <Property Name="Stock" Type="int" Nullable="false" />
           <Property Name="State" Type="int" Nullable="false" />
-          <Property Name="SalesNumber" Type="int" />
-          <Property Name="Category" Type="nvarchar" MaxLength="10" />
+          <Property Name="SalesNumber" Type="int" Nullable="false" />
           <Property Name="CommentNumber" Type="int" Nullable="false" />
           <Property Name="CreateTime" Type="datetime" Nullable="false" />
           <Property Name="ShelfTime" Type="datetime" />
@@ -717,8 +716,7 @@
           <Property Name="Details" Type="String" Nullable="false" MaxLength="400" FixedLength="false" Unicode="true" />
           <Property Name="Stock" Type="Int32" Nullable="false" />
           <Property Name="State" Type="Int32" Nullable="false" />
-          <Property Name="SalesNumber" Type="Int32" />
-          <Property Name="Category" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="SalesNumber" Type="Int32" Nullable="false" />
           <Property Name="CommentNumber" Type="Int32" Nullable="false" />
           <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ShelfTime" Type="DateTime" Precision="3" />
@@ -1107,7 +1105,6 @@
                 <ScalarProperty Name="ShelfTime" ColumnName="ShelfTime" />
                 <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
                 <ScalarProperty Name="CommentNumber" ColumnName="CommentNumber" />
-                <ScalarProperty Name="Category" ColumnName="Category" />
                 <ScalarProperty Name="SalesNumber" ColumnName="SalesNumber" />
                 <ScalarProperty Name="State" ColumnName="State" />
                 <ScalarProperty Name="Stock" ColumnName="Stock" />

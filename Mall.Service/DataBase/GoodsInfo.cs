@@ -30,8 +30,7 @@ namespace Mall.Service.DataBase
         public string Details { get; set; }
         public int Stock { get; set; }
         public int State { get; set; }
-        public Nullable<int> SalesNumber { get; set; }
-        public string Category { get; set; }
+        public int SalesNumber { get; set; }
         public int CommentNumber { get; set; }
         public System.DateTime CreateTime { get; set; }
         public Nullable<System.DateTime> ShelfTime { get; set; }

@@ -19,12 +19,12 @@
                     <tr>
                         <td>
                             <div class="admin" id="admin-list">
-                                @Html.Action("SearchEmployee", "Admin", new { search = string.Empty })
+                                @Html.Action("SearchEmployee", "StaffManage", new { search = string.Empty })
                             </div>
                         </td>
                         <td>
                             <div class="admin-detail" id="admin-detail">
-                                @Html.Partial("Admin/_GetEmployeeInfo", new Mall.Web.Back.ViewModel.UserViewModel())
+                                @Html.Partial("ViewComponents/_GetEmployeeInfo", new Mall.Web.Back.ViewModel.UserViewModel())
                                 <div class="admin-detail-permission">
                                     <div class="permission-list">
                                         <div class="employee-info-permission">
@@ -57,27 +57,34 @@
         </div>
     </div>
 </section>
-@Html.Partial("Admin/_ModifyPermissions")
+@Html.Partial("ViewComponents/_ModifyPermissions")
 @section css{
-    @Styles.Render("~/Css/Admin/PermissionSet.css")
-    @Styles.Render("~/Css/Admin/EmployeePermissions.css")
+    @Styles.Render("~/Css/StaffManage/PermissionSet.css")
+    @Styles.Render("~/Css/StaffManage/EmployeePermissions.css")
     @Styles.Render("~/Css/Shared/zTreeStyle.css")
 }
 @section scripts{
-    @Scripts.Render("~/JS/Admin/PermissionSet.js")
+    @Scripts.Render("~/JS/StaffManage/PermissionSet.js")
     @Scripts.Render("~/JS/Shared/jquery.ztree.all.js")
     <script>
         function Refresh(event) {
             var id = event.id;
             $.ajax({
                 type: 'Get',
-                url: '/Admin/GetEmployeePermissionsInfo',
+                url: '/StaffManage/GetEmployeePermissionsInfo',
                 data: { "userId": id },
                 datatype: 'html',
+                beforeSend: function () {
+                    layer.load(2, {
+                        shade: [0.1, '#fff'] //0.1透明度的白色背景
+                    });
+                },
                 success: function (html) {
                     $("#admin-detail").html(html);
+                    layer.closeAll("loading");
                 },
                 error: function () {
+                    layer.closeAll("loading");
                     OpenTip("出错啦!", 1);
                 }
             });

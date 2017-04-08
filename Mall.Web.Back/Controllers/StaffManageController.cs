@@ -1,4 +1,5 @@
 ﻿using Mall.Service.DataBase;
+using Mall.Service.Services;
 using Mall.Service.Services.Enterprise;
 using Mall.Web.Back.Filter;
 using Mall.Web.Back.ViewModel;
@@ -13,6 +14,7 @@ namespace Mall.Web.Back.Controllers
     public class StaffManageController : Controller
     {
         private EnterpriseService _enterpriseService = new EnterpriseService();
+        private UserService _userService = new UserService();
         private MenuViewService _menuViewService = new MenuViewService();
 
         /// <summary>
@@ -67,7 +69,7 @@ namespace Mall.Web.Back.Controllers
         [HttpGet]
         public bool ReAccount(string account)
         {
-            var result = _enterpriseService.ReName(account);
+            var result = _userService.ReName(account);
             return result;
         }
 

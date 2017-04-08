@@ -156,8 +156,10 @@
     <Content Include="Content\PagedList.css" />
     <Content Include="Css\Custom\AddressAlready.css" />
     <Content Include="Css\Custom\AddressSet.css" />
+    <Content Include="Css\Custom\Index.css" />
     <Content Include="Css\Custom\PersonalInfo.css" />
     <Content Include="Css\Custom\SecuritySet.css" />
+    <Content Include="Css\fonts\fontawesome-webfont.svg" />
     <Content Include="Css\Goods\Goods.css" />
     <Content Include="Css\Goods\GoodsDetails.css" />
     <Content Include="Css\Goods\GoodsEvaluates.css" />
@@ -175,10 +177,12 @@
     <Content Include="JS\Custom\AddressAlready.js" />
     <Content Include="JS\Custom\AddressSet.js" />
     <Content Include="JS\Custom\ConfirmReceipt.js" />
+    <Content Include="JS\Custom\Index.js" />
     <Content Include="JS\Custom\PersonalInfo.js" />
     <Content Include="JS\Custom\SecuritySet.js" />
     <Content Include="JS\Custom\ShoppingCart.js" />
     <Content Include="JS\Goods\jqzoom.js" />
+    <Content Include="JS\Home\text.js" />
     <Content Include="JS\Order\AllOrders.js" />
     <Content Include="JS\Goods\Goods.js" />
     <Content Include="JS\Layout\_Layout.js" />
@@ -225,6 +229,10 @@
     <Content Include="Pictures\人类简史.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Css\fonts\fontawesome-webfont.eot" />
+    <Content Include="Css\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Css\fonts\fontawesome-webfont.woff" />
+    <Content Include="Css\fonts\FontAwesome.otf" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -277,9 +285,9 @@
     <Content Include="Views\Custom\ViewComponents\_ModifyPhoto.cshtml" />
     <Content Include="Views\Users\ViewComponents\_ReSetPW.cshtml" />
     <Content Include="Views\Layout\_ClientLayout.cshtml" />
-    <Content Include="Views\MenuView\ViewComponents\_ControlSideBar.cshtml" />
-    <Content Include="Views\MenuView\ViewComponents\_Header.cshtml" />
-    <Content Include="Views\MenuView\ViewComponents\_SideBar.cshtml" />
+    <Content Include="Views\Shared\MenuView\_ControlSideBar.cshtml" />
+    <Content Include="Views\Shared\MenuView\_Header.cshtml" />
+    <Content Include="Views\Shared\MenuView\_SideBar.cshtml" />
     <Content Include="Views\MenuView\SideBarMenu.cshtml" />
     <Content Include="Views\MenuView\SubSideBarMenu.cshtml" />
     <Content Include="Views\Custom\UserInfo.cshtml" />
@@ -299,7 +307,7 @@
     <Content Include="Views\Goods\GoodsImgs.cshtml" />
     <Content Include="Views\Goods\GoodsCarousel.cshtml" />
     <Content Include="Views\Order\ConfirmOrder.cshtml" />
-    <Content Include="Views\Users\ViewComponents\_MallSign.cshtml" />
+    <Content Include="Views\Shared\_MallSign.cshtml" />
     <Content Include="Views\Custom\GetSelectedAddress.cshtml" />
     <Content Include="Views\Order\RefundCenter.cshtml" />
     <Content Include="Views\Order\ReturnCenter.cshtml" />
@@ -311,7 +319,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\layer\" />
     <Folder Include="Content\laypage\" />
-    <Folder Include="Css\fonts\" />
     <Folder Include="Views\Goods\ViewComponents\" />
   </ItemGroup>
   <ItemGroup>

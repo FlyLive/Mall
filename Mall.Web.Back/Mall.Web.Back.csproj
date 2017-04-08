@@ -177,12 +177,12 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\PagedList.css" />
-    <Content Include="Css\Admin\CreateEmployee.css" />
-    <Content Include="Css\Admin\EmployeeDetails.css" />
-    <Content Include="Css\Admin\EmployeePermissions.css" />
-    <Content Include="Css\Admin\PermissionSet.css" />
+    <Content Include="Css\StaffManage\CreateEmployee.css" />
+    <Content Include="Css\StaffManage\EmployeeDetails.css" />
+    <Content Include="Css\StaffManage\EmployeePermissions.css" />
+    <Content Include="Css\StaffManage\PermissionSet.css" />
     <Content Include="Css\Admin\PersonalInfo.css" />
-    <Content Include="Css\Admin\RoleManage.css" />
+    <Content Include="Css\StaffManage\RoleManage.css" />
     <Content Include="Css\Admin\SecuritySet.css" />
     <Content Include="Css\Goods\CreateGoods.css" />
     <Content Include="Css\Admin\Index.css" />
@@ -209,12 +209,11 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="JS\Admin\CreateEmployee.js" />
-    <Content Include="JS\Admin\EmployeeDetails.js" />
+    <Content Include="JS\StaffManage\CreateEmployee.js" />
     <Content Include="JS\Admin\Index.js" />
-    <Content Include="JS\Admin\PermissionSet.js" />
+    <Content Include="JS\StaffManage\PermissionSet.js" />
     <Content Include="JS\Admin\PersonalInfo.js" />
-    <Content Include="JS\Admin\RoleManage.js" />
+    <Content Include="JS\StaffManage\RoleManage.js" />
     <Content Include="JS\Admin\SecuritySet.js" />
     <Content Include="JS\Chat\Chat.js" />
     <Content Include="JS\Goods\CreateGoods.js" />
@@ -277,9 +276,9 @@
     <Content Include="Views\Shared\_Head.cshtml" />
     <Content Include="Views\MenuView\SideBarMenuByPermissions.cshtml" />
     <Content Include="Views\MenuView\SubSideBarMenu.cshtml" />
-    <Content Include="Views\MenuView\ViewComponents\_ControlSideBar.cshtml" />
-    <Content Include="Views\MenuView\ViewComponents\_Header.cshtml" />
-    <Content Include="Views\MenuView\ViewComponents\_SideBar.cshtml" />
+    <Content Include="Views\Shared\MenuView\_ControlSideBar.cshtml" />
+    <Content Include="Views\Shared\MenuView\_Header.cshtml" />
+    <Content Include="Views\Shared\MenuView\_SideBar.cshtml" />
     <Content Include="Views\Admin\ManageCenter.cshtml" />
     <Content Include="Views\Admin\EmployeeInfor.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
@@ -302,7 +301,7 @@
     <Content Include="Views\StaffManage\PermissionSet.cshtml" />
     <Content Include="Views\StaffManage\GetEmployeePermissionsInfo.cshtml" />
     <Content Include="Views\StaffManage\GetEmployeePermissions.cshtml" />
-    <Content Include="Views\Admin\ViewComponents\_ManageConfirm.cshtml" />
+    <Content Include="Views\Shared\Admin\_ManageConfirm.cshtml" />
     <Content Include="Views\Order\FinishedOrder.cshtml" />
     <Content Include="Views\Order\ReturnConfirm.cshtml" />
     <Content Include="Views\Order\RefundConfirm.cshtml" />
@@ -340,7 +339,6 @@
     <Folder Include="Content\laypage\" />
     <Folder Include="Css\Goods\images\" />
     <Folder Include="Css\Shared\img\" />
-    <Folder Include="JS\Home\" />
     <Folder Include="Pictures\Goods\" />
     <Folder Include="Pictures\Home\" />
   </ItemGroup>

@@ -14,10 +14,10 @@
 <section class="content">
     <div class="order-wrapper good-wrapper">
         <div class="order-title">
-            @Html.Partial("Goods/_GoodsTitle")
+            @Html.Partial("ViewComponents/_GoodsTitle")
         </div>
         <div class="order-content good-content">
-            @Html.Partial("Goods/_GoodsList", Model)
+            @Html.Partial("ViewComponents/_GoodsList", Model)
             <div class="order-list-contorl">
                 每页 @Model.PageSize 条记录,共 @Model.Count 条记录,共 @Model.PageCount 页,当前第 @Model.PageNumber 页
                 <div class="list-contorl-button">

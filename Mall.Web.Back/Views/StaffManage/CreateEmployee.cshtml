@@ -23,7 +23,7 @@
                                 </div>
                                 <div class="create-employee-left-nick info">
                                     <p class="title">昵称</p>
-                                    <input name="nick" id="nick" type="text" /><span>(默认与登录密码相同)</span>
+                                    <input name="nick" id="nick" type="text" /><span>(默认与账户相同)</span>
                                 </div>
                                 <div class="create-employee-left-birthday info">
                                     <p class="title">生日</p>
@@ -73,11 +73,11 @@
 </section>
 @Html.Partial("Admin/_ManageConfirm")
 @section css{
-    @Styles.Render("~/Css/Admin/CreateEmployee.css")
+    @Styles.Render("~/Css/StaffManage/CreateEmployee.css")
     @Styles.Render("~/Css/Shared/zTreeStyle.css")
 }
 @section scripts{
-    @Scripts.Render("~/JS/Admin/PermissionSet.js")
-    @Scripts.Render("~/JS/Admin/CreateEmployee.js")
+    @Scripts.Render("~/JS/StaffManage/PermissionSet.js")
+    @Scripts.Render("~/JS/StaffManage/CreateEmployee.js")
     @Scripts.Render("~/JS/Shared/jquery.ztree.all.js")
 }

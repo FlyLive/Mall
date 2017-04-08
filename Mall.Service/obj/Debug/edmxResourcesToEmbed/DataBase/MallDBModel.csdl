@@ -165,8 +165,7 @@
     <Property Name="Details" Type="String" Nullable="false" MaxLength="400" FixedLength="false" Unicode="true" />
     <Property Name="Stock" Type="Int32" Nullable="false" />
     <Property Name="State" Type="Int32" Nullable="false" />
-    <Property Name="SalesNumber" Type="Int32" />
-    <Property Name="Category" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="SalesNumber" Type="Int32" Nullable="false" />
     <Property Name="CommentNumber" Type="Int32" Nullable="false" />
     <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="ShelfTime" Type="DateTime" Precision="3" />

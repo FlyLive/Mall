@@ -1,0 +1,37 @@
+﻿
+.personal-center{
+    width:95% !important;
+}
+.personal-center .info-item{
+    display:inline-block;
+    width:24%;
+    margin:0px 4px;
+}
+.info-item > div{
+    width: 70%;
+    vertical-align:middle;
+    display: inline-block;
+    color:white;
+    padding: 5px 20px;
+}
+.info-item > div i{
+    margin-left:10px;
+}
+.info-item > i{
+    font-size:80px;
+    vertical-align:middle;
+    color:rgba(0,0,0,0.15);
+    width:25%;
+}
+.personal-center .detail{
+    background-color: #00adff;
+}
+.personal-center .wallet{
+    background-color: #24af85;
+}
+.personal-center .cart{
+    background-color: #f39c12;
+}
+.personal-center .unfinish{
+    background-color: #777777;
+}

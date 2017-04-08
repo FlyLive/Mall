@@ -1,12 +1,12 @@
 ﻿@model Mall.Web.Back.ViewModel.UserViewModel
 
-@Html.Partial("Admin/_GetEmployeeInfo", Model)
+@Html.Partial("ViewComponents/_GetEmployeeInfo", Model)
 <div class="admin-detail-permission">
     <div class="employee-info-permission">
         <div class="permission-list">
             <p class="title">权限</p>
             <div class="permission">
-                @Html.Action("GetEmployeePermissions", "Admin", new { userId = Model.UserId })
+                @Html.Action("GetEmployeePermissions", "StaffManage", new { userId = Model.UserId })
             </div>
         </div>
     </div>

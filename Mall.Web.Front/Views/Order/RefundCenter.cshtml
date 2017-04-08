@@ -2,12 +2,12 @@
 @using Mall.Service.Models
 
 @{
-    ViewBag.Title = "RefundCenter";
+    ViewBag.Title = "退款中心";
     Layout = "~/Views/Layout/_ClientLayout.cshtml";
 }
 
 <section class="content-header">
-    <h1><i class="fa fa-reorder"></i><span>退款中心</span></h1>
+    <h1><i class="fa fa-rmd"></i><span>退款中心</span></h1>
 </section>
 <section class="content">
     <div class="order">
@@ -19,7 +19,7 @@
         </div>
         <div class="order-wrapper">
             <div class="order-title">
-                @Html.Partial("Order/_OrderTitle")
+                @Html.Partial("ViewComponents/_OrderTitle")
             </div>
             <div class="order-list" id="order-list">
                 @Html.Action("SearchOrderByState", new { orderState = StateOfOrder.State.ApplyRefund })

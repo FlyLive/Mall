@@ -10,110 +10,13 @@ using System.Threading.Tasks;
 
 namespace Mall.Service.Services.Enterprise
 {
-    public class GoodsService : IDisposable, IGoodsApplicationService
+    public class GoodsManageService : IDisposable, IGoodsApplicationService
     {
         private MallDBContext _db;
 
-        public GoodsService()
+        public GoodsManageService()
         {
             _db = new MallDBContext();
-        }
-
-        public List<GoodsInfo> GetAllGoods()
-        {
-            return _db.GoodsInfo.ToList();
-        }
-
-        public List<GoodsInfo> GetCarousels()
-        {
-            List<GoodsInfo> goods = _db.GoodsInfo.Take(5).ToList();
-            return goods;
-        }
-
-        public List<GoodsInfo> GetGoodsByGoodsState(int state)
-        {
-            List<GoodsInfo> goods = _db.GoodsInfo.Where(g => g.State == state).ToList();
-            return goods;
-        }
-
-        /// <summary>
-        /// 根据商品Id获取商品
-        /// </summary>
-        /// <param name="goodsId">商品Id</param>
-        /// <returns></returns>
-        public GoodsInfo GetGoodsByGoodsId(int goodsId)
-        {
-            GoodsInfo goods = _db.GoodsInfo.SingleOrDefault(g => g.GoodsId == goodsId);
-            return goods;
-        }
-
-        /// <summary>
-        /// 根据商品Id获取商品图片
-        /// </summary>
-        /// <param name="goodsId"></param>
-        /// <returns></returns>
-        public List<Image> GetImgsByGoodsId(int goodsId)
-        {
-            List<Image> imgs = _db.Image.Where(i => i.GoodsId == goodsId).ToList();
-            return imgs;
-        }
-
-        /// <summary>
-        /// 根据商品Id获取商品评价
-        /// </summary>
-        /// <param name="goodsId">商品Id</param>
-        /// <returns></returns>
-        public List<Comment> GetGoodsCommentsByGoodsId(int goodsId)
-        {
-            List<Comment> comments = _db.Comment.Where(c => c.GoodsId == goodsId).ToList();
-            return comments;
-        }
-
-        /// <summary>
-        /// 热销商品
-        /// </summary>
-        /// <returns></returns>
-        public List<GoodsInfo> GetHotSaleGoodsTop5()
-        {
-            var dbGoods = _db.GoodsInfo;
-            List<GoodsInfo> goods = (from g in dbGoods
-                                     orderby g.CommentNumber
-                                     descending
-                                     select g)
-                                     .Take(5).Where(g => g.State == (int)StateOfGoods.State.OnShelves).ToList();
-            return goods;
-        }
-
-        /// <summary>
-        /// 新品
-        /// </summary>
-        /// <returns></returns>
-        public List<GoodsInfo> GetNewGoodsTop5()
-        {
-            var dbGoods = _db.GoodsInfo;
-            List<GoodsInfo> goods = (from g in dbGoods
-                                     orderby g.CreateTime
-                                     descending
-                                     select g)
-                                     .Take(5).Where(g => g.State == (int)StateOfGoods.State.OnShelves).ToList();
-            return goods;
-        }
-
-        /// <summary>
-        /// 随机推荐
-        /// </summary>
-        /// <returns></returns>
-        public List<GoodsInfo> GetRandomGoodsTop5()
-        {
-            var dbGoods = _db.GoodsInfo.Where(g => g.State == (int)StateOfGoods.State.OnShelves);
-            Random random = new Random();
-            List<GoodsInfo> newList = new List<GoodsInfo>();
-            foreach (GoodsInfo item in dbGoods)
-            {
-                newList.Insert(random.Next(newList.Count + 1), item);
-            }
-            List<GoodsInfo> goods = newList.Take(5).ToList();
-            return goods;
         }
 
         /// <summary>
@@ -178,7 +81,7 @@ namespace Mall.Service.Services.Enterprise
 
         public bool IsImageFull(int goodsId)
         {
-            var imgs = GetImgsByGoodsId(goodsId);
+            var imgs = _db.Image.Where(g => g.GoodsId == goodsId).ToList();
             if (imgs.Count >= 5)
             {
                 return true;
@@ -240,7 +143,7 @@ namespace Mall.Service.Services.Enterprise
             try
             {
                 Employee employee = _db.Employee.SingleOrDefault(e => e.EmployeeId == employeeId);
-                GoodsInfo good = GetGoodsByGoodsId(goodsId);
+                GoodsInfo good = _db.GoodsInfo.SingleOrDefault(g => g.GoodsId == goodsId);
                 if (good.State == 2)
                 {
                     good.State = (int)StateOfGoods.State.Delet;
@@ -278,7 +181,7 @@ namespace Mall.Service.Services.Enterprise
             try
             {
                 Employee employee = _db.Employee.SingleOrDefault(e => e.EmployeeId == employeeId);
-                GoodsInfo good = GetGoodsByGoodsId(goodsId);
+                GoodsInfo good = _db.GoodsInfo.SingleOrDefault(g => g.GoodsId == goodsId);
                 good.GoodsName = name;
                 good.Price = price;
                 good.Details = detail;
@@ -317,7 +220,7 @@ namespace Mall.Service.Services.Enterprise
             try
             {
                 Employee employee = _db.Employee.SingleOrDefault(e => e.EmployeeId == employeeId);
-                GoodsInfo good = GetGoodsByGoodsId(goodsId);
+                GoodsInfo good = _db.GoodsInfo.SingleOrDefault(g => g.GoodsId == goodsId);
                 good.Stock += stock;
                 _db.AdminLog.Add(new AdminLog
                 {
@@ -350,7 +253,7 @@ namespace Mall.Service.Services.Enterprise
             try
             {
                 Employee employee = _db.Employee.SingleOrDefault(e => e.EmployeeId == employeeId);
-                GoodsInfo good = GetGoodsByGoodsId(goodsId);
+                GoodsInfo good = _db.GoodsInfo.SingleOrDefault(g => g.GoodsId == goodsId);
                 good.State = 2;
                 _db.AdminLog.Add(new AdminLog
                 {
@@ -383,7 +286,7 @@ namespace Mall.Service.Services.Enterprise
             try
             {
                 Employee employee = _db.Employee.SingleOrDefault(e => e.EmployeeId == employeeId);
-                GoodsInfo good = GetGoodsByGoodsId(goodsId);
+                GoodsInfo good = _db.GoodsInfo.SingleOrDefault(g => g.GoodsId == goodsId);
                 if (good.Stock != 0)
                 {
                     good.State = 1;

@@ -45,7 +45,8 @@ namespace Mall.Service.Services.Custom
         /// <returns></returns>
         public DataBase.Custom Registe(string name, string password, string email)
         {
-            if (!ReName(name))
+            var reName = _db.User.SingleOrDefault(u => u.Account == name) == null ? false : true;
+            if (!reName)
             {
                 User user = new User
                 {
@@ -116,19 +117,8 @@ namespace Mall.Service.Services.Custom
             catch (Exception e)
             {
                 Console.Write(e);
+                return string.Empty;
             }
-            return string.Empty;
-        }
-
-        /// <summary>
-        /// 是否重名
-        /// </summary>
-        /// <param name="name">账户</param>
-        /// <returns></returns>
-        public bool ReName(string name)
-        {
-            var user = _db.User.SingleOrDefault(u => u.Account == name);
-            return user == null ? false : true;
         }
 
         /// <summary>
@@ -141,6 +131,12 @@ namespace Mall.Service.Services.Custom
         {
             var custom = GetCustomByAccount(account);
             return custom.User.Email.Equals(email);
+        }
+
+        public double GetWallet(int customId)
+        {
+            DataBase.Custom custom = GetCustomByCustomId(customId);
+            return Math.Round(custom.Wallet,2);
         }
 
         /// <summary>
@@ -222,61 +218,7 @@ namespace Mall.Service.Services.Custom
             var deliveryInfos = _db.DeliveryInfo.Where(d => d.CustomId == customId).ToList();
             return deliveryInfos;
         }
-
-        /// <summary>
-        /// 修改个人信息
-        /// </summary>
-        /// <param name="user"></param>
-        public bool ModifyUserInfo(int customId, string email, DateTime? birthday, string nick, string name, string phone, int gender = 1)
-        {
-            try
-            {
-                User user = GetCustomByCustomId(customId).User;
-
-                user.Email = email;
-                user.Birthday = birthday == null ? user.Birthday : birthday;
-                user.NickName = nick;
-                user.RealName = name;
-                user.PhoneNumber = phone;
-                user.Gender = gender == 1 ? true : false;
-
-                _db.SaveChanges();
-                return true;
-            }
-            catch (Exception e)
-            {
-                Console.Out.Write(e);
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// 修改头像
-        /// </summary>
-        /// <param name="customId"></param>
-        /// <param name="imgBase"></param>
-        public string ModifyPhoto(int customId, string imgBase)
-        {
-            try
-            {
-                DataBase.Custom custom = GetCustomByCustomId(customId);
-                var img = imgBase.Split(',');
-                byte[] bt = Convert.FromBase64String(img[1]);
-                string now = DateTime.Now.ToString("yyyy-MM-ddHHmmss");
-                string path = "D:/网站部署/MallImg/Mall.Web.Front/Users/Avatar/avatar" + now + ".png";
-                string DataPath = "http://localhost:9826/Mall.Web.Front/Users/Avatar/avatar" + now + ".png";
-                File.WriteAllBytes(path, bt);
-                custom.User.Photo = DataPath;
-                _db.SaveChanges();
-                return DataPath;
-            }
-            catch (Exception e)
-            {
-                Console.Out.Write(e);
-                return null;
-            }
-        }
-
+        
         /// <summary>
         /// 新建收货信息
         /// </summary>

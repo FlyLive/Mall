@@ -1,4 +1,11 @@
-﻿function ClientConfirm() {
+﻿document.onkeydown = function (event) {
+    var e = event || window.event || arguments.callee.caller.arguments[0];
+    if (e && e.keyCode == 13) { // enter 键
+        ClientConfirm();
+    }
+};
+
+function ClientConfirm() {
     var account = $("#account").val();
     var email = $("#email").val();
 
@@ -13,10 +20,15 @@
 
     $.ajax({
         type: "Get",
-        url: "ClientConfirm",
-        Data: { account, email},
-        Datatype: Boolean,
+        url: "/Users/CustomConfirm",
+        data: { account, email},
+        beforeSend: function () {
+            layer.load(1, {
+                shade: [0.1, '#fff'] //0.1透明度的白色背景
+            });
+        },
         success: function (Data) {
+            layer.closeAll("loading");
             if (Data == "True") {
                 layer.confirm("验证码已发送,请及时查看并进行重置密码",{
                     btn: ["好的"],
@@ -40,6 +52,7 @@
                 content: "出错啦!",
                 icon: 5,
             });
+            layer.closeAll("loading");
             return false;
         }
     })
@@ -53,10 +66,15 @@ function VerifyCode() {
     }
     $.ajax({
         type: "Get",
-        url: "VerifyCodeConfirm",
-        Data: { "verifyCode": verifyCode },
-        Datatype: Boolean,
+        url: "/Users/VerifyCodeConfirm",
+        data: { "verifyCode": verifyCode },
+        beforeSend: function () {
+            layer.load(1, {
+                shade: [0.1, '#fff'] //0.1透明度的白色背景
+            });
+        },
         success: function (Data) {
+            layer.closeAll("loading");
             if (Data == "True") {
                 $('#VerifyCodeModal').modal('hide');
                 $(function () {
@@ -76,6 +94,7 @@ function VerifyCode() {
             }
         },
         error: function () {
+            layer.closeAll("loading");
             layer.open({
                 title: "错误提示",
                 content: "出错啦!",
@@ -92,10 +111,7 @@ function ReSetPW() {
 
     if (ConfirmPassword(fPassword, rePassword)) {
         if (fPassword.length < 6 || fPassword.length > 12) {
-            layer.tips('密码长度为6-12位,请重试!', "#f_password", {
-                tip: [2, "#2277ff"],
-                time: 1500,
-            });
+            Tip('密码长度为6-12位,请重试!', "f_password");
             return false;
         }
         document.forms["RetrievePW"].submit();

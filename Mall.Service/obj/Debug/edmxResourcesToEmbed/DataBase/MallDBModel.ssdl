@@ -82,8 +82,7 @@
     <Property Name="Details" Type="nvarchar" MaxLength="400" Nullable="false" />
     <Property Name="Stock" Type="int" Nullable="false" />
     <Property Name="State" Type="int" Nullable="false" />
-    <Property Name="SalesNumber" Type="int" />
-    <Property Name="Category" Type="nvarchar" MaxLength="10" />
+    <Property Name="SalesNumber" Type="int" Nullable="false" />
     <Property Name="CommentNumber" Type="int" Nullable="false" />
     <Property Name="CreateTime" Type="datetime" Nullable="false" />
     <Property Name="ShelfTime" Type="datetime" />

@@ -1,12 +1,14 @@
-﻿.login_wap {
-    height:800px;
+﻿body{
     background-image: url('http://localhost:9826/Mall.Web.Front/Users/图书.jpg');
     background-repeat: no-repeat;
     background-size:cover;
 }
+.login_wap {
+    height:800px;
+}
 .login_body{
     width: 450px;
-    left: 60%;
+    left: 70%;
     top: 10%;
     border: 1px solid #666666;
     border-radius: 10px;
@@ -65,6 +67,7 @@
     width:auto;
     font-size:12px;
     color:#808080;
+    border-bottom:0;
 }
 .login_registe{
     margin:20px auto;

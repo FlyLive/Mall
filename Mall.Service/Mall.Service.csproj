@@ -120,11 +120,13 @@
     <Compile Include="Interface\Enterprise\IGoodsApplicationService.cs" />
     <Compile Include="Services\Custom\MenuViewService.cs" />
     <Compile Include="Services\Custom\OrderService.cs" />
-    <Compile Include="Services\Enterprise\GoodsService.cs" />
+    <Compile Include="Services\Enterprise\GoodsManageService.cs" />
     <Compile Include="Services\Enterprise\MenuViewService.cs" />
     <Compile Include="Services\Enterprise\EnterpriseService.cs" />
     <Compile Include="Services\Custom\CustomService.cs" />
     <Compile Include="Services\Enterprise\OrderService.cs" />
+    <Compile Include="Services\GoodsService.cs" />
+    <Compile Include="Services\UserService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />

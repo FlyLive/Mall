@@ -1,5 +1,5 @@
 ﻿using Mall.Service.DataBase;
-using Mall.Service.Services.Enterprise;
+using Mall.Service.Services;
 using Mall.Web.Front.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -86,7 +86,7 @@ namespace Mall.Web.Front.Controllers
                     Price = g.Price,
                     Stock = g.Stock,
                     Details = g.Details,
-                    Category = g.Category,
+                    SalesNumber = g.SalesNumber,
                     CommentNumber = g.CommentNumber,
                     State = g.State,
                     CreateTime = g.CreateTime.ToString("yyyy-MM-dd HH-mm-ss"),
@@ -96,7 +96,7 @@ namespace Mall.Web.Front.Controllers
                     Author = g.Author,
                     Press = g.Press,
                     PublicationDate = g.PublicationDate == null ? "0000-00-00" : g.PublicationDate.Value.ToString("yyyy-MM-dd"),
-                    freight = g.Freight,
+                    Freight = g.Freight,
                 }).ToList();
             return goodsDTO;
         }

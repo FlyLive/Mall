@@ -15,7 +15,7 @@
             <li class="order-item @(i % 2 == 0 ? "even" : "odd") good-item" id="@Model[i].GoodsId">
                 <ul>
                     <li class="order-list">@(i+1)</li>
-                    @Html.Partial("Goods/_GoodItem", Model[i])
+                    @Html.Partial("ViewComponents/_GoodItem", Model[i])
                 </ul>
             </li>
         }

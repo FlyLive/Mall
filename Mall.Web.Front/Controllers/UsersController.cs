@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Mall.Service.DataBase;
+using Mall.Service.Services;
 using Mall.Service.Services.Custom;
 using Mall.Web.Front.ViewModel;
 
@@ -12,6 +13,7 @@ namespace Mall.Web.Front.Controllers
     public class UsersController : Controller
     {
         public CustomService _customService = new CustomService();
+        private UserService _userService = new UserService();
 
         /// <summary>
         /// 用户登录首页
@@ -87,9 +89,13 @@ namespace Mall.Web.Front.Controllers
             {
                 TempData["Account"] = account;
                 string verifyCode = _customService.SendEmailOfVerifyCode(email);
-                Session.Add("VerifyCode", verifyCode);
+                if (!verifyCode.Equals(string.Empty))
+                {
+                    Session.Add("VerifyCode", verifyCode);
+                    return true;
+                }
             }
-            return result;
+            return false;
         }
 
         [HttpGet]
@@ -105,7 +111,7 @@ namespace Mall.Web.Front.Controllers
         {
             var account = (string)TempData["Account"];
             Custom custom = _customService.GetCustomByAccount(account);
-            _customService.ModifyPasswordByCustomId(custom.CustomId, newPassword);
+            _userService.ModifyPasswordByUserId(custom.UserId, newPassword);
 
             TempData["RetrievePW"] = "success";
             Session.Remove("VerifyCode");
@@ -125,6 +131,13 @@ namespace Mall.Web.Front.Controllers
             return View();
         }
         
+        [HttpGet]
+        public bool ReName(string account)
+        {
+            var result = _userService.ReName(account);
+            return result;
+        }
+
         /// <summary>
         /// 注册(Action)
         /// </summary>

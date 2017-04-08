@@ -72,7 +72,6 @@
           <ScalarProperty Name="ShelfTime" ColumnName="ShelfTime" />
           <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
           <ScalarProperty Name="CommentNumber" ColumnName="CommentNumber" />
-          <ScalarProperty Name="Category" ColumnName="Category" />
           <ScalarProperty Name="SalesNumber" ColumnName="SalesNumber" />
           <ScalarProperty Name="State" ColumnName="State" />
           <ScalarProperty Name="Stock" ColumnName="Stock" />

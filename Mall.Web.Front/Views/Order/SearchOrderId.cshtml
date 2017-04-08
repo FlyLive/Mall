@@ -14,7 +14,7 @@
         else
         {
             <li class="order-item">
-                <div class="item-head">&emsp;<a href="/Order/OrderDetails?orderId=@Model.OrderId" target="_blank"title="查看详情"><i class="fa fa-file-text-o" onclick="" style="color:#0094ff"></i></a><strong>下单时间:&emsp;@Model.CreateTime</strong>&emsp;&emsp;&emsp;订单编号:&emsp;@Model.OrderId</div>
+                <div class="item-head">&emsp;<a href="/Order/OrderDetails?orderId=@Model.OrderId" target="_blank" title="查看详情"><i class="fa fa-file-text-o" onclick="" style="color:#0094ff"></i></a><strong>下单时间:&emsp;@Model.CreateTime</strong>&emsp;&emsp;&emsp;订单编号:&emsp;@Model.OrderId</div>
                 <ul class="item-info">
                     <li class="good-info"><div><a href="/Goods/Goods/@Model.GoodsId" target="_blank"><img src="@Model.PhotoUrl" /></a><div><p class="good-detail">@Model.GoodsName</p><p class="good-author">作者:&emsp;<span>@Model.GoodsName</span></p></div></div></li>
                     <li class="good-price">￥@Model.Price</li>
@@ -60,15 +60,15 @@
                             case (int)StateOfOrder.State.Finish:<a title="该订单当前状态无可执行操作" class="no-action"><span class="label label-default">无操作</span></a>; break;
                         }
                         @if ((Model.State == (int)StateOfOrder.State.Finish
-                            || Model.State == (int)StateOfOrder.State.ToEvaluate
-                            || Model.State == (int)StateOfOrder.State.ToReply)
-                            && (DateTime.Now - Convert.ToDateTime(Model.ReceiptTime)).TotalDays <= 7)
+                    || Model.State == (int)StateOfOrder.State.ToEvaluate
+                    || Model.State == (int)StateOfOrder.State.ToReply)
+                    && (DateTime.Now - Convert.ToDateTime(Model.ReceiptTime)).TotalDays <= 7)
                         {
                             <a onclick="ApplyReturn('@Model.OrderId')"><span class="label label-primary">申请退货</span></a>
                         }
                     </li>
                 </ul>
             </li>
-                            }
+        }
     }
 </ul>
