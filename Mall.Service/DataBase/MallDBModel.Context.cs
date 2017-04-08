@@ -26,7 +26,6 @@ namespace Mall.Service.DataBase
         }
     
         public virtual DbSet<AdminLog> AdminLog { get; set; }
-        public virtual DbSet<Advertisement> Advertisement { get; set; }
         public virtual DbSet<Comment> Comment { get; set; }
         public virtual DbSet<Custom> Custom { get; set; }
         public virtual DbSet<DeliveryInfo> DeliveryInfo { get; set; }

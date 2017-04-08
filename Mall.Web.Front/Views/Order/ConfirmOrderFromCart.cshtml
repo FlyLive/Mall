@@ -42,7 +42,7 @@
                                     </li>
                                     <li>@item.Goods.Author</li>
                                     <li class="money">￥@item.Goods.Price</li>
-                                    <li><input name="count" value="@item.Number" class="count" /></li>
+                                    <li><input name="count" value="@item.Number" class="count" disabled="disabled"/></li>
                                     <li class="money">￥@item.Goods.freight</li>
                                     <li class="money">￥@(item.Goods.Price * item.Number + item.Goods.freight)</li>
                                 </ul>
@@ -52,13 +52,13 @@
                     </ul>
                 </div>
             </div>
-            <p class="buy-now-infor-total">小计：<span id="total-money">￥@(item.Goods.Price * item.Number + item.Goods.freight)</span></p>
+            <p class="buy-now-infor-total">小计：<span class="total-money">@*￥@(Model.ForEach(item => totla += item.Goods.Price * item.Number + item.Goods.freight))*@</span></p>
         </div>
     </div>
     @Html.Partial("Users/_MallSign")
     <div class="confirm-order-confirm">
         <p>
-            应付款：<span class="confirm-order-confirm-money" id="total-money">￥@(item.Goods.Price * item.Number + item.Goods.freight)</span>
+            应付款：<span class="confirm-order-confirm-money total-money">@*￥@(item.Goods.Price * item.Number + item.Goods.freight)*@</span>
         </p>
         <div id="confirm-address">
             @Html.Action("GetSelectedAddress", "Custom")

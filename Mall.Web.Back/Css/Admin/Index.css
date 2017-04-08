@@ -37,6 +37,7 @@
     border-radius:5px;
     border:none;
     margin:0 auto;
+    color:white;
     background-color:#2ca9e1;
 }
 .admin_login_button:hover{

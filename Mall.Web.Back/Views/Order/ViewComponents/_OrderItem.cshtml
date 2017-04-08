@@ -1,0 +1,51 @@
+﻿@using Mall.Service.Models
+
+@model Mall.Web.Back.ViewModel.OrderViewModel
+
+<li class="order-id" title="@Model.OrderId">@Model.OrderId</li>
+<li class="order-good-name" title="@Model.GoodsName">@(Model.GoodsName.Length >= 7 ? Model.GoodsName.Substring(0,5) + "…" : Model.GoodsName)</li>
+<li class="order-good-id" title="@Model.GoodsId">@Model.GoodsId</li>
+<li class="order-price price" title="￥@Model.Price">￥@Model.Price</li>
+<li class="order-count" title="@Model.Count">@Model.Count</li>
+<li class="order-freight price" title="￥@Model.Freight">￥@Model.Freight</li>
+<li class="order-totla price" title="￥@Model.Totla">￥@Model.Totla</li>
+<li class="order-state">
+    @switch (Model.State)
+    {
+        case (int)StateOfOrder.State.Cancle:<span class="label label-danger">交易取消</span>; break;
+        case (int)StateOfOrder.State.ApplyRefund:<span class="label label-primary">申请退款</span>; break;
+        case (int)StateOfOrder.State.Refunded:<span class="label label-info">已处理</span>; break;
+        case (int)StateOfOrder.State.ToPay:<span class="label label-danger">未付款</span>; break;
+        case (int)StateOfOrder.State.ToAccept:<span class="label label-warning">待处理</span>; break;
+        case (int)StateOfOrder.State.ToDelivery:<span class="label label-warning">待发货</span>; break;
+        case (int)StateOfOrder.State.ToReceipt:<span class="label label-info">待收货</span>; break;
+        case (int)StateOfOrder.State.ToEvaluate:<span class="label label-info">待评价</span>; break;
+        case (int)StateOfOrder.State.ToReply:<span class="label label-warning">待回复</span>; break;
+        case (int)StateOfOrder.State.ApplyReturn:<span class="label label-primary">申请退货</span>; break;
+        case (int)StateOfOrder.State.Returning:<span class="label label-primary">退货中</span>; break;
+        case (int)StateOfOrder.State.ReturnFailed:<span class="label label-danger">退货失败</span>; break;
+        case (int)StateOfOrder.State.ReturnSucceed:<span class="label label-success">退货成功</span>; break;
+        case (int)StateOfOrder.State.Finish:<span class="label label-success">交易完成</span>; break;
+    }
+</li>
+<li class="order-client-remark" id="order-remark" title="@Model.ClientRemark">@(Model.ClientRemark.Length >= 20 ? Model.ClientRemark.Substring(0,19) : Model.ClientRemark)</li>
+<li class="order-action">
+    @switch (Model.State)
+    {
+        case (int)StateOfOrder.State.Cancle:
+        case (int)StateOfOrder.State.ToPay:
+        case (int)StateOfOrder.State.ToReceipt:
+        case (int)StateOfOrder.State.Refunded:
+        case (int)StateOfOrder.State.ReturnSucceed:
+        case (int)StateOfOrder.State.ReturnFailed:
+        case (int)StateOfOrder.State.ToEvaluate:<a class="default" title="该订单当前状态无可执行操作"><span class="label label-default">无操作</span></a>; break;
+        case (int)StateOfOrder.State.Returning:<a onclick="ConfirmReturn('@Model.OrderId')" title="确认退货"><span class="label label-warning">确认退货</span></a>; break;
+        case (int)StateOfOrder.State.ApplyRefund:<a onclick="AcceptRefund('@Model.OrderId')" title="同意退款"><span class="label label-warning">同意</span></a>; break;
+        case (int)StateOfOrder.State.ToAccept:<a onclick="AcceptOrder('@Model.OrderId')" title="接受订单"><span class="label label-primary">确认订单</span></a><a onclick="ModifyRemark('@Model.OrderId')" title="修改备注"><span class="label label-info">修改备注</span></a>; break;
+        case (int)StateOfOrder.State.ToDelivery:<a onclick="ConfirmDelivery('@Model.OrderId')" title="确认发货"><span class="label label-warning">确认发货</span></a>; break;
+        case (int)StateOfOrder.State.ToReply:<a href="/Order/RePlyEvaluate/?orderId=@Model.OrderId" title="回复评价"><span class="label label-warning">回复评价</span></a>; break;
+        case (int)StateOfOrder.State.ApplyReturn:<a onclick="AcceptReturn('@Model.OrderId')" title="同意退货"><span class="label label-primary">同意退货</span></a><a onclick="RefuseReturn('@Model.OrderId')" title="拒绝退货"><span class="label label-danger">拒绝退货</span></a>; break;
+        case (int)StateOfOrder.State.Finish:<a class="default" title="该订单当前状态无可执行操作"><span class="label label-success">交易完成</span></a>; break;
+    }
+</li>
+<li class="order-createtime">@Model.CreateTime</li>

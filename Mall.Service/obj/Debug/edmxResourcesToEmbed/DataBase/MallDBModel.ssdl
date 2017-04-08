@@ -10,17 +10,8 @@
     <Property Name="OperatDetail" Type="nvarchar" MaxLength="400" Nullable="false" />
     <Property Name="Operater" Type="nvarchar" MaxLength="20" Nullable="false" />
     <Property Name="Object" Type="nvarchar" MaxLength="20" Nullable="false" />
-    <Property Name="Permission" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="Permission" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Style" Type="nvarchar" MaxLength="20" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Advertisement">
-    <Key>
-      <PropertyRef Name="AdvertisementID" />
-    </Key>
-    <Property Name="AdvertisementID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="ImageId" Type="int" Nullable="false" />
-    <Property Name="Url" Type="nvarchar" MaxLength="150" />
-    <Property Name="Category" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Comment">
     <Key>
@@ -74,11 +65,11 @@
   </EntityType>
   <EntityType Name="EmployeeRoles">
     <Key>
-      <PropertyRef Name="EmployeeId" />
       <PropertyRef Name="RoleId" />
+      <PropertyRef Name="EmployeeId" />
     </Key>
-    <Property Name="EmployeeId" Type="int" Nullable="false" />
     <Property Name="RoleId" Type="int" Nullable="false" />
+    <Property Name="EmployeeId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="GoodsInfo">
     <Key>
@@ -87,11 +78,13 @@
     <Property Name="GoodsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="GoodsName" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Price" Type="float" Nullable="false" />
-    <Property Name="Stock" Type="int" Nullable="false" />
+    <Property Name="Freight" Type="float" Nullable="false" />
     <Property Name="Details" Type="nvarchar" MaxLength="400" Nullable="false" />
+    <Property Name="Stock" Type="int" Nullable="false" />
+    <Property Name="State" Type="int" Nullable="false" />
+    <Property Name="SalesNumber" Type="int" />
     <Property Name="Category" Type="nvarchar" MaxLength="10" />
     <Property Name="CommentNumber" Type="int" Nullable="false" />
-    <Property Name="State" Type="int" Nullable="false" />
     <Property Name="CreateTime" Type="datetime" Nullable="false" />
     <Property Name="ShelfTime" Type="datetime" />
     <Property Name="UnderShelfTime" Type="datetime" />
@@ -99,7 +92,6 @@
     <Property Name="Author" Type="nvarchar" MaxLength="20" />
     <Property Name="Press" Type="nvarchar" MaxLength="50" />
     <Property Name="PublicationDate" Type="date" />
-    <Property Name="freight" Type="float" Nullable="false" />
   </EntityType>
   <EntityType Name="Image">
     <Key>
@@ -154,6 +146,7 @@
     <Property Name="Code" Type="varchar" MaxLength="500" Nullable="false" />
     <Property Name="CreationTime" Type="datetime" Nullable="false" />
     <Property Name="IsDefault" Type="bit" />
+    <Property Name="Details" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="Refund">
     <Key>
@@ -178,11 +171,12 @@
     <Key>
       <PropertyRef Name="RoleId" />
     </Key>
-    <Property Name="RoleId" Type="int" Nullable="false" />
+    <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Code" Type="varchar" MaxLength="20" />
     <Property Name="CreationTime" Type="datetime" Nullable="false" />
-    <Property Name="Default" Type="bit" />
+    <Property Name="IsDefault" Type="bit" />
+    <Property Name="Details" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="ShoppingCart">
     <Key>
@@ -306,18 +300,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_EMPLOYEE_REFERENCE_ROLES">
-    <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
-    <End Role="EmployeeRoles" Type="Self.EmployeeRoles" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Roles">
-        <PropertyRef Name="RoleId" />
-      </Principal>
-      <Dependent Role="EmployeeRoles">
-        <PropertyRef Name="RoleId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_EMPLOYEE_REFERENCE_USER">
     <End Role="User" Type="Self.User" Multiplicity="1" />
     <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
@@ -339,6 +321,18 @@
       </Principal>
       <Dependent Role="EmployeeRoles">
         <PropertyRef Name="EmployeeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeRoles_Roles">
+    <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+    <End Role="EmployeeRoles" Type="Self.EmployeeRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="RoleId" />
+      </Principal>
+      <Dependent Role="EmployeeRoles">
+        <PropertyRef Name="RoleId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -414,7 +408,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_ROLEPERM_REFERENCE_ROLES">
+  <Association Name="FK_RolePermissions_Roles">
     <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
     <End Role="RolePermissions" Type="Self.RolePermissions" Multiplicity="*" />
     <ReferentialConstraint>
@@ -452,7 +446,6 @@
   </Association>
   <EntityContainer Name="MallDBModelStoreContainer">
     <EntitySet Name="AdminLog" EntityType="Self.AdminLog" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Advertisement" EntityType="Self.Advertisement" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Custom" EntityType="Self.Custom" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DeliveryInfo" EntityType="Self.DeliveryInfo" Schema="dbo" store:Type="Tables" />
@@ -501,16 +494,16 @@
       <End Role="Permissions" EntitySet="Permissions" />
       <End Role="EmployeePermissions" EntitySet="EmployeePermissions" />
     </AssociationSet>
-    <AssociationSet Name="FK_EMPLOYEE_REFERENCE_ROLES" Association="Self.FK_EMPLOYEE_REFERENCE_ROLES">
-      <End Role="Roles" EntitySet="Roles" />
-      <End Role="EmployeeRoles" EntitySet="EmployeeRoles" />
-    </AssociationSet>
     <AssociationSet Name="FK_EMPLOYEE_REFERENCE_USER" Association="Self.FK_EMPLOYEE_REFERENCE_USER">
       <End Role="User" EntitySet="User" />
       <End Role="Employee" EntitySet="Employee" />
     </AssociationSet>
     <AssociationSet Name="FK_EmployeeRoles_Employee" Association="Self.FK_EmployeeRoles_Employee">
       <End Role="Employee" EntitySet="Employee" />
+      <End Role="EmployeeRoles" EntitySet="EmployeeRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeRoles_Roles" Association="Self.FK_EmployeeRoles_Roles">
+      <End Role="Roles" EntitySet="Roles" />
       <End Role="EmployeeRoles" EntitySet="EmployeeRoles" />
     </AssociationSet>
     <AssociationSet Name="FK_IMAGE_REFERENCE_GOODSINF" Association="Self.FK_IMAGE_REFERENCE_GOODSINF">
@@ -537,7 +530,7 @@
       <End Role="Permissions" EntitySet="Permissions" />
       <End Role="RolePermissions" EntitySet="RolePermissions" />
     </AssociationSet>
-    <AssociationSet Name="FK_ROLEPERM_REFERENCE_ROLES" Association="Self.FK_ROLEPERM_REFERENCE_ROLES">
+    <AssociationSet Name="FK_RolePermissions_Roles" Association="Self.FK_RolePermissions_Roles">
       <End Role="Roles" EntitySet="Roles" />
       <End Role="RolePermissions" EntitySet="RolePermissions" />
     </AssociationSet>

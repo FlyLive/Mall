@@ -72,9 +72,8 @@ $(window).load(function () {
         var imgBase = cropper.getDataURL();
         $.ajax({
             type: "post",
-            url: "ModifyPhoto",
+            url: "/Custom/ModifyPhoto",
             data: { "imgBase": imgBase },
-            datatype: Text,
             success: function (src) {
                 if (src != null) {
                     layer.msg("修改成功!");
@@ -87,7 +86,6 @@ $(window).load(function () {
                     content: "出错啦!",
                     icon: 5,
                 });
-                return false;
             }
         })
     })

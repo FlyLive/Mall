@@ -18,6 +18,7 @@
     <script src="~/JS/Shared/jquery-2.2.3.min.js"></script>
     <!-- layer.js -->
     <script src="~/Content/layer/layer.js"></script>
+    <script src="~/Content/laypage/laypage.js"></script>
     <script src="~/JS/Shared/layer_open_tip.js"></script>
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -45,5 +46,26 @@
     <script src="~/JS/MenuView/app.js"></script>
     @RenderSection("css", required: false)
     @RenderSection("scripts", required: false)
+    <script>
+        $.ajax({
+            type: 'Get',
+            url: '/Custom/GetCartNumber',
+            success: function (result) {
+                $(".message-menu .label-info").text(result);
+            },
+            error: function () {
+            }
+        })
+
+        $.ajax({
+            type: 'Get',
+            url: '/Order/GetUnfinishedNumber',
+            success: function (result) {
+                $(".message-menu .label-default").text(result);
+            },
+            error: function () {
+            }
+        })
+    </script>
 </body>
 </html>

@@ -10,7 +10,7 @@ using Mall.Interface.Custom;
 
 namespace Mall.Service.Services.Custom
 {
-    public class OrderService : IDisposable, IOrderClientApplicationData
+    public class OrderService : IDisposable, IOrderClientApplicationService
     {
         private MallDBContext _db;
         private CustomService _customService;
@@ -22,42 +22,6 @@ namespace Mall.Service.Services.Custom
         }
 
         /// <summary>
-        /// 根据订单Id获取订单
-        /// </summary>
-        /// <param name="orderId">订单Id</param>
-        /// <returns></returns>
-        public Order GetOrderByOrderId(Guid orderId)
-        {
-            Order order = _db.Order
-                .SingleOrDefault(o => o.OrderId == orderId);
-            return order;
-        }
-
-        /// <summary>
-        /// 根据订单Id获取客户订单
-        /// </summary>
-        /// <param name="orderId">订单Id</param>
-        /// <returns></returns>
-        public Order GetOrderById(int customId, Guid orderId)
-        {
-            var orders = GetAllOrderByClientId(customId);
-            Order order = orders.SingleOrDefault(o => o.OrderId == orderId);
-            return order;
-        }
-
-        /// <summary>
-        /// 根据客户Id获取所有订单
-        /// </summary>
-        /// <param name="clientId">客户Id</param>
-        /// <returns></returns>
-        public List<Order> GetAllOrderByClientId(int clientId)
-        {
-            List<Order> orders = _db.Order
-                .Where(o => o.CustomId == clientId).ToList();
-            return orders;
-        }
-
-        /// <summary>
         /// 根据订单状态获取订单集合
         /// </summary>
         /// <param name="clientId">客户Id</param>
@@ -65,7 +29,7 @@ namespace Mall.Service.Services.Custom
         /// <returns></returns>
         public List<Order> GetOrdersByState(int customId, int orderState)
         {
-            var orders = GetAllOrderByClientId(customId);
+            var orders = GetAllOrderByCustomId(customId);
             List<Order> searchResult = orders.Where(o => o.State == orderState).ToList();
             if (orderState == 100)
             {
@@ -98,6 +62,61 @@ namespace Mall.Service.Services.Custom
         }
 
         /// <summary>
+        /// 根据订单Id获取订单
+        /// </summary>
+        /// <param name="orderId">订单Id</param>
+        /// <returns></returns>
+        private Order GetOrderByOrderId(Guid orderId)
+        {
+            Order order = _db.Order
+                .SingleOrDefault(o => o.OrderId == orderId);
+            return order;
+        }
+
+        /// <summary>
+        /// 根据订单Id获取客户订单
+        /// </summary>
+        /// <param name="orderId">订单Id</param>
+        /// <returns></returns>
+        public Order GetOrderById(int customId, Guid orderId)
+        {
+            var orders = GetAllOrderByCustomId(customId);
+            Order order = orders.SingleOrDefault(o => o.OrderId == orderId);
+            return order;
+        }
+
+        /// <summary>
+        /// 根据客户Id获取所有订单
+        /// </summary>
+        /// <param name="clientId">客户Id</param>
+        /// <returns></returns>
+        public List<Order> GetAllOrderByCustomId(int customId)
+        {
+            List<Order> orders = _db.Order
+                .Where(o => o.CustomId == customId).ToList();
+            return orders;
+        }
+
+        /// <summary>
+        /// 根据客户Id获取未完成订单的数量
+        /// </summary>
+        /// <param name="clientId">客户Id</param>
+        /// <returns></returns>
+        public int GetUnfinishedOrderByCustomId(int customId)
+        {
+            List<Order> orders = _db.Order
+                .Where(o => o.CustomId == customId
+                    && o.State != (int)StateOfOrder.State.Cancle
+                    && o.State != (int)StateOfOrder.State.Refunded
+                    && o.State != (int)StateOfOrder.State.Finish
+                    && o.State != (int)StateOfOrder.State.ReturnFailed
+                    && o.State != (int)StateOfOrder.State.ReturnSucceed
+                ).ToList();
+
+            return orders.Count;
+        }
+
+        /// <summary>
         /// 申请退款
         /// </summary>
         /// <param name="orderId"></param>
@@ -124,8 +143,8 @@ namespace Mall.Service.Services.Custom
         {
             Order order = GetOrderByOrderId(orderId);
             if ((order.State == (int)StateOfOrder.State.Finish
-                || Model.State == (int)StateOfOrder.State.ToEvaluate
-                || Model.State == (int)StateOfOrder.State.ToReply)
+                || order.State == (int)StateOfOrder.State.ToEvaluate
+                || order.State == (int)StateOfOrder.State.ToReply)
                 && (DateTime.Now - order.ReceiptTime.Value).TotalDays <= 7)
             {
                 order.State = (int)StateOfOrder.State.ApplyReturn;
@@ -139,22 +158,43 @@ namespace Mall.Service.Services.Custom
         /// 根据订单Id取消订单
         /// </summary>
         /// <param name="orderId">订单Id</param>
-        public void CancleOrderByOrderId(Guid orderId)
+        public bool CancleOrderByOrderId(Guid orderId)
         {
-            Order order = GetOrderByOrderId(orderId);
-            order.State = (int)StateOfOrder.State.Cancle;
-            _db.SaveChanges();
+            try
+            {
+                Order order = GetOrderByOrderId(orderId);
+                order.State = (int)StateOfOrder.State.Cancle;
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.Out.Write(e);
+                return false;
+            }
         }
 
         /// <summary>
         /// 确认订单
         /// </summary>
         /// <param name="orderId">订单Id</param>
-        public void ConfirmOrderByOrderId(Guid orderId)
+        public bool ConfirmOrderByOrderId(Guid orderId)
         {
-            Order order = GetOrderByOrderId(orderId);
-            order.State = (int)StateOfOrder.State.ToEvaluate;
-            _db.SaveChanges();
+            try
+            {
+                Order order = GetOrderByOrderId(orderId);
+                if (order.State == (int)StateOfOrder.State.ToReceipt)
+                {
+                    order.State = (int)StateOfOrder.State.ToEvaluate;
+                }
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.Out.Write(e);
+                return false;
+            }
         }
 
         public Guid CreateOrder(int goodsId, int customId, int deliveryAddressId, int count, string customRemark)
@@ -174,9 +214,9 @@ namespace Mall.Service.Services.Custom
                 GoodsName = good.GoodsName,
                 CustomId = customId,
                 Price = good.Price,
-                Freight = good.freight,
+                Freight = good.Freight,
                 Count = count,
-                Totla = good.Price * count + good.freight,
+                Totla = good.Price * count + good.Freight,
                 Consignee = delivery.Consignee,
                 PhoneNumber = delivery.PhoneNumber,
                 DeliveryAddress = delivery.DetailedAddress,
@@ -185,9 +225,6 @@ namespace Mall.Service.Services.Custom
                 IsDelete = false,
                 CustomRemark = customRemark,
             };
-
-            custom.Order.Add(order);
-            good.Order.Add(order);
 
             _db.Order.Add(order);
             _db.SaveChanges();
@@ -203,7 +240,7 @@ namespace Mall.Service.Services.Custom
         public Guid CreateOrderFromCart(int goodsId, int customId, int deliveryAddressId, string customRemark)
         {
             ShoppingCart cart = _db.ShoppingCart.Include("GoodsInfo")
-                .SingleOrDefault(c => c.GoodsId == goodsId);
+                .SingleOrDefault(c => c.CustomId == customId && c.GoodsId == goodsId);
             Guid orderId = CreateOrder(goodsId, customId, deliveryAddressId, cart.Number, customRemark);
 
             _db.ShoppingCart.Remove(cart);
@@ -246,36 +283,49 @@ namespace Mall.Service.Services.Custom
         public bool ConfirmReceipt(Guid orderId)
         {
             Order order = GetOrderByOrderId(orderId);
-            if (order != null)
+            try
             {
                 order.State = (int)StateOfOrder.State.ToEvaluate;
                 order.ReceiptTime = DateTime.Now;
                 _db.SaveChanges();
                 return true;
             }
-            return false;
+            catch (Exception e)
+            {
+                Console.Out.Write(e);
+                return false;
+            }
         }
 
         /// <summary>
         /// 评论
         /// </summary>
         /// <param name="comment"></param>
-        public void EvaluateOrder(int customId, Guid orderId, string evaluateContent)
+        public bool EvaluateOrder(int customId, Guid orderId, string evaluateContent)
         {
-            DataBase.Custom custom = _db.Custom.SingleOrDefault(c => c.CustomId == customId);
-            Order order = GetOrderByOrderId(orderId);
-            order.State = (int)StateOfOrder.State.ToReply;
-            order.GoodsInfo.CommentNumber++;
-            _db.Comment.Add(
-                new Comment
-                {
-                    CustomId = customId,
-                    CommentDetail = evaluateContent,
-                    CommentTime = DateTime.Now,
-                    GoodsId = order.GoodsId,
-                    OrderId = order.OrderId
-                });
-            _db.SaveChanges();
+            try
+            {
+                DataBase.Custom custom = _db.Custom.SingleOrDefault(c => c.CustomId == customId);
+                Order order = GetOrderByOrderId(orderId);
+                order.State = (int)StateOfOrder.State.ToReply;
+                order.GoodsInfo.CommentNumber++;
+                _db.Comment.Add(
+                    new Comment
+                    {
+                        CustomId = customId,
+                        CommentDetail = evaluateContent == null ? "该用户没有任何评论" : evaluateContent,
+                        CommentTime = DateTime.Now,
+                        GoodsId = order.GoodsId,
+                        OrderId = order.OrderId
+                    });
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.Out.Write(e);
+                return false;
+            }
         }
 
         public void Dispose()

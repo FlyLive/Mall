@@ -2,7 +2,6 @@
 <Schema Namespace="MallDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityContainer Name="MallDBContext" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="AdminLog" EntityType="MallDBModel.AdminLog" />
-    <EntitySet Name="Advertisement" EntityType="MallDBModel.Advertisement" />
     <EntitySet Name="Comment" EntityType="MallDBModel.Comment" />
     <EntitySet Name="Custom" EntityType="MallDBModel.Custom" />
     <EntitySet Name="DeliveryInfo" EntityType="MallDBModel.DeliveryInfo" />
@@ -77,8 +76,8 @@
       <End Role="Permissions" EntitySet="Permissions" />
     </AssociationSet>
     <AssociationSet Name="EmployeeRoles" Association="MallDBModel.EmployeeRoles">
-      <End Role="Roles" EntitySet="Roles" />
       <End Role="Employee" EntitySet="Employee" />
+      <End Role="Roles" EntitySet="Roles" />
     </AssociationSet>
     <AssociationSet Name="RolePermissions" Association="MallDBModel.RolePermissions">
       <End Role="Permissions" EntitySet="Permissions" />
@@ -95,18 +94,9 @@
     <Property Name="OperatDetail" Type="String" Nullable="false" MaxLength="400" FixedLength="false" Unicode="true" />
     <Property Name="Operater" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
     <Property Name="Object" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-    <Property Name="Permission" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Permission" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Style" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Employee" Relationship="MallDBModel.FK_AdminLog_Employee" FromRole="AdminLog" ToRole="Employee" />
-  </EntityType>
-  <EntityType Name="Advertisement">
-    <Key>
-      <PropertyRef Name="AdvertisementID" />
-    </Key>
-    <Property Name="AdvertisementID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="ImageId" Type="Int32" Nullable="false" />
-    <Property Name="Url" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-    <Property Name="Category" Type="Int32" Nullable="false" />
   </EntityType>
   <EntityType Name="Comment">
     <Key>
@@ -171,11 +161,13 @@
     <Property Name="GoodsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="GoodsName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Price" Type="Double" Nullable="false" />
-    <Property Name="Stock" Type="Int32" Nullable="false" />
+    <Property Name="Freight" Type="Double" Nullable="false" />
     <Property Name="Details" Type="String" Nullable="false" MaxLength="400" FixedLength="false" Unicode="true" />
+    <Property Name="Stock" Type="Int32" Nullable="false" />
+    <Property Name="State" Type="Int32" Nullable="false" />
+    <Property Name="SalesNumber" Type="Int32" />
     <Property Name="Category" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
     <Property Name="CommentNumber" Type="Int32" Nullable="false" />
-    <Property Name="State" Type="Int32" Nullable="false" />
     <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="ShelfTime" Type="DateTime" Precision="3" />
     <Property Name="UnderShelfTime" Type="DateTime" Precision="3" />
@@ -183,7 +175,6 @@
     <Property Name="Author" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
     <Property Name="Press" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="PublicationDate" Type="DateTime" Precision="0" />
-    <Property Name="freight" Type="Double" Nullable="false" />
     <NavigationProperty Name="Comment" Relationship="MallDBModel.FK_COMMENT_REFERENCE_GOODSINF" FromRole="GoodsInfo" ToRole="Comment" />
     <NavigationProperty Name="Image" Relationship="MallDBModel.FK_IMAGE_REFERENCE_GOODSINF" FromRole="GoodsInfo" ToRole="Image" />
     <NavigationProperty Name="Order" Relationship="MallDBModel.FK_Order_GoodsInfo" FromRole="GoodsInfo" ToRole="Order" />
@@ -247,6 +238,7 @@
     <Property Name="Code" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
     <Property Name="CreationTime" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="IsDefault" Type="Boolean" />
+    <Property Name="Details" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Employee" Relationship="MallDBModel.EmployeePermissions" FromRole="Permissions" ToRole="Employee" />
     <NavigationProperty Name="Roles" Relationship="MallDBModel.RolePermissions" FromRole="Permissions" ToRole="Roles" />
   </EntityType>
@@ -267,11 +259,12 @@
     <Key>
       <PropertyRef Name="RoleId" />
     </Key>
-    <Property Name="RoleId" Type="Int32" Nullable="false" />
+    <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Code" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
     <Property Name="CreationTime" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="Default" Type="Boolean" />
+    <Property Name="IsDefault" Type="Boolean" />
+    <Property Name="Details" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Employee" Relationship="MallDBModel.EmployeeRoles" FromRole="Roles" ToRole="Employee" />
     <NavigationProperty Name="Permissions" Relationship="MallDBModel.RolePermissions" FromRole="Roles" ToRole="Permissions" />
   </EntityType>
@@ -478,8 +471,8 @@
     <End Type="MallDBModel.Permissions" Role="Permissions" Multiplicity="*" />
   </Association>
   <Association Name="EmployeeRoles">
-    <End Type="MallDBModel.Roles" Role="Roles" Multiplicity="*" />
     <End Type="MallDBModel.Employee" Role="Employee" Multiplicity="*" />
+    <End Type="MallDBModel.Roles" Role="Roles" Multiplicity="*" />
   </Association>
   <Association Name="RolePermissions">
     <End Type="MallDBModel.Permissions" Role="Permissions" Multiplicity="*" />

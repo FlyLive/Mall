@@ -12,7 +12,7 @@ namespace Mall.Web.Back.Filter
         {
             if (!filterContext.ExceptionHandled)
             {
-                filterContext.Result = new RedirectResult("Error");
+                filterContext.Result = new RedirectResult("_Error");
                 filterContext.ExceptionHandled = true;
             }
         }

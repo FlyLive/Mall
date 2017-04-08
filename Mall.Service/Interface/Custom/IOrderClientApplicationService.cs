@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Mall.Interface.Custom
 {
-    public interface IOrderClientApplicationData
+    public interface IOrderClientApplicationService
     {
         /// <summary>
         /// 生成订单
@@ -19,7 +19,7 @@ namespace Mall.Interface.Custom
         /// 根据订单Id取消订单
         /// </summary>
         /// <param name="orderId"></param>
-        void CancleOrderByOrderId(Guid orderId);
+        bool CancleOrderByOrderId(Guid orderId);
         /// <summary>
         /// 根据订单Id付款
         /// </summary>
@@ -37,13 +37,13 @@ namespace Mall.Interface.Custom
         /// </summary>
         /// <param name="orderId"></param>
         /// <returns></returns>
-        void ConfirmOrderByOrderId(Guid orderId);
+        bool ConfirmOrderByOrderId(Guid orderId);
         /// <summary>
         /// 评价
         /// </summary>
         /// <param name="orderId"></param>
         /// <returns></returns>
-        void EvaluateOrder(int customId,Guid orderId,string evaluateContent);
+        bool EvaluateOrder(int customId,Guid orderId,string evaluateContent);
         /// <summary>
         /// 根据订单Id申请退货
         /// </summary>

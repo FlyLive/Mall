@@ -57,6 +57,11 @@ function ConfirmOrder() {
     var count = $("#count").val();
     var remark = $("#remark").val();
 
+    if (addressId == undefined) {
+        OpenTip("请选择收货地址", 2);
+        return false;
+    }
+
     $.ajax({
         type: 'POST',
         url: '/Order/CreateOrder',
@@ -122,6 +127,9 @@ function PayNow(orderId) {
         success: function (payResult) {
             if (payResult == "True") {
                 window.location.href = "/Order/AllOrders";
+            }
+            else {
+                OpenTip("对不起,余额不足", 1);
             }
         },
         error: function () {

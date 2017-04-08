@@ -1,6 +1,7 @@
 ﻿using Mall.Service.DataBase;
 using Mall.Service.Models;
 using Mall.Service.Services.Enterprise;
+using Mall.Web.Back.Filter;
 using Mall.Web.Back.ViewModel;
 using PagedList;
 using System;
@@ -16,13 +17,23 @@ namespace Mall.Web.Back.Controllers
         public GoodsService _goodsService = new GoodsService();
         #region 商品管理
         [HttpGet]
+        [PermissionAuthorize("AddGoods")]
         public ActionResult CreateGoods()
         {
             return View();
         }
 
+        [HttpGet]
+        public ActionResult GetGoodsSimpleInfo(int goodsId)
+        {
+            GoodsInfo goods = _goodsService.GetGoodsByGoodsId(goodsId);
+            GoodsInfoViewModel goodsDTO = DataGoodToDTO(new List<GoodsInfo> { goods }).ElementAt(0);
+            return PartialView(goodsDTO);
+        }
+
         #region 添加商品
         [HttpPost]
+        [PermissionAuthorize("AddGoods")]
         public int CreateGoods(string name, string count, string price,
             string detail, DateTime? publicationDate, string freight = "+0",
             string author = null, string press = null)
@@ -43,6 +54,7 @@ namespace Mall.Web.Back.Controllers
         }
 
         [HttpPost]
+        [PermissionAuthorize("AddGoods")]
         public ActionResult CreateGoodsImg(int goodsId)
         {
             HttpFileCollection filess = System.Web.HttpContext.Current.Request.Files;
@@ -77,15 +89,9 @@ namespace Mall.Web.Back.Controllers
         }
         #endregion
 
+        #region 上下架
         [HttpGet]
-        public ActionResult GetGoodsSimpleInfo(int goodsId)
-        {
-            GoodsInfo goods = _goodsService.GetGoodsByGoodsId(goodsId);
-            GoodsInfoViewModel goodsDTO = DataGoodToDTO(new List<GoodsInfo> { goods }).ElementAt(0);
-            return PartialView(goodsDTO);
-        }
-
-        [HttpGet]
+        [PermissionAuthorize("OnShelves")]
         public ActionResult OnTheShelves(int page = 1,int pageSize = 10)
         {
             List<GoodsInfo> goods = _goodsService.GetGoodsByGoodsState((int)StateOfGoods.State.OffShelves);
@@ -94,6 +100,7 @@ namespace Mall.Web.Back.Controllers
         }
 
         [HttpPost]
+        [PermissionAuthorize("OnShelves")]
         public bool OnTheShelves(int goodsId)
         {
             EmployeeViewModel employee = (EmployeeViewModel)Session["Employee"];
@@ -106,6 +113,7 @@ namespace Mall.Web.Back.Controllers
         }
 
         [HttpGet]
+        [PermissionAuthorize("OffShelves")]
         public ActionResult OffTheShelves(int page = 1, int pageSize = 10)
         {
             List<GoodsInfo> goods = _goodsService.GetGoodsByGoodsState((int)StateOfGoods.State.OnShelves);
@@ -114,6 +122,7 @@ namespace Mall.Web.Back.Controllers
         }
 
         [HttpPost]
+        [PermissionAuthorize("OffShelves")]
         public bool OffTheShelves(int goodsId)
         {
             EmployeeViewModel employee = (EmployeeViewModel)Session["Employee"];
@@ -124,6 +133,7 @@ namespace Mall.Web.Back.Controllers
             var result = _goodsService.OffShelvesByGoodsId(employee.EmployeeId,goodsId);
             return result;
         }
+        #endregion
 
         #region 修改商品
         [HttpGet]
@@ -156,6 +166,7 @@ namespace Mall.Web.Back.Controllers
         }
 
         [HttpGet]
+        [PermissionAuthorize("ModifyGoods")]
         public ActionResult GoodsEdit()
         {
             List<GoodsInfo> goods = _goodsService.GetAllGoods();
@@ -164,6 +175,7 @@ namespace Mall.Web.Back.Controllers
         }
 
         [HttpPost]
+        [PermissionAuthorize("ModifyGoods")]
         public bool GoodsEdit(int goodsId, string name, string price,
             string detail, DateTime? publicationDate, string freight = "+0",
             string author = null, string press = null)
@@ -180,16 +192,11 @@ namespace Mall.Web.Back.Controllers
                 publicationDate, newFreight, author, press);
             return true;
         }
-
-        [HttpPost]
-        public bool DeletGoodsImgs(int[] imageIds)
-        {
-            _goodsService.DeletGoodsImage(imageIds);
-            return true;
-        }
         #endregion
 
+        #region 库存
         [HttpGet]
+        [PermissionAuthorize("NewStorage")]
         public ActionResult GoodsStock(int page = 1, int pageSize = 10)
         {
             List<GoodsInfo> goods = _goodsService.GetAllGoods();
@@ -198,6 +205,7 @@ namespace Mall.Web.Back.Controllers
         }
 
         [HttpPost]
+        [PermissionAuthorize("NewStorage")]
         public bool ModifyGoodsStock(int goodsId,string count)
         {
             EmployeeViewModel employee = (EmployeeViewModel)Session["Employee"];
@@ -209,6 +217,15 @@ namespace Mall.Web.Back.Controllers
             _goodsService.ModifyGoodsStockByGoodsId(employee.EmployeeId,goodsId,newCount);
             return true;
         }
+
+        [HttpPost]
+        [PermissionAuthorize("NewStorage")]
+        public bool DeletGoodsImgs(int[] imageIds)
+        {
+            _goodsService.DeletGoodsImage(imageIds);
+            return true;
+        }
+        #endregion
         #endregion
 
         public static List<GoodsInfoViewModel> DataGoodToDTO(List<GoodsInfo> goods)
@@ -234,7 +251,7 @@ namespace Mall.Web.Back.Controllers
                 Author = g.Author,
                 Press = g.Press,
                 PublicationDate = g.PublicationDate == null ? "0000-00-00" : g.PublicationDate.Value.ToString("yyyy-MM-dd"),
-                freight = g.freight,
+                freight = g.Freight,
                 ImageUrl = g.Image == null ? "" : g.Image.ElementAt(0).ImageSrc,
             }).ToList();
             return goodDTO;

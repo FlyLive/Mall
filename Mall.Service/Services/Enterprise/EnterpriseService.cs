@@ -9,7 +9,7 @@ using System.Text;
 
 namespace Mall.Service.Services.Enterprise
 {
-    public class EnterpriseService : IDisposable, IUserEnterpriseApplicationData
+    public class EnterpriseService : IDisposable, IUserEnterpriseApplicationService
     {
         private MallDBContext _db;
         public EnterpriseService()
@@ -49,58 +49,60 @@ namespace Mall.Service.Services.Enterprise
         /// 创建员工
         /// </summary>
         /// <param name="account">员工账户</param>
-        public bool CreateEmployee(int employeeId,string account, string logPassword, string email,
+        public bool CreateEmployee(int employeeId, string account, string logPassword, string email,
                 DateTime? birthday, bool gender = true, string nick = null,
                 string managePassword = null, string phoneNumber = null
                 , int[] menuIds = null)
         {
-            Employee actionEmployee = GetEmployeeByEmployeeId(employeeId);
-            if (!ReName(account))
+            try
             {
-                User user = new User
+                Employee actionEmployee = GetEmployeeByEmployeeId(employeeId);
+                if (!ReName(account))
                 {
-                    Account = account,
-                    Password = logPassword,
-                    Email = email,
-                    Photo = "http://localhost:9826/Mall.Web.Back/Users/Avatar/avatar.png",
-                    CreateTime = DateTime.Now,
+                    User user = new User
+                    {
+                        Account = account,
+                        Password = logPassword,
+                        Email = email,
+                        Photo = "http://localhost:9826/Mall.Web.Back/Users/Avatar/avatar.png",
+                        CreateTime = DateTime.Now,
 
-                    NickName = nick == "" ? account : nick,
-                    PhoneNumber = phoneNumber,
-                    Gender = gender
-                };
+                        NickName = nick == "" ? account : nick,
+                        PhoneNumber = phoneNumber,
+                        Gender = gender
+                    };
 
-                _db.User.Add(user);
+                    _db.User.Add(user);
 
-                Employee employee = new Employee
-                {
-                    UserId = user.UserId,
-                    ManagePassword = managePassword == "" ? logPassword : managePassword,
-                };
-                _db.Employee.Add(employee);
-                _db.AdminLog.Add(new AdminLog
-                {
-                    EmployeeId = actionEmployee.EmployeeId,
-                    Permission = "员工管理(DistributionAuthority)",
-                    OperationTime = DateTime.Now,
-                    OperatDetail = "员工" + actionEmployee.User.RealName + "于" + DateTime.Now + "创建员工:" + actionEmployee + ",员工Id为:" + employee.EmployeeId + "！",
-                    Operater = actionEmployee.User.RealName,
-                    Object = "员工",
-                    Style = "新增",
-                });
+                    Employee employee = new Employee
+                    {
+                        UserId = user.UserId,
+                        ManagePassword = managePassword == "" ? logPassword : managePassword,
+                    };
+                    _db.Employee.Add(employee);
+                    _db.AdminLog.Add(new AdminLog
+                    {
+                        EmployeeId = actionEmployee.EmployeeId,
+                        Permission = "员工管理(DistributionAuthority)",
+                        OperationTime = DateTime.Now,
+                        OperatDetail = "员工" + actionEmployee.User.RealName + "于" + DateTime.Now + "创建员工:" + actionEmployee + ",员工Id为:" + employee.EmployeeId + "！",
+                        Operater = actionEmployee.User.RealName,
+                        Object = "员工",
+                        Style = "新增",
+                    });
+                    
+                    SetPermissionsToEmployee(actionEmployee.EmployeeId, employee.EmployeeId, menuIds);
 
-                if (menuIds != null)
-                {
-                    var permissionIds = SwitchMenuIdsToPermissionIds(menuIds);
-
-                    SetPermissionsToEmployee(employee.EmployeeId, permissionIds);
-
+                    _db.SaveChanges();
+                    return true;
                 }
-                _db.SaveChanges();
-
-                return true;
+                return false;
             }
-            return false;
+            catch (Exception e)
+            {
+                Console.Out.Write(e);
+                return false;
+            }
         }
 
         /// <summary>
@@ -157,19 +159,28 @@ namespace Mall.Service.Services.Enterprise
         /// <param name="nick"></param>
         /// <param name="gender"></param>
         /// <param name="birthday"></param>
-        public void ModifyInfo(int employeeId, string realName, string phone, string email, DateTime? birthday, string nick, int gender)
+        public bool ModifyInfo(int employeeId, string realName, string phone, string email, DateTime? birthday, string nick, int gender)
         {
-            Employee employee = GetEmployeeByEmployeeId(employeeId);
-            User user = employee.User;
+            try
+            {
+                Employee employee = GetEmployeeByEmployeeId(employeeId);
+                User user = employee.User;
 
-            user.RealName = realName;
-            user.PhoneNumber = phone;
-            user.Email = email;
-            user.NickName = nick;
-            user.Gender = gender == 1 ? true : false;
-            user.Birthday = birthday;
+                user.RealName = realName;
+                user.PhoneNumber = phone;
+                user.Email = email;
+                user.NickName = nick;
+                user.Gender = gender == 1 ? true : false;
+                user.Birthday = birthday;
 
-            _db.SaveChanges();
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.Out.Write(e);
+                return false;
+            }
         }
 
         /// <summary>
@@ -179,10 +190,10 @@ namespace Mall.Service.Services.Enterprise
         /// <param name="imgBase"></param>
         public string ModifyPhoto(int employeeId, string imgBase)
         {
-            Employee employee = GetEmployeeByEmployeeId(employeeId);
-
             try
             {
+                Employee employee = GetEmployeeByEmployeeId(employeeId);
+
                 var img = imgBase.Split(',');
                 byte[] bt = Convert.FromBase64String(img[1]);
                 string now = DateTime.Now.ToString("yyyy-MM-ddHHmmss");
@@ -195,7 +206,8 @@ namespace Mall.Service.Services.Enterprise
             }
             catch (Exception e)
             {
-                return e.ToString();
+                Console.Out.Write(e);
+                return null;
             }
         }
 
@@ -204,25 +216,43 @@ namespace Mall.Service.Services.Enterprise
         /// </summary>
         /// <param name="employeeId"></param>
         /// <param name="newLogPassword"></param>
-        public void ModifyLogPassword(int employeeId, string newLogPassword)
+        public bool ModifyLogPassword(int employeeId, string newLogPassword)
         {
-            Employee employee = GetEmployeeByEmployeeId(employeeId);
-            employee.User.Password = newLogPassword;
+            try
+            {
+                Employee employee = GetEmployeeByEmployeeId(employeeId);
+                employee.User.Password = newLogPassword;
 
-            _db.SaveChanges();
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.Out.Write(e);
+                return false;
+            }
         }
-        
+
         /// <summary>
         /// 修改员工管理密码
         /// </summary>
         /// <param name="employeeId"></param>
         /// <param name="newManagePassword"></param>
-        public void ModifyManagePassword(int employeeId, string newManagePassword)
+        public bool ModifyManagePassword(int employeeId, string newManagePassword)
         {
-            Employee employee = GetEmployeeByEmployeeId(employeeId);
-            employee.ManagePassword = newManagePassword;
+            try
+            {
+                Employee employee = GetEmployeeByEmployeeId(employeeId);
+                employee.ManagePassword = newManagePassword;
 
-            _db.SaveChanges();
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.Out.Write(e);
+                return false;
+            }
         }
 
         /// <summary>
@@ -268,42 +298,55 @@ namespace Mall.Service.Services.Enterprise
             return permissions;
         }
 
+        public int[] GetDefaultPermissionIds()
+        {
+            int[] defaultPermissionsIds = _db.Permissions.Where(p => p.IsDefault == true).Select(p => p.PermissionId).ToArray();
+            return defaultPermissionsIds;
+        }
+
         /// <summary>
         /// 给员工添加角色
         /// </summary>
         /// <param name="employeeId">员工Id</param>
         /// <param name="roleIds">角色Ids</param>
-        public bool ModifyRolesById(int actionEmployeeId,int employeeId, int[] roleIds)
+        public bool ModifyRolesById(int actionEmployeeId, int userId, int[] roleIds)
         {
-            Employee actionEmployee = GetEmployeeByEmployeeId(actionEmployeeId);
-            Employee employee = GetEmployeeByEmployeeId(employeeId);
-            if(employee == null)
+            try
             {
+                Employee actionEmployee = GetEmployeeByEmployeeId(actionEmployeeId);
+                Employee employee = GetEmployeeByUserId(userId);
+                if (employee == null)
+                {
+                    return false;
+                }
+                var roles = _db.Roles.Where(r => roleIds
+                                         .Contains(r.RoleId)).ToList();
+
+                employee.Roles = new List<Roles>();
+
+                roles.ForEach(role =>
+                {
+                    employee.Roles.Add(role);
+                });
+                _db.AdminLog.Add(new AdminLog
+                {
+                    EmployeeId = actionEmployee.EmployeeId,
+                    Permission = "角色管理(RoleManage)",
+                    OperationTime = DateTime.Now,
+                    OperatDetail = "员工" + actionEmployee.User.RealName + "于" + DateTime.Now + "修改员工:" + employee.User.RealName + "角色,员工Id为:" + employee.EmployeeId + "！",
+                    Operater = actionEmployee.User.RealName,
+                    Object = "员工",
+                    Style = "修改",
+                });
+
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.Out.Write(e);
                 return false;
             }
-            var roles = _db.Roles.Where(r => roleIds
-                                     .Contains(r.RoleId)).ToList();
-            
-            employee.Roles = new List<Roles>();
-
-            roles.ForEach(role =>
-            {
-                employee.Roles.Add(role);
-            });
-            _db.AdminLog.Add(new AdminLog
-            {
-                EmployeeId = actionEmployee.EmployeeId,
-                Permission = "角色管理(RoleManage)",
-                OperationTime = DateTime.Now,
-                OperatDetail = "员工" + actionEmployee.User.RealName + "于" + DateTime.Now + "修改员工:" + employee.User.RealName + "角色,员工Id为:" + employee.EmployeeId + "！",
-                Operater = actionEmployee.User.RealName,
-                Object = "员工",
-                Style = "修改",
-            });
-
-            _db.SaveChanges();
-
-            return true;
         }
 
         //菜单id转换为权限Id
@@ -317,11 +360,10 @@ namespace Mall.Service.Services.Enterprise
 
             permissionsMenu.AddRange(
                 menus.Where(m => permissionCodes.Any(p => p == m.MenuPath) && menuIds.Any(mi => mi == m.MenuId)));
-            permissionsMenu.AddRange(menus.Where(m => permissions.Any(p => p.IsDefault == true && p.Code == m.MenuPath)));
 
             int[] permissionIds = new int[permissionsMenu.Count];
 
-            for(int i = 0;i < permissionIds.Length; i++)
+            for (int i = 0; i < permissionIds.Length; i++)
             {
                 permissionIds[i] = permissions.SingleOrDefault(p => p.Code == permissionsMenu[i].MenuPath).PermissionId;
             }
@@ -334,7 +376,7 @@ namespace Mall.Service.Services.Enterprise
         /// <param name="userId"></param>
         /// <param name="menuIds"></param>
         /// <returns></returns>
-        public bool ModifyPermissions(int actionEmployeeId,int userId, int[] menuIds)
+        public bool ModifyPermissions(int actionEmployeeId, int userId, int[] menuIds = null)
         {
             Employee actionEmployee = GetEmployeeByEmployeeId(actionEmployeeId);
             Employee employee = GetEmployeeByUserId(userId);
@@ -344,9 +386,11 @@ namespace Mall.Service.Services.Enterprise
             }
             else
             {
+                var defaultPermissionsIds = _db.Permissions.Where(p => p.IsDefault == true).Select(p => p.PermissionId);
                 var permissionIds = SwitchMenuIdsToPermissionIds(menuIds);
-                SetPermissionsToEmployee(actionEmployee.EmployeeId,employee.EmployeeId, permissionIds);
-                return true;
+                permissionIds.ToList().AddRange(defaultPermissionsIds);
+                var result = SetPermissionsToEmployee(actionEmployee.EmployeeId, employee.EmployeeId, permissionIds);
+                return result;
             }
         }
 
@@ -355,58 +399,73 @@ namespace Mall.Service.Services.Enterprise
         /// </summary>
         /// <param name="employeeId">员工Id</param>
         /// <param name="permissionIds">权限Ids</param>
-        public void SetPermissionsToEmployee(int actionEmployeeId,int employeeId, int[] permissionIds)
+        public bool SetPermissionsToEmployee(int actionEmployeeId, int employeeId, int[] permissionIds)
         {
-            var permissions = _db.Permissions.Where(p => permissionIds.ToList()
-                                     .Any(pi => pi == p.PermissionId)).ToList();
-
-            Employee actionEmployee = GetEmployeeByEmployeeId(actionEmployeeId);
-            Employee employee = GetEmployeeByEmployeeId(employeeId);
-            employee.Permissions.Any(p => employee.Permissions.Remove(p));
-
-            permissions.ForEach(p =>
+            try
             {
-                employee.Permissions.Add(p);
-            });
+                var permissions = _db.Permissions.Where(p => permissionIds.ToList()
+                                         .Any(pi => pi == p.PermissionId)).ToList();
 
-            _db.AdminLog.Add(new AdminLog
+                Employee actionEmployee = GetEmployeeByEmployeeId(actionEmployeeId);
+                Employee employee = GetEmployeeByEmployeeId(employeeId);
+                employee.Permissions = new List<Permissions>();
+
+                permissions.ForEach(p =>
+                {
+                    employee.Permissions.Add(p);
+                });
+                _db.AdminLog.Add(new AdminLog
+                {
+                    EmployeeId = actionEmployee.EmployeeId,
+                    Permission = "权限管理(DistributionAuthority)",
+                    OperationTime = DateTime.Now,
+                    OperatDetail = "员工" + actionEmployee.User.RealName + "于" + DateTime.Now + "修改员工:" + employee.User.RealName + "权限,员工Id为:" + employee.EmployeeId + "！",
+                    Operater = actionEmployee.User.RealName,
+                    Object = "员工",
+                    Style = "修改",
+                });
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
             {
-                EmployeeId = actionEmployee.EmployeeId,
-                Permission = "权限管理(DistributionAuthority)",
-                OperationTime = DateTime.Now,
-                OperatDetail = "员工" + actionEmployee.User.RealName + "于" + DateTime.Now + "修改员工:" + employee.User.RealName + "权限,员工Id为:" + employee.EmployeeId + "！",
-                Operater = actionEmployee.User.RealName,
-                Object = "员工",
-                Style = "修改",
-            });
-
-
-            _db.SaveChanges();
+                Console.Out.Write(e);
+                return false;
+            }
         }
 
         /// <summary>
         /// 根据员工Id删除员工
         /// </summary>
         /// <param name="employeeId">员工Id</param>
-        public void DeleteEmployeeByEmployeeId(int actionEmployeeId,int employeeId)
+        public bool DeleteEmployeeByEmployeeId(int actionEmployeeId, int employeeId)
         {
-            Employee actionEmployee = GetEmployeeByEmployeeId(actionEmployeeId);
-            Employee employee = _db.Employee.Include("User").SingleOrDefault(e => e.EmployeeId == employeeId);
-
-            _db.AdminLog.Add(new AdminLog
+            try
             {
-                EmployeeId = actionEmployee.EmployeeId,
-                Permission = "权限管理(DistributionAuthority)",
-                OperationTime = DateTime.Now,
-                OperatDetail = "员工" + actionEmployee.User.RealName + "于" + DateTime.Now + "删除员工:" + employee.User.RealName + ",员工Id为:" + employee.EmployeeId + "！",
-                Operater = actionEmployee.User.RealName,
-                Object = "员工",
-                Style = "删除",
-            });
-            _db.User.Remove(employee.User);
-            _db.Employee.Remove(employee);
+                Employee actionEmployee = GetEmployeeByEmployeeId(actionEmployeeId);
+                Employee employee = _db.Employee.Include("User").SingleOrDefault(e => e.EmployeeId == employeeId);
 
-            _db.SaveChanges();
+                _db.AdminLog.Add(new AdminLog
+                {
+                    EmployeeId = actionEmployee.EmployeeId,
+                    Permission = "权限管理(DistributionAuthority)",
+                    OperationTime = DateTime.Now,
+                    OperatDetail = "员工" + actionEmployee.User.RealName + "于" + DateTime.Now + "删除员工:" + employee.User.RealName + ",员工Id为:" + employee.EmployeeId + "！",
+                    Operater = actionEmployee.User.RealName,
+                    Object = "员工",
+                    Style = "删除",
+                });
+                _db.User.Remove(employee.User);
+                _db.Employee.Remove(employee);
+
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.Out.Write(e);
+                return false;
+            }
         }
 
         /// <summary>
@@ -414,37 +473,47 @@ namespace Mall.Service.Services.Enterprise
         /// </summary>
         /// <param name="roleName">角色名</param>
         /// <param name="permissionIds">权限Ids</param>
-        public void CreateRole(int employeeId,string roleName, int[] menuIds)
+        public bool CreateRole(int employeeId, string roleName, string roleDetails, int[] menuIds)
         {
-            Employee employee = GetEmployeeByEmployeeId(employeeId);
-            var permissionIds = SwitchMenuIdsToPermissionIds(menuIds);
-
-            var permissions = _db.Permissions.Where(p => permissionIds
-                                            .Contains(p.PermissionId)).ToList();
-            Roles role = new Roles
+            try
             {
-                Name = roleName,
-                CreationTime = DateTime.Now,
-            };
+                Employee employee = GetEmployeeByEmployeeId(employeeId);
+                var permissionIds = SwitchMenuIdsToPermissionIds(menuIds);
 
-            permissions.ForEach(permission =>
+                var permissions = _db.Permissions.Where(p => permissionIds
+                                                .Contains(p.PermissionId)).ToList();
+                Roles role = new Roles
+                {
+                    Name = roleName,
+                    CreationTime = DateTime.Now,
+                    Details = roleDetails
+                };
+
+                permissions.ForEach(permission =>
+                {
+                    role.Permissions.Add(permission);
+                });
+
+                _db.Roles.Add(role);
+                _db.AdminLog.Add(new AdminLog
+                {
+                    EmployeeId = employee.EmployeeId,
+                    Permission = "角色管理(RoleManage)",
+                    OperationTime = DateTime.Now,
+                    OperatDetail = "员工" + employee.User.RealName + "于" + DateTime.Now + "新建角色:" + roleName + ",角色Id为:" + role.RoleId + "！",
+                    Operater = employee.User.RealName,
+                    Object = "角色",
+                    Style = "新建",
+                });
+
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
             {
-                role.Permissions.Add(permission);
-            });
-
-            _db.Roles.Add(role);
-            _db.AdminLog.Add(new AdminLog
-            {
-                EmployeeId = employee.EmployeeId,
-                Permission = "角色管理(RoleManage)",
-                OperationTime = DateTime.Now,
-                OperatDetail = "员工" + employee.User.RealName + "于" + DateTime.Now + "新建角色:" + roleName + ",角色Id为:" + role.RoleId + "！",
-                Operater = employee.User.RealName,
-                Object = "角色",
-                Style = "新建",
-            });
-
-            _db.SaveChanges();
+                Console.Out.Write(e);
+                return false;
+            }
         }
 
         /// <summary>
@@ -453,59 +522,77 @@ namespace Mall.Service.Services.Enterprise
         /// <param name="roleId">角色Id</param>
         /// <param name="roleName">角色名</param>
         /// <param name="permissionIds">角色权限Ids</param>
-        public void ModifyRoleByRoleId(int employeeId,int roleId, string roleName, int[] permissionIds)
+        public bool ModifyRoleByRoleId(int employeeId, int roleId, int[] menuIds, string roleName, string roleDetails)
         {
-            Employee employee = GetEmployeeByEmployeeId(employeeId);
-            var permissions = _db.Permissions.Where(p => permissionIds
-                                     .Contains(p.PermissionId)).ToList();
-
-            Roles role = _db.Roles.Include("Permissions").SingleOrDefault(r => r.RoleId == roleId);
-
-            role.Name = roleName == null ? role.Name : roleName;
-            role.Permissions = new List<Permissions>();
-
-            permissions.ForEach(permission =>
+            try
             {
-                role.Permissions.Add(permission);
-            });
+                Employee employee = GetEmployeeByEmployeeId(employeeId);
+                int[] permissionIds = SwitchMenuIdsToPermissionIds(menuIds);
+                var permissions = _db.Permissions.Where(p => permissionIds
+                                         .Contains(p.PermissionId)).ToList();
 
-            _db.AdminLog.Add(new AdminLog
+                Roles role = _db.Roles.Include("Permissions").SingleOrDefault(r => r.RoleId == roleId);
+
+                role.Name = roleName == null ? role.Name : roleName;
+                role.Name = roleDetails == null ? role.Details : roleDetails;
+                role.Permissions = new List<Permissions>();
+
+                permissions.ForEach(permission =>
+                {
+                    role.Permissions.Add(permission);
+                });
+
+                _db.AdminLog.Add(new AdminLog
+                {
+                    EmployeeId = employee.EmployeeId,
+                    Permission = "角色管理(RoleManage)",
+                    OperationTime = DateTime.Now,
+                    OperatDetail = "员工" + employee.User.RealName + "于" + DateTime.Now + "修改角色权限:" + roleName + ",角色Id为:" + role.RoleId + "！",
+                    Operater = employee.User.RealName,
+                    Object = "角色权限",
+                    Style = "修改",
+                });
+
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
             {
-                EmployeeId = employee.EmployeeId,
-                Permission = "角色管理(RoleManage)",
-                OperationTime = DateTime.Now,
-                OperatDetail = "员工" + employee.User.RealName + "于" + DateTime.Now + "修改角色权限:" + roleName + ",角色Id为:" + role.RoleId + "！",
-                Operater = employee.User.RealName,
-                Object = "角色权限",
-                Style = "修改",
-            });
-
-            _db.SaveChanges();
+                Console.Out.Write(e);
+                return false;
+            }
         }
 
         /// <summary>
         /// 根据角色Id删除角色
         /// </summary>
         /// <param name="roleId">角色Id</param>
-        public void DeleteRoleByRoleId(int employeeId, int roleId)
+        public bool DeleteRoleByRoleId(int employeeId, int roleId)
         {
-            Employee employee = GetEmployeeByEmployeeId(employeeId);
-
-            Roles role = _db.Roles.SingleOrDefault(r => r.RoleId == roleId);
-
-            _db.AdminLog.Add(new AdminLog
+            try
             {
-                EmployeeId = employee.EmployeeId,
-                Permission = "角色管理(RoleManage)",
-                OperationTime = DateTime.Now,
-                OperatDetail = "员工" + employee.User.RealName + "于" + DateTime.Now + "删除角色:" + roleName + ",角色Id为:" + role.RoleId + "！",
-                Operater = employee.User.RealName,
-                Object = "角色",
-                Style = "删除",
-            });
+                Employee employee = GetEmployeeByEmployeeId(employeeId);
+                Roles role = _db.Roles.SingleOrDefault(r => r.RoleId == roleId);
+                _db.AdminLog.Add(new AdminLog
+                {
+                    EmployeeId = employee.EmployeeId,
+                    Permission = "角色管理(RoleManage)",
+                    OperationTime = DateTime.Now,
+                    OperatDetail = "员工" + employee.User.RealName + "于" + DateTime.Now + "删除角色:" + role.Name + ",角色Id为:" + role.RoleId + "！",
+                    Operater = employee.User.RealName,
+                    Object = "角色",
+                    Style = "删除",
+                });
 
-            _db.Roles.Remove(role);
-            _db.SaveChanges();
+                _db.Roles.Remove(role);
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.Out.Write(e);
+                return false;
+            }
         }
 
         public void Dispose()

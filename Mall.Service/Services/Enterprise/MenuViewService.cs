@@ -8,54 +8,11 @@ namespace Mall.Service.Services.Enterprise
     public class MenuViewService : IDisposable
     {
         private MallDBContext _db;
-        private EnterpriseService _enterpriseData;
         public MenuViewService()
         {
             _db = new MallDBContext();
-            _enterpriseData = new EnterpriseService();
         }
-        /// <summary>
-        /// 新增权限
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="code"></param>
-        public void AddPermission(string name, string code)
-        {
-            _db.Permissions.Add(
-                new Permissions
-                {
-                    Name = name,
-                    Code = code,
-                    CreationTime = DateTime.Now,
-                }
-            );
-            _db.Menus.Add(
-                new Menus
-                {
-                    MenuName = name,
-                    MenuPath = code,
-                    ParentId = 1,
-                }
-            );
-            _db.SaveChanges();
-        }
-        /// <summary>
-        /// 新增角色
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="code"></param>
-        public void AddRole(string name, string code)
-        {
-            _db.Roles.Add(
-                new Roles
-                {
-                    Name = name,
-                    Code = code,
-                    CreationTime = DateTime.Now,
-                }
-            );
-            _db.SaveChanges();
-        }
+
         /// <summary>
         /// 通过权限Id和角色Id给角色添加权限
         /// </summary>
@@ -70,6 +27,7 @@ namespace Mall.Service.Services.Enterprise
 
             _db.SaveChanges();
         }
+
         /// <summary>
         /// 通过员工Id和权限Id给员工添加权限
         /// </summary>
@@ -85,6 +43,7 @@ namespace Mall.Service.Services.Enterprise
 
             _db.SaveChanges();
         }
+
         /// <summary>
         /// 通过员工Id和角色Id给员工添加角色
         /// </summary>
@@ -100,6 +59,7 @@ namespace Mall.Service.Services.Enterprise
 
             _db.SaveChanges();
         }
+
         /// <summary>
         /// 通过权限列表
         /// </summary>
@@ -110,6 +70,7 @@ namespace Mall.Service.Services.Enterprise
             List<Menus> menus = _db.Menus.ToList();
             return menus;
         }
+
         /// <summary>
         /// 通过员工权限返回相应权限列表
         /// </summary>
@@ -123,6 +84,7 @@ namespace Mall.Service.Services.Enterprise
 
             return employeeMenus;
         }
+
         /// <summary>
         /// 通过角色Id返回角色
         /// </summary>
@@ -134,6 +96,7 @@ namespace Mall.Service.Services.Enterprise
                 .SingleOrDefault(r => r.RoleId == roleId);
             return role;
         }
+
         /// <summary>
         /// 通过权限Id返回权限
         /// </summary>
@@ -145,6 +108,7 @@ namespace Mall.Service.Services.Enterprise
                 .SingleOrDefault(p => p.PermissionId == permissionId);
             return permission;
         }
+
         /// <summary>
         /// 返回全部已有角色
         /// </summary>
@@ -154,6 +118,7 @@ namespace Mall.Service.Services.Enterprise
             List<Roles> roles = _db.Roles.ToList();
             return roles;
         }
+
         /// <summary>
         /// 返回全部已有权限
         /// </summary>
@@ -163,6 +128,7 @@ namespace Mall.Service.Services.Enterprise
             List<Permissions> permissions = _db.Permissions.ToList();
             return permissions;
         }
+
         /// <summary>
         /// 返回用户的全部权限
         /// </summary>
@@ -188,6 +154,7 @@ namespace Mall.Service.Services.Enterprise
             List<Permissions> employeePermissions = rolePermissions.Union(permissions).ToList();
             return employeePermissions;
         }
+
         /// <summary>
         /// 返回用户的全部角色
         /// </summary>
@@ -200,6 +167,7 @@ namespace Mall.Service.Services.Enterprise
                 .Roles.ToList();
             return roles;
         }
+
         /// <summary>
         /// 关闭连接
         /// </summary>

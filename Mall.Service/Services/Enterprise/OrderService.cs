@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Mall.Service.Services.Enterprise
 {
-    public class OrderService : IDisposable, IOrderEntepriseApplicationData
+    public class OrderService : IDisposable, IOrderEntepriseApplicationService
     {
         private MallDBContext _db;
 
@@ -34,19 +34,21 @@ namespace Mall.Service.Services.Enterprise
         {
             List<Order> orders = null;
             orders = _db.Order.Where(o => o.State == state).ToList();
-            if(state == (int)StateOfOrder.State.ApplyRefund)
+            if (state == (int)StateOfOrder.State.ApplyRefund)
             {
                 orders = _db.Order.Where(o => o.State == state
                     || o.State == (int)StateOfOrder.State.ApplyRefund
                     || o.State == (int)StateOfOrder.State.Refunded).ToList();
             }
-            else if (state == (int)StateOfOrder.State.ApplyRefund)
+            else if (state == (int)StateOfOrder.State.ApplyReturn)
             {
                 orders = _db.Order.Where(o => o.State == state
                     || o.State == (int)StateOfOrder.State.ApplyRefund
-                    || o.State == (int)StateOfOrder.State.Refunded).ToList();
+                    || o.State == (int)StateOfOrder.State.ReturnFailed
+                    || o.State == (int)StateOfOrder.State.Returning
+                    || o.State == (int)StateOfOrder.State.ReturnSucceed).ToList();
             }
-            
+
             return orders;
         }
 
@@ -66,7 +68,7 @@ namespace Mall.Service.Services.Enterprise
         /// </summary>
         /// <param name="orderId"></param>
         /// <returns></returns>
-        public bool AcceptOrderByOrderId(int employeeId,Guid orderId)
+        public bool AcceptOrderByOrderId(int employeeId, Guid orderId)
         {
             Order order = GetOrderByOrderId(orderId);
             Employee employee = _db.Employee.Include("AdminLog").Include("User").SingleOrDefault(e => e.EmployeeId == employeeId);
@@ -94,7 +96,7 @@ namespace Mall.Service.Services.Enterprise
         /// </summary>
         /// <param name="orderId"></param>
         /// <returns></returns>
-        public bool AgreeRefundByOrderId(int employeeId,Guid orderId)
+        public bool AgreeRefundByOrderId(int employeeId, Guid orderId)
         {
             Order order = GetOrderByOrderId(orderId);
             Employee employee = _db.Employee.Include("AdminLog").Include("User").SingleOrDefault(e => e.EmployeeId == employeeId);
@@ -125,25 +127,60 @@ namespace Mall.Service.Services.Enterprise
         /// </summary>
         /// <param name="orderId"></param>
         /// <returns></returns>
-        public void AgreeReturnByOrderId(int employeeId,Guid orderId)
+        public bool AgreeReturnByOrderId(int employeeId, Guid orderId)
+        {
+            Order order = GetOrderByOrderId(orderId);
+            Employee employee = _db.Employee.Include("AdminLog").Include("User").SingleOrDefault(e => e.EmployeeId == employeeId);
+            try
+            {
+                order.State = (int)StateOfOrder.State.Returning;
+                _db.AdminLog.Add(new AdminLog
+                {
+                    EmployeeId = employee.EmployeeId,
+                    Permission = "退货处理(Return)",
+                    OperationTime = DateTime.Now,
+                    OperatDetail = "员工" + employee.User.RealName + "于" + DateTime.Now + "同意订单:" + orderId + "的申请退货处理！",
+                    Operater = employee.User.RealName,
+                    Object = "订单状态",
+                    Style = "修改",
+                });
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.Out.Write(e);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 退货成功
+        /// </summary>
+        /// <param name="employeeId"></param>
+        /// <param name="orderId"></param>
+        /// <returns></returns>
+        public bool ConfirmReturn(int employeeId, Guid orderId)
         {
             Order order = GetOrderByOrderId(orderId);
             Employee employee = _db.Employee.Include("AdminLog").Include("User").SingleOrDefault(e => e.EmployeeId == employeeId);
             DataBase.Custom custom = _db.Custom.SingleOrDefault(c => c.CustomId == order.CustomId);
 
-            order.State = (int)StateOfOrder.State.Returning;
+            order.State = (int)StateOfOrder.State.ReturnSucceed;
             _db.AdminLog.Add(new AdminLog
             {
                 EmployeeId = employee.EmployeeId,
                 Permission = "退货处理(Return)",
                 OperationTime = DateTime.Now,
-                OperatDetail = "员工" + employee.User.RealName + "于" + DateTime.Now + "同意订单:" + orderId + "的申请退货处理！",
+                OperatDetail = "员工" + employee.User.RealName + "于" + DateTime.Now + "确认订单:" + orderId + "退货成功,并返还总金额！",
                 Operater = employee.User.RealName,
                 Object = "订单状态",
                 Style = "修改",
             });
             custom.Wallet += order.Totla;
             _db.SaveChanges();
+
+            return true;
         }
 
         /// <summary>
@@ -151,30 +188,40 @@ namespace Mall.Service.Services.Enterprise
         /// </summary>
         /// <param name="orderId"></param>
         /// <returns></returns>
-        public bool ConfirmDeliverByOrderId(int employeeId,Guid orderId)
+        public bool ConfirmDeliverByOrderId(int employeeId, Guid orderId)
         {
             Order order = GetOrderByOrderId(orderId);
             GoodsInfo goods = _db.GoodsInfo.SingleOrDefault(g => g.GoodsId == order.GoodsId);
             Employee employee = _db.Employee.Include("AdminLog").Include("User").SingleOrDefault(e => e.EmployeeId == employeeId);
-            if (order.State == (int)StateOfOrder.State.ToDelivery && goods.Stock > 0)
+
+            try
             {
-                order.State = (int)StateOfOrder.State.ToReceipt;
-                goods.Stock--;
-                _db.AdminLog.Add(new AdminLog
+                if (order.State == (int)StateOfOrder.State.ToDelivery && goods.Stock > 0)
                 {
-                    EmployeeId = employee.EmployeeId,
-                    Permission = "确认发货(Delivery)",
-                    OperationTime = DateTime.Now,
-                    OperatDetail = "员工" + employee.User.RealName + "于" + DateTime.Now + "对订单:" + orderId + "进行出仓发货处理！",
-                    Operater = employee.User.RealName,
-                    Object = "订单状态",
-                    Style = "修改",
-                });
-                order.DeliveryTime = DateTime.Now;
-                _db.SaveChanges();
-                return true;
+                    order.State = (int)StateOfOrder.State.ToReceipt;
+                    goods.SalesNumber++;
+                    goods.Stock--;
+                    _db.AdminLog.Add(new AdminLog
+                    {
+                        EmployeeId = employee.EmployeeId,
+                        Permission = "确认发货(Delivery)",
+                        OperationTime = DateTime.Now,
+                        OperatDetail = "员工" + employee.User.RealName + "于" + DateTime.Now + "对订单:" + orderId + "进行出仓发货处理！",
+                        Operater = employee.User.RealName,
+                        Object = "订单状态",
+                        Style = "修改",
+                    });
+                    order.DeliveryTime = DateTime.Now;
+                    _db.SaveChanges();
+                    return true;
+                }
+                return false;
             }
-            return false;
+            catch (Exception e)
+            {
+                Console.Out.Write(e);
+                return false;
+            }
         }
 
         /// <summary>
@@ -182,7 +229,7 @@ namespace Mall.Service.Services.Enterprise
         /// </summary>
         /// <param name="orderId"></param>
         /// <param name="remark"></param>
-        public bool ModifyRemarksByOrderId(int employeeId,Guid orderId, string remark)
+        public bool ModifyRemarksByOrderId(int employeeId, Guid orderId, string remark)
         {
             Order order = GetOrderByOrderId(orderId);
             var state = order.State;
@@ -205,30 +252,40 @@ namespace Mall.Service.Services.Enterprise
             }
             return false;
         }
-        
+
         /// <summary>
         /// 拒绝退货
         /// </summary>
         /// <param name="employeeId"></param>
         /// <param name="orderId"></param>
-        public void RefuseReturnByOrderId(int employeeId,Guid orderId)
+        public bool RefuseReturnByOrderId(int employeeId, Guid orderId)
         {
             Order order = GetOrderByOrderId(orderId);
-            if(order.State == (int)StateOfOrder.State.ApplyReturn)
+            try
             {
-                Employee employee = _db.Employee.Include("AdminLog").Include("User").SingleOrDefault(e => e.EmployeeId == employeeId);
-                order.State = (int)StateOfOrder.State.Returning;
-                _db.AdminLog.Add(new AdminLog
+                if (order.State == (int)StateOfOrder.State.ApplyReturn)
                 {
-                    EmployeeId = employee.EmployeeId,
-                    Permission = "退货管理(Return)",
-                    OperationTime = DateTime.Now,
-                    OperatDetail = "员工" + employee.User.RealName + "于" + DateTime.Now + "拒绝订单:" + orderId + "的退货申请！",
-                    Operater = employee.User.RealName,
-                    Object = "订单状态",
-                    Style = "修改",
-                });
-                _db.SaveChanges();
+                    Employee employee = _db.Employee.Include("AdminLog").Include("User").SingleOrDefault(e => e.EmployeeId == employeeId);
+                    order.State = (int)StateOfOrder.State.Returning;
+                    _db.AdminLog.Add(new AdminLog
+                    {
+                        EmployeeId = employee.EmployeeId,
+                        Permission = "退货管理(Return)",
+                        OperationTime = DateTime.Now,
+                        OperatDetail = "员工" + employee.User.RealName + "于" + DateTime.Now + "拒绝订单:" + orderId + "的退货申请！",
+                        Operater = employee.User.RealName,
+                        Object = "订单状态",
+                        Style = "修改",
+                    });
+                    _db.SaveChanges();
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception e)
+            {
+                Console.Out.Write(e);
+                return false;
             }
         }
 
@@ -239,26 +296,35 @@ namespace Mall.Service.Services.Enterprise
         /// <param name="orderId"></param>
         /// <param name="replyContent"></param>
         /// <param name="commentId"></param>
-        public void ReplyByOrderId(int employeeId, Guid orderId, string replyContent, int commentId)
+        public bool ReplyByOrderId(int employeeId, Guid orderId, string replyContent, int commentId)
         {
             Employee employee = _db.Employee.Include("AdminLog").Include("User").SingleOrDefault(e => e.EmployeeId == employeeId);
             Order order = GetOrderByOrderId(orderId);
             Comment comment = _db.Comment.SingleOrDefault(c => c.CommentId == commentId);
-
-            comment.Reply = replyContent;
-            order.State = (int)StateOfOrder.State.Finish;
-            _db.AdminLog.Add(new AdminLog
+            try
             {
-                EmployeeId = employee.EmployeeId,
-                Permission = "回复评价(Reply)",
-                OperationTime = DateTime.Now,
-                OperatDetail = "员工" + employee.User.RealName + "于" + DateTime.Now + "对用户的评价进行了回复:" + replyContent,
-                Operater = employee.User.RealName,
-                Object = "用户的评价",
-                Style = "修改",
-            });
+                comment.Reply = replyContent;
+                order.State = (int)StateOfOrder.State.Finish;
+                _db.AdminLog.Add(new AdminLog
+                {
+                    EmployeeId = employee.EmployeeId,
+                    Permission = "回复评价(Reply)",
+                    OperationTime = DateTime.Now,
+                    OperatDetail = "员工" + employee.User.RealName + "于" + DateTime.Now + "对用户的评价进行了回复:" + replyContent,
+                    Operater = employee.User.RealName,
+                    Object = "用户的评价",
+                    Style = "修改",
+                });
 
-            _db.SaveChanges();
+                _db.SaveChanges();
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.Out.Write(e);
+                return false;
+            }
         }
 
         public void Dispose()

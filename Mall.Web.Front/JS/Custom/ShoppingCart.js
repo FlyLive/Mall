@@ -2,11 +2,6 @@
 function SearchGoods() {
     var goodsName = $("#search-cart").val();
 
-    if (goodsName == "" || /\s+/g.test(goodsName)) {
-        Tip("商品名不能为空", "search-cart");
-        return false;
-    }
-
     $.ajax({
         type: 'GET',
         url: '/Custom/SearchGoodFromCart',
@@ -21,9 +16,49 @@ function SearchGoods() {
     });
 }
 
+function GetCheckedNodeId() {
+    var selected = document.getElementsByClassName("item-check");
+    var goodsIds = new Array();
+
+    for (var i = 0; i < selected.length; i++) {
+        if (selected[i].checked)
+            goodsIds.push(selected[i].parentElement.parentElement.parentElement.id);
+    }
+    return goodsIds;
+}
+
+function GetChecked() {
+    var goodsIds = GetCheckedNodeId();
+
+    $("#select-count").text(goodsIds.length);
+
+    if (goodsIds.length == 0) {
+        $("#select-money").text("￥0.00");
+        return false;
+    }
+    var money = GetMoney(goodsIds);
+    $("#select-money").text("￥" + money);
+}
+
+function SelectAll() {
+    var selectAll = document.getElementById("select-all");
+    if (selectAll.checked) {
+        $("input:checkbox[class='item-check']").each(function() {
+            this.checked = true;
+        });
+    }
+    else {
+        $("input:checkbox[class='item-check']").each(function () {
+            this.checked = false;
+        });
+    }
+    GetChecked();
+}
+
 function BuyGood(event) {
-    var goodsId = $(event).parent().parent().parent().attr("id");
-    document.location.href = "/Order/ConfirmOrderFromCart/?goodsId=" + goodsId;
+    $(event).parent().parent().parent().find(".item-check").attr("checked", true);
+
+    document.forms["confirmOrder"].submit();
 }
 
 function DeletGoods(event) {
@@ -45,8 +80,13 @@ function DeletGoods(event) {
     });
 }
 
-function BuyBySelected(event) {
-
+function BuyBySelected() {
+    var goodsIds = GetCheckedNodeId();
+    if (goodsIds.length == 0) {
+        OpenTip("所选商品为空", 3);
+        return false;
+    }
+    document.forms["confirmOrder"].submit();
 }
 
 function ReduceCount(event) {
@@ -56,11 +96,30 @@ function ReduceCount(event) {
         count--;
         var result = ModifyCartNumber(goodsId, count);
         if (result) {
+            var totla = GetMoney(goodsId);
             $(event).parent().find("#count").val(count);
+            $(event).parent().parent().parent().find("#totla").text("￥" + totla);
+            GetChecked();
             return true;
         }
     }
     OpenTip("数量不能少于一哦！", 1);
+}
+
+function GetMoney(goodsId) {
+    var result = $.ajax({
+        type: 'Post',
+        url: '/Custom/GetSelectedMoney',
+        async:false,
+        data: { "goodIds": goodsId },
+        success: function (result) {
+            return result;
+        },
+        error: function () {
+            OpenTip("出错啦!", 2);
+        },
+    });
+    return result.responseText;
 }
 
 function IncreaseCount(event) {
@@ -69,7 +128,10 @@ function IncreaseCount(event) {
     count++;
     var result = ModifyCartNumber(goodsId, count);
     if (result) {
+        var totla = GetMoney(goodsId);
         $(event).parent().find("#count").val(count);
+        $(event).parent().parent().parent().find("#totla").text("￥" + totla);
+        GetChecked();
     }
 }
 
@@ -81,7 +143,6 @@ function ModifyCartNumber(goodsId, count) {
         datatype: Boolean,
         success: function (result) {
             if (result == "True") {
-                $(event).parent().find("#count").val(count);
                 return true;
             }
             return false;

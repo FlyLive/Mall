@@ -1,4 +1,25 @@
 ﻿
+function CancleOrder(orderId) {
+    $.ajax({
+        type: 'GET',
+        url: '/Order/CancelOrder',
+        data: { "orderId": orderId },
+        success: function (result) {
+            if (result == "True") {
+                OpenTipSuccess("取消成功", 2);
+                location.reload();
+            }
+            else {
+                OpenTip("取消失败,未知错误!");
+            }
+        },
+        error: function () {
+            OpenTip("出错啦!", 2);
+        }
+    });
+
+}
+
 function SearchOrderByState(event) {
     var state = event.id;
     $.ajax({

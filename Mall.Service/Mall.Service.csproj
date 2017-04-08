@@ -54,9 +54,6 @@
     <Compile Include="DataBase\AdminLog.cs">
       <DependentUpon>MallDBModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataBase\Advertisement.cs">
-      <DependentUpon>MallDBModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="DataBase\Comment.cs">
       <DependentUpon>MallDBModel.tt</DependentUpon>
     </Compile>

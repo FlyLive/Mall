@@ -1,6 +1,4 @@
-﻿body {
-}
-.SC-head{
+﻿.SC-head{
 }
 .SC-head > div{
     display:inline-block;
@@ -71,10 +69,10 @@
     width:150px;
     font-size:16px;
 }
-.shoppingCart-detail-goods > ul{
+.shoppingCart-detail-goods > form > ul{
     padding:0;
 }
-.shoppingCart-detail-goods > ul > li{
+.shoppingCart-detail-goods > form > ul > li{
     list-style:none;
 }
 .shoppingCart-item > ul > li {

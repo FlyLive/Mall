@@ -61,7 +61,7 @@ namespace Mall.Service.Services.Custom
                 DataBase.Custom custom = new DataBase.Custom
                 {
                     UserId = user.UserId,
-                    Wallet = 10000,
+                    Wallet = 200,
                     PayPassword = password,
                 };
 
@@ -104,11 +104,11 @@ namespace Mall.Service.Services.Custom
                 //设置好发送邮件服务地址
                 System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient();
                 client.Host = "smtp.qq.com";
-                
+
                 //填写服务器地址相关的用户名和密码信息
                 client.Credentials = new System.Net.NetworkCredential("1585213801@qq.com", "rsxtdoqaeknhfiij");
                 client.EnableSsl = true;
-                
+
                 //发送邮件
                 client.Send(mail);
                 return verifyCode;
@@ -185,7 +185,7 @@ namespace Mall.Service.Services.Custom
         /// <returns></returns>
         public List<DataBase.Custom> GetAllCustom()
         {
-            return _db.Custom.Include("User").ToList();
+            return _db.Custom.Include("User").Include("ShoppingCart").ToList();
         }
 
         /// <summary>
@@ -193,12 +193,17 @@ namespace Mall.Service.Services.Custom
         /// </summary>
         /// <param name="id">地址Id</param>
         /// <returns></returns>
-        public DeliveryInfo GetDeliveryInfoById(int customId,int ? id)
+        public DeliveryInfo GetDeliveryInfoById(int customId, int? id)
         {
             DeliveryInfo deliveryInfo = null;
-            if(id == null)
+            if (id == null)
             {
-                deliveryInfo = GetAllDeliveryInfoByCustomId(customId).SingleOrDefault(d => d.IsDefault == true);
+                var deliveryInfos = GetAllDeliveryInfoByCustomId(customId);
+                deliveryInfo = deliveryInfos.SingleOrDefault(d => d.IsDefault == true);
+                if (deliveryInfo == null)
+                {
+                    deliveryInfo = deliveryInfos[0];
+                }
             }
             else
             {
@@ -222,18 +227,27 @@ namespace Mall.Service.Services.Custom
         /// 修改个人信息
         /// </summary>
         /// <param name="user"></param>
-        public void ModifyUserInfo(int customId, string email, DateTime? birthday, string nick, string name, string phone, int gender = 1)
+        public bool ModifyUserInfo(int customId, string email, DateTime? birthday, string nick, string name, string phone, int gender = 1)
         {
-            User user = GetCustomByCustomId(customId).User;
+            try
+            {
+                User user = GetCustomByCustomId(customId).User;
 
-            user.Email = email;
-            user.Birthday = birthday == null ? user.Birthday : birthday;
-            user.NickName = nick;
-            user.RealName = name;
-            user.PhoneNumber = phone;
-            user.Gender = gender == 1 ? true : false;
+                user.Email = email;
+                user.Birthday = birthday == null ? user.Birthday : birthday;
+                user.NickName = nick;
+                user.RealName = name;
+                user.PhoneNumber = phone;
+                user.Gender = gender == 1 ? true : false;
 
-            _db.SaveChanges();
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.Out.Write(e);
+                return false;
+            }
         }
 
         /// <summary>
@@ -243,14 +257,13 @@ namespace Mall.Service.Services.Custom
         /// <param name="imgBase"></param>
         public string ModifyPhoto(int customId, string imgBase)
         {
-            DataBase.Custom custom = GetCustomByCustomId(customId);
-
             try
             {
+                DataBase.Custom custom = GetCustomByCustomId(customId);
                 var img = imgBase.Split(',');
                 byte[] bt = Convert.FromBase64String(img[1]);
                 string now = DateTime.Now.ToString("yyyy-MM-ddHHmmss");
-                string path = "D:/网站部署/MallImg/Mall.Web.Front/Pictures/Users/Avatar/avatar" + now + ".png";
+                string path = "D:/网站部署/MallImg/Mall.Web.Front/Users/Avatar/avatar" + now + ".png";
                 string DataPath = "http://localhost:9826/Mall.Web.Front/Users/Avatar/avatar" + now + ".png";
                 File.WriteAllBytes(path, bt);
                 custom.User.Photo = DataPath;
@@ -259,9 +272,9 @@ namespace Mall.Service.Services.Custom
             }
             catch (Exception e)
             {
-                return e.ToString();
+                Console.Out.Write(e);
+                return null;
             }
-
         }
 
         /// <summary>
@@ -270,23 +283,31 @@ namespace Mall.Service.Services.Custom
         /// <param name="deliverInfo"></param>
         public bool CreatDeliverInfo(int customId, string address, string contact, string phone, string zip = " ")
         {
-            DataBase.Custom custom = GetCustomByCustomId(customId);
-            if(custom.DeliveryInfo.Count < custom.MaxAddressNumber)
+            try
             {
-                DeliveryInfo deliveryInfo = new DeliveryInfo
+                DataBase.Custom custom = GetCustomByCustomId(customId);
+                if (custom.DeliveryInfo.Count < custom.MaxAddressNumber)
                 {
-                    CustomId = custom.CustomId,
-                    DetailedAddress = address,
-                    PhoneNumber = phone,
-                    Consignee = contact,
-                    Zip = zip,
-                    IsDefault = false,
-                };
-                _db.DeliveryInfo.Add(deliveryInfo);
-                _db.SaveChanges();
-                return true;
+                    DeliveryInfo deliveryInfo = new DeliveryInfo
+                    {
+                        CustomId = custom.CustomId,
+                        DetailedAddress = address,
+                        PhoneNumber = phone,
+                        Consignee = contact,
+                        Zip = zip,
+                        IsDefault = false,
+                    };
+                    _db.DeliveryInfo.Add(deliveryInfo);
+                    _db.SaveChanges();
+                    return true;
+                }
+                return false;
             }
-            return false;
+            catch (Exception e)
+            {
+                Console.Out.Write(e);
+                return false;
+            }
         }
 
         /// <summary>
@@ -305,16 +326,25 @@ namespace Mall.Service.Services.Custom
         /// 修改收货地址
         /// </summary>
         /// <param name="newDeliverInfo"></param>
-        public void ModifyDeliverInfo(int customId,int deliveryInfoId, string address, string contact, string phone, string zip)
+        public bool ModifyDeliverInfo(int customId, int deliveryInfoId, string address, string contact, string phone, string zip)
         {
-            DeliveryInfo deliveryInfo = GetDeliveryInfoById(customId,deliveryInfoId);
+            try
+            {
+                DeliveryInfo deliveryInfo = GetDeliveryInfoById(customId, deliveryInfoId);
 
-            deliveryInfo.DetailedAddress = address == "" ? deliveryInfo.DetailedAddress : address;
-            deliveryInfo.Consignee = contact == "" ? deliveryInfo.Consignee : contact;
-            deliveryInfo.PhoneNumber = phone == "" ? deliveryInfo.PhoneNumber : phone;
-            deliveryInfo.Zip = zip == "" ? deliveryInfo.Zip : zip;
+                deliveryInfo.DetailedAddress = address == "" ? deliveryInfo.DetailedAddress : address;
+                deliveryInfo.Consignee = contact == "" ? deliveryInfo.Consignee : contact;
+                deliveryInfo.PhoneNumber = phone == "" ? deliveryInfo.PhoneNumber : phone;
+                deliveryInfo.Zip = zip == "" ? deliveryInfo.Zip : zip;
 
-            _db.SaveChanges();
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.Out.Write(e);
+                return false;
+            }
         }
 
         /// <summary>
@@ -322,12 +352,21 @@ namespace Mall.Service.Services.Custom
         /// </summary>
         /// <param name="customId"></param>
         /// <param name="deliveryId"></param>
-        public void DeletDeliveryByDeliveryId(int customId,int deliveryId)
+        public bool DeletDeliveryByDeliveryId(int customId, int deliveryId)
         {
-            DeliveryInfo delivery = GetAllDeliveryInfoByCustomId(customId).SingleOrDefault(d => d.CustomId == customId && d.Id == deliveryId);
-            _db.DeliveryInfo.Remove(delivery);
+            try
+            {
+                DeliveryInfo delivery = GetAllDeliveryInfoByCustomId(customId).SingleOrDefault(d => d.CustomId == customId && d.Id == deliveryId);
+                _db.DeliveryInfo.Remove(delivery);
 
-            _db.SaveChanges();
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.Out.Write(e);
+                return false;
+            }
         }
 
         /// <summary>
@@ -335,12 +374,25 @@ namespace Mall.Service.Services.Custom
         /// </summary>
         /// <param name="customId"></param>
         /// <param name="deliveryId"></param>
-        public void SetDefaultAddressOfCustomByDeliveryId(int customId,int deliveryId)
+        public bool SetDefaultAddressOfCustomByDeliveryId(int customId, int deliveryId)
         {
-            GetCustomByCustomId(customId).DeliveryInfo.SingleOrDefault(d => d.IsDefault == true).IsDefault = false;
-            _db.DeliveryInfo.SingleOrDefault(d => d.Id == deliveryId).IsDefault = true;
+            try
+            {
+                var defaultAddress = GetCustomByCustomId(customId).DeliveryInfo.SingleOrDefault(d => d.IsDefault == true);
+                if (defaultAddress != null)
+                {
+                    defaultAddress.IsDefault = false;
+                }
+                _db.DeliveryInfo.SingleOrDefault(d => d.Id == deliveryId).IsDefault = true;
 
-            _db.SaveChanges();
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.Out.Write(e);
+                return false;
+            }
         }
 
         /// <summary>
@@ -348,12 +400,21 @@ namespace Mall.Service.Services.Custom
         /// </summary>
         /// <param name="customId">用户Id</param>
         /// <param name="newPassword">新登录密码</param>
-        public void ModifyPasswordByCustomId(int customId, string newPassword)
+        public bool ModifyPasswordByCustomId(int customId, string newPassword)
         {
-            DataBase.Custom custom = GetCustomByCustomId(customId);
-            custom.User.Password = newPassword;
+            try
+            {
+                DataBase.Custom custom = GetCustomByCustomId(customId);
+                custom.User.Password = newPassword;
 
-            _db.SaveChanges();
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.Out.Write(e);
+                return false;
+            }
         }
 
         /// <summary>
@@ -361,14 +422,52 @@ namespace Mall.Service.Services.Custom
         /// </summary>
         /// <param name="customId">客户Id</param>
         /// <param name="newPayPassword">新支付密码</param>
-        public void ModifyPayPasswordByCustomId(int customId, string newPayPassword)
+        public bool ModifyPayPasswordByCustomId(int customId, string newPayPassword)
+        {
+            try
+            {
+                DataBase.Custom custom = GetCustomByCustomId(customId);
+                custom.PayPassword = newPayPassword;
+
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.Out.Write(e);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 返回客户的购物车内商品总价
+        /// </summary>
+        /// <param name="customId"></param>
+        /// <returns></returns>
+        public double GetTotlaMoneyById(int customId, int[] goodsIds)
         {
             DataBase.Custom custom = GetCustomByCustomId(customId);
-            custom.PayPassword = newPayPassword;
+            double totleMoney = 0;
+            List<ShoppingCart> cart = custom.ShoppingCart
+                .Where(c => goodsIds.Any(gi => gi == c.GoodsId)).ToList();
 
-            _db.SaveChanges();
+            cart.ForEach(c => totleMoney += c.Number * c.GoodsInfo.Price + c.GoodsInfo.Freight);
+
+            return totleMoney;
         }
-        
+
+        /// <summary>
+        /// 返回客户的购物车内选中商品的总数量
+        /// </summary>
+        /// <param name="customId"></param>
+        /// <returns></returns>
+        public int GetCartNumberByCustomId(int customId)
+        {
+            DataBase.Custom custom = GetCustomByCustomId(customId);
+            List<ShoppingCart> cart = custom.ShoppingCart.ToList();
+            return cart.Count;
+        }
+
         /// <summary>
         /// 返回客户的购物车
         /// </summary>
@@ -387,25 +486,34 @@ namespace Mall.Service.Services.Custom
         /// <param name="customId">客户ID</param>
         /// <param name="goodsId">商品ID</param>
         /// <param name="count">数量</param>
-        public void AddGoodsToShoppingCart(int customId, int goodsId, int count = 1)
+        public bool AddGoodsToShoppingCart(int customId, int goodsId, int count = 1)
         {
-            DataBase.Custom custom = _db.Custom.Include("ShoppingCart").SingleOrDefault(c => c.CustomId == customId);
-            List<ShoppingCart> carts = custom.ShoppingCart.ToList();
-            ShoppingCart newCart = carts.SingleOrDefault(c => c.GoodsId == goodsId);
+            try
+            {
+                DataBase.Custom custom = _db.Custom.Include("ShoppingCart").SingleOrDefault(c => c.CustomId == customId);
+                List<ShoppingCart> carts = custom.ShoppingCart.ToList();
+                ShoppingCart newCart = carts.SingleOrDefault(c => c.GoodsId == goodsId);
 
-            if(newCart != null)
-            {
-                ModifyGoodsCountFromShoppingCart(customId, goodsId, count + newCart.Number);
-            }
-            else
-            {
-                custom.ShoppingCart.Add(new ShoppingCart
+                if (newCart != null)
                 {
-                    GoodsId = goodsId,
-                    CreateTime = DateTime.Now,
-                    Number = count,
-                });
-                _db.SaveChanges();
+                    ModifyGoodsCountFromShoppingCart(customId, goodsId, count + newCart.Number);
+                }
+                else
+                {
+                    custom.ShoppingCart.Add(new ShoppingCart
+                    {
+                        GoodsId = goodsId,
+                        CreateTime = DateTime.Now,
+                        Number = count,
+                    });
+                    _db.SaveChanges();
+                }
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.Out.Write(e);
+                return false;
             }
         }
 
@@ -415,11 +523,20 @@ namespace Mall.Service.Services.Custom
         /// <param name="customId"></param>
         /// <param name="goodsId"></param>
         /// <param name="count"></param>
-        public void ModifyGoodsCountFromShoppingCart(int customId, int goodsId, int count)
+        public bool ModifyGoodsCountFromShoppingCart(int customId, int goodsId, int count)
         {
+            try
+            {
             DataBase.Custom custom = _db.Custom.Include("ShoppingCart").SingleOrDefault(c => c.CustomId == customId);
             custom.ShoppingCart.SingleOrDefault(s => s.GoodsId == goodsId).Number = count;
             _db.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.Out.Write(e);
+                return false;
+            }
         }
 
         /// <summary>
@@ -427,15 +544,24 @@ namespace Mall.Service.Services.Custom
         /// </summary>
         /// <param name="cilentId"></param>
         /// <param name="goodsId"></param>
-        public void DeleteGoodsFromShoppingCart(int customId, int goodsId)
+        public bool DeleteGoodsFromShoppingCart(int customId, int goodsId)
         {
+            try
+            {
             DataBase.Custom custom = _db.Custom.Include("ShoppingCart").SingleOrDefault(c => c.CustomId == customId);
             _db.ShoppingCart.Remove(
                 custom.ShoppingCart.
                     SingleOrDefault(s => s.GoodsId == goodsId)
             );
             _db.SaveChanges();
+            return true;
         }
+            catch (Exception e)
+            {
+                Console.Out.Write(e);
+                return false;
+            }
+}
 
         /// <summary>
         /// 返回用户指定商品的购物车
@@ -443,7 +569,7 @@ namespace Mall.Service.Services.Custom
         /// <param name="customId"></param>
         /// <param name="goodsId"></param>
         /// <returns></returns>
-        public List<ShoppingCart> GetCartByCustomIdAndGoodsId(int customId,int[] goodsId)
+        public List<ShoppingCart> GetCartByCustomIdAndGoodsId(int customId, int[] goodsId)
         {
             List<ShoppingCart> carts = _db.ShoppingCart
                 .Include("GoodsInfo")

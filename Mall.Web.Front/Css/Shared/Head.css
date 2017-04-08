@@ -38,7 +38,7 @@ a{
 }
 .head-message{
     font-size: 25px;
-    margin: 15px 0px;
+    margin: 17px 0px;
     border-radius:5px;
     background-color:#ffffff;
 }
@@ -47,10 +47,10 @@ a{
     font-size: 25px;
     height: 40px;
     border-radius: 5px;
-    border: none;
+    border: 0;
 }
 .head-message input:focus{
-    border:none;
+    border:0;
 }
 #search-button {
     cursor: pointer;
@@ -63,7 +63,7 @@ a{
     background-size: 28px;
     position: relative;
     top: 7px;
-    right: 12px;
+    right: 10px;
 }
 #search-button:hover {
     background-image: url('../../Pictures/Shared/Search(Touch).png');

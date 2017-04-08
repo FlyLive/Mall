@@ -59,6 +59,15 @@ namespace Mall.Web.Front.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public ActionResult Logout()
+        {
+            Session.Remove("Custom");
+            Session.Remove("User");
+
+            return RedirectToAction("Index", "Users");
+        }
+
         #region 找回密码
         /// <summary>
         /// 找回密码
@@ -99,16 +108,15 @@ namespace Mall.Web.Front.Controllers
             _customService.ModifyPasswordByCustomId(custom.CustomId, newPassword);
 
             TempData["RetrievePW"] = "success";
-            Session["VerifyCode"] = null;
+            Session.Remove("VerifyCode");
 
             return RedirectToAction("Index");
         }
-        
         #endregion
 
         #region 注册
         /// <summary>
-        /// 注册
+        /// 注册(View)
         /// </summary>
         /// <returns></returns>
         [HttpGet]
@@ -116,6 +124,14 @@ namespace Mall.Web.Front.Controllers
         {
             return View();
         }
+        
+        /// <summary>
+        /// 注册(Action)
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="fPWord"></param>
+        /// <param name="email"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Registe(string name,string fPWord,string email)
         {

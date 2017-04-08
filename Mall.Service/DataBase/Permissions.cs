@@ -26,6 +26,7 @@ namespace Mall.Service.DataBase
         public string Code { get; set; }
         public System.DateTime CreationTime { get; set; }
         public Nullable<bool> IsDefault { get; set; }
+        public string Details { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Employee> Employee { get; set; }

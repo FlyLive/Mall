@@ -15,16 +15,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Advertisement">
-      <EntityTypeMapping TypeName="MallDBModel.Advertisement">
-        <MappingFragment StoreEntitySet="Advertisement">
-          <ScalarProperty Name="Category" ColumnName="Category" />
-          <ScalarProperty Name="Url" ColumnName="Url" />
-          <ScalarProperty Name="ImageId" ColumnName="ImageId" />
-          <ScalarProperty Name="AdvertisementID" ColumnName="AdvertisementID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Comment">
       <EntityTypeMapping TypeName="MallDBModel.Comment">
         <MappingFragment StoreEntitySet="Comment">
@@ -74,7 +64,6 @@
     <EntitySetMapping Name="GoodsInfo">
       <EntityTypeMapping TypeName="MallDBModel.GoodsInfo">
         <MappingFragment StoreEntitySet="GoodsInfo">
-          <ScalarProperty Name="freight" ColumnName="freight" />
           <ScalarProperty Name="PublicationDate" ColumnName="PublicationDate" />
           <ScalarProperty Name="Press" ColumnName="Press" />
           <ScalarProperty Name="Author" ColumnName="Author" />
@@ -82,11 +71,13 @@
           <ScalarProperty Name="UnderShelfTime" ColumnName="UnderShelfTime" />
           <ScalarProperty Name="ShelfTime" ColumnName="ShelfTime" />
           <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
-          <ScalarProperty Name="State" ColumnName="State" />
           <ScalarProperty Name="CommentNumber" ColumnName="CommentNumber" />
           <ScalarProperty Name="Category" ColumnName="Category" />
-          <ScalarProperty Name="Details" ColumnName="Details" />
+          <ScalarProperty Name="SalesNumber" ColumnName="SalesNumber" />
+          <ScalarProperty Name="State" ColumnName="State" />
           <ScalarProperty Name="Stock" ColumnName="Stock" />
+          <ScalarProperty Name="Details" ColumnName="Details" />
+          <ScalarProperty Name="Freight" ColumnName="Freight" />
           <ScalarProperty Name="Price" ColumnName="Price" />
           <ScalarProperty Name="GoodsName" ColumnName="GoodsName" />
           <ScalarProperty Name="GoodsId" ColumnName="GoodsId" />
@@ -143,6 +134,7 @@
     <EntitySetMapping Name="Permissions">
       <EntityTypeMapping TypeName="MallDBModel.Permissions">
         <MappingFragment StoreEntitySet="Permissions">
+          <ScalarProperty Name="Details" ColumnName="Details" />
           <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
           <ScalarProperty Name="CreationTime" ColumnName="CreationTime" />
           <ScalarProperty Name="Code" ColumnName="Code" />
@@ -166,7 +158,8 @@
     <EntitySetMapping Name="Roles">
       <EntityTypeMapping TypeName="MallDBModel.Roles">
         <MappingFragment StoreEntitySet="Roles">
-          <ScalarProperty Name="Default" ColumnName="Default" />
+          <ScalarProperty Name="Details" ColumnName="Details" />
+          <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
           <ScalarProperty Name="CreationTime" ColumnName="CreationTime" />
           <ScalarProperty Name="Code" ColumnName="Code" />
           <ScalarProperty Name="Name" ColumnName="Name" />
@@ -211,11 +204,11 @@
       </EndProperty>
     </AssociationSetMapping>
     <AssociationSetMapping Name="EmployeeRoles" TypeName="MallDBModel.EmployeeRoles" StoreEntitySet="EmployeeRoles">
-      <EndProperty Name="Employee">
-        <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
-      </EndProperty>
       <EndProperty Name="Roles">
         <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+      </EndProperty>
+      <EndProperty Name="Employee">
+        <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
       </EndProperty>
     </AssociationSetMapping>
     <AssociationSetMapping Name="RolePermissions" TypeName="MallDBModel.RolePermissions" StoreEntitySet="RolePermissions">

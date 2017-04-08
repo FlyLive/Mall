@@ -51,20 +51,29 @@ function SubmitCreate() {
     $('#createRoleModal').modal('hide');
 
     var name = $("#role-name").val();
+    var details = $("#role-detail").val();
 
     if (name == "" || /\s+/g.test(name)) {
         Tip("角色名不能为空", "name");
         return false;
     }
+    if (details == "" || /\s+/g.test(details)) {
+        Tip("角色详情不能为空", "name");
+        return false;
+    }
 
     var menuIds = GetZTreeCheckedId("createRole");
+    if (menuIds.length == 0) {
+        OpenTip("请至少选择一个权限", 2);
+        return false;
+    }
 
     $.ajax({
         type: "Post",
         url: "/Admin/CreateRole",
-        data: { "menuIds": menuIds, "roleName": name },
+        data: { "menuIds": menuIds, "roleName": name, "roleDetails": details },
         success: function (result) {
-            if (result == "Treu") {
+            if (result == "True") {
                 OpenTipSuccess("创建成功", 3);
                 location.reload();
             }
@@ -94,16 +103,92 @@ function CreateRole() {
     });
 }
 
-function ModifyRole(event) {
-    var roleId = $(event).attr("id");
-    alert(roleId);
-    if (roleId == undefined) {
+function ModifyRolePermissions() {
+    var name = $("#modify-name").val();
+    var details = $("#modify-details").val();
+    var id = $("#modify-role-id").val();
+
+    var menuIds = GetZTreeCheckedId("rolePermissions");
+
+    if (menuIds.length == 0) {
+        OpenTip("角色权限不能为空", 2);
+        return false;
+    }
+
+    $('#modifyRolePermissionsModal').modal('hide');
+
+    $.ajax({
+        type: "Get",
+        url: "/Admin/ModifyRolePermissions",
+        data: { "roleId": id, "menuIds": menuIds, "modifyName": name, "modifyDetails": details },
+        success: function (result) {
+            if (result == "True") {
+                OpenTipSuccess("修改成功", 3);
+            }
+        },
+        error: function () {
+            OpenTip("出错啦!", 1);
+        }
+    });
+}
+$(document).ready(function () {
+    $(".role-manage .permission-content .permission-item").bind("contextmenu", function (ev) {
+        var id = this.id;
+        var oEvent = event;
+        var oDiv = document.getElementById('click-menu');
+
+        $("#modify-role-id").val(id);
+
+        oDiv.style.display = 'block';
+
+        oDiv.style.left = oEvent.clientX + 'px';
+        oDiv.style.top = oEvent.clientY + 'px';
+
+        return false;
+    });
+})
+
+function DeletRole() {
+    var oDiv = document.getElementById('click-menu');
+    oDiv.style.display = 'none';
+
+    var roleId = $("#modify-role-id").val();
+    if (roleId == "" || /\s+/g.test(roleId)) {
+        return false;
+    }
+    $.ajax({
+        type: "Post",
+        url: "/Admin/DeletRoleByRoleId",
+        data: { "roleId": roleId },
+        success: function (result) {
+            if (result == "True") {
+                OpenTipSuccess("删除成功!", 1);
+                $(".role-manage .permission-content #" + roleId).remove();
+            }
+            else {
+                OpenTip("删除失败,未知错误", 3);
+            }
+        },
+        error: function () {
+            OpenTip("出错啦!", 1);
+        }
+    });
+
+}
+
+function ModifyRole() {
+    var oDiv = document.getElementById('click-menu');
+    oDiv.style.display = 'none';
+
+    var roleId = $("#modify-role-id").val();
+    if (roleId == "" || /\s+/g.test(roleId)) {
         return false;
     }
     $("#modify-role-id").val(roleId);
     $.ajax({
         type: "Get",
         url: "/Admin/GetRolePermissionsMenu",
+        data: { "roleId": roleId },
         datatype: "json",
         success: function (roleMenus) {
             InitZTreeMenu(roleMenus, "rolePermissions");
@@ -118,33 +203,7 @@ function ModifyRole(event) {
         }
     });
 }
-
-function ModifyRolePermissions() {
-    var name = $("#modifyName").val();
-    var id = $("#modify-role-id").val();
-
-    if (name == "" || /\s+/g.test(name)) {
-        Tip("角色名不能为空", "name");
-        return false;
-    }
-
-    var menuIds = GetZTreeCheckedId("rolePermissions");
-
-    $('#modifyRolePermissionsModal').modal('hide');
-
-    $.ajax({
-        type: "Get",
-        url: "/Admin/ModifyRolePermissions",
-        data: { "roleId": id, "menuIds": menuIds, "name": name },
-        success: function (result) {
-            if (result == "True") {
-                OpenTipSuccess("修改成功", 3);
-            }
-        },
-        error: function () {
-            OpenTip("出错啦!", 1);
-        }
-    });
-}
-
-$(".role-manage .permission-content .permission-item").click(ModifyRole(this));
+document.onclick = function () {
+    var clickDiv = document.getElementById('click-menu');
+    clickDiv.style.display = 'none';
+};

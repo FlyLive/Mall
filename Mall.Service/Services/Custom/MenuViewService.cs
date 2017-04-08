@@ -18,12 +18,11 @@ namespace Mall.Service.Services.Custom
 
             new CustomMenu { MenuId = 2,Name = "订单管理",Icon="fa fa-reorder",Url = "#",ParentId = 0 },
             new CustomMenu { MenuId = 7,Name = "所有订单",Icon="fa fa-reorder",Url = "/Order/AllOrders",ParentId = 2 },
-            new CustomMenu { MenuId = 8,Name = "回收站",Icon="fa fa-cny",Url = "/Order/Recycle",ParentId = 2 },
+            //new CustomMenu { MenuId = 8,Name = "回收站",Icon="fa fa-cny",Url = "/Order/Recycle",ParentId = 2 },
 
             new CustomMenu { MenuId = 3,Name = "售后",Icon="fa fa-support",Url = "#",ParentId = 0 },
             new CustomMenu { MenuId = 9,Name = "退款中心",Icon="fa fa-rmb",Url = "/Order/RefundCenter",ParentId = 3 },
             new CustomMenu { MenuId = 10,Name = "退货中心",Icon="fa fa-recycle",Url = "/Order/ReturnCenter",ParentId = 3 },
         };
-        public MenuViewService(){}
     }
 }

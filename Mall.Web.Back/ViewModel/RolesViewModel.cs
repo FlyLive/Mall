@@ -14,5 +14,6 @@ namespace Mall.Web.Back.ViewModel
         public DateTime CreationTime { get; set; }
         public bool Has { get; set; }
         public bool IsDefault { get; set; }
+        public string Details { get; set; }
     }
 }

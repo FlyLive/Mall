@@ -27,31 +27,19 @@ namespace Mall.Web.Front.Controllers
         }
 
         [HttpGet]
+        public int GetUnfinishedNumber()
+        {
+            CustomViewModel custom = (CustomViewModel)Session["Custom"];
+            int number = _orderService.GetUnfinishedOrderByCustomId(custom.CustomId);
+            return number;
+        }
+
+        [HttpGet]
         public ActionResult SearchOrderId(Guid orderId)
         {
             CustomViewModel customDTO = (CustomViewModel)Session["Custom"];
             Order order = _orderService.GetOrderById(customDTO.CustomId, orderId);
-            OrderViewModel orderDTO = order == null ? null : new OrderViewModel
-            {
-                OrderId = order.OrderId,
-                GoodsId = order.GoodsId,
-                CustomId = order.CustomId,
-                GoodsName = order.GoodsName,
-                Price = order.Price,
-                Freight = order.Freight,
-                Count = order.Count,
-                Totla = order.Totla,
-                Consignee = order.Consignee,
-                PhoneNumber = order.PhoneNumber,
-                DeliveryAddress = order.DeliveryAddress,
-                State = order.State,
-                CreateTime = order.CreateTime.ToString("yyyy-MM-dd HH-mm-ss"),
-                PaymentTime = order.PaymentTime == null ? order.PaymentTime.ToString() : "0000-00-00 00-00-00",
-                DeliveryTime = order.DeliveryTime == null ? order.DeliveryTime.ToString() : "0000-00-00 00-00-00",
-                IsDelete = order.IsDelete,
-                ClientRemark = order.CustomRemark,
-                OrderRemark = order.OrderRemark,
-            };
+            OrderViewModel orderDTO = order == null ? null : DataOrdersToDTO(new List<Order> { order }).ElementAt(0);
             return PartialView(orderDTO);
         }
 
@@ -61,11 +49,11 @@ namespace Mall.Web.Front.Controllers
         /// <param name="orderState"></param>
         /// <returns></returns>
         [HttpGet]
-        public ActionResult SearchOrderByState(int orderState,int page = 1,int pageSize = 10)
+        public ActionResult SearchOrderByState(int orderState, int page = 1, int pageSize = 5)
         {
             CustomViewModel custom = (CustomViewModel)Session["Custom"];
             List<Order> orders = _orderService.GetOrdersByState(custom.CustomId, orderState);
-            IPagedList<OrderViewModel> ordersDTO = DataOrdersToDTO(orders).ToPagedList(page,pageSize);
+            IPagedList<OrderViewModel> ordersDTO = DataOrdersToDTO(orders).ToPagedList(page, pageSize);
             return PartialView(ordersDTO);
         }
 
@@ -88,6 +76,11 @@ namespace Mall.Web.Front.Controllers
             if (custom == null)
             {
                 return RedirectToAction("Index", "Users");
+            }
+            if (_customService.GetAllDeliveryInfoByCustomId(custom.CustomId).Count == 0)
+            {
+                TempData["NoAddress"] = "NoAddress";
+                return RedirectToAction("AddressSet", "Custom");
             }
             GoodsInfo goods = _goodsService.GetGoodsByGoodsId(goodsId);
             ShoppingCartViewModel cartDTO = new ShoppingCartViewModel
@@ -131,15 +124,31 @@ namespace Mall.Web.Front.Controllers
         [HttpGet]
         public ActionResult ConfirmOrderFromCart(int[] goodsId)
         {
-            LoginTest();
             CustomViewModel custom = (CustomViewModel)Session["Custom"];
             if (custom == null)
             {
                 return RedirectToAction("Index", "Users");
             }
+            if (_customService.GetAllDeliveryInfoByCustomId(custom.CustomId).Count == 0)
+            {
+                TempData["NoAddress"] = "NoAddress";
+                return RedirectToAction("AddressSet", "Custom");
+            }
             List<ShoppingCart> cart = _customService.GetCartByCustomIdAndGoodsId(custom.CustomId, goodsId);
             List<ShoppingCartViewModel> cartDTO = CustomController.DataCartToDTO(cart);
             return View(cartDTO);
+        }
+
+        [HttpPost]
+        public bool CancelOrder(Guid orderId)
+        {
+            CustomViewModel custom = (CustomViewModel)Session["Custom"];
+            if (custom == null)
+            {
+                return false;
+            }
+            var result = _orderService.CancleOrderByOrderId(orderId);
+            return result;
         }
 
         /// <summary>
@@ -204,22 +213,6 @@ namespace Mall.Web.Front.Controllers
             Order order = _orderService.GetOrderById(custom.CustomId, orderId);
             OrderViewModel orderDTO = DataOrdersToDTO(new List<Order> { order }).ElementAt(0);
             return View(orderDTO);
-        }
-
-        public void LoginTest()
-        {
-            Custom custom = _customService.Login("Blank", "654321");
-            CustomViewModel customDTO = new CustomViewModel
-            {
-                CustomId = custom.CustomId,
-                UserId = custom.UserId,
-                Wallet = custom.Wallet,
-                PayPassword = custom.PayPassword,
-                MaxAddressNumber = custom.MaxAddressNumber,
-            };
-            UserViewModel userDTO = CustomController.DataUserToDTO(custom.User);
-            Session.Add("Custom", customDTO);
-            Session.Add("User", userDTO);
         }
 
         public static List<OrderViewModel> DataOrdersToDTO(List<Order> orders)

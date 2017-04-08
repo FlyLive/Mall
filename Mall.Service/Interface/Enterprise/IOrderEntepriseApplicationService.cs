@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Mall.Interface.Enterprise
 {
-    public interface IOrderEntepriseApplicationData
+    public interface IOrderEntepriseApplicationService
     {
         /// <summary>
         /// 接受订单
@@ -33,11 +33,11 @@ namespace Mall.Interface.Enterprise
         /// 同意退货
         /// </summary>
         /// <param name="orderId">订单Id</param>
-        void AgreeReturnByOrderId(int employeeId, Guid orderId);
+        bool AgreeReturnByOrderId(int employeeId, Guid orderId);
         /// <summary>
         /// 拒绝退货
         /// </summary>
         /// <param name="orderId">订单Id</param>
-        void RefuseReturnByOrderId(int employeeId, Guid orderId);
+        bool RefuseReturnByOrderId(int employeeId, Guid orderId);
     }
 }

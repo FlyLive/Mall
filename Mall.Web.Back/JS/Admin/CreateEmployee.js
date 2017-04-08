@@ -51,6 +51,11 @@ function CreateEmployee() {
         return false;
     }
     else {
+        $(function () {
+            $('#manageConfirmModal').modal({
+                keyboard: true
+            })
+        });
         SubmitCreate();
     }
 }

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Mall.Service.Services.Enterprise
 {
-    public class GoodsService : IDisposable, IGoodsApplicationData
+    public class GoodsService : IDisposable, IGoodsApplicationService
     {
         private MallDBContext _db;
 
@@ -129,7 +129,7 @@ namespace Mall.Service.Services.Enterprise
         /// <param name="author"></param>
         /// <param name="press"></param>
         /// <returns></returns>
-        public int CreateGoods(int employeeId,string name, int count,
+        public int CreateGoods(int employeeId, string name, int count,
             double price, string detail,
             double? freight, DateTime? publicationDate,
             string author = null, string press = null)
@@ -146,9 +146,10 @@ namespace Mall.Service.Services.Enterprise
                     State = (int)StateOfGoods.State.OffShelves,
                     IsDelete = false,
                     CommentNumber = 0,
+                    SalesNumber = 0,
                     CreateTime = DateTime.Now,
 
-                    freight = freight == null ? 0.00 : (double)freight,
+                    Freight = freight == null ? 0.00 : (double)freight,
                     PublicationDate = publicationDate,
                     Author = author,
                     Press = press,
@@ -170,6 +171,7 @@ namespace Mall.Service.Services.Enterprise
             }
             catch (Exception e)
             {
+                Console.Out.Write(e);
                 return -1;
             }
         }
@@ -177,7 +179,7 @@ namespace Mall.Service.Services.Enterprise
         public bool IsImageFull(int goodsId)
         {
             var imgs = GetImgsByGoodsId(goodsId);
-            if(imgs.Count >= 5)
+            if (imgs.Count >= 5)
             {
                 return true;
             }
@@ -189,25 +191,43 @@ namespace Mall.Service.Services.Enterprise
         /// </summary>
         /// <param name="goodsId"></param>
         /// <param name="path"></param>
-        public void AddGoodsImage(int goodsId,string path)
+        public bool AddGoodsImage(int goodsId, string path)
         {
-            _db.Image.Add(new Image
+            try
             {
-                GoodsId = goodsId,
-                ImageSrc = "http://localhost:9826/" + path,
-            });
-            _db.SaveChanges();
+                _db.Image.Add(new Image
+                {
+                    GoodsId = goodsId,
+                    ImageSrc = "http://localhost:9826/" + path,
+                });
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.Out.Write(e);
+                return false;
+            }
         }
 
         /// <summary>
         /// 删除商品图片
         /// </summary>
         /// <param name="imageId"></param>
-        public void DeletGoodsImage(int[] imageId)
+        public bool DeletGoodsImage(int[] imageId)
         {
-            List<Image> imgs = _db.Image.Where(i => imageId.Any(ii => ii == i.ImageId)).ToList();
-            _db.Image.RemoveRange(imgs);
-            _db.SaveChanges();
+            try
+            {
+                List<Image> imgs = _db.Image.Where(i => imageId.Any(ii => ii == i.ImageId)).ToList();
+                _db.Image.RemoveRange(imgs);
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.Out.Write(e);
+                return false;
+            }
         }
 
         /// <summary>
@@ -215,59 +235,76 @@ namespace Mall.Service.Services.Enterprise
         /// </summary>
         /// <param name="goodsId">商品Id</param>
         /// <returns>删除成功/失败</returns>
-        public bool DeleteByGoodsId(int employeeId,int goodsId)
+        public bool DeleteByGoodsId(int employeeId, int goodsId)
         {
-            Employee employee = _db.Employee.SingleOrDefault(e => e.EmployeeId == employeeId);
-            GoodsInfo good = GetGoodsByGoodsId(goodsId);
-            if (good.State == 2)
+            try
             {
-                good.State = (int)StateOfGoods.State.Delet;
-                _db.AdminLog.Add(new AdminLog
+                Employee employee = _db.Employee.SingleOrDefault(e => e.EmployeeId == employeeId);
+                GoodsInfo good = GetGoodsByGoodsId(goodsId);
+                if (good.State == 2)
                 {
-                    EmployeeId = employee.EmployeeId,
-                    Permission = "商品进货(NewStorage)",
-                    OperationTime = DateTime.Now,
-                    OperatDetail = "员工" + employee.User.RealName + "于" + DateTime.Now + "删除商品:" + good.GoodsName + "商品Id为:" + good.GoodsId,
-                    Operater = employee.User.RealName,
-                    Object = "商品状态",
-                    Style = "修改",
-                });
+                    good.State = (int)StateOfGoods.State.Delet;
+                    _db.AdminLog.Add(new AdminLog
+                    {
+                        EmployeeId = employee.EmployeeId,
+                        Permission = "商品进货(NewStorage)",
+                        OperationTime = DateTime.Now,
+                        OperatDetail = "员工" + employee.User.RealName + "于" + DateTime.Now + "删除商品:" + good.GoodsName + "商品Id为:" + good.GoodsId,
+                        Operater = employee.User.RealName,
+                        Object = "商品状态",
+                        Style = "修改",
+                    });
 
-                _db.SaveChanges();
-                return true;
+                    _db.SaveChanges();
+                    return true;
+                }
+                return false;
             }
-            return false;
+            catch (Exception e)
+            {
+                Console.Out.Write(e);
+                return false;
+            }
         }
 
         /// <summary>
         /// 修改商品信息
         /// </summary>
         /// <param name="good"></param>
-        public void ModifyGoodsInfo(int employeeId,int goodsId, string name, double price,
-            string detail, DateTime? publicationDate, double ? freight,
+        public bool ModifyGoodsInfo(int employeeId, int goodsId, string name, double price,
+            string detail, DateTime? publicationDate, double? freight,
             string author = null, string press = null)
         {
-            Employee employee = _db.Employee.SingleOrDefault(e => e.EmployeeId == employeeId);
-            GoodsInfo good = GetGoodsByGoodsId(goodsId);
-            good.GoodsName = name;
-            good.Price = price;
-            good.Details = detail;
-            good.PublicationDate = publicationDate;
-            good.freight = freight == null ? 0.00 : (double)freight;
-            good.Author = author;
-            good.Press = press;
-            _db.AdminLog.Add(new AdminLog
+            try
             {
-                EmployeeId = employee.EmployeeId,
-                Permission = "商品编辑(ModifyGoods)",
-                OperationTime = DateTime.Now,
-                OperatDetail = "员工" + employee.User.RealName + "于" + DateTime.Now + "对商品:" + good.GoodsName + "修改信息" + "商品Id为:" + good.GoodsId,
-                Operater = employee.User.RealName,
-                Object = "商品信息",
-                Style = "修改",
-            });
+                Employee employee = _db.Employee.SingleOrDefault(e => e.EmployeeId == employeeId);
+                GoodsInfo good = GetGoodsByGoodsId(goodsId);
+                good.GoodsName = name;
+                good.Price = price;
+                good.Details = detail;
+                good.PublicationDate = publicationDate;
+                good.Freight = freight == null ? 0.00 : (double)freight;
+                good.Author = author;
+                good.Press = press;
+                _db.AdminLog.Add(new AdminLog
+                {
+                    EmployeeId = employee.EmployeeId,
+                    Permission = "商品编辑(ModifyGoods)",
+                    OperationTime = DateTime.Now,
+                    OperatDetail = "员工" + employee.User.RealName + "于" + DateTime.Now + "对商品:" + good.GoodsName + "修改信息" + "商品Id为:" + good.GoodsId,
+                    Operater = employee.User.RealName,
+                    Object = "商品信息",
+                    Style = "修改",
+                });
 
-            _db.SaveChanges();
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.Out.Write(e);
+                return false;
+            }
         }
 
         /// <summary>
@@ -275,23 +312,32 @@ namespace Mall.Service.Services.Enterprise
         /// </summary>
         /// <param name="goodsId">商品Id</param>
         /// <param name="stock">库存</param>
-        public void ModifyGoodsStockByGoodsId(int employeeId,int goodsId, int stock)
+        public bool ModifyGoodsStockByGoodsId(int employeeId, int goodsId, int stock)
         {
-            Employee employee = _db.Employee.SingleOrDefault(e => e.EmployeeId == employeeId);
-            GoodsInfo good = GetGoodsByGoodsId(goodsId);
-            good.Stock += stock;
-            _db.AdminLog.Add(new AdminLog
+            try
             {
-                EmployeeId = employee.EmployeeId,
-                Permission = "商品上架(NewStorage)",
-                OperationTime = DateTime.Now,
-                OperatDetail = "员工" + employee.User.RealName + "于" + DateTime.Now + "对商品:" + good.GoodsName + "进货" + "商品Id为:" + good.GoodsId + "数量为:" + stock,
-                Operater = employee.User.RealName,
-                Object = "商品库存",
-                Style = "进货",
-            });
+                Employee employee = _db.Employee.SingleOrDefault(e => e.EmployeeId == employeeId);
+                GoodsInfo good = GetGoodsByGoodsId(goodsId);
+                good.Stock += stock;
+                _db.AdminLog.Add(new AdminLog
+                {
+                    EmployeeId = employee.EmployeeId,
+                    Permission = "商品上架(NewStorage)",
+                    OperationTime = DateTime.Now,
+                    OperatDetail = "员工" + employee.User.RealName + "于" + DateTime.Now + "对商品:" + good.GoodsName + "进货" + "商品Id为:" + good.GoodsId + "数量为:" + stock,
+                    Operater = employee.User.RealName,
+                    Object = "商品库存",
+                    Style = "进货",
+                });
 
-            _db.SaveChanges();
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.Out.Write(e);
+                return false;
+            }
         }
 
         /// <summary>
@@ -299,45 +345,19 @@ namespace Mall.Service.Services.Enterprise
         /// </summary>
         /// <param name="goodsId">商品Id</param>
         /// <returns></returns>
-        public bool OffShelvesByGoodsId(int employeeId,int goodsId)
+        public bool OffShelvesByGoodsId(int employeeId, int goodsId)
         {
-            Employee employee = _db.Employee.SingleOrDefault(e => e.EmployeeId == employeeId);
-            GoodsInfo good = GetGoodsByGoodsId(goodsId);
-            good.State = 2;
-            _db.AdminLog.Add(new AdminLog
+            try
             {
-                EmployeeId = employee.EmployeeId,
-                Permission = "商品下架(OffShelves)",
-                OperationTime = DateTime.Now,
-                OperatDetail = "员工" + employee.User.RealName + "于" + DateTime.Now + "将商品:" + good.GoodsName + "下架停售" + "商品Id为:" + good.GoodsId,
-                Operater = employee.User.RealName,
-                Object = "商品状态",
-                Style = "修改",
-            });
-
-            _db.SaveChanges();
-
-            return true;
-        }
-
-        /// <summary>
-        /// 根据商品Id将商品上架
-        /// </summary>
-        /// <param name="goodsId"></param>
-        /// <returns></returns>
-        public bool OnShelvesByGoodsId(int employeeId,int goodsId)
-        {
-            Employee employee = _db.Employee.SingleOrDefault(e => e.EmployeeId == employeeId);
-            GoodsInfo good = GetGoodsByGoodsId(goodsId);
-            if (good.Stock != 0)
-            {
-                good.State = 1;
+                Employee employee = _db.Employee.SingleOrDefault(e => e.EmployeeId == employeeId);
+                GoodsInfo good = GetGoodsByGoodsId(goodsId);
+                good.State = 2;
                 _db.AdminLog.Add(new AdminLog
                 {
                     EmployeeId = employee.EmployeeId,
-                    Permission = "商品上架(OnShelves)",
+                    Permission = "商品下架(OffShelves)",
                     OperationTime = DateTime.Now,
-                    OperatDetail = "员工" + employee.User.RealName + "于" + DateTime.Now + "将商品:" + good.GoodsName + "上架销售" + "商品Id为:" + good.GoodsId,
+                    OperatDetail = "员工" + employee.User.RealName + "于" + DateTime.Now + "将商品:" + good.GoodsName + "下架停售" + "商品Id为:" + good.GoodsId,
                     Operater = employee.User.RealName,
                     Object = "商品状态",
                     Style = "修改",
@@ -346,7 +366,48 @@ namespace Mall.Service.Services.Enterprise
                 _db.SaveChanges();
                 return true;
             }
-            return false;
+            catch (Exception e)
+            {
+                Console.Out.Write(e);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 根据商品Id将商品上架
+        /// </summary>
+        /// <param name="goodsId"></param>
+        /// <returns></returns>
+        public bool OnShelvesByGoodsId(int employeeId, int goodsId)
+        {
+            try
+            {
+                Employee employee = _db.Employee.SingleOrDefault(e => e.EmployeeId == employeeId);
+                GoodsInfo good = GetGoodsByGoodsId(goodsId);
+                if (good.Stock != 0)
+                {
+                    good.State = 1;
+                    _db.AdminLog.Add(new AdminLog
+                    {
+                        EmployeeId = employee.EmployeeId,
+                        Permission = "商品上架(OnShelves)",
+                        OperationTime = DateTime.Now,
+                        OperatDetail = "员工" + employee.User.RealName + "于" + DateTime.Now + "将商品:" + good.GoodsName + "上架销售" + "商品Id为:" + good.GoodsId,
+                        Operater = employee.User.RealName,
+                        Object = "商品状态",
+                        Style = "修改",
+                    });
+
+                    _db.SaveChanges();
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception e)
+            {
+                Console.Out.Write(e);
+                return false;
+            }
         }
 
         public void Dispose()

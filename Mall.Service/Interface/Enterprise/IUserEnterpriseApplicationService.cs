@@ -6,20 +6,20 @@ using System.Threading.Tasks;
 
 namespace Mall.Interface.Enterprise
 {
-    public interface IUserEnterpriseApplicationData
+    public interface IUserEnterpriseApplicationService
     {
         /// <summary>
         /// 设置角色
         /// </summary>
         /// <param name="employeeId">用户Id</param>
         /// <param name="roleIds">角色Ids</param>
-        bool ModifyRolesById(int employeeId, int[] roleIds);
+        bool ModifyRolesById(int actionEmployeeId,int employeeId, int[] roleIds);
         /// <summary>
         /// 设置权限
         /// </summary>
-        /// <param name="userId">用户Id</param>
+        /// <param name="employeeId">用户Id</param>
         /// <param name="permissionIds">权限Ids</param>
-        void SetPermissionsToEmployee(int userId, int[] permissionIds);
+        bool SetPermissionsToEmployee(int actionEmployeeId,int employeeId, int[] permissionIds);
         /// <summary>
         /// 创建管理员
         /// </summary>
@@ -33,7 +33,7 @@ namespace Mall.Interface.Enterprise
         /// <param name="email"></param>
         /// <param name="menuIds"></param>
         /// <returns></returns>
-        bool CreateEmployee(string account, string logPassword, string email,
+        bool CreateEmployee(int employeeId,string account, string logPassword, string email,
                 DateTime? birthday, bool gender = true, string nick = null,
                 string managePassword = null, string phoneNumber = null
                 , int[] menuIds = null);
@@ -41,24 +41,24 @@ namespace Mall.Interface.Enterprise
         /// 删除员工
         /// </summary>
         /// <param name="employeeId">员工Id</param>
-        void DeleteEmployeeByEmployeeId(int employeeId);
+        bool DeleteEmployeeByEmployeeId(int actionEmployeeId,int employeeId);
         /// <summary>
         /// 创建角色
         /// </summary>
         /// <param name="roleName">角色名</param>
         /// <param name="permissions">权限Ids</param>
-        void CreateRole(string roleName, int[] permissionIds);
+        bool CreateRole(int employeeId,string roleName,string roleDetails, int[] permissionIds);
         /// <summary>
         /// 修改角色
         /// </summary>
         /// <param name="roleId">角色Id</param>
         /// <param name="roleName">角色名</param>
         /// <param name="permissionIds">权限Ids</param>
-        void ModifyRoleByRoleId(int roleId, string roleName, int[] permissionIds);
+        bool ModifyRoleByRoleId(int employeeId,int roleId,  int[] permissionIds,string roleName,string roleDetails);
         /// <summary>
         /// 删除角色
         /// </summary>
         /// <param name="roleId">角色Id</param>
-        void DeleteRoleByRoleId(int roleId);
+        bool DeleteRoleByRoleId(int employeeId,int roleId);
     }
 }

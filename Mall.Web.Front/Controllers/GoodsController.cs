@@ -111,16 +111,15 @@ namespace Mall.Web.Front.Controllers
         /// <param name="page"></param>
         /// <param name="pageSize"></param>
         /// <returns></returns>
-        public ActionResult SearchResult(string searchName,int page = 1,int pageSize = 2)
+        [HttpGet]
+        public ActionResult Search(string searchName)
         {
             List<GoodsInfo> goods = _goodsService.GetAllGoods()
                 .Where(g => g.GoodsName.Contains(searchName)).ToList();
             List<GoodsInfoViewModel> goodsDTO = new List<GoodsInfoViewModel>();
-            goods.ForEach(g => goodsDTO.Add(DataGoodToDTO(g)));
+            goods.ForEach(g => goodsDTO.Add(DataGoodToDTO(g)));;
 
-            IPagedList<GoodsInfoViewModel> pagedGoods = goodsDTO.ToPagedList(page, pageSize);
-
-            return View(pagedGoods);
+            return View(goodsDTO);
         }
 
         public static GoodsInfoViewModel DataGoodToDTO(GoodsInfo g)
@@ -143,7 +142,7 @@ namespace Mall.Web.Front.Controllers
                 Author = g.Author,
                 Press = g.Press,
                 PublicationDate = g.PublicationDate == null ? "0000-00-00" : g.PublicationDate.Value.ToString("yyyy-MM-dd"),
-                freight = g.freight,
+                freight = g.Freight,
             };
             return goodDTO;
         }

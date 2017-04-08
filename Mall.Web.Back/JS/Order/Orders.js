@@ -28,7 +28,7 @@ function AcceptOrder(id) {
                         success: function (result) {
                             if (result == "True") {
                                 OpenTipSuccess("已接受订单，等待发货!", 2);
-                                location.reload();
+                                $("#" + orderId).remove();
                             }
                             else {
                                 OpenTip("请求未能提交!", 1);
@@ -43,8 +43,9 @@ function AcceptOrder(id) {
                     layer.msg("已取消");
                 }
             });
+            $("#manageConfirm").unbind();
         }
-    })
+    });
 }
 
 //同意发货
@@ -68,7 +69,7 @@ function ConfirmDelivery(id) {
                         success: function (result) {
                             if (result == "True") {
                                 OpenTipSuccess("已发货!", 2);
-                                location.reload();
+                                $("#" + orderId).remove();
                             }
                             else {
                                 OpenTip("请求未能提交!", 1);
@@ -84,6 +85,7 @@ function ConfirmDelivery(id) {
                     layer.msg("已取消");
                 }
             });
+            $("#manageConfirm").unbind();
         }
     });
 }
@@ -108,7 +110,7 @@ function AcceptRefund(id) {
                         success: function (result) {
                             if (result == "True") {
                                 OpenTipSuccess("已同意退款!", 2);
-                                location.reload();
+                                $("#" + id).remove();
                             }
                             else {
                                 OpenTip("请求未能提交!", 1);
@@ -123,6 +125,47 @@ function AcceptRefund(id) {
                     layer.msg("已取消");
                 }
             });
+            $("#manageConfirm").unbind();
+        }
+    });
+}
+
+//确认退货成功
+function ConfirmReturn(id) {
+    Init(id);
+    $("#manageConfirm").click(function () {
+        if (ManageConfirm() == "True") {
+            $('#manageConfirmModal').modal('hide');
+            $("#managePassword").val("");
+
+            layer.msg('同意退货？', {
+                time: 20000, //20s后自动关闭
+                btn: ['同意退货', '再等一下'],
+                btn1: function () {
+                    $.ajax({
+                        type: "POST",
+                        url: "/Order/ConfirmReturn",
+                        data: { "orderId": id },
+                        async: false,
+                        success: function (result) {
+                            if (result == "True") {
+                                OpenTipSuccess("已成功退货!", 2);
+                                $("#" + id).remove();
+                            }
+                            else {
+                                OpenTip("请求未能提交!", 1);
+                            }
+                        },
+                        error: function () {
+                            OpenTip("出错啦!", 2);
+                            return false;
+                        }
+                    });
+                }, btn2: function () {
+                    layer.msg("已取消");
+                }
+            });
+            $("#manageConfirm").unbind();
         }
     });
 }
@@ -147,7 +190,7 @@ function AcceptReturn(id) {
                         success: function (result) {
                             if (result == "True") {
                                 OpenTipSuccess("已同意退货!", 2);
-                                location.reload();
+                                $("#" + id).remove();
                             }
                             else {
                                 OpenTip("请求未能提交!", 1);
@@ -162,6 +205,7 @@ function AcceptReturn(id) {
                     layer.msg("已取消");
                 }
             });
+            $("#manageConfirm").unbind();
         }
     });
 }
@@ -186,7 +230,7 @@ function RefuseReturn(id) {
                         success: function (result) {
                             if (result == "True") {
                                 OpenTipSuccess("已同意退货!", 2);
-                                location.reload();
+                                $("#" + id).remove();
                             }
                             else {
                                 OpenTip("请求未能提交!", 1);
@@ -201,6 +245,7 @@ function RefuseReturn(id) {
                     layer.msg("已取消");
                 }
             });
+            $("#manageConfirm").unbind();
         }
     });
 }
@@ -215,7 +260,7 @@ function ModifyRemark(id) {
     $("#orderId").val(id);
 }
 
-//提交修改评价
+//提交修改备注
 function SubmitRemark() {
     $('#modifyRemarkModal').modal('hide');
     var text = $("#modify_remark").val();
@@ -225,7 +270,7 @@ function SubmitRemark() {
         if (ManageConfirm() == "True") {
             $('#manageConfirmModal').modal('hide');
             $("#managePassword").val("");
-            
+
             layer.msg('确认修改？', {
                 time: 20000, //20s后自动关闭
                 btn: ['确认', '再等一下'],
@@ -237,7 +282,7 @@ function SubmitRemark() {
                         success: function (result) {
                             if (result == "True") {
                                 OpenTipSuccess("已修改!", 2);
-                                location.reload();
+                                $("#" + id + "#order-remark").text(text);
                             }
                             else {
                                 OpenTip("请求未能提交!", 1);
@@ -251,6 +296,7 @@ function SubmitRemark() {
                     layer.msg("已取消");
                 }
             });
+            $("#manageConfirm").unbind();
         }
     });
 }

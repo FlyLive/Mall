@@ -21,7 +21,7 @@
             <div class="order-list-contorl">
                 每页 @Model.PageSize 条记录,共 @Model.Count 条记录,共 @Model.PageCount 页,当前第 @Model.PageNumber 页
                 <div class="list-contorl-button">
-                    @Html.PagedListPager(Model, page => Url.Action("AllOrders", new { page }))
+                    @Html.PagedListPager(Model, page => Url.Action("FinishedOrder", new { page }))
                 </div>
             </div>
         </div>
@@ -34,6 +34,4 @@
 }
 @section scripts{
     @Scripts.Render("~/JS/Order/Orders.js")
-    @Scripts.Render("~/JS/Shared/ManageConfirm.js")
-    @Scripts.Render("~/JS/Shared/layer_open_tip.js")
 }

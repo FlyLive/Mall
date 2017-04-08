@@ -26,11 +26,13 @@ namespace Mall.Service.DataBase
         public int GoodsId { get; set; }
         public string GoodsName { get; set; }
         public double Price { get; set; }
-        public int Stock { get; set; }
+        public double Freight { get; set; }
         public string Details { get; set; }
+        public int Stock { get; set; }
+        public int State { get; set; }
+        public Nullable<int> SalesNumber { get; set; }
         public string Category { get; set; }
         public int CommentNumber { get; set; }
-        public int State { get; set; }
         public System.DateTime CreateTime { get; set; }
         public Nullable<System.DateTime> ShelfTime { get; set; }
         public Nullable<System.DateTime> UnderShelfTime { get; set; }
@@ -38,7 +40,6 @@ namespace Mall.Service.DataBase
         public string Author { get; set; }
         public string Press { get; set; }
         public Nullable<System.DateTime> PublicationDate { get; set; }
-        public double freight { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comment { get; set; }

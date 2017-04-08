@@ -1,5 +1,6 @@
 ﻿function ConfirmLP() {
     var logPassword = $("#log_password").val();
+    $("#log_password").val("");
     if (logPassword == "" || /\s+/g.test(logPassword)) {
         Tip("密码不能为空，请重试!", "log_password");
         return false;
@@ -7,9 +8,8 @@
     else {
         $.ajax({
             type: 'Get',
-            url: 'ConfirmLP',
-            Data: { 'log_password': logPassword },
-            Datatype: Boolean,
+            url: '/Admin/ConfirmLP',
+            data: { 'log_password': logPassword },
             success: function (result) {
                 if (result == 'True') {
                     $(function () {
@@ -31,6 +31,7 @@
 
 function ConfirmMP() {
     var managePassword = $("#manage_password").val();
+    $("#manage_password").val("");
     if (managePassword == "" || /\s+/g.test(managePassword)) {
         Tip("密码不能为空，请重试!","manage_password");
         return false;
@@ -38,9 +39,8 @@ function ConfirmMP() {
     else {
         $.ajax({
             type: "Get",
-            url: "ConfirmMP",
-            Data: { "manage_password": managePassword },
-            Datatype: Boolean,
+            url: "/Admin/ConfirmMP",
+            data: { "manage_password": managePassword },
             success: function (result) {
                 if (result == "True") {
                     $(function () {
@@ -79,14 +79,13 @@ function ModifyMP() {
     if (Confirm(firstPP, secondePP)) {
         $.ajax({
             type: "Get",
-            url: "ModifyMP",
-            Data: { "manage_password": managePassword },
-            Datatype: Boolean,
+            url: "/Admin/ModifyMP",
+            data: { "manage_password": managePassword },
             success: function (result) {
                 if (result == "True") {
-                    $(function () {
-                        $('#modifyMPModal').modal('hide');
-                    });
+                    $("#modify_manage_password").val("");
+                    $("#re_manage_password").val("");
+                    $('#modifyMPModal').modal('hide');
                 }
                 else {
                     OpenTip("修改失败!");

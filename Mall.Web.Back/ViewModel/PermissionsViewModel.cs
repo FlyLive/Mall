@@ -12,7 +12,9 @@ namespace Mall.Web.Back.ViewModel
         public int ParentId { get; set; }
         public string Name { get; set; }
         public string Code { get; set; }
+        public DateTime CreationTime { get; set; }
         public bool Has { get; set; }
         public bool IsDefault { get; set; }
+        public string Details { get; set; }
     }
 }

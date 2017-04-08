@@ -46,10 +46,10 @@
 @section scripts{
     @Scripts.Render("~/JS/Custom/AddressSet.js")
     @Scripts.Render("~/JS/Custom/AddressAlready.js")
-    @Scripts.Render("~/JS/Shared/layer_open_tip.js")
 }
 @{
     var create = TempData["Create"];
+    var address = TempData["NoAddress"];
     if (create != null)
     {
         if (create.Equals("success"))
@@ -62,6 +62,20 @@
                 });
             </script>
             TempData["Create"] = null;
+        }
+    }
+    if (address != null)
+    {
+        if (address.Equals("NoAddress"))
+        {
+            <script>
+                layer.open({
+                    title: '提示',
+                    content: '请先创建收货地址再购物',
+                    icon:6,
+                });
+            </script>
+            TempData["NoAddress"] = null;
         }
     }
 }

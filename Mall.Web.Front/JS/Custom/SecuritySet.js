@@ -5,6 +5,7 @@
         return false;
     }
     else {
+        $("#input_log_password").val("");
         $.ajax({
             type: 'Get',
             url: '/Custom/ConfirmLP',
@@ -36,6 +37,7 @@ function ConfirmPP() {
         return false;
     }
     else {
+        $("#input_pay_password").val("");
         var result = $.ajax({
             type: "Get",
             url: "/Custom/ConfirmPP",
@@ -86,7 +88,9 @@ function ChangePP() {
     var firstPP = $("#pay_password").val();
     var secondePP = $("#re_pay_password").val();
 
-    if (Confirm(oldPP,firstPP, secondePP)) {
+    if (Confirm(oldPP, firstPP, secondePP)) {
+        $("#pay_password").val("");
+        $("#re_pay_password").val("");
         $.ajax({
             type: "Get",
             url: "/Custom/ModifyPP",

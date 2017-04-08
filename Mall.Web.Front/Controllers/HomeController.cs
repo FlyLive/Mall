@@ -96,7 +96,7 @@ namespace Mall.Web.Front.Controllers
                     Author = g.Author,
                     Press = g.Press,
                     PublicationDate = g.PublicationDate == null ? "0000-00-00" : g.PublicationDate.Value.ToString("yyyy-MM-dd"),
-                    freight = g.freight,
+                    freight = g.Freight,
                 }).ToList();
             return goodsDTO;
         }

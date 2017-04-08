@@ -49,7 +49,6 @@ namespace Mall.Web.Front.Controllers
         /// <returns></returns>
         public ActionResult PersonalInfo()
         {
-            LoginTest();
             UserViewModel user = (UserViewModel)Session["User"];
             if (user == null)
             {
@@ -66,18 +65,25 @@ namespace Mall.Web.Front.Controllers
             {
                 return RedirectToAction("Index", "Users");
             }
-            _customService.ModifyUserInfo(custom.CustomId, email, birthday, nick, name, phone, gender);
-            TempData["ModifyInfo"] = "success";
-
+            var result = _customService.ModifyUserInfo(custom.CustomId, email, birthday, nick, name, phone, gender);
+            if (result)
+            {
+                TempData["ModifyInfo"] = "success";
+            }
             return RedirectToAction("PersonalInfo");
         }
 
         [HttpPost]
-        public string ModifyPhoto(string imgBase)
+        public bool ModifyPhoto(string imgBase)
         {
             CustomViewModel custom = (CustomViewModel)Session["Custom"];
             var path = _customService.ModifyPhoto(custom.CustomId, imgBase);
-            return path;
+            if (path != null)
+            {
+                ((UserViewModel)Session["User"]).Photo = path;
+                return true;
+            }
+            return false;
         }
         #endregion
 
@@ -88,7 +94,6 @@ namespace Mall.Web.Front.Controllers
         /// <returns></returns>
         public ActionResult ShoppingCart()
         {
-            LoginTest();
             CustomViewModel custom = (CustomViewModel)Session["Custom"];
             if (custom != null)
             {
@@ -96,7 +101,27 @@ namespace Mall.Web.Front.Controllers
                 List<ShoppingCartViewModel> cartsDTO = DataCartToDTO(carts);
                 return View(cartsDTO);
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Users");
+        }
+
+        [HttpGet]
+        public int GetCartNumber()
+        {
+            CustomViewModel custom = (CustomViewModel)Session["Custom"];
+            int cartNumber = _customService.GetCartNumberByCustomId(custom.CustomId);
+            return cartNumber;
+        }
+
+        [HttpPost]
+        public double GetSelectedMoney(int[] goodIds)
+        {
+            CustomViewModel custom = (CustomViewModel)Session["Custom"];
+            double totlaMoney = 0;
+            if (goodIds.Length != 0 && custom != null)
+            {
+                totlaMoney = _customService.GetTotlaMoneyById(custom.CustomId, goodIds);
+            }
+            return totlaMoney;
         }
 
         [HttpPost]
@@ -120,10 +145,11 @@ namespace Mall.Web.Front.Controllers
         }
 
         [HttpGet]
-        public ActionResult SearchGoodFromCart(string searchName)
+        public ActionResult SearchGoodFromCart(string searchName = "")
         {
             CustomViewModel customDTO = (CustomViewModel)Session["Custom"];
-            List<ShoppingCartViewModel> cartsDTO = new List<ShoppingCartViewModel>();
+            List<ShoppingCart> carts = _customService.GetCartByCustomId(customDTO.CustomId);
+            List<ShoppingCartViewModel> cartsDTO = DataCartToDTO(carts).Where(c => c.Goods.GoodsName.Contains(searchName)).ToList();
             return PartialView(cartsDTO);
         }
 
@@ -358,6 +384,11 @@ namespace Mall.Web.Front.Controllers
             return result;
         }
 
+        /// <summary>
+        /// 申请退款
+        /// </summary>
+        /// <param name="orderId"></param>
+        /// <returns></returns>
         [HttpPost]
         public bool ApplyRefund(Guid orderId)
         {
@@ -365,14 +396,20 @@ namespace Mall.Web.Front.Controllers
             return result;
         }
 
+        /// <summary>
+        /// 申请退货
+        /// </summary>
+        /// <param name="orderId"></param>
+        /// <returns></returns>
         [HttpPost]
         public bool ApplReturn(Guid orderId)
         {
             var result = _orderService.ApplyReturnByOrderId(orderId);
             return result;
         }
+
         /// <summary>
-        /// 评价
+        /// 评价(View)
         /// </summary>
         /// <returns></returns>
         [HttpGet]
@@ -388,34 +425,31 @@ namespace Mall.Web.Front.Controllers
             return View(orderDTO);
         }
 
+        /// <summary>
+        /// 评价(Action)
+        /// </summary>
+        /// <param name="orderId"></param>
+        /// <param name="evaluateContent"></param>
+        /// <returns></returns>
         [HttpPost]
-        public ActionResult Evaluate(Guid orderId, string evaluateContent)
+        public ActionResult Evaluate(Guid orderId, string evaluateContent = null)
         {
             CustomViewModel custom = (CustomViewModel)Session["Custom"];
             if (custom == null)
             {
                 return RedirectToAction("Index", "Users");
             }
-            _orderService.EvaluateOrder(custom.CustomId, orderId, evaluateContent);
-            return RedirectToAction("AllOrders", "Order");
+            var result = _orderService.EvaluateOrder(custom.CustomId, orderId, evaluateContent);
+            if (result)
+            {
+                return RedirectToAction("AllOrders", "Order");
+            }
+            else
+            {
+                return new EmptyResult();
+            }
         }
         #endregion
-
-        public void LoginTest()
-        {
-            Custom custom = _customService.Login("Blank", "654321");
-            CustomViewModel customDTO = new CustomViewModel
-            {
-                CustomId = custom.CustomId,
-                UserId = custom.UserId,
-                Wallet = custom.Wallet,
-                PayPassword = custom.PayPassword,
-                MaxAddressNumber = custom.MaxAddressNumber,
-            };
-            UserViewModel userDTO = CustomController.DataUserToDTO(custom.User);
-            Session.Add("Custom", customDTO);
-            Session.Add("User", userDTO);
-        }
 
         public static List<ShoppingCartViewModel> DataCartToDTO(List<ShoppingCart> carts)
         {
@@ -440,8 +474,8 @@ namespace Mall.Web.Front.Controllers
                 NickName = user.NickName,
                 Password = user.Password,
                 Gender = user.Gender == null ? true : (bool)user.Gender,
-                Birthday = user.Birthday == null ? "0000-00-00" : user.Birthday.ToString(),
-                CreateTime = user.CreateTime == null ? "0000-00-00" : user.Birthday.ToString(),
+                Birthday = user.Birthday == null ? "0000-00-00" : user.Birthday.Value.ToString("yyyy-MM-dd"),
+                CreateTime = user.CreateTime == null ? "0000-00-00" : user.CreateTime.ToString(),
                 PhoneNumber = user.PhoneNumber == null ? "未设置" : user.PhoneNumber,
                 Email = user.Email,
                 Photo = user.Photo,

@@ -1,0 +1,105 @@
+﻿
+@model List<Mall.Web.Back.ViewModel.RolesViewModel>
+
+@{
+    ViewBag.Title = "角色管理";
+    Layout = "~/Views/Layout/_AdminTLE.cshtml";
+}
+
+<section class="content-header">
+    <h1><i class="fa fa-cog"></i>角色管理</h1>
+</section>
+<section class="content">
+    <div class="role-wrapper">
+        <div class="search-content">
+            <input id="search-input" type="text" />
+            <button type="button" onclick="SearchEmployee()">搜索</button>
+        </div>
+        <div class="admin-content">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="admin" id="admin-list">
+                                @Html.Action("SearchEmployee", "Admin", new { search = string.Empty })
+                            </div>
+                        </td>
+                        <td>
+                            <div class="admin-detail" id="admin-detail">
+                                @Html.Partial("Admin/_GetEmployeeInfo", new Mall.Web.Back.ViewModel.UserViewModel())
+                                <div class="admin-detail-permission">
+                                    <div class="permission-list">
+                                        <div class="employee-info-permission">
+                                            <p class="title">角色</p>
+                                            <div class="permission">
+                                                <div class="permission-title">
+                                                    <ul>
+                                                        <li class="permission-name">角色名称</li>
+                                                        <li class="permission-detail">角色简介</li>
+                                                        <li class="permission-time">授权时间</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="permission-content">
+                                                    <ul>
+                                                        <li class="permission-item even">请选择员工</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="permission-submit">
+                                            <button style="cursor:no-drop;" type="button" disabled="disabled" title="未选择员工，不可修改">修改角色</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="role-manage">
+            @Html.Partial("GetEmployeeRoles",Model)
+            <button type="button"onclick="CreateRole()">新建角色</button>
+        </div>
+    </div>
+    <div id="click-menu">
+        <p>编辑角色</p>
+        <ul>
+            <li id="addItem" onclick="DeletRole()">
+                删除角色
+            </li>
+            <li onclick="ModifyRole()">修改角色</li>
+        </ul>
+    </div>
+</section>
+@Html.Partial("Admin/_ModifyEmployeeRoles")
+@Html.Partial("Admin/_CreateRole")
+@Html.Partial("Admin/_ModifyRolePermissions")
+@section css{
+    @Styles.Render("~/Css/Admin/RoleManage.css")
+    @Styles.Render("~/Css/Admin/PermissionSet.css")
+    @Styles.Render("~/Css/Admin/EmployeePermissions.css")
+    @Styles.Render("~/Css/Shared/zTreeStyle.css")
+}
+@section scripts{
+    @Scripts.Render("~/JS/Admin/RoleManage.js")
+    @Scripts.Render("~/JS/Admin/PermissionSet.js")
+    @Scripts.Render("~/JS/Shared/jquery.ztree.all.js")
+    <script>
+        function Refresh(event) {
+            var id = event.id;
+            $.ajax({
+                type: 'Get',
+                url: '/Admin/GetEmployeeRolesInfo',
+                data: { "userId": id },
+                datatype: 'html',
+                success: function (html) {
+                    $("#admin-detail").html(html);
+                },
+                error: function () {
+                    OpenTip("出错啦!", 1);
+                }
+            });
+        }
+    </script>
+}

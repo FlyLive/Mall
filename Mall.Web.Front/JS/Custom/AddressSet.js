@@ -1,6 +1,6 @@
 ﻿
 function CreateAddress() {
-    if (IsAddressFull()) {
+    if (IsAddressFull() == "True") {
         OpenTip("您不能创建更多收货地址!(上限为4)", 2);
         return false;
     }
@@ -27,18 +27,13 @@ function IsAddressFull() {
     var result = $.ajax({
         type: 'GET',
         url: '/Custom/IsAddressFull',
-        datatype: Boolean,
+        async:false,
         success: function (result) {
-            if (result == "True") {
-                return true;
-            }
-            else {
-                return false;
-            }
+            return result;
         },
         error: function () {
             OpenTip("出错啦!", 2);
         }
     });
-    return result;
+    return result.responseText;
 }

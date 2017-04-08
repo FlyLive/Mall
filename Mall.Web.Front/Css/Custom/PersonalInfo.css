@@ -202,6 +202,7 @@ a.upload-img:hover{
         background-color:#2ca9e1;
         border:none;
         border-radius:5px;
+        color:white;
     }
     .content-submit > button:hover{
         background-color:#0095d9;

@@ -24,6 +24,8 @@
 
 .already-label {
     background-color: #2ca9e1;
+    color:white;
+    border-radius: 5px 5px 0px 0px;
 }
 
 .content-light {
@@ -34,32 +36,11 @@
     background-color:#cbcbcb;
 }
 
-.consignee {
-    width:150px;
-    border-right:1px solid #808080;
-}
-
 .address {
     width:420px;
-    border-right:1px solid #808080;
 }
 
-.zip {
-    width:150px;
-    border-right:1px solid #808080;
-}
-
-.phone {
-    width:150px;
-    border-right:1px solid #808080;
-}
-
-.action {
-    width:150px;
-    border-right:1px solid #808080;
-}
-
-.default {
+.consignee,.zip,.phone,.action,.default {
     width:150px;
 }
 

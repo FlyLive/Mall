@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Mall.Interface.Enterprise
 {
-    public interface IGoodsApplicationData
+    public interface IGoodsApplicationService
     {
         /// <summary>
         /// 添加商品
@@ -28,7 +28,7 @@ namespace Mall.Interface.Enterprise
         /// </summary>
         /// <param name="good"></param>
         /// <returns></returns>
-        void ModifyGoodsInfo(int employeeId, int goodsId, string name, double price,
+        bool ModifyGoodsInfo(int employeeId, int goodsId, string name, double price,
             string detail, DateTime? publicationDate, double ? freight,
             string author = null, string press = null);
         /// <summary>
@@ -36,7 +36,7 @@ namespace Mall.Interface.Enterprise
         /// </summary>
         /// <param name="goodsId"></param>
         /// <param name="stock"></param>
-        void ModifyGoodsStockByGoodsId(int employeeId, int goodsId,int stock = 0);
+        bool ModifyGoodsStockByGoodsId(int employeeId, int goodsId,int stock = 0);
         /// <summary>
         /// 根据商品Id上架商品
         /// </summary>

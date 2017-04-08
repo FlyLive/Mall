@@ -14,15 +14,13 @@ namespace Mall.Web.Back.Controllers
 {
     public class OrderController : Controller
     {
-        private EnterpriseService _enterpriseService = new EnterpriseService();
-        private MenuViewService _menuViewService = new MenuViewService();
         private OrderService _orderService = new OrderService();
 
         #region 订单管理
         [HttpGet]
+        [PermissionAuthorize("AllOrders")]
         public ActionResult AllOrders(int page = 1, int pageSize = 10)
         {
-            LoginTest();
             List<Order> orders = _orderService.GetAllOrders();
             IPagedList<OrderViewModel> orderDTO = DataToDTO(orders).ToPagedList(page, pageSize);
             return View(orderDTO);
@@ -54,6 +52,8 @@ namespace Mall.Web.Back.Controllers
         /// <param name="orderId"></param>
         /// <param name="marks"></param>
         /// <returns></returns>
+        [HttpPost]
+        [PermissionAuthorize("Accept")]
         public bool ModifyRemark(Guid orderId, string mark)
         {
             EmployeeViewModel employee = (EmployeeViewModel)Session["Employee"];
@@ -84,7 +84,7 @@ namespace Mall.Web.Back.Controllers
         }
         #endregion
 
-        #region 确认退款
+        #region 退款处理
         [HttpGet]
         [PermissionAuthorize("Refund")]
         public ActionResult RefundConfirm(int page = 1,int pageSize = 10)
@@ -167,7 +167,7 @@ namespace Mall.Web.Back.Controllers
         }
         #endregion
 
-        #region 退货
+        #region 退货处理
         [HttpGet]
         [PermissionAuthorize("Return")]
         public ActionResult ReturnConfirm(int page = 1,int pageSize = 10)
@@ -178,6 +178,16 @@ namespace Mall.Web.Back.Controllers
             return View(orderDTO);
         }
 
+        [HttpPost]
+        [PermissionAuthorize("Return")]
+        public bool ConfirmReturn(Guid orderId)
+        {
+            EmployeeViewModel employee = (EmployeeViewModel)Session["Employee"];
+            var result = _orderService.ConfirmReturn(employee.EmployeeId,orderId);
+            return result;
+        }
+
+        [HttpPost]
         [PermissionAuthorize("Return")]
         public bool AcceptReturn(Guid orderId)
         {
@@ -186,6 +196,7 @@ namespace Mall.Web.Back.Controllers
             return true;
         }
 
+        [HttpPost]
         [PermissionAuthorize("Return")]
         public bool RefuseReturn(Guid orderId)
         {
@@ -205,29 +216,6 @@ namespace Mall.Web.Back.Controllers
             return View(orderDTO);
         }
         #endregion
-
-        public void LoginTest()
-        {
-            Employee employee = _enterpriseService.Login("001", "123456");
-            List<Permissions> permissions = _menuViewService.GetAllPermissionsByEmployeeId(employee.EmployeeId);
-            EmployeeViewModel employeeDTO = new EmployeeViewModel
-            {
-                EmployeeId = employee.EmployeeId,
-                UserId = employee.UserId,
-                ManagePassword = employee.ManagePassword,
-            };
-            UserViewModel userDTO = AdminController.DataUserToDTO(employee.User);
-            List<PermissionsViewModel> permissionsDTO = permissions.Select(p => new PermissionsViewModel
-            {
-                Id = p.PermissionId,
-                Name = p.Name,
-                Code = p.Code
-            }).ToList();
-
-            Session.Add("Employee", employeeDTO);
-            Session.Add("User", userDTO);
-            Session.Add("Permissions", permissionsDTO);
-        }
 
         public List<OrderViewModel> DataToDTO(List<Order> orders)
         {

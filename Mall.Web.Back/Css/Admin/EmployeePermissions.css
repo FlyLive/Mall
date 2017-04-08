@@ -29,7 +29,7 @@
 }
 
 .permission-time {
-    width: 150px;
+    width: 170px;
 }
 
 .odd {
@@ -71,18 +71,18 @@
 	}  横向滚动条和纵向滚动条相交处尖角的颜色 */
 
 /* 滑轨两头的监听按钮颜色 */
-.permission-content::-webkit-scrollbar {
+.permission-content::-webkit-scrollbar ,.employee-action-content::-webkit-scrollbar{
     width: 6px;
     height: 6px;
     background-color: #cccccc;
 }
 /* 滚动条 */
-.permission-content::-webkit-scrollbar-thumb {
+.permission-content::-webkit-scrollbar-thumb,.employee-action-content::-webkit-scrollbar-thumb {
     border-radius: 10px;
     background-color: rgb(93, 191, 255);
 }
 /* 滑块颜色 */
-.permission-content::-webkit-scrollbar-track {
+.permission-content::-webkit-scrollbar-track,.employee-action-content::-webkit-scrollbar-track {
     border-radius: 10px;
     background-color: rgb(193, 193, 193);
 }
