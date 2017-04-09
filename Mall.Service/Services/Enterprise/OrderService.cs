@@ -43,13 +43,13 @@ namespace Mall.Service.Services.Enterprise
             else if (state == (int)StateOfOrder.State.ApplyReturn)
             {
                 orders = _db.Order.Where(o => o.State == state
-                    || o.State == (int)StateOfOrder.State.ApplyRefund
+                    || o.State == (int)StateOfOrder.State.ApplyReturn
                     || o.State == (int)StateOfOrder.State.ReturnFailed
                     || o.State == (int)StateOfOrder.State.Returning
                     || o.State == (int)StateOfOrder.State.ReturnSucceed).ToList();
             }
 
-            return orders;
+            return orders.OrderByDescending(o => o.CreateTime).ToList();
         }
 
         /// <summary>
@@ -266,7 +266,7 @@ namespace Mall.Service.Services.Enterprise
                 if (order.State == (int)StateOfOrder.State.ApplyReturn)
                 {
                     Employee employee = _db.Employee.Include("AdminLog").Include("User").SingleOrDefault(e => e.EmployeeId == employeeId);
-                    order.State = (int)StateOfOrder.State.Returning;
+                    order.State = (int)StateOfOrder.State.ReturnFailed;
                     _db.AdminLog.Add(new AdminLog
                     {
                         EmployeeId = employee.EmployeeId,

@@ -55,7 +55,7 @@ namespace Mall.Web.Back.Controllers
             return RedirectToAction("Index","Admin");
         }
 
-        [HttpPost]
+        [HttpGet]
         public ActionResult Logout()
         {
             Session.Remove("Employee");

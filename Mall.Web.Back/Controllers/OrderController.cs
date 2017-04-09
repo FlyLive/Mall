@@ -95,13 +95,14 @@ namespace Mall.Web.Back.Controllers
             return View(orderDTO);
         }
 
+        [HttpPost]
         [PermissionAuthorize("Refund")]
         public bool AcceptRefund(Guid orderId)
         {
             EmployeeViewModel employee = (EmployeeViewModel)Session["Employee"];
             var result = _orderService.AgreeRefundByOrderId(employee.EmployeeId,orderId);
             
-            return true;
+            return result;
         }
         #endregion
 

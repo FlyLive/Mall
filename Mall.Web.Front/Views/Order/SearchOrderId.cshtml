@@ -44,7 +44,7 @@
                     <li class="order-action">
                         @switch (Model.State)
                         {
-                            case (int)StateOfOrder.State.ToPay:<a onclick="ConfirmPPOfPay('@Model.OrderId')" title="付款"><span class="label label-danger">支付</span></a><a onclick="CancleOrder('@Model.OrderId')" title="付款"><span class="label label-danger">支付</span></a>; break;
+                            case (int)StateOfOrder.State.ToPay:<a onclick="ConfirmPPOfPay('@Model.OrderId')" title="付款"><span class="label label-danger">支付</span></a><a onclick="CancleOrder('@Model.OrderId')" title="取消订单"><span class="label label-success">取消订单</span></a>; break;
                             case (int)StateOfOrder.State.ToReceipt:<a href="/Custom/ConfirmReceipt/?orderId=@Model.OrderId" target="_blank" title="确认收货"><span class="label label-info">确认收货</span></a>; break;
                             case (int)StateOfOrder.State.ToEvaluate:<a href="/Custom/Evaluate/?orderId=@Model.OrderId" target="_blank" title="评价该商品"><span class="label label-success">立即评价</span></a>; break;
                             case (int)StateOfOrder.State.ToAccept:

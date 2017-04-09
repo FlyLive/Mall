@@ -64,6 +64,7 @@ namespace Mall.Service.Services.Custom
                     UserId = user.UserId,
                     Wallet = 200,
                     PayPassword = password,
+                    MaxAddressNumber = 4,
                 };
 
                 _db.User.Add(user);
@@ -130,6 +131,10 @@ namespace Mall.Service.Services.Custom
         public bool CustomConfirm(string account, string email)
         {
             var custom = GetCustomByAccount(account);
+            if(custom == null)
+            {
+                return false;
+            }
             return custom.User.Email.Equals(email);
         }
 

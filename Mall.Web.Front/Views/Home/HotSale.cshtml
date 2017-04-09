@@ -1,5 +1,6 @@
 ﻿
-@model List<Mall.Web.Front.ViewModel.GoodsInfoViewModel>
+@model List<GoodsInfoViewModel>
+@using Mall.Web.Front.ViewModel
 
 <div class="suggest-part">
     <div class="suggest-left">
@@ -10,6 +11,6 @@
         </div>
     </div>
     <div class="suggest-advertisement">
-        @Html.Partial("ViewComponents/_SuggestAdvertisement", Model[4])
+        @Html.Partial("ViewComponents/_SuggestAdvertisement", Model.Count == 0 ? new GoodsInfoViewModel() : Model[Model.Count - 1])
     </div>
 </div>

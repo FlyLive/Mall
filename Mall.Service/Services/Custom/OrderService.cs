@@ -33,7 +33,7 @@ namespace Mall.Service.Services.Custom
             List<Order> searchResult = orders.Where(o => o.State == orderState).ToList();
             if (orderState == 100)
             {
-                return orders;
+                searchResult = orders;
             }
             else if (orderState == (int)StateOfOrder.State.ToDelivery)
             {
@@ -58,7 +58,7 @@ namespace Mall.Service.Services.Custom
                     o.State == (int)StateOfOrder.State.ReturnSucceed ||
                     o.State == (int)StateOfOrder.State.ReturnFailed).ToList();
             }
-            return searchResult;
+            return searchResult.OrderByDescending(o => o.CreateTime).ToList();
         }
 
         /// <summary>

@@ -218,7 +218,7 @@ function RefuseReturn(id) {
             $('#manageConfirmModal').modal('hide');
             $("#managePassword").val("");
 
-            layer.msg('同意退货？', {
+            layer.msg('拒绝退货？', {
                 time: 20000, //20s后自动关闭
                 btn: ['拒绝退货', '再等一下'],
                 btn1: function () {
@@ -229,7 +229,7 @@ function RefuseReturn(id) {
                         async: false,
                         success: function (result) {
                             if (result == "True") {
-                                OpenTipSuccess("已同意退货!", 2);
+                                OpenTipSuccess("已拒绝退货!", 2);
                                 $("#" + id).remove();
                             }
                             else {

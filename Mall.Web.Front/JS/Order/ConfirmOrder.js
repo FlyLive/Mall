@@ -33,6 +33,12 @@ function ConfirmOrderFromCart() {
         //获取备注
         remarksValue.push($(".goods-list #" + goodsIds[i] + " .custom-remark").val());
     }
+
+    if (addressId == undefined) {
+        OpenTip("请选择收货地址", 2);
+        return false;
+    }
+
     $.ajax({
         type: 'POST',
         url: '/Order/CreateOrderFromCart',

@@ -25,7 +25,7 @@ namespace Mall.Service.Services
 
         public List<GoodsInfo> GetCarousels()
         {
-            List<GoodsInfo> goods = _db.GoodsInfo.Take(5).ToList();
+            List<GoodsInfo> goods = _db.GoodsInfo.Where(g => g.State == (int)StateOfGoods.State.OnShelves).Take(5).ToList();
             return goods;
         }
 
@@ -33,6 +33,13 @@ namespace Mall.Service.Services
         {
             List<GoodsInfo> goods = _db.GoodsInfo.Where(g => g.State == state).ToList();
             return goods;
+        }
+
+        public double GetTotlaMoney(int goodsId,int count)
+        {
+            GoodsInfo good = GetGoodsByGoodsId(goodsId);
+            double totla = good.Freight + good.Price * count;
+            return Math.Round(totla, 2);
         }
 
         /// <summary>

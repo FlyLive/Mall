@@ -36,7 +36,7 @@
                                 <li class="order-good-name" title="@Model[i].GoodsName">@(Model[i].GoodsName.Length >= 7 ? Model[i].GoodsName.Substring(0, 5) + "…" : Model[i].GoodsName)</li>
                                 <li class="order-price price" title="￥@Model[i].Price">￥@Model[i].Price</li>
                                 <li class="order-state" id="count" title="@Model[i].Stock">@Model[i].Stock</li>
-                                <li class="order-freight price" title="￥@Model[i].freight">￥@Model[i].freight</li>
+                                <li class="order-freight price" title="￥@Model[i].Freight">￥@Model[i].Freight</li>
                                 <li class="order-state">
                                     @switch (Model[i].State)
                                     {

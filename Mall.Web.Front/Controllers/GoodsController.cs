@@ -1,4 +1,5 @@
 ﻿using Mall.Service.DataBase;
+using Mall.Service.Models;
 using Mall.Web.Front.ViewModel;
 using PagedList;
 using System;
@@ -23,7 +24,11 @@ namespace Mall.Web.Front.Controllers
         public ActionResult Goods(int goodsId)
         {
             GoodsInfo goods = _goodsService.GetGoodsByGoodsId(goodsId);
-            GoodsInfoViewModel goodsDTO = DataGoodToDTO(goods);
+            GoodsInfoViewModel goodsDTO = null;
+            if(goods != null && goods.State != (int)StateOfGoods.State.Delet)
+            {
+                goodsDTO = DataGoodToDTO(goods);
+            }
             return View(goodsDTO);
         }
 
@@ -103,6 +108,13 @@ namespace Mall.Web.Front.Controllers
             GoodsInfo goods = _goodsService.GetGoodsByGoodsId(goodsId);
             GoodsInfoViewModel goodsDTO = DataGoodToDTO(goods);
             return PartialView(goodsDTO);
+        }
+
+        [HttpGet]
+        public double GetTotlaMoney(int goodsId,int count)
+        {
+            double totlaMoney = _goodsService.GetTotlaMoney(goodsId, count);
+            return totlaMoney;
         }
 
         /// <summary>

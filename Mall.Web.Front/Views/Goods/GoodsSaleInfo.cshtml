@@ -1,8 +1,9 @@
 ﻿@model Mall.Web.Front.ViewModel.GoodsInfoViewModel
+@using Mall.Service.Models
 
 <!-- 销售详情 -->
 <div class="goods-sale-img htmleaf-content bgcolor-3">
-    @Html.Action("GoodsCarousel",new { goodsId = Model.GoodsId })
+    @Html.Action("GoodsCarousel", new { goodsId = Model.GoodsId })
 </div>
 <div class="goods-sale-detail">
     <div class="goods-sale-detail-info">
@@ -34,10 +35,17 @@
         <form action="/Order/ConfirmOrder" method="get">
             <div class="info-count">
                 <p class="title">数量</p>
-                <input id="goodsId" name="goodsId" value="@Model.GoodsId" type="hidden"/>
+                <input id="goodsId" name="goodsId" value="@Model.GoodsId" type="hidden" />
                 <span class="count-contorl" onclick="ReduceCount()">-</span><input id="count" name="count" min="1" value="1" /><span class="count-contorl" onclick="IncreaseCount()">+</span>
             </div>
-            <button class="buy-button" type="submit">立即购买</button>
+            @if (Model.State == (int)StateOfGoods.State.OffShelves)
+            {
+                <button class="buy-button" type="button" disabled="disabled" style="cursor:no-drop;" title="已下架,不能购买">已下架</button>
+            }
+            else
+            {
+                <button class="buy-button" type="submit">立即购买</button>
+            }
             <button class="cart-button" type="button" onclick="AddGoodsToCart()">加入购物车</button>
         </form>
     </div>

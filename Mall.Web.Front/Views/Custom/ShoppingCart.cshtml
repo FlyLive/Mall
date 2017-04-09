@@ -33,7 +33,7 @@
                         <ul>
                             <li class="check"><input name="goodsId" type="checkbox" class="item-check" onclick="GetChecked()" value="@cart.GoodsId" /></li>
                             <li class="detail">
-                                <a href="">
+                                <a href="/Goods/Goods?goodsId=@cart.GoodsId" target="_blank">
                                     <img src="@cart.Goods.GoodsPhotoUrl" />
                                 </a>
                                 <p>@cart.Goods.GoodsName</p>

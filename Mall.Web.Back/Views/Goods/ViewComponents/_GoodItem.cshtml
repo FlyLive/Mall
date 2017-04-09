@@ -6,7 +6,7 @@
 <li class="order-good-name" title="@Model.GoodsName">@(Model.GoodsName.Length >= 7 ? Model.GoodsName.Substring(0,5) + "…" : Model.GoodsName)</li>
 <li class="order-price price" title="￥@Model.Price">￥@Model.Price</li>
 <li class="order-state" title="@Model.Stock">@Model.Stock</li>
-<li class="order-freight price" title="￥@Model.freight">￥@Model.freight</li>
+<li class="order-freight price" title="￥@Model.Freight">￥@Model.Freight</li>
 <li class="order-state">
     @switch (Model.State)
     {

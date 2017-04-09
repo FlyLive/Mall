@@ -1,13 +1,16 @@
 ﻿
 @model Mall.Web.Front.ViewModel.GoodsInfoViewModel
 
-<a href="/Goods/Goods/?goodsId=@Model.GoodsId" target="_blank" title="@Model.GoodsName">
-    <img src="@Model.GoodsPhotoUrl" />
-    <div class="caption">
-        <div class="caption-text">
-            <h4 title="@Model.GoodsName">《@Model.GoodsName》</h4>
-            <h3 class="detail-money"><strong>￥@Model.Price</strong></h3>
-            <h3 title="@Model.Author">@(Model.Author.Length >= 10 ? Model.Author.Substring(0,9) + "…" : Model.Author)</h3>
+@if (Model.GoodsId != 0)
+{
+    <a href="/Goods/Goods/?goodsId=@Model.GoodsId" target="_blank" title="@Model.GoodsName">
+        <img src="@Model.GoodsPhotoUrl" />
+        <div class="caption">
+            <div class="caption-text">
+                <h4 title="@Model.GoodsName">《@Model.GoodsName》</h4>
+                <h3 class="detail-money"><strong>￥@Model.Price</strong></h3>
+                <h3 title="@Model.Author">@(Model.Author.Length >= 10 ? Model.Author.Substring(0, 9) + "…" : Model.Author)</h3>
+            </div>
         </div>
-    </div>
-</a>
+    </a>
+}

@@ -42,18 +42,34 @@ function AddGoodsToCart() {
     })
 }
 
+function GetTotlaMoney(count) {
+    var goodsId = $(".goods-item").attr("id");
+    $.ajax({
+        type: 'Get',
+        url: '/Goods/GetTotlaMoney',
+        data: {"goodsId":goodsId,"count":count},
+        success: function (result) {
+            $(".total-money").text("￥" + result);
+        },
+        error: function () {
+        }
+    })
+}
+
 function ReduceCount() {
     var count = $("#count").val();
-    if (count > 1) {
-        count--;
-        $("#count").val(count);
-        return true;
+    if (count <= 1) {
+        Tip("数量不能少于一哦！", "count");
+        return false;
     }
-    Tip("数量不能少于一哦！", "count");
+    count--;
+    $("#count").val(count);
+    GetTotlaMoney(count);
 }
 
 function IncreaseCount() {
     var count = $("#count").val();
     count++;
     $("#count").val(count);
+    GetTotlaMoney(count);
 }

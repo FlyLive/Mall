@@ -1,7 +1,7 @@
 ﻿
 function CancleOrder(orderId) {
     $.ajax({
-        type: 'GET',
+        type: 'Post',
         url: '/Order/CancelOrder',
         data: { "orderId": orderId },
         success: function (result) {
