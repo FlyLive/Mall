@@ -280,7 +280,7 @@
     <Content Include="Views\Shared\MenuView\_Header.cshtml" />
     <Content Include="Views\Shared\MenuView\_SideBar.cshtml" />
     <Content Include="Views\Admin\ManageCenter.cshtml" />
-    <Content Include="Views\Admin\EmployeeInfor.cshtml" />
+    <Content Include="Views\StaffManage\EmployeeInfor.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Layout\_AdminTLE.cshtml" />
     <Content Include="Views\Admin\PersonalInfoSet.cshtml" />
@@ -293,8 +293,8 @@
     <Content Include="Views\Admin\ViewComponents\_ModifyLP.cshtml" />
     <Content Include="Views\Admin\ViewComponents\_ModifyPhoto.cshtml" />
     <Content Include="Views\Admin\ViewComponents\_ModifyMP.cshtml" />
-    <Content Include="Views\Admin\EmployeeDetails.cshtml" />
-    <Content Include="Views\Admin\EmployeeActions.cshtml" />
+    <Content Include="Views\StaffManage\EmployeeDetails.cshtml" />
+    <Content Include="Views\StaffManage\EmployeeActions.cshtml" />
     <Content Include="Views\Order\AllOrders.cshtml" />
     <Content Include="Views\Order\ViewComponents\_ModifyRemark.cshtml" />
     <Content Include="Views\StaffManage\RoleManage.cshtml" />
