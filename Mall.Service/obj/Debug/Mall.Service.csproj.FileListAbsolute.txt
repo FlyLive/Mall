@@ -21,3 +21,15 @@ C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Service\bin\Debug\zh
 C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Service\obj\Debug\Mall.Service.dll
 C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Service\obj\Debug\Mall.Service.pdb
 C:\Users\LL\Documents\Visual Studio 2015\Projects\Mall\Mall.Service\obj\Debug\Mall.Service.csprojResolveAssemblyReference.cache
+C:\Users\15852\Documents\Visual Studio 2017\Projects\Mall\Mall.Service\bin\Debug\Mall.Service.dll.config
+C:\Users\15852\Documents\Visual Studio 2017\Projects\Mall\Mall.Service\bin\Debug\Mall.Service.dll
+C:\Users\15852\Documents\Visual Studio 2017\Projects\Mall\Mall.Service\bin\Debug\Mall.Service.pdb
+C:\Users\15852\Documents\Visual Studio 2017\Projects\Mall\Mall.Service\bin\Debug\EntityFramework.dll
+C:\Users\15852\Documents\Visual Studio 2017\Projects\Mall\Mall.Service\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\15852\Documents\Visual Studio 2017\Projects\Mall\Mall.Service\bin\Debug\EntityFramework.xml
+C:\Users\15852\Documents\Visual Studio 2017\Projects\Mall\Mall.Service\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\15852\Documents\Visual Studio 2017\Projects\Mall\Mall.Service\bin\Debug\zh-Hans\EntityFramework.resources.dll
+C:\Users\15852\Documents\Visual Studio 2017\Projects\Mall\Mall.Service\bin\Debug\zh-Hans\EntityFramework.SqlServer.resources.dll
+C:\Users\15852\Documents\Visual Studio 2017\Projects\Mall\Mall.Service\obj\Debug\Mall.Service.csprojResolveAssemblyReference.cache
+C:\Users\15852\Documents\Visual Studio 2017\Projects\Mall\Mall.Service\obj\Debug\Mall.Service.dll
+C:\Users\15852\Documents\Visual Studio 2017\Projects\Mall\Mall.Service\obj\Debug\Mall.Service.pdb

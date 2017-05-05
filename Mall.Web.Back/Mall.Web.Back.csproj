@@ -280,7 +280,7 @@
     <Content Include="Views\Shared\MenuView\_Header.cshtml" />
     <Content Include="Views\Shared\MenuView\_SideBar.cshtml" />
     <Content Include="Views\Admin\ManageCenter.cshtml" />
-    <Content Include="Views\StaffManage\EmployeeInfor.cshtml" />
+    <Content Include="Views\Admin\EmployeeInfor.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Layout\_AdminTLE.cshtml" />
     <Content Include="Views\Admin\PersonalInfoSet.cshtml" />
