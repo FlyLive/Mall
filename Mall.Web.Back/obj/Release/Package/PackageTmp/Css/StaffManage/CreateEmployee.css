@@ -1,0 +1,70 @@
+﻿.create-employee-all{
+    font-size:20px;
+    border:1px solid #b9b9b9;
+    border-radius:5px;
+    margin-top:80px;
+    width:1624px;
+}
+.create-employee-left table > tbody > tr > td{
+    padding-left:25px;
+}
+.create-employee-left-title,.create-employee-right-title{
+    margin-left:0px;
+    margin-top:20px;
+}
+.create-employee-left-title span,.info span{
+    font-size:14px;
+    color:red;
+}
+.create-employee-left{
+    border-right: 2px solid #b9b9b9;
+}
+.create-employee-left,.create-employee-right{
+    width:800px;
+    min-height:620px;
+}
+.create-employee-left .star{
+    color:red;
+}
+.create-employee-left > .info{
+    margin:20px 0px 20px 50px;
+}
+.create-employee-left > div > input{
+    width:350px;
+    height:30px;
+    text-indent:5px;
+    border-radius:3px;
+    border:1px solid #b9b9b9;
+}
+.create-employee-left .title,.create-employee-right .title{
+    display:inline-block;
+    width:100px;
+    text-align:right;
+    margin-right:20px;
+    vertical-align:middle;
+}
+.create-employee-left-gender > label{
+    display:inline-block;
+    padding-right:10px;
+}
+.create-employee-left-submit > button{
+    width:140px;
+    height:40px;
+    margin-left:130px;
+    border:none;
+    border-radius:5px;
+    background-color:#2ca9e1;
+    color:white;
+}
+.create-employee-left-submit > button:hover{
+    background-color:#0095d9;
+}
+.create-empl
+.create-employee-left-submit > button:active{
+    background-color:#0095d9;
+}oyee-right-permissions{
+    margin:20px 0px 20px 50px;
+}
+.create-employee-right table > tbody > tr > td{
+    padding:20px 20px 20px 20px;
+}

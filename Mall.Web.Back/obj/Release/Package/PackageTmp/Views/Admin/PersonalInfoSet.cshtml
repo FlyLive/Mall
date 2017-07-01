@@ -1,0 +1,81 @@
+﻿@model Mall.Web.Back.ViewModel.UserViewModel
+
+@{
+    ViewBag.Title = "修改资料";
+    Layout = "~/Views/Layout/_AdminTLE.cshtml";
+}
+<section class="content-header">
+    <h1><i class="fa fa-male"></i>修改资料</h1>
+</section>
+<section class="content">
+    <div class="info-set">
+        <form name="modifyInfo" action="ModifyInfo" method="post">
+            <div class="info-set-tip">
+                <h4>亲爱的管理XXX，认真填写资料，有助于与顾客交流哦！</h4>
+            </div>
+            <div class="info-set-head info">
+                <p class="title">当前头像:</p>
+                <img src="@Model.Photo" title="点击修改头像" onclick="ModifyPhoto()" />
+                @Html.Partial("ViewComponents/_ModifyPhoto")
+            </div>
+            <div class="info-set-name info">
+                <p class="title">账户:</p>
+                <input name="account" type="text" value="@Model.Account" disabled="disabled" />
+                <p class="no-change"><span class="star">*</span>账户不可更改</p>
+            </div>
+            <div class="info-set-nick info">
+                <p class="title">昵称:</p>
+                <input name="nick" type="text" value="@Model.NickName" />
+            </div>
+            <div class="info-set-name info">
+                <p class="title"><span class="star">*</span>姓名:</p>
+                <input name="realName" id="realName" type="text" value="@Model.RealName" />
+            </div>
+            <div class="info-set-gender info">
+                <p class="title">性别:</p>
+                <label><input name="gender" type="radio" value="1" checked="checked" />男</label>
+                <label><input name="gender" type="radio" value="0" />女</label>
+            </div>
+            <div class="info-set-birthday info">
+                <p class="title">生日:</p>
+                <input name="Data" type="date" value="@Model.Birthday"/>
+            </div>
+            <div class="info-set-phone info">
+                <p class="title"><span class="star">*</span>联系电话:</p>
+                <input name="phone" id="phone" type="text" maxlength="11" value="@Model.PhoneNumber" />
+            </div>
+            <div class="info-set-email info">
+                <p class="title"><span class="star">*</span>邮箱:</p>
+                <input name="email" id="email" type="email" value="@Model.Email" />
+            </div>
+            <div class="info-set-submit info">
+                <button type="button" onclick="Modify()">保存修改</button>
+            </div>
+        </form>
+    </div>
+</section>
+@section css{
+    @Styles.Render("~/Css/Admin/PersonalInfo.css")
+}
+@section scripts{
+    @Scripts.Render("~/JS/Admin/PersonalInfo.js")
+    @Scripts.Render("~/JS/Shared/cropbox.js")
+    @Scripts.Render("~/JS/Shared/layer_open_tip.js")
+}
+@{
+    var modifyInfo = TempData["ModifyInfo"];
+    if (modifyInfo != null)
+    {
+        if (modifyInfo.Equals("success"))
+        {
+            <script>
+                layer.open({
+                    title: '提示',
+                    content: '修改成功!',
+                    icon: 6,
+                });
+            </script>
+            TempData["ModifyInfo"] = null;
+        }
+    }
+}

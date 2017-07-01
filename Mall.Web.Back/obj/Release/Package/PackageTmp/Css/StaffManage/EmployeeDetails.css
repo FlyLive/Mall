@@ -1,0 +1,130 @@
+﻿
+.content-header h2{
+    font-family: 隶书;
+    font-size: 40px;
+    color: #FF3300;
+    padding: 10px 50px;
+    margin: 0;
+}
+.title {
+    display: inline-block;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.employee-info {
+    margin: 50px;
+}
+
+.info-basic {
+    padding: 0px 50px;
+    border-right: 2px solid #999999;
+    vertical-align:top;
+}
+
+.info-permission {
+    padding-left: 50px;
+}
+
+.info-basic-content {
+}
+
+    .info-basic-content .Data {
+        color: #999999;
+    }
+
+    .info-basic-content td {
+        padding: 10px;
+        text-align: left;
+        font-size: 18px;
+    }
+
+.img-photo-image {
+    margin: 0px 0px 20px 50px;
+    display: inline-block;
+    font-size: 16px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+    .img-photo-image img {
+        border-radius: 50%;
+        height: 64px;
+        width: 64px;
+    }
+
+.employee-action-title > ul {
+    background-color: #0099ff;
+    color: white;
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+}
+
+.employee-action {
+    margin: 0 auto;
+    width: 1100px;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+    .employee-action ul {
+        padding: 0;
+        margin: 0;
+        border-radius: 5px 5px 0px 0px;
+        font-size: 18px;
+    }
+
+        .employee-action ul li {
+            display: inline-block;
+            overflow: hidden;
+            vertical-align: middle;
+        }
+
+.employee-action-content{
+    overflow-y: auto;
+    max-height: 220px;
+}
+.employee-action-content > ul > li {
+    display: block;
+}
+
+.action-item {
+    padding: 5px;
+}
+
+.action-handle {
+    width: 100px;
+}
+
+.action-time {
+    width: 150px;
+}
+
+.action-style, .action-permission, .action-object {
+    width: 100px;
+}
+
+.action-detail {
+    width: 500px;
+}
+
+.action-edit {
+    width: 100px;
+}
+
+.no-action {
+    padding: 30px;
+    font-size: 25px;
+}
+
+.action-delet {
+    color: #0099ff;
+    cursor: pointer;
+}
+
+    .action-delet:hover {
+        color: #0772b9;
+    }
+
+    .action-delet:active {
+        color: #0099ff;
+    }

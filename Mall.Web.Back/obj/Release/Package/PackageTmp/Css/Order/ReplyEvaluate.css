@@ -1,0 +1,80 @@
+﻿.replyevaluate-all > div{
+    border:1px solid #1C86EE;
+    border-radius:5px;
+    margin:20px;
+}
+.replyevaluate-title{
+    padding-left:50px;
+}
+.replyevaluate-goods-info > .replyevaluate-info{
+    margin-left:200px;
+}
+.replyevaluate-goods-info-link{
+    position: relative;
+    top: 10px;
+}
+.replyevaluate-goods-info-link > img{
+    width:50px;
+    height:50px;
+}
+.replyevaluate-goods-info > .replyevaluate-info > table{
+    display:inline;
+    margin-left:20px;
+    font-size:16px;
+}
+.replyevaluate-goods-info > .replyevaluate-info > table > tbody > tr > td{
+    padding-bottom:20px;
+    min-width:200px;
+}
+.replyevaluate-buyer-message > div > p{
+    max-width:800px;
+    color: coral;
+}
+.replyevaluate-buyer-info > div > img{
+    height:100px;
+    width:100px;
+    border-radius:50%;
+}
+.replyevaluate-buyer-info > div,.replyevaluate-buyer-message > div{
+    margin:0px 0px 20px 200px;
+    font-size:16px;
+}
+.replyevaluate-order > table{
+    margin-left:200px;
+    font-size:16px;
+}
+.replyevaluate-order > table > tbody > tr > td{
+    padding-bottom:20px;
+    width:400px;
+}
+.replyevaluate-order > table > tbody > tr > td > span,
+.replyevaluate-goods-info > table > tbody > tr > td > span{
+    color:#666666;
+}
+.replyevaluate-reply > textarea{
+    text-indent:5px;
+    min-width:500px;
+    min-height:200px;
+    max-width:500px;
+    max-height:200px;
+    display:block;
+}
+.replyevaluate-reply > button{
+    width:100px;
+    height:40px;
+    margin:20px 0px;
+    background-color:#0094ff;
+    color:white;
+    border:none;
+    border-radius:5px;
+}
+.replyevaluate-reply > button:hover{
+    background-color:#1C86EE;
+}
+.replyevaluate-reply > button:active{
+    background-color:#0094ff;
+}
+.replyevaluate-reply > textarea,.replyevaluate-reply > button{
+    margin-left:200px;
+    font-size:16px;
+}

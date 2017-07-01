@@ -1,0 +1,67 @@
+﻿body{
+    background-image: url('http://localhost:9826/Mall.Web.Back/back-ground.jpg');
+    background-repeat: no-repeat;
+    background-size:cover;
+}
+.admin_login_wap{
+    height:670px;
+    height:800px;
+}
+.admin_login{
+    width:600px;
+    border-radius: 50%;
+    padding: 100px 0px;
+    margin-left:980px;
+    position:relative;
+    top:20%;
+    border: 1px solid #666666;
+    background-color:rgba(225,225,225,0.5);
+}
+.admin_login form div,.admin_login form > .admin_login_button{
+    margin-top:30px;
+}
+.admin_login > *{
+    text-align:center;
+}
+.admin-login-account > img,.admin-login-password > img{
+    width:40px;
+    height:40px;
+    position:relative;
+}
+.admin_login_input{
+    width:320px;
+    height:40px;
+    font-size:20px;
+    border-radius:5px;
+    border:1px solid #666666;
+    text-indent:5px;
+    margin:0 auto;
+}
+.admin_login_button{
+    width:380px;
+    height:40px;
+    font-size:22px;
+    border-radius:5px;
+    border:none;
+    margin:0 auto;
+    color:white;
+    background-color:#2ca9e1;
+}
+.admin_login_button:hover{
+    background-color:#0095d9;
+}
+.admin_login_button:active{
+    background-color:#2ca9e1;
+}
+.forgot{
+    border:none;
+    border-top:1px solid #808080;
+    margin:20px 110px;
+}
+.forgot legend{
+    margin:0 auto;
+    width:auto;
+    font-size:12px;
+    color:#808080;
+    border-bottom:0;
+}

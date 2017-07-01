@@ -1,0 +1,12 @@
+C:\Users\15852\Documents\Visual Studio 2017\Projects\Mall\Mall.Service\bin\Release\Mall.Service.dll.config
+C:\Users\15852\Documents\Visual Studio 2017\Projects\Mall\Mall.Service\bin\Release\Mall.Service.dll
+C:\Users\15852\Documents\Visual Studio 2017\Projects\Mall\Mall.Service\bin\Release\Mall.Service.pdb
+C:\Users\15852\Documents\Visual Studio 2017\Projects\Mall\Mall.Service\bin\Release\EntityFramework.dll
+C:\Users\15852\Documents\Visual Studio 2017\Projects\Mall\Mall.Service\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\15852\Documents\Visual Studio 2017\Projects\Mall\Mall.Service\bin\Release\EntityFramework.xml
+C:\Users\15852\Documents\Visual Studio 2017\Projects\Mall\Mall.Service\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\15852\Documents\Visual Studio 2017\Projects\Mall\Mall.Service\bin\Release\zh-Hans\EntityFramework.resources.dll
+C:\Users\15852\Documents\Visual Studio 2017\Projects\Mall\Mall.Service\bin\Release\zh-Hans\EntityFramework.SqlServer.resources.dll
+C:\Users\15852\Documents\Visual Studio 2017\Projects\Mall\Mall.Service\obj\Release\Mall.Service.csprojResolveAssemblyReference.cache
+C:\Users\15852\Documents\Visual Studio 2017\Projects\Mall\Mall.Service\obj\Release\Mall.Service.dll
+C:\Users\15852\Documents\Visual Studio 2017\Projects\Mall\Mall.Service\obj\Release\Mall.Service.pdb

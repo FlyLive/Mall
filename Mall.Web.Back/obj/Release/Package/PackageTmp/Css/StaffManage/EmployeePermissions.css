@@ -1,0 +1,89 @@
+﻿
+.permission-title > ul {
+    background-color: #0099ff;
+    color: white;
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+}
+
+.permission,.role-manage{
+    text-align: center;
+    font-size: 16px;
+    margin: 20px 40px 20px 50px;
+}
+
+.permission-item {
+    padding: 5px;
+}
+
+.permission-item .permission-detail{
+    width:280px;
+}
+
+.permission-name {
+    width: 150px;
+}
+
+.permission-detail {
+    width: 300px;
+}
+
+.permission-time {
+    width: 170px;
+}
+
+.odd {
+    background-color: rgb(193, 193, 193);
+}
+
+.even {
+    background-color: #eaeaea;
+}
+
+.permission-content{
+    border-radius: 0px 0px 5px 5px !important;
+    overflow-y: auto;
+    max-width: 640px;
+}
+.permission-content > ul{
+    max-height:250px;
+}
+.employee-info-permission ul ,.role-manage ul {
+    padding: 0;
+    margin: 0;
+    border-radius: 5px 5px 0px 0px;
+    font-size: 18px;
+}
+
+    .employee-info-permission ul li ,.role-manage ul li{
+        display: inline-block;
+        overflow: hidden;
+        vertical-align: middle;
+        text-align:center;
+    }
+
+.permission-content > ul > li {
+    display: block;
+}
+
+/*	::-webkit-scrollbar-corner {
+		  background-color: black;
+	}  横向滚动条和纵向滚动条相交处尖角的颜色 */
+
+/* 滑轨两头的监听按钮颜色 */
+.permission-content::-webkit-scrollbar ,.employee-action-content::-webkit-scrollbar{
+    width: 6px;
+    height: 6px;
+    background-color: #cccccc;
+}
+/* 滚动条 */
+.permission-content::-webkit-scrollbar-thumb,.employee-action-content::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: rgb(93, 191, 255);
+}
+/* 滑块颜色 */
+.permission-content::-webkit-scrollbar-track,.employee-action-content::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: rgb(193, 193, 193);
+}
+/* 滚动条的滑轨背景颜色 */

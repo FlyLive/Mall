@@ -1,0 +1,31 @@
+﻿
+@model List<Mall.Web.Back.ViewModel.RolesViewModel>
+
+<div class="permission-title">
+    <ul>
+        <li class="permission-name">角色名称</li>
+        <li class="permission-detail">角色简介</li>
+        <li class="permission-time">授权时间</li>
+    </ul>
+</div>
+<div class="permission-content">
+    <ul>
+        @if (Model.Count != 0)
+        {
+            for (var i = 0; i < Model.Count; i++)
+            {
+                <li class="permission-item @(i % 2 == 0 ? "even" : "odd")" id="@Model[i].Id">
+                    <ul>
+                        <li class="permission-name">@Model[i].Name</li>
+                        <li class="permission-detail">@(Model[i].Details == null ? "" : Model[i].Details.ToString().Length >= 30 ? Model[i].Details.ToString().Substring(0,29) + "…" : Model[i].Details)</li>
+                        <li class="permission-time">@Model[i].CreationTime</li>
+                    </ul>
+                </li>
+            }
+        }
+        else
+        {
+            <li class="permission-item even">暂无角色</li>
+        }
+    </ul>
+</div>

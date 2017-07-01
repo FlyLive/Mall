@@ -1,0 +1,87 @@
+﻿.createGoods-left,.createGoods-right{
+    border:1px solid #666666;
+    border-radius:10px;
+    font-size:20px;
+    display:inline-block;
+    width:700px;
+    height:600px;
+    margin-left:50px;
+}
+.createGoods-left .title,.createGoods-right .title{
+    width:100px;
+    text-align:right;
+    display:inline-block;
+}
+.createGoods-left div,.createGoods-right div{
+    margin:20px 0px;
+}
+.createGoods-left div .input,.createGoods-right div .input{
+    margin-left:30px;
+    width:530px;
+    height:40px;
+    font-size:20px;
+    text-indent:5px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+.createGoods-left div textarea{
+    margin-left:30px;
+    min-width:530px;
+    min-height:100px;
+    max-width:530px;
+    max-height:100px;
+}
+.createGoods-left textarea{
+    vertical-align:middle;
+}
+.createGoods-left .star{
+    color:red;
+}
+.createGoods-left .sign{
+    font-size:14px;
+    color:dodgerblue;
+    margin:0;
+    margin-left:140px;
+}
+.createGoods-left-class > ul,.createGoods-left-class > ul li{
+    list-style:none;
+    display:inline-block;
+}
+.createGoods-left-class > ul li{
+    margin-left:20px;
+}
+.createGoods-left-shelves{
+    margin-left: 135px;
+    top: -30px;
+    position: relative;
+}
+.createGoods-left-shelves > label,.createGoods-left-shelves label label{
+    display: inline-block;
+    margin-left:30px;
+}
+.createGoods-left-submit > button,.createGoods-right-submit > button{
+    border:none;
+    width:140px;
+    height:40px;
+    border-radius:5px;
+    background-color:#2ca9e1;
+    margin-left: 135px;
+    color:white;
+}
+.createGoods-left-submit > button:hover,.createGoods-right-submit > button:hover{
+    background-color:#0095d9;
+}
+.createGoods-left-submit > button:active,.createGoods-right-submit > button:active{
+    background-color:#2ca9e1;
+}
+.createGoods-right{
+
+}
+.createGoods-right .preview{
+    margin:20px 100px;
+    width:200px;
+    height:200px;
+}
+.createGoods-right .choice{
+    margin-left:20px;
+}

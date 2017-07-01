@@ -1,0 +1,29 @@
+﻿@model Mall.Web.Back.ViewModel.UserViewModel
+
+<div class="admin-detail-info">
+    <div class="info-img">
+        <p class="title">头像</p>
+        <label><a href="/Admin/EmployeeDetails?userId=@Model.UserId" target="_blank"><img src="@Model.Photo" /></a></label>
+    </div>
+    <div class="info-id">
+        <p class="title">员工ID</p>
+        <label>@Model.UserId</label>
+        <input id="currentUserId" value="@Model.UserId" type="hidden" />
+    </div>
+    <div class="info-name">
+        <p class="title">真实姓名</p>
+        <label>@Model.RealName</label>
+    </div>
+    <div class="info-gender">
+        <p class="title">性别</p>
+        <label>@(Model.Gender == true ? "男" : "女")</label>
+    </div>
+    <div class="info-phone">
+        <p class="title">联系电话</p>
+        <label>@Model.PhoneNumber</label>
+    </div>
+    <div class="info-email">
+        <p class="title">E-mail</p>
+        <label>@Model.Email</label>
+    </div>
+</div>

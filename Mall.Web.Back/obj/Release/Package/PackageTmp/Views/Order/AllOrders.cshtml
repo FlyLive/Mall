@@ -1,0 +1,52 @@
+﻿
+@model IPagedList<Mall.Web.Back.ViewModel.OrderViewModel>
+@using PagedList.Mvc
+@using PagedList
+
+@{
+    ViewBag.Title = "所有订单";
+    Layout = "~/Views/Layout/_AdminTLE.cshtml";
+}
+
+<section class="content-header">
+    <h1><i class="fa fa-reorder"></i>所有订单</h1>
+</section>
+<section class="content">
+    <div class="order-wrapper">
+        <div class="order-title">
+            <ul>
+                <li class="order-list">编号</li>
+                <li class="order-id">订单编号</li>
+                <li class="order-good-name">商品名</li>
+                <li class="order-good-id">商品Id</li>
+                <li class="order-price">单价</li>
+                <li class="order-count">数量</li>
+                <li class="order-freight">运费</li>
+                <li class="order-totla">总价</li>
+                <li class="order-state">状态</li>
+                <li class="order-client-remark">买家备注</li>
+                <li class="order-action">操作</li>
+                <li class="order-createtime">创建时间</li>
+            </ul>
+        </div>
+        <div class="order-content">
+            @Html.Partial("ViewComponents/_OrderList", Model)
+            <div class="order-list-contorl">
+                每页 @Model.PageSize 条记录,共 @Model.Count 条记录,共 @Model.PageCount 页,当前第 @Model.PageNumber 页
+                <div class="list-contorl-button">
+                    @Html.PagedListPager(Model, page => Url.Action("AllOrders", new { page }))
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@Html.Partial("ViewComponents/_ModifyRemark")
+@Html.Partial("Admin/_ManageConfirm")
+@section css{
+    @Styles.Render("~/Css/Order/Orders.css")
+}
+@section scripts{
+    @Scripts.Render("~/JS/Order/Orders.js")
+    @Scripts.Render("~/JS/Shared/ManageConfirm.js")
+    @Scripts.Render("~/JS/Shared/layer_open_tip.js")
+}

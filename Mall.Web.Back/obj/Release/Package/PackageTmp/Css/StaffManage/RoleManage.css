@@ -1,0 +1,47 @@
+﻿
+.role-manage{
+    width: 640px;
+    margin-left: 100px;
+}
+.role-manage .permission-content .permission-item{
+    cursor:pointer;
+}
+.role-manage .permission-content .permission-item:active{
+    background-color:#5cbaff;
+}
+
+#click-menu {
+    position: absolute;
+    z-index:902;
+    display: none;
+    width: 160px;
+}
+#click-menu p{
+    background-color: #222d32;
+    margin: 0;
+    padding: 5px;
+    color: white;
+}
+
+#click-menu ul {
+    border: 1px solid #979797;
+    background: #f1f1f1;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, .6);
+    overflow: hidden;
+    padding:0;
+}
+#click-menu ul li{
+    cursor: pointer;
+    line-height: 24px;
+    white-space: nowrap;
+    padding:0 30px;
+    width: 100%;
+    text-align:left;
+    border: 1px solid #f1f1f1;
+    background: #f1f1f1;
+    display: inline-block;
+}
+#click-menu ul li:hover{
+    background: #007acc;
+    border: 1px solid #B4D2F6;
+}

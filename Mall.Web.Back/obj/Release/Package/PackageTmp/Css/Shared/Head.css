@@ -1,0 +1,81 @@
+﻿.head {
+    width:1500px;
+    display:flex;
+    margin:0 auto;
+    background-color:#222222;
+}
+.navbar-head{
+    background-color:#222222;
+}
+a{
+    text-decoration:none;
+}
+.head-message{
+    font-size: 25px;
+    margin: 15px 5px;
+    border-radius:5px;
+    background-color:#ffffff;
+}
+.head-message input{
+    text-indent: 5px;
+    font-size: 25px;
+    height: 40px;
+    border-radius: 5px;
+    border: none;
+}
+.head-message input:focus{
+    border:none;
+}
+#search-button {
+    cursor: pointer;
+    height: 28px;
+    width: 28px;
+    border: none;
+    border-left: 1px solid black;
+    background-image: url('../../Pictures/Shared/Search(Touch).png');
+    background-color: rgba(0, 0, 0, 0.00);
+    background-size: 28px;
+    position: relative;
+    top: 7px;
+    right: 12px;
+}
+}
+#search-button:hover {
+    background-image: url('../../Pictures/Shared/Search(Touch).png');
+}
+.login,.menu,.head-message{
+    color:#999999;
+}
+.logo .location{
+    margin:0px 100px 0px 100px;
+}
+.logo img{
+    vertical-align:middle;
+    margin:10px 20px 10px 0px;
+    height:50px;
+}
+.logo span{
+    color:#999999;
+}
+.menu{
+    margin-top:10px;
+}
+.menu > ul{
+    margin-top:14px;
+}
+.menu li{
+    list-style:none;
+    float:left;
+    padding:0px 10px 0px 10px;
+}
+.menu li a{
+    color: #999999;
+}
+.menu li a:hover{
+    color: #f8f8f8;
+}
+.menu li a img{
+    position: relative;
+    top: 5px;
+    height:20px;
+}

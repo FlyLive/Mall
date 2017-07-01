@@ -1,0 +1,21 @@
+﻿.navbar-foot{
+    text-align:center;
+    font-size:14px;
+    margin-top:10px;
+    padding: 15px;
+    color: #444;
+    border-top: 1px solid #d2d6de;
+    margin-left:0px;
+}
+.navbar-foot footer .foot-1{
+    font-size:17px;
+    margin-top:10px;
+    margin-bottom:10px;
+}
+.foot-1 a{
+    color:darkblue;
+    text-decoration:none;
+}
+.foot-1 a:hover{
+    color:;
+}

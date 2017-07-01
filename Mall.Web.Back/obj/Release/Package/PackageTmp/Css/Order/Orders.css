@@ -1,0 +1,86 @@
+﻿
+.order-wrapper li{
+    list-style:none;
+}
+.order-wrapper > div > ul,.order-item > ul{
+    padding:0;
+    margin:0;
+    font-size:0px;
+}
+.order-wrapper > div{
+    margin-left:50px;
+}
+.order-content > ul{
+    -webkit-box-shadow: rgba(60, 141, 188, 1) 3px 3px;
+    -moz-box-shadow: rgba(60, 141, 188,1) 3px 3px;  
+    box-shadow: rgba(60, 141, 188,1) 3px 3px;
+}
+.order-content > ul > li > h3{
+    text-align:center;
+}
+.order-title{
+    border-radius:10px 10px 0px 0px;
+    background-color: #85c2ff;
+}
+.order-title > ul > li,.order-item li{
+    display:inline-block;
+    /*border:1px solid #e4e4e4;*/
+    text-align:center;
+    vertical-align:middle;
+    font-size:18px;
+    padding:10px 5px;
+}
+.order-title .order-list{
+    border-radius:10px 0px 0px 0px;
+}
+.order-title .order-createtime{
+    border-radius:0px 10px 0px 0px;
+}
+.order-item > ul > li{
+    font-size:14px;
+}
+.order-item:hover{
+    background-color:#51b9ff;
+}
+.odd{
+    background-color:#f6f6f6;/*e4e4e4*/
+}
+.even{
+    background-color:#ffffff;
+}
+.order-id{
+    width:300px;
+}
+.order-list,.order-count{
+    width:50px;
+}
+.order-good-name,.order-good-id,.order-price,.order-freight,.order-totla,.order-state{
+    width:100px;
+}
+
+.order-client-remark{
+    width:250px;
+}
+.order-action{
+    width:150px;
+}
+.order-action > a{
+    cursor:pointer;
+    margin: 0px 10px 0px 0px;
+}
+.order-action .default{
+    cursor:no-drop;
+}
+.order-createtime{
+    width:150px;
+}
+.price{
+    color:red;
+    font-weight:600;
+}
+.order-list-contorl{
+    margin-top:20px;
+}
+.list-contorl-button{
+    text-align:right;
+}

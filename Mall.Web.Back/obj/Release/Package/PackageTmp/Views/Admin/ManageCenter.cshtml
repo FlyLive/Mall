@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewBag.Title = "管理中心";
+    Layout = "~/Views/Layout/_AdminTLE.cshtml";
+}
+
+<section class="content-header">
+    <h1><i class="fa fa-cogs"></i>管理中心</h1>
+</section>
+
+<section class="content">
+
+</section>
+
+@{
+    var log = TempData["log"];
+    if (log != null)
+    {
+        if (log.Equals("success"))
+        {
+            <script>
+                layer.msg(@TempData["Admin"] + ",欢迎您上班,祝您有个好心情!", {
+                    icon: 6,
+                    time:2000,
+                });
+            </script>
+        }
+    }
+}

@@ -1,0 +1,59 @@
+﻿@model List<Mall.Web.Back.ViewModel.GoodsInfoViewModel>
+
+@{
+    ViewBag.Title = "编辑商品";
+    Layout = "~/Views/Layout/_AdminTLE.cshtml";
+}
+
+<section class="content-header">
+    <h1><i class="fa fa-refresh"></i>编辑商品</h1>
+</section>
+<section class="content">
+    <div class="goods-search">
+        <div class="goods-search-input">
+            <input id="search-input" type="text" />
+            <button type="button" onclick="Search()">商品搜索</button>
+        </div>
+    </div>
+    <table style="margin:0 auto">
+        <tr>
+            <td class="goods-menu-td">
+                <div class="goods-menu" id="goods-menu">
+                    @Html.Action("Search", "Goods", new { search = string.Empty })
+                </div>
+            </td>
+            <td class="goods-info-td">
+                <ul id="myTab" class="nav nav-tabs">
+                    <li class="active"><a href="#info" data-toggle="tab">基本信息</a></li>
+                    <li><a href="#img" data-toggle="tab">图片</a></li>
+                </ul>
+                <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane fade in active" id="info">
+                        <div id="goods-edit-info" class="goods-edit">
+                            @Html.Partial("GoodsInfoDetails", Model[0])
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="img">
+                        @Html.Action("GoodsImgList", "Goods", new { goodsId = Model[0].GoodsId })
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</section>
+@section css{
+    @Styles.Render("~/Css/Goods/GoodsEdit.css")
+    @Styles.Render("~/Css/Goods/ssi-uploader.css")
+}
+@section scripts{
+    @Scripts.Render("~/JS/Goods/GoodsEdit.js")
+    @Scripts.Render("~/JS/Shared/ssi-uploader.js")
+    <script>
+        $('#ssi-upload').ssi_uploader({
+            url: "/Goods/CreateGoodsImg",
+            data: { "goodsId": @Model[0].GoodsId },
+            maxFileSize: 6,
+            allowed: ['jpg', 'gif', 'txt', 'png', 'pdf'],
+        });
+    </script>
+}

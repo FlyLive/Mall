@@ -1,0 +1,38 @@
+﻿
+@model List<Mall.Web.Back.ViewModel.ImageViewModel>
+
+<div>
+    <p class="title">添加图片</p>
+    <div class="row">
+        <div class="col-md-12">
+            <input type="file" multiple id="ssi-upload" />
+        </div>
+    </div>
+</div>
+<div>
+    <p class="title">删除图片</p>
+    <div class="img-list">
+        <ul>
+            @foreach (var img in Model)
+            {
+                <li class="img-item no-selected" id="@img.ImageId">
+                    <i class="fa fa-check-square-o"></i>
+                    <img src="@img.ImageSrc" />
+                </li>
+            }
+        </ul>
+        <button type="button"onclick="DeletGoodsImages()">删除选中图片</button>
+    </div>
+</div>
+<script>
+    $(".img-item").click(function () {
+        if ($(this).hasClass("no-selected")) {
+            $(this).removeClass("no-selected");
+            $(this).addClass("selected");
+        }
+        else {
+            $(this).removeClass("selected");
+            $(this).addClass("no-selected");
+        }
+    });
+</script>

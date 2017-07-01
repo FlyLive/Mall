@@ -1,0 +1,192 @@
+﻿.goods-search > div{
+    display:inline-block;
+    margin-left:30px;
+}
+.goods-search #search-input{
+    font-size:20px;
+    text-indent:5px;
+    border-radius:3px;
+    border:1px solid #ccc;
+    vertical-align:middle;
+    width:350px;
+}
+.goods-search button{
+    font-size:20px;
+    border-radius:3px;
+    border:1px solid #ccc;
+    color:white;
+    background-color:#3ae798;
+    vertical-align:middle;
+}
+.goods-search button:hover{
+    background-color:#20d683;
+}
+.goods-search button:active{
+    background-color:#3ae798;
+}
+.tab-content,.goods-menu{
+    border:1px solid #ccc;
+    border-radius:10px;
+    font-size:20px;
+    display:inline-block;
+    width:700px;
+    height:800px;
+    margin-left:0px;
+}
+.goods-menu-td{
+    vertical-align: top;
+    padding-top: 42px;
+}
+.goods-info-td{
+    vertical-align: top;
+}
+.goods-menu{
+    width:300px;
+    font-size:16px;
+    margin-left:50px;
+    overflow-y: auto;
+}
+/* 滑轨两头的监听按钮颜色 */
+.goods-menu::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    background-color: #cccccc;
+}
+/* 滚动条 */
+.goods-menu::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: rgb(93, 191, 255);
+}
+/* 滑块颜色 */
+.goods-menu::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: rgb(193, 193, 193);
+}
+/* 滚动条的滑轨背景颜色 */
+.goods-menu > ul{
+    list-style:none;
+    margin:0;
+    padding:0;
+}
+.goods-menu > ul > li{
+    border:2px solid rgba(172, 165, 165, 0.00);
+    border-bottom:2px solid #ccc;
+    cursor:pointer;
+}
+.goods-menu > ul > li:hover{
+    border:2px solid rgba(44, 169, 225, 0.84);
+    border-radius:5px;
+    background-color:#f8f4e6;
+}
+.goods-menu > ul > li:active{
+    background-color:#ede4cd;
+}
+.goods-menu > ul > .selected{
+    background-color:#e5e5e5;
+    border-radius:10px;
+    border:2px solid rgba(44, 169, 225, 0.84);
+    opacity: 1;
+}
+.goods-menu > ul > li > a{
+    position:relative;
+    top:-30px;
+    left:10px;
+}
+.goods-menu > ul > li > a > img{
+    width:50px;
+    height:50px;
+}
+.goods-menu table{
+    display:inline-block;
+}
+.goods-menu table > tbody > tr > td{
+    text-align:right;
+    padding:10px;
+    width:100px;
+}
+#myTab,#myTabContent{
+    margin-left:50px;
+}
+.goods-edit .title,.tab-content .title{
+    width:100px;
+    text-align:right;
+    display:inline-block;
+}
+.goods-edit .star{
+    color:red;
+}
+.goods-edit .sign{
+    font-size:14px;
+    color:dodgerblue;
+    margin:0;
+    margin-left:140px;
+}
+.goods-edit div{
+    margin:20px 0px;
+}
+.goods-edit div .input{
+    margin-left:30px;
+    width:530px;
+    height:30px;
+    font-size:20px;
+    text-indent:5px;
+    border:1px solid #ccc;
+    border-radius:5px;
+}
+.goods-edit div textarea{
+    margin-left:30px;
+    min-width:530px;
+    min-height:100px;
+    max-width:530px;
+    max-height:100px;
+    vertical-align:middle;
+}
+.goods-edit-submit > button,.img-list button{
+    width: 140px;
+    height: 40px;
+    margin-left: 135px;
+    border:none;
+    border-radius:5px;
+    background-color:#2ca9e1;
+    margin-left: 135px;
+    color:white;
+}
+.goods-edit-submit > button:hover,.img-list button > button:hover{
+    background-color:#0095d9;
+}
+.goods-edit-submit > button:active,.img-list button > button:active{
+    background-color:#2ca9e1;
+}
+.img-list{
+
+}
+.img-list ul{
+    padding:0;
+    margin:0;
+}
+.img-list ul li{
+    list-style:none;
+    display:inline-block;
+    margin:10px 20px;
+    border: 2px solid rgba(0, 0, 0, 0.00);
+    cursor:pointer;
+}
+.img-list ul li img{
+    width:100px;
+    height:160px;
+}
+.img-list ul .selected{
+    border: 2px solid red;
+    border-radius: 3px;
+}
+.img-item i{
+    display:none;
+    float:right;
+    color:#2ca9e1;
+}
+.img-list ul .selected i{
+    margin-right: -20px;
+    display: block;
+    position: relative;
+    right: 20px;
+}

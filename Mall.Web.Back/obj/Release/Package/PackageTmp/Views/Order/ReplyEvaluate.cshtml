@@ -1,0 +1,46 @@
+﻿
+@model Mall.Web.Back.ViewModel.CommentViewModel
+
+@{
+    ViewBag.Title = "回复评价";
+    Layout = "~/Views/Layout/_AdminTLE.cshtml";
+}
+
+<section class="content-header">
+    <h1><i class="fa fa-mail-reply"></i>回复评价</h1>
+</section>
+<section class="content">
+    <div class="replyevaluate-all">
+        <div class="replyevaluate-goods-info">
+            @Html.Action("GetGoodsSimpleInfo", "Goods", new { goodsId = Model.GoodsId })
+        </div>
+        <div class="replyevaluate-buyer">
+            @Html.Action("GetBuyerInfo", "Order", new { orderId = Model.OrderId })
+            <div class="replyevaluate-buyer-message">
+                <h4 class="replyevaluate-title">留言</h4>
+                <div>
+                    <p>
+                        @Model.CommentDetail
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="replyevaluate">
+            <div class="replyevaluate-order">
+                @Html.Action("GetOrderInfo", "Order",new { orderId = Model.OrderId})
+            </div>
+            <form action="/Order/ReplyEvaluate" method="post">
+                <div class="replyevaluate-reply">
+                    <h4 class="replyevaluate-title">回复评价</h4>
+                    <input name="orderId" type="hidden" value="@Model.OrderId"/>
+                    <input name="commentId" type="hidden" value="@Model.CommentId" />
+                    <textarea name="replyContent"></textarea>
+                    <button type="submit">立即回复</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+@section css{
+    @Styles.Render("~/Css/Order/ReplyEvaluate.css")
+}

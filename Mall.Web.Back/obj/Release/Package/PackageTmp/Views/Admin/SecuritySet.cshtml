@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewBag.Title = "安全设置";
+    Layout = "~/Views/Layout/_AdminTLE.cshtml";
+}
+
+<section class="content-header">
+    <h1><i class="fa fa-lock"></i>安全设置</h1>
+</section>
+<section class="content">
+    <div class="security-set">
+        <div class="security-set-title">
+            <h4>安全设置</h4>
+        </div>
+        <div class="security-set-log">
+            <div class="security-set-log-tip">
+                <h4>登录密码</h4>
+            </div>
+            <div class="security-set-log-password">
+                <p class="title"><span class="star">*</span>旧登录密码</p>
+                <input id="log_password" name="password" type="password" />
+                <button type="button" onclick="ConfirmLP()">确认</button>
+            </div>
+        </div>
+        <div class="security-set-manage">
+            <div class="security-set-manage-tip">
+                <h4>管理密码</h4>
+            </div>
+            <div class="security-set-log-password">
+                <p class="title"><span class="star">*</span>旧管理密码</p>
+                <input id="manage_password" name="password" type="password" />
+                <button type="button" onclick="ConfirmMP()">确认</button>
+            </div>
+        </div>
+    </div>
+    @Html.Partial("ViewComponents/_ModifyLP")
+    @Html.Partial("ViewComponents/_ModifyMP")
+</section>
+@section css{
+    @Styles.Render("~/Css/Admin/SecuritySet.css")
+}
+@section scripts{
+    @Scripts.Render("~/JS/Admin/SecuritySet.js")
+    @Scripts.Render("~/JS/Shared/layer_open_tip.js")
+}

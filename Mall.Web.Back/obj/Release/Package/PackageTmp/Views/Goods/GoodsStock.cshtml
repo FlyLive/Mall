@@ -1,0 +1,69 @@
+﻿
+@model IPagedList<Mall.Web.Back.ViewModel.GoodsInfoViewModel>
+@using Mall.Service.Models
+@using PagedList.Mvc
+@using PagedList
+
+@{
+    ViewBag.Title = "库存管理";
+    Layout = "~/Views/Layout/_AdminTLE.cshtml";
+}
+
+<section class="content-header">
+    <h1><i class="fa fa-database"></i>库存管理</h1>
+</section>
+<section class="content">
+    <div class="order-wrapper good-wrapper">
+        <div class="order-title">
+            @Html.Partial("ViewComponents/_GoodsTitle")
+        </div>
+        <div class="order-content good-content">
+            <ul>
+                @if (Model.Count == 0)
+                {
+                    <li class="no-result">
+                        <h3>暂无该状态下的商品！</h3>
+                    </li>
+                }
+                else
+                {
+                    for (var i = 0; i < Model.Count; i++)
+                    {
+                        <li class="order-item @(i % 2 == 0 ? "even" : "odd") good-item" id="@Model[i].GoodsId">
+                            <ul>
+                                <li class="order-list">@(i + 1)</li>
+                                <li class="order-good-id" title="@Model[i].GoodsId">@Model[i].GoodsId</li>
+                                <li class="order-good-name" title="@Model[i].GoodsName">@(Model[i].GoodsName.Length >= 7 ? Model[i].GoodsName.Substring(0, 5) + "…" : Model[i].GoodsName)</li>
+                                <li class="order-price price" title="￥@Model[i].Price">￥@Model[i].Price</li>
+                                <li class="order-state" id="count" title="@Model[i].Stock">@Model[i].Stock</li>
+                                <li class="order-freight price" title="￥@Model[i].Freight">￥@Model[i].Freight</li>
+                                <li class="order-state">
+                                    @switch (Model[i].State)
+                                    {
+                                        case (int)StateOfGoods.State.OnShelves:<span class="label label-success" title="在售">在售</span>; break;
+                                        case (int)StateOfGoods.State.OffShelves:<span class="label label-danger" title="下架，停止销售">下架，停止销售</span>; break;
+                                    }
+                                </li>
+                                <li class="order-action"><a onclick="ModifyStock('@Model[i].GoodsId')"><span class="label label-success">添加库存</span></a></li>
+                                <li class="order-createtime" title="@Model[i].CreateTime">@Model[i].CreateTime</li>
+                            </ul>
+                        </li>
+                    }
+                }
+            </ul>
+            <div class="order-list-contorl">
+                每页 @Model.PageSize 条记录,共 @Model.Count 条记录,共 @Model.PageCount 页,当前第 @Model.PageNumber 页
+                <div class="list-contorl-button">
+                    @Html.PagedListPager(Model, page => Url.Action("GoodsStock", new { page }))
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@section css{
+    @Styles.Render("~/Css/Order/Orders.css")
+}
+@section scripts{
+    @Scripts.Render("~/JS/Goods/GoodStock.js")
+    @Scripts.Render("~/JS/Goods/OnTheShelves.js")
+}
