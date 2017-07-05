@@ -1,0 +1,16 @@
+﻿
+@model List<GoodsInfoViewModel>
+@using Mall.Web.Front.ViewModel
+
+<div class="suggest-part">
+    <div class="suggest-left">
+        <p class="suggest-title-strong">热<span>销书籍</span></p>
+        <div class="suggest-left-translate"></div>
+        <div class="suggest-content">
+            @Html.Partial("ViewComponents/_Suggest", Model.Take(4).ToList())
+        </div>
+    </div>
+    <div class="suggest-advertisement">
+        @Html.Partial("ViewComponents/_SuggestAdvertisement", Model.Count == 0 ? new GoodsInfoViewModel() : Model[Model.Count - 1])
+    </div>
+</div>

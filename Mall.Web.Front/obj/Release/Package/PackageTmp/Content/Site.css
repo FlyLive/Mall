@@ -1,0 +1,15 @@
+﻿body {
+    padding:0;
+    background-image: url('http://localhost:9826/Mall.Web.Front/1.png');
+    background-repeat: no-repeat;
+    background-size:cover;
+}
+.wrap{
+    width:100%;
+    margin:0;
+}
+.navbar-body{
+    width:1500px;
+    margin:0 auto;
+    min-height:700px;
+}

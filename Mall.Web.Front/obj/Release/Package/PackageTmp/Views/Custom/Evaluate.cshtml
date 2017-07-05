@@ -1,0 +1,39 @@
+﻿
+@model Mall.Web.Front.ViewModel.OrderViewModel
+
+@{
+    ViewBag.Title = "评价";
+    Layout = "~/Views/Layout/_Layout.cshtml";
+}
+
+<div class="evaluate-head">
+    <h2>商品评价</h2>
+</div>
+<div class="evaluate-infor">
+    <div class="evaluate-titel">商品评价</div>
+    <div class="evaluate-detail">
+        <div class="evaluate-evaluate">
+            <h3 class="titel">评价</h3>
+            <div class="evaluate-evaluate-input">
+                <form action="/Custom/Evaluate" method="post">
+                    <div>
+                        <input name="orderId" type="hidden" value="@Model.OrderId"/>
+                        <textarea name="evaluateContent" class="inputarea-evaluate"></textarea>
+                    </div>
+                    <button type="submit" class="submit-evaluate">提交评价</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="evaluate-sign">
+    <span><i class="fa fa-exclamation-circle"></i></span>
+    此结果由云翳网站提供
+</div>
+<div class="OD-infor">
+    @Html.Partial("Order/_OrderDetails", Model)
+</div>
+@section css{
+    @Styles.Render("~/Css/Order/OrderDetails.css")
+    @Styles.Render("~/Css/Custom/Evaluate.css")
+}

@@ -1,0 +1,66 @@
+﻿
+.address-already{
+    margin-bottom:50px;
+}
+.already ul {
+    padding: 0;
+    margin: 0;
+}
+    .already ul li {
+        display: inline-block;
+        text-align: center;
+        padding: 5px 0px;
+        overflow:hidden;
+        vertical-align:middle;
+    }
+    .already ul li a{
+        text-decoration:none;
+        cursor:pointer;
+    }
+    .already ul li a:hover{
+        text-decoration:underline;
+    }
+
+.already-label {
+    background-color: #2ca9e1;
+    color:white;
+    border-radius: 5px 5px 0px 0px;
+}
+
+.content-light {
+    background-color:#ecf0f5;
+}
+
+.content-dark {
+    background-color:#cbcbcb;
+}
+
+.address {
+    width:420px;
+}
+
+.consignee,.zip,.phone,.action,.default {
+    width:150px;
+}
+
+.default-selected{
+    background-color: red;
+    border-radius: 10px;
+    width: 80px;
+    margin: 0 35px;
+    padding: 0;
+    color:azure;
+    font-size:16px;
+}
+.default-nonselected{
+    color:#337ab7;
+    font-size:16px;
+    cursor:pointer;
+}
+.default-nonselected:hover{
+    text-decoration:underline;
+}
+.default-nonselected:active{
+    color:#337ab7;
+    text-decoration:none;
+}

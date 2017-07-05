@@ -1,0 +1,81 @@
+﻿
+@{
+    ViewBag.Title = "地址管理";
+    Layout = "~/Views/Layout/_ClientLayout.cshtml";
+}
+
+<section class="content-header">
+    <h1><i class="fa fa-map-marker"></i><span>地址管理</span></h1>
+</section>
+<section class="content">
+    <div class="address-set">
+        <div class="address-set-title">
+            <span class="star">*</span>亲爱的，认真填写收货地址，方便收货哦！
+        </div>
+        <div class="address-create">
+            <p class="create-title">新建收货地址:</p>
+            <form action="CreateAddress" name="create" method="post">
+                <div class="create-name">
+                    <p class="title"><span class="star">*</span>联系人</p>
+                    <input name="name" id="name" type="text" />
+                </div>
+                <div class="create-phone">
+                    <p class="title"><span class="star">*</span>联系电话</p>
+                    <input name="phone" id="phone" type="text" maxlength="11" />
+                </div>
+                <div class="create-detail-address">
+                    <p class="title"><span class="star">*</span>详细地址</p>
+                    <textarea name="address" id="address"></textarea>
+                </div>
+                <div class="create-zip">
+                    <p class="title">邮编</p>
+                    <input name="zip" id="zip" type="text" />
+                </div>
+                <div class="create-submit">
+                    <button type="button" onclick="CreateAddress()">新建地址</button>
+                </div>
+            </form>
+        </div>
+        @Html.Action("AddressAlready")
+    </div>
+</section>
+@section css{
+    @Styles.Render("~/Css/Custom/AddressSet.css")
+    @Styles.Render("~/Css/Custom/AddressAlready.css")
+}
+@section scripts{
+    @Scripts.Render("~/JS/Custom/AddressSet.js")
+    @Scripts.Render("~/JS/Custom/AddressAlready.js")
+}
+@{
+    var create = TempData["Create"];
+    var address = TempData["NoAddress"];
+    if (create != null)
+    {
+        if (create.Equals("success"))
+        {
+            <script>
+                layer.open({
+                    title: '提示',
+                    content: '新建收货地址成功',
+                    icon:6,
+                });
+            </script>
+            TempData["Create"] = null;
+        }
+    }
+    if (address != null)
+    {
+        if (address.Equals("NoAddress"))
+        {
+            <script>
+                layer.open({
+                    title: '提示',
+                    content: '请先创建收货地址再购物',
+                    icon:6,
+                });
+            </script>
+            TempData["NoAddress"] = null;
+        }
+    }
+}

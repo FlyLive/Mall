@@ -1,0 +1,52 @@
+﻿@model Mall.Web.Front.ViewModel.GoodsInfoViewModel
+@using Mall.Service.Models
+
+<!-- 销售详情 -->
+<div class="goods-sale-img htmleaf-content bgcolor-3">
+    @Html.Action("GoodsCarousel", new { goodsId = Model.GoodsId })
+</div>
+<div class="goods-sale-detail">
+    <div class="goods-sale-detail-info">
+        <div class="info-title">
+            <h2>@Model.GoodsName</h2>
+        </div>
+        <div class="info-publish">
+            <p><span>作者:&ensp;@Model.Author</span>&emsp;<span>出版社:&ensp;@Model.Press</span>&emsp;<span>出版时间:&ensp;@Model.PublicationDate</span></p>
+        </div>
+        <div class="money">
+            <div class="info-shop-price">
+                <p class="title">专柜价</p>
+                ￥225.00
+            </div>
+            <div class="info-money">
+                <p class="title">促销价</p>
+                ￥@Model.Price
+            </div>
+            <div class="info-freight">
+                <p class="title">运费</p>
+                ￥@Model.Freight
+            </div>
+        </div>
+        <div class="info-sale">
+            已售&ensp;<span>@Model.CommentNumber</span>&emsp;评价&ensp;<span>@Model.CommentNumber</span>
+        </div>
+    </div>
+    <div class="goods-sale-submit">
+        <form action="/Order/ConfirmOrder" method="get">
+            <div class="info-count">
+                <p class="title">数量</p>
+                <input id="goodsId" name="goodsId" value="@Model.GoodsId" type="hidden" />
+                <span class="count-contorl" onclick="ReduceCount()">-</span><input id="count" name="count" min="1" value="1" /><span class="count-contorl" onclick="IncreaseCount()">+</span>
+            </div>
+            @if (Model.State == (int)StateOfGoods.State.OffShelves)
+            {
+                <button class="buy-button" type="button" disabled="disabled" style="cursor:no-drop;" title="已下架,不能购买">已下架</button>
+            }
+            else
+            {
+                <button class="buy-button" type="submit">立即购买</button>
+            }
+            <button class="cart-button" type="button" onclick="AddGoodsToCart()">加入购物车</button>
+        </form>
+    </div>
+</div>

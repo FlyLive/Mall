@@ -76,15 +76,8 @@ namespace Mall.Service.Services.Custom
             return null;
         }
 
-        /// <summary>
-        /// 发送验证码
-        /// </summary>
-        /// <param name="email"></param>
-        /// <returns></returns>
-        public string SendEmailOfVerifyCode(string email)
+        public void SendEmail(string email,string title,string content)
         {
-            int customerID = 1;
-            string verifyCode = Guid.NewGuid().ToString();
             try
             {
                 System.Net.Mail.MailAddress from = new System.Net.Mail.MailAddress("1585213801@qq.com", "云翳商城"); //填写电子邮件地址，和显示名称
@@ -93,14 +86,9 @@ namespace Mall.Service.Services.Custom
                 System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage();
                 mail.From = from;
                 mail.To.Add(to);
-                mail.Subject = "验证码";
+                mail.Subject = title;
 
-                StringBuilder strBody = new StringBuilder();
-                strBody.Append("请将下面的验证码输入到重置密码的验证处，仅限本次访问有效，验证码只能使用一次，请尽快重置密码！</br>");
-                strBody.Append("<h3>验证码:&emsp;" + verifyCode + "</h3>");
-                strBody.Append("<a href='http://localhost:31061/Order/ActivePage?customerID=" + customerID + "&valiDataCode =" + verifyCode + "'>点击这里</a></br>");
-
-                mail.Body = strBody.ToString();
+                mail.Body = content;
                 mail.IsBodyHtml = true;//设置显示htmls
 
                 //设置好发送邮件服务地址
@@ -108,11 +96,34 @@ namespace Mall.Service.Services.Custom
                 client.Host = "smtp.qq.com";
 
                 //填写服务器地址相关的用户名和密码信息
-                client.Credentials = new System.Net.NetworkCredential("1585213801@qq.com", "rsxtdoqaeknhfiij");
+                client.Credentials = new System.Net.NetworkCredential("1585213801@qq.com", "wpbjtsjdudllbaai");
                 client.EnableSsl = true;
 
                 //发送邮件
                 client.Send(mail);
+            }
+            catch(Exception e)
+            {
+                Console.Write(e);
+                throw e;
+            }
+        }
+
+        /// <summary>
+        /// 发送验证码
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public string SendEmailOfVerifyCode(string email)
+        {
+            string verifyCode = Guid.NewGuid().ToString();
+            try
+            {
+                StringBuilder strBody = new StringBuilder();
+                strBody.Append("请将下面的验证码输入到重置密码的验证处，仅限本次访问有效，验证码只能使用一次，请尽快重置密码！</br>");
+                strBody.Append("<h3>验证码:&emsp;" + verifyCode + "</h3>");
+
+                SendEmail(email, "验证码", strBody.ToString());
                 return verifyCode;
             }
             catch (Exception e)
@@ -131,7 +142,7 @@ namespace Mall.Service.Services.Custom
         public bool CustomConfirm(string account, string email)
         {
             var custom = GetCustomByAccount(account);
-            if(custom == null)
+            if (custom == null)
             {
                 return false;
             }
@@ -141,7 +152,7 @@ namespace Mall.Service.Services.Custom
         public double GetWallet(int customId)
         {
             DataBase.Custom custom = GetCustomByCustomId(customId);
-            return Math.Round(custom.Wallet,2);
+            return Math.Round(custom.Wallet, 2);
         }
 
         /// <summary>
@@ -223,7 +234,7 @@ namespace Mall.Service.Services.Custom
             var deliveryInfos = _db.DeliveryInfo.Where(d => d.CustomId == customId).ToList();
             return deliveryInfos;
         }
-        
+
         /// <summary>
         /// 新建收货信息
         /// </summary>
@@ -474,9 +485,9 @@ namespace Mall.Service.Services.Custom
         {
             try
             {
-            DataBase.Custom custom = _db.Custom.Include("ShoppingCart").SingleOrDefault(c => c.CustomId == customId);
-            custom.ShoppingCart.SingleOrDefault(s => s.GoodsId == goodsId).Number = count;
-            _db.SaveChanges();
+                DataBase.Custom custom = _db.Custom.Include("ShoppingCart").SingleOrDefault(c => c.CustomId == customId);
+                custom.ShoppingCart.SingleOrDefault(s => s.GoodsId == goodsId).Number = count;
+                _db.SaveChanges();
                 return true;
             }
             catch (Exception e)
@@ -495,20 +506,20 @@ namespace Mall.Service.Services.Custom
         {
             try
             {
-            DataBase.Custom custom = _db.Custom.Include("ShoppingCart").SingleOrDefault(c => c.CustomId == customId);
-            _db.ShoppingCart.Remove(
-                custom.ShoppingCart.
-                    SingleOrDefault(s => s.GoodsId == goodsId)
-            );
-            _db.SaveChanges();
-            return true;
-        }
+                DataBase.Custom custom = _db.Custom.Include("ShoppingCart").SingleOrDefault(c => c.CustomId == customId);
+                _db.ShoppingCart.Remove(
+                    custom.ShoppingCart.
+                        SingleOrDefault(s => s.GoodsId == goodsId)
+                );
+                _db.SaveChanges();
+                return true;
+            }
             catch (Exception e)
             {
                 Console.Out.Write(e);
                 return false;
             }
-}
+        }
 
         /// <summary>
         /// 返回用户指定商品的购物车

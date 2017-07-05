@@ -1,0 +1,38 @@
+﻿
+@model Mall.Web.Front.ViewModel.GoodsInfoViewModel
+
+<!-- 商品详情 -->
+<div class="goods-detail-parameter">
+    <div class="title">
+        <h4><span>参数详情</span></h4>
+    </div>
+    <table>
+        <tbody>
+            <tr>
+                <td>版 次:1</td>
+                <td>页 数:123</td>
+                <td>字 数:123000</td>
+            </tr>
+            <tr>
+                <td>出版社:@Model.Press</td>
+                <td>出版时间:@Model.PublicationDate</td>
+            </tr>
+            <tr>
+                <td>包 装:</td>
+                <td>:</td>
+                <td>:</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="goods-detail-details">
+    <div class="title">
+        <h4><span>内容简介</span></h4>
+    </div>
+    <div>
+        <h4>&emsp;@Model.Details</h4>
+    </div>
+</div>
+<div class="goods-detail-img">
+    @Html.Action("GoodsImgs", new { goodsId = Model.GoodsId })
+</div>

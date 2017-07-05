@@ -1,0 +1,47 @@
+﻿@model Mall.Web.Front.ViewModel.GoodsInfoViewModel
+
+@{
+    ViewBag.Title = Model == null ? "无此商品" : Model.GoodsName;
+    Layout = "~/Views/Layout/_Layout.cshtml";
+    <script src="~/JS/Goods/jqzoom.js"></script>
+}
+
+<div class="goods">
+    @if (Model == null)
+    {
+        <h3 style="text-align:center;"><i class="fa fa-frown-o"></i>糟糕!该商品不存在！</h3>
+    }
+    else
+    {
+    <!-- 销售详情 -->
+        <div class="goods-sale-info">
+            @Html.Action("GoodsSaleInfo", new { goodsId = Model.GoodsId })
+        </div>
+        <div class="goods-detail">
+            <div class="goods-detail-select">
+                <ul>
+                    <li id="li-detail" class="selected" onclick="active(this)">书籍详情</li>
+                    <li id="li-evaluate" onclick="active(this)">累计评价(@Model.CommentNumber)</li>
+                </ul>
+            </div>
+            <!-- 商品详情 -->
+            <div class="goods-detail-detail active" id="li-detail-detail">
+                @Html.Action("GoodsDetails", new { goodsId = Model.GoodsId })
+            </div>
+            <!-- 评价列表 -->
+            <div class="goods-detail-evaluate" id="li-evaluate-detail">
+                @Html.Action("GoodsEvaluates", new { goodsId = Model.GoodsId })
+            </div>
+        </div>
+    }
+</div>
+@section css{
+    @Styles.Render("~/Css/Goods/Goods.css")
+    @Styles.Render("~/Css/Goods/GoodsSaleInfo.css")
+    @Styles.Render("~/Css/Goods/GoodsDetails.css")
+    @Styles.Render("~/Css/Goods/GoodsEvaluates.css")
+    @Styles.Render("~/Css/Goods/style.css")
+}
+@section scripts{
+    @Scripts.Render("~/JS/Goods/Goods.js")
+}

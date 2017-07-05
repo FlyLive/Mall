@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Layout/_Layout.cshtml";
+}
+
+<div>
+    <!--首页头部-->
+    @Html.Action("MallHead")
+    <div class="advertisement">
+        @Html.Action("Advertisement")
+    </div>
+    <!--推荐-->
+    <div class="suggest">
+        @Html.Action("HotSale")
+        @Html.Action("NewGoods")
+        @Html.Action("Suggest")
+    </div>
+</div>
+@section css{
+    @Styles.Render("~/Css/Home/Suggest.css")
+    @Styles.Render("~/Css/Home/Home.css")
+}
+@section scripts{
+    @Scripts.Render("~/JS/Home/jquery.terseBanner.min.js")
+    @Scripts.Render("~/JS/Home/script.js")
+}

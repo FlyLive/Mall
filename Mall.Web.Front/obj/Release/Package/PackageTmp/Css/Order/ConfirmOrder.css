@@ -1,0 +1,193 @@
+﻿
+.confirm-order-wap .title{
+    font-family: 隶书;
+    font-size: 50px;
+    color: #FF3300;
+    padding-left:50px;
+    margin: 0;
+}
+.confirm-order-address{
+    width:100%;
+}
+.confirm-order-address,.confirm-order-infor{
+    margin:30px 0;
+}
+.confirm-order-address-infor,.confirm-order-detail{
+    border:1px solid #0066ff;
+    border-radius:5px;
+}
+.confirm-order-address-infor > ul{
+    padding: 50px 40px;
+}
+.confirm-order-address-infor .address-item{
+    display:inline-block;
+    list-style:none;
+    padding:10px 10px;
+    font-size:20px;
+    border:1px solid rgba(0, 0, 0, 0.00);
+    border-radius:5px;
+    width:700px;
+}
+.confirm-order-address-infor .selected{
+    border:1px solid #0066ff;
+}
+.confirm-order-address-infor i{
+    visibility:hidden;
+    text-align:right;
+    display:block;
+}
+.selected i{
+    visibility:visible;
+    font-size:20px;
+    color:#009de4;
+}
+.confirm-order-titel{
+    position:relative;
+    left:30px;
+    top:1px;
+    text-align:center;
+    border-radius:5px;
+    width:150px;
+    font-size:20px;
+    border:1px solid #0066ff;
+    border-bottom:none;
+    background-color:white;
+}
+.confirm-order-detail-head > ul{
+    border: 1px solid #b1b1b1;
+    width: 1320px;
+    height: 40px;
+    margin: 40px auto 0px auto;
+    padding:0px;
+    background-color: #2288ff;
+    color: white;
+    border-radius:5px 5px 0px 0px;
+}
+.confirm-order-detail-goods > ul{
+    padding:0;
+}
+.confirm-order-detail-goods > ul > li{
+    list-style:none;
+    margin-bottom:20px;
+}
+.confirm-order-detail-head > ul > .detail,.goods-item > ul > .detail{
+    width:450px;
+}
+.confirm-order-detail-head > ul > li,.goods-item > ul > li{
+    text-align:center;
+    float:left;
+    list-style:none;
+    padding: 10px 0px;
+    width:150px;
+    font-size:16px;
+}
+.goods-item > ul > .detail{
+    padding: 15px 0px !important;
+}
+.goods-item > ul > .detail > a > img{
+    height:60px;
+    width:80px;
+}
+.goods-item > ul > .detail > p{
+    width: 300px;
+    text-align: left;
+    display: inline-block;
+    vertical-align: middle;
+    overflow: hidden;
+    max-height: 68px;
+    margin: 0;
+}
+.goods-item > ul{
+    height: 100px;
+    width: 1320px;
+    border-radius:5px;
+    border:1px solid #b1b1b1;
+    margin: 0 auto;
+    padding:0px;
+    background-color:#ECF0F1;
+}
+.goods-item > ul > li{
+    padding:30px 0px;
+    vertical-align:middle;
+}
+.goods-item .custom-remark{
+    height: 50px;
+    max-height: 50px;
+    width: 1320px;
+    max-width: 1320px;
+    border-radius: 5px;
+    border: 1px solid #b1b1b1;
+    margin-left: 90px;
+    font-size:16px;
+    color:#b1b1b1;
+    text-indent:5px;
+}
+.goods-item li .reset-count{
+    background-color: rgba(14, 102, 234, 0.51);
+    color:white;
+    padding:5px 10px;
+    font-size:16px;
+    cursor:pointer;
+    margin:5px;
+}
+.goods-item li .reset-count:hover{
+    background-color:rgba(14, 102, 234, 0.60);
+}
+
+.goods-item .count{
+    width: 50px;
+    font-size: 20px;
+    text-align:center;
+}
+.goods-item .count-control{
+    padding: 3px 5px;
+    font-size: 18px;
+    background-color: red;
+    color: white;
+    cursor:pointer;
+}
+.goods-item .count-control:hover{
+    background-color:#FF3300;
+}
+.money{
+    color:red;
+}
+.confirm-order-sign{
+    height: 40px;
+    color: #2ca9e1;
+    font-size: 10px;
+    margin-top: 30px;
+}
+.confirm-button{
+    border:none;
+    border-radius:5px;
+    background-color:#f14242;
+    width:200px;
+    height:50px;
+    font-size:14px;
+    margin-bottom:30px;
+    color:white;
+}
+.confirm-button:hover{
+    background-color:#ff0000;
+}
+.confirm-button:active{
+    background-color:#f14242;
+}
+.buy-now-infor-total{
+    text-align:right;
+    padding-right: 20px;
+}
+.buy-now-infor-total > span{
+    font-size:20px;
+    color:red;
+}
+.confirm-order-confirm{
+    text-align:right;
+    font-weight:600;
+    font-size:20px;
+}
+.confirm-order-confirm-money{
+    color:red;
+    font-size:30px;
+}

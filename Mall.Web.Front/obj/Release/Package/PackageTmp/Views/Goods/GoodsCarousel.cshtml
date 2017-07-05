@@ -1,0 +1,24 @@
+﻿
+@model List<Mall.Web.Front.ViewModel.ImageViewModel>
+
+<div class="etalage_wrap">
+    <ul id="etalage">
+        @foreach (var item in Model)
+        {
+            <li>
+                <img class="etalage_thumb_image" src="@item.ImageSrc" />
+                <img class="etalage_big_image" src="@item.ImageSrc" />
+            </li>
+        }
+    </ul>
+</div>
+<script>
+    $(window).load(function () {
+        $("#etalage").zoom({
+            zoom_area_width: 300,
+            autoplay_interval: 3000,
+            small_thumbs: @Model.Count,
+            autoplay: true
+        });
+    })
+</script>

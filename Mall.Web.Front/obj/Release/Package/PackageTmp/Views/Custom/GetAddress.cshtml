@@ -1,0 +1,25 @@
+﻿
+@model List<Mall.Web.Front.ViewModel.DeliveryInfoViewModel>
+
+<ul>
+    @foreach (var address in Model)
+    {
+        <li class="address-item @(address.IsDefault ? "selected" : "")" id="@address.Id">
+            <div class="item-info">
+                <i class="fa fa-check-square-o"></i>
+                <p>
+                    收货地址：@address.DetailedAddress
+                </p>
+                <p>
+                    收货人姓名：@address.Consignee
+                </p>
+                <p>
+                    联系方式：@address.PhoneNumber
+                </p>
+                <p>
+                    邮箱：@address.Zip
+                </p>
+            </div>
+        </li>
+    }
+</ul>

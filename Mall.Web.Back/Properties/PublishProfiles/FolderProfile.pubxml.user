@@ -23,19 +23,19 @@
       <publishTime>03/02/2015 09:32:26</publishTime>
     </File>
     <File Include="bin/Mall.Service.dll">
-      <publishTime>05/28/2017 15:04:45</publishTime>
+      <publishTime>07/01/2017 19:45:15</publishTime>
     </File>
     <File Include="bin/Mall.Service.dll.config">
       <publishTime>02/26/2017 12:33:40</publishTime>
     </File>
     <File Include="bin/Mall.Service.pdb">
-      <publishTime>05/28/2017 15:04:45</publishTime>
+      <publishTime>07/01/2017 19:45:15</publishTime>
     </File>
     <File Include="bin/Mall.Web.Back.dll">
-      <publishTime>05/28/2017 15:04:48</publishTime>
+      <publishTime>07/01/2017 19:45:27</publishTime>
     </File>
     <File Include="bin/Mall.Web.Back.pdb">
-      <publishTime>05/28/2017 15:04:48</publishTime>
+      <publishTime>07/01/2017 19:45:27</publishTime>
     </File>
     <File Include="bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll">
       <publishTime>06/15/2015 02:06:24</publishTime>

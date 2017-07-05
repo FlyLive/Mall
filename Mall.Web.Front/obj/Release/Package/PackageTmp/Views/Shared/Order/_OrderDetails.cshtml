@@ -1,0 +1,89 @@
+﻿
+@model Mall.Web.Front.ViewModel.OrderViewModel
+
+<div class="OD-titel">订单详情</div>
+<div class="OD-detail">
+    <div class="OD-detail-cilent">
+        <h3 class="titel">买家信息</h3>
+        <div class="OD-detail-cilent-info">
+            <table>
+                <tr>
+                    <td>
+                        <span class="mark">收货人姓名:</span>&emsp;<span>@Model.Consignee</span>
+                    </td>
+                    <td>
+                        <span class="mark">收货地址:</span>&emsp;<span>@Model.DeliveryAddress</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="mark">派送方式:</span>&emsp;<span>快递</span>
+                    </td>
+                    <td>
+                        <span class="mark">联系电话:</span>&emsp;<span>@Model.PhoneNumber</span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="OD-detail-seller">
+        <h3 class="titel">卖家信息</h3>
+        <div class="OD-detail-seller-info">
+            <i class=""></i>
+            <span>
+                <i class="fa fa-exclamation-circle"></i>此商品由云翳商城提供，如有疑问请联系客服！
+            </span>
+        </div>
+    </div>
+    <div class="OD-detail-order">
+        <h3 class="titel">订单信息</h3>
+        <div class="OD-detail-order-info">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            <span class="mark">订单编号:</span>&emsp;<span>@Model.OrderId</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="mark">下单时间:</span>&emsp;<span>@Model.CreateTime</span>
+                        </td>
+                        <td>
+                            <span class="mark">发货时间:</span>&emsp;<span>@Model.DeliveryTime</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="mark">收货时间:</span>&emsp;<span>@Model.ReceiptTime</span>
+                        </td>
+                        <td>
+                            <span class="mark">成交时间:</span>&emsp;<span>@Model.ReceiptTime</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="OD-detail-goods">
+        <h3 class="titel">商品信息</h3>
+        <div class="OD-detail-head">
+            <ul>
+                <li class="detail">商品简介</li>
+                <li>作者</li>
+                <li>单价</li>
+                <li>运费</li>
+                <li>操作</li>
+                <li>数量</li>
+                <li>总价</li>
+            </ul>
+        </div>
+        <div class="OD-detail-goods-info">
+            <ul>
+                @Html.Action("SimpleGoodsInfo", "Goods", new { goodsId = Model.GoodsId })
+                <li>@Model.Count</li>
+                <li class="money">￥@Model.Totla</li>
+            </ul>
+        </div>
+    </div>
+</div>

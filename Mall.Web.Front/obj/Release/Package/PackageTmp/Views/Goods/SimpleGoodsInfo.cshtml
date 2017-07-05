@@ -1,0 +1,13 @@
+﻿
+@model Mall.Web.Front.ViewModel.GoodsInfoViewModel
+
+    <li class="detail">
+        <a href="/Goods/Goods?goodsId=@Model.GoodsId" target="_blank">
+            <img src="@Model.GoodsPhotoUrl" />
+        </a>
+        <span title="@Model.Details">@(Model.Details.Length >= 20 ? Model.Details.Substring(0,20) + "…" : Model.Details)</span>
+    </li>
+    <li><span title="@Model.Author">@(Model.Author.Length >= 7 ? Model.Author.Substring(0, 6) + "…" : Model.Author)</span></li>
+    <li class="money">￥@Model.Price</li>
+    <li class="money">￥@Model.Freight</li>
+    <li><a href="/Goods/Goods?goodsId=@Model.GoodsId">再次购买</a></li>

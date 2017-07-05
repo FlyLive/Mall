@@ -1,0 +1,26 @@
+﻿
+@model IPagedList<Mall.Web.Front.ViewModel.OrderViewModel>
+@using PagedList.Mvc
+@using PagedList
+
+<ul>
+    @if (Model.Count == 0)
+    {
+        <li class="no-result">
+            <h3>暂无该状态下的订单记录！</h3>
+        </li>
+    }
+    else
+    {
+        foreach (var order in Model)
+        {
+            @Html.Partial("SearchOrderId",order)
+        }
+    }
+</ul>
+<div class="page-contorl">
+    每页 @Model.PageSize 条记录,共 @Model.Count 条记录,共 @Model.PageCount 页,当前第 @Model.PageNumber 页
+    <div class="list-contorl-button">
+        @Html.PagedListPager(Model, page => Url.Action("AllOrders", new { page }))
+    </div>
+</div>

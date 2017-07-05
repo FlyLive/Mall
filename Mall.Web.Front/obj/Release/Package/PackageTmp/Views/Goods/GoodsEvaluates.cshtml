@@ -1,0 +1,32 @@
+﻿
+@model List<Mall.Web.Front.ViewModel.CommentViewModel>
+
+<!-- 评价列表 -->
+<div class="title">
+    <h4><span>商品评价</span></h4>
+</div>
+<div class="evaluates">
+    @if (Model.Count != 0)
+    {
+        foreach (var item in Model)
+        {
+            <div class="evaluate">
+                <div class="evaluate-buyer">
+                    <img src="@item.PhotoUrl" />
+                    <p>@item.CustomNick</p>
+                </div>
+                <div class="evaluate-content">
+                    <p class="evaluate">@item.CommentDetail</p>
+                    <p class="evaluate-time">@item.CommentTime</p>
+                    <p class="reply">店长回复：@item.Reply</p>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="no-comment">
+            <h2><strong>该商品暂时还没有评价哦！赶快下单并发表您的意见吧！</strong></h2>
+        </div>
+    }
+</div>

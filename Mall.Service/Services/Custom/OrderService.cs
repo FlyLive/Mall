@@ -197,39 +197,65 @@ namespace Mall.Service.Services.Custom
             }
         }
 
+        public void SendOrderEmail(string email, string goodsName, Guid orderId)
+        {
+            try
+            {
+                StringBuilder strBody = new StringBuilder();
+                strBody.Append("您好，您在本商城下单的商品:&emsp;<h4 style='color:red'>" + goodsName + "</h4>&emsp;</br>");
+                strBody.Append("本次交易<h3>订单编号:&emsp;" + orderId + "</h3></br>");
+                strBody.Append("感谢您使用云翳商城购物！");
+                _customService.SendEmail(email, "订单信息", strBody.ToString());
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
         public Guid CreateOrder(int goodsId, int customId, int deliveryAddressId, int count, string customRemark)
         {
-            GoodsInfo good = _db.GoodsInfo.SingleOrDefault(g => g.GoodsId == goodsId);
-
-            DataBase.Custom custom = _db.Custom.Include("User")
-                .SingleOrDefault(c => c.CustomId == customId);
-
-            DeliveryInfo delivery = _db.DeliveryInfo
-                .SingleOrDefault(d => d.Id == deliveryAddressId);
-
-            Order order = new Order
+            try
             {
-                OrderId = Guid.NewGuid(),
-                GoodsId = goodsId,
-                GoodsName = good.GoodsName,
-                CustomId = customId,
-                Price = good.Price,
-                Freight = good.Freight,
-                Count = count,
-                Totla = good.Price * count + good.Freight,
-                Consignee = delivery.Consignee,
-                PhoneNumber = delivery.PhoneNumber,
-                DeliveryAddress = delivery.DetailedAddress,
-                State = (int)StateOfOrder.State.ToPay,
-                CreateTime = DateTime.Now,
-                IsDelete = false,
-                CustomRemark = customRemark,
-            };
+                GoodsInfo good = _db.GoodsInfo.SingleOrDefault(g => g.GoodsId == goodsId);
 
-            _db.Order.Add(order);
-            _db.SaveChanges();
+                DataBase.Custom custom = _db.Custom.Include("User")
+                    .SingleOrDefault(c => c.CustomId == customId);
 
-            return order.OrderId;
+                DeliveryInfo delivery = _db.DeliveryInfo
+                    .SingleOrDefault(d => d.Id == deliveryAddressId);
+
+                Order order = new Order
+                {
+                    OrderId = Guid.NewGuid(),
+                    GoodsId = goodsId,
+                    GoodsName = good.GoodsName,
+                    CustomId = customId,
+                    Price = good.Price,
+                    Freight = good.Freight,
+                    Count = count,
+                    Totla = good.Price * count + good.Freight,
+                    Consignee = delivery.Consignee,
+                    PhoneNumber = delivery.PhoneNumber,
+                    DeliveryAddress = delivery.DetailedAddress,
+                    State = (int)StateOfOrder.State.ToPay,
+                    CreateTime = DateTime.Now,
+                    IsDelete = false,
+                    CustomRemark = customRemark,
+                };
+
+                _db.Order.Add(order);
+                _db.SaveChanges();
+
+                SendOrderEmail(custom.User.Email, good.GoodsName, order.OrderId);
+
+                return order.OrderId;
+            }
+            catch (Exception e)
+            {
+                Console.Write(e);
+                return new Guid();
+            }
         }
 
         /// <summary>
@@ -266,10 +292,10 @@ namespace Mall.Service.Services.Custom
 
                 orders.ForEach(o => totlaPay = o.Totla + totlaPay);
 
-                foreach(var o in orders)
+                foreach (var o in orders)
                 {
                     var goodState = o.GoodsInfo.State;
-                    if(goodState == (int)StateOfGoods.State.Delet || goodState == (int)StateOfGoods.State.OffShelves)
+                    if (goodState == (int)StateOfGoods.State.Delet || goodState == (int)StateOfGoods.State.OffShelves)
                     {
                         return false;
                     }

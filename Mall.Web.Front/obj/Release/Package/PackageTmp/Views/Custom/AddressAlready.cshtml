@@ -1,0 +1,47 @@
+﻿
+@model List<Mall.Web.Front.ViewModel.DeliveryInfoViewModel>
+
+<div class="address-already">
+    <p class="already-title">已有收货地址:</p>
+    <div class="already">
+        <ul class="already-label">
+            <li class="consignee">收货人</li>
+            <li class="address">收货详细地址</li>
+            <li class="zip">邮编</li>
+            <li class="phone">联系方式</li>
+            <li class="action">操作</li>
+            <li class="default">默认设置</li>
+        </ul>
+        <ul class="already-content">
+
+            @if (Model.Count == 0)
+            {
+                <li>暂无收货地址!</li>
+            }
+            else
+            {
+                for (var i = 0; i < Model.Count; i++)
+                {
+                    <li class="@(i % 2 == 0 ? "content-light" : "content-dark")">
+                        <ul>
+                            <li class="consignee">@Model[i].Consignee</li>
+                            <li class="address">@Model[i].DetailedAddress</li>
+                            <li class="zip">@Model[i].Zip</li>
+                            <li class="phone">@Model[i].PhoneNumber</li>
+                            <li class="action"><a onclick="ModifyAddress(@Model[i].Id)">修改</a>/<a onclick="Delet(@Model[i].Id)">删除</a></li>
+                            @if (Model[i].IsDefault)
+                            {
+                                <li class="default default-selected">默认地址</li>
+                            }
+                            else
+                            {
+                                <li class="default default-nonselected" onclick="SetDefault(@Model[i].Id)">设为默认</li>
+                            }
+                        </ul>
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+    @Html.Partial("ViewComponents/_ModifyAddress")
+</div>

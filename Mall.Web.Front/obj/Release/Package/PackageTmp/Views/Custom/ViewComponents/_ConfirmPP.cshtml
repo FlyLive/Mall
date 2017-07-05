@@ -1,0 +1,23 @@
+﻿
+<div class="modal fade" id="confirmPPModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form name="changePP" action="ChangePP" method="post">
+                <div class="modal-header">
+                    <button type="button" class="close" Data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">支付</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>支付密码</label>
+                        <input id="pay_password" class="form-control" placeholder="请输入支付密码" type="password" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="PayNow()">确认支付</button>
+                    <button type="button" class="btn btn-default" Data-dismiss="modal">关闭</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>

@@ -1,0 +1,45 @@
+﻿
+@using Mall.Service.Models
+
+@{
+    ViewBag.Title = "订单中心";
+    Layout = "~/Views/Layout/_ClientLayout.cshtml";
+}
+<section class="content-header">
+    <h1><i class="fa fa-reorder"></i><span>订单中心</span></h1>
+</section>
+<section class="content">
+    <div class="order">
+        <div class="search">
+            <div class="search-state">
+                <ul>
+                    <li id="100" class="state-all" onclick="SearchOrderByState(this)"><i class="fa fa-reorder"></i><span>全部订单</span></li>
+                    <li id="@((int)StateOfOrder.State.ToPay)" class="state-pay" onclick="SearchOrderByState(this)"><i class="fa fa-rmb"></i><span>待付款</span></li>
+                    <li id="@((int)StateOfOrder.State.ToDelivery)" class="state-send" onclick="SearchOrderByState(this)"><i class="fa fa-send-o"></i><span>待发货</span></li>
+                    <li id="@((int)StateOfOrder.State.ToReceipt)" class="state-confirm" onclick="SearchOrderByState(this)"><i class="fa fa-truck"></i><span>待收货</span></li>
+                    <li id="@((int)StateOfOrder.State.ToEvaluate)" class="state-evaluate" onclick="SearchOrderByState(this)"><i class="fa fa-comments-o"></i><span>待评价</span></li>
+                    <li id="@((int)StateOfOrder.State.Finish)" class="state-over" onclick="SearchOrderByState(this)"><i class="fa fa-bullseye"></i><span>交易完成</span></li>
+                </ul>
+            </div>
+            <div class="search-orderId">
+                <input id="orderId" type="text"maxlength="36" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"/>
+                <button class="search-submit" type="button" title="查询订单" onclick="SearchOrderId()">搜索</button>
+            </div>
+        </div>
+        <div class="order-wrapper">
+            <div class="order-title">
+                @Html.Partial("ViewComponents/_OrderTitle")
+            </div>
+            <div class="order-list" id="order-list">
+                @Html.Action("SearchOrderByState", new { orderState = 100})
+            </div>
+        </div>
+    </div>
+</section>
+@section css{
+    @Styles.Render("~/Css/Order/AllOrders.css")
+}
+@section scripts{
+    @Scripts.Render("~/JS/Order/AllOrders.js")
+    @Scripts.Render("~/JS/Order/ConfirmOrder.js")
+}

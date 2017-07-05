@@ -1,0 +1,39 @@
+﻿<!--推荐-->
+@model List<Mall.Web.Front.ViewModel.GoodsInfoViewModel>
+
+<ul>
+    @foreach (var item in Model)
+    {
+        <li>
+            <div class="suggest-content-part">
+                <div class="part-good-img">
+                    <a href="/Goods/Goods/?goodsId=@item.GoodsId" target="_blank" title="@item.GoodsName">
+                        <img src="@item.GoodsPhotoUrl" />
+                    </a>
+                    <div class="caption">
+                        <div class="caption-text">
+                            <h4 title="@item.GoodsName">《@(item.GoodsName.Length >= 8 ? item.GoodsName.Substring(0,7) + "…" : item.GoodsName)》</h4>
+                            <h3 title="@item.Author">@(item.Author.Length >= 9 ? item.Author.Substring(0,8) + "…" : item.Author)</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="part-good-detail">
+                    <a href="/Goods/Goods/?goodsId=@item.GoodsId" target="_blank" title="@item.GoodsName">
+                        <p class="detail-title">
+                            @(item.GoodsName.Length >= 8 ? item.GoodsName.Substring(0, 7) + "…" : item.GoodsName)
+                        </p>
+                    </a>
+                    <p class="detail-money">
+                        <strong>￥@item.Price</strong>
+                    </p>
+                    <p class="detail-author">
+                        作者:&emsp;@(item.Author.Length >= 9 ? item.Author.Substring(0, 8) + "…" : item.Author)
+                    </p>
+                    <p class="detail-time">
+                        出版日期:&emsp;@item.PublicationDate
+                    </p>
+                </div>
+            </div>
+        </li>
+    }
+</ul>

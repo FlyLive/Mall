@@ -1,0 +1,15 @@
+﻿<!--轮播-->
+@model List<Mall.Web.Front.ViewModel.GoodsInfoViewModel>
+
+<div class="mall-head-center">
+    <div class="container animation" id="anchor-3">
+        <div class="banner" id="animation">
+            <ul>
+                @foreach (var item in Model)
+                {
+                    <li><a href="/Goods/Goods/?goodsId=@item.GoodsId" title="@item.GoodsName" target="_blank"><img src="@item.GoodsPhotoUrl"></a></li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
