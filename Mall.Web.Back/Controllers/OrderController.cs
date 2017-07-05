@@ -146,7 +146,7 @@ namespace Mall.Web.Back.Controllers
                 return RedirectToAction("Index","Admin");
             }
             _orderService.ReplyByOrderId(employee.EmployeeId, orderId, replyContent,commentId);
-            return RedirectToAction("AllOrders", "Order");
+            return RedirectToAction("ToReply", "Order");
         }
 
         [HttpGet]

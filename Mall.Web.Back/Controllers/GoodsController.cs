@@ -83,7 +83,7 @@ namespace Mall.Web.Back.Controllers
             {
                 string now = DateTime.Now.ToString("yyyy-MM-ddHHmmss");
                 string path = "Mall.Web.Goods/Goods/" + now + file.FileName;
-                file.SaveAs("D:/网站部署/MallImg/" + path);
+                file.SaveAs("F:/网站部署/MallImg/" + path);
                 _goodsManageService.AddGoodsImage(goodsId, path);
                 return true;
             }
@@ -254,7 +254,7 @@ namespace Mall.Web.Back.Controllers
                 Press = g.Press,
                 PublicationDate = g.PublicationDate == null ? "0000-00-00" : g.PublicationDate.Value.ToString("yyyy-MM-dd"),
                 Freight = g.Freight,
-                ImageUrl = g.Image == null ? "" : g.Image.ElementAt(0).ImageSrc,
+                ImageUrl = g.Image.Count == 0 ? "" : g.Image.ElementAt(0).ImageSrc,
             }).ToList();
             return goodDTO;
         }

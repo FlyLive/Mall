@@ -202,8 +202,8 @@ namespace Mall.Service.Services.Custom
             try
             {
                 StringBuilder strBody = new StringBuilder();
-                strBody.Append("您好，您在本商城下单的商品:&emsp;<h4 style='color:red'>" + goodsName + "</h4>&emsp;</br>");
-                strBody.Append("本次交易<h3>订单编号:&emsp;" + orderId + "</h3></br>");
+                strBody.Append("您好，您在本商城下单的商品:&emsp;<h4 style='color:red'>" + goodsName + "</h4>");
+                strBody.Append("本次交易<h3>订单编号:&emsp;<span style='color:red'>" + orderId + "</span></h3>");
                 strBody.Append("感谢您使用云翳商城购物！");
                 _customService.SendEmail(email, "订单信息", strBody.ToString());
             }
@@ -290,7 +290,7 @@ namespace Mall.Service.Services.Custom
 
                 orderId.ToList().ForEach(o => orders.Add(GetOrderById(customId, o)));
 
-                orders.ForEach(o => totlaPay = o.Totla + totlaPay);
+                orders.ForEach(o => totlaPay += o.Totla);
 
                 foreach (var o in orders)
                 {

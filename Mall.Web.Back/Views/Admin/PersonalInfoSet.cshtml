@@ -33,12 +33,12 @@
             </div>
             <div class="info-set-gender info">
                 <p class="title">性别:</p>
-                <label><input name="gender" type="radio" value="1" checked="checked" />男</label>
-                <label><input name="gender" type="radio" value="0" />女</label>
+                <label><input name="gender" type="radio" value="1" @(Model.Gender ? "checked" : "")/>男</label>
+                <label><input name="gender" type="radio" value="0" @(Model.Gender ? "" : "checked")/>女</label>
             </div>
             <div class="info-set-birthday info">
                 <p class="title">生日:</p>
-                <input name="Data" type="date" value="@Model.Birthday"/>
+                <input name="birthday" type="date" value="@Model.Birthday"/>
             </div>
             <div class="info-set-phone info">
                 <p class="title"><span class="star">*</span>联系电话:</p>

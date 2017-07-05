@@ -83,6 +83,9 @@ namespace Mall.Web.Front.Controllers
             if (result)
             {
                 TempData["ModifyInfo"] = "success";
+                User user = _customService.GetUserByCustomId(custom.CustomId);
+                UserViewModel userVM = DataUserToDTO(user);
+                Session["User"] = userVM;
             }
             return RedirectToAction("PersonalInfo");
         }

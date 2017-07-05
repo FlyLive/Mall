@@ -64,7 +64,7 @@ namespace Mall.Service.Services
                 var img = imgBase.Split(',');
                 byte[] bt = Convert.FromBase64String(img[1]);
                 string now = DateTime.Now.ToString("yyyy-MM-ddHHmmss");
-                string path = "D:/网站部署/MallImg/Mall.Web.Back/Users/Avatar/avatar" + now + ".png";
+                string path = "F:/网站部署/MallImg/Mall.Web.Back/Users/Avatar/avatar" + now + ".png";
                 string DataPath = "http://localhost:9826/Mall.Web.Back/Users/Avatar/avatar" + now + ".png";
                 File.WriteAllBytes(path, bt);
                 user.Photo = DataPath;

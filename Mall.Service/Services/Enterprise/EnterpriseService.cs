@@ -478,7 +478,7 @@ namespace Mall.Service.Services.Enterprise
             try
             {
                 Employee employee = GetEmployeeByEmployeeId(employeeId);
-                Roles role = _db.Roles.SingleOrDefault(r => r.RoleId == roleId);
+                Roles role = _db.Roles.Include("Permissions").Include("Employee").SingleOrDefault(r => r.RoleId == roleId);
                 _db.AdminLog.Add(new AdminLog
                 {
                     EmployeeId = employee.EmployeeId,
@@ -490,6 +490,7 @@ namespace Mall.Service.Services.Enterprise
                     Style = "删除",
                 });
 
+                
                 _db.Roles.Remove(role);
                 _db.SaveChanges();
                 return true;

@@ -57,7 +57,7 @@
                                 <p>权限</p>
                             </div>
                             <div class="permission">
-                                @Html.Action("GetEmployeePermissions", "Admin", new { employeeId = Model.UserId })
+                                @Html.Action("GetEmployeePermissions", "StaffManage", new { employeeId = Model.UserId })
                             </div>
                         </div>
                     </td>
@@ -67,13 +67,10 @@
     </div>
     <div class="employee-action">
         <h3>管理员日志</h3>
-        @Html.Action("EmployeeActions", "Admin", new { userId = Model.UserId })
+        @Html.Action("EmployeeActions", "StaffManage", new { userId = Model.UserId })
     </div>
 </section>
 @section css{
-    @Styles.Render("~/Css/Admin/EmployeeDetails.css")
-    @Styles.Render("~/Css/Admin/EmployeePermissions.css")
-}
-@section scripts{
-    @Scripts.Render("~/JS/Admin/EmployeeDetails.js")
+    @Styles.Render("~/Css/StaffManage/EmployeeDetails.css")
+    @Styles.Render("~/Css/StaffManage/EmployeePermissions.css")
 }
